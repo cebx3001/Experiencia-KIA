@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#05141f">
+  <meta name="description" content="Kia Tasman 2026. Explora el vehículo y descubre sus cuatro desafíos.">
+  <title>Kia Tasman 2026 | Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <main id="experience" class="experience scene-rocks" aria-label="Experiencia Kia Tasman 2026">
+    <div class="ambient-backdrop" aria-hidden="true">
+      <div class="ambient-image"></div><div class="ambient-shade"></div>
+      <div class="ridgeline ridgeline-far"></div><div class="ridgeline ridgeline-near"></div>
+      <div class="horizon-floor"></div>
+    </div>
+
+    <header class="topbar">
+      <div class="brandmark" aria-label="Kia">KIA</div>
+      <div class="topbar-divider"></div>
+      <div class="topbar-model"><strong>TASMAN</strong><span>EXPERIENCE / 2026</span></div>
+      <div class="topbar-middle"><span class="signal-dot"></span> UNA EXPERIENCIA KIA</div>
+      <a class="topbar-cta" href="https://www.kia.com/ec/shopping-tools/request-a-test-drive.html" target="_blank" rel="noopener noreferrer">AGENDAR TEST DRIVE <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <div class="stage" id="stage">
+      <div class="car-fallback" id="carFallback" role="img" aria-label="Imagen de referencia Kia Tasman en color arena"></div>
+      <canvas id="carCanvas" aria-label="Visualizador tridimensional de Kia Tasman" hidden></canvas>
+      <div class="ground-glow" aria-hidden="true"></div>
+      <div class="hotspots" id="hotspots" hidden>
+        <button class="hotspot hotspot-a" data-info="rock" aria-label="Ver capacidades todoterreno">+</button>
+        <button class="hotspot hotspot-b" data-info="camera" aria-label="Ver cámaras del vehículo">+</button>
+        <button class="hotspot hotspot-c" data-info="wading" aria-label="Ver capacidad de vadeo">+</button>
+      </div>
+      <div class="stage-watermark" aria-hidden="true">TASMAN</div>
+    </div>
+
+    <section class="side-content" aria-label="Información del vehículo o prueba">
+      <div class="eyebrow"><span class="red-line"></span><span id="sectionIndex">01 / VEHÍCULO</span></div>
+      <div class="vehicle-copy" id="vehicleCopy">
+        <div class="kicker">BUILT FOR MORE</div>
+        <h1>TASMAN<span class="year">2026</span></h1>
+        <p>Domina cualquier terreno.</p>
+        <p class="subcopy">Explora el vehículo, descubre sus características y prepárate para cuatro desafíos.</p>
+      </div>
+      <div class="mission-copy" id="missionCopy" hidden>
+        <div class="kicker">SELECCIÓN DE PRUEBA</div>
+        <div class="mission-id" id="missionNumber">MISIÓN 01 / 04</div>
+        <h1 id="missionTitle">ROCK<br>CHALLENGE</h1>
+        <p id="missionDesc">Supera una ruta de obstáculos rocosos y descubre el control todoterreno de la Tasman.</p>
+        <div class="mission-feature"><span class="feature-label">TECNOLOGÍA</span><strong id="missionTech">ROCK MODE + GROUND VIEW MONITOR</strong></div>
+      </div>
+      <div class="primary-actions">
+        <button id="primaryButton" class="start-button" type="button"><span id="primaryLabel">EXPLORAR PRUEBAS</span><span class="button-arrow">↗</span></button>
+        <button id="secondaryButton" class="outline-button" type="button">VER CARACTERÍSTICAS <span>+</span></button>
+      </div>
+    </section>
+
+    <section class="right-rail" aria-label="Controles y personalización">
+      <div class="rail-label">CONFIGURACIÓN</div>
+      <div class="rail-block">
+        <span class="rail-heading">CÁMARA</span>
+        <div class="camera-buttons" id="cameraButtons">
+          <button type="button" data-angle="35" class="selected">3/4</button>
+          <button type="button" data-angle="90">LATERAL</button>
+          <button type="button" data-angle="180">TRASERA</button>
+        </div>
+      </div>
+      <div class="rail-block">
+        <span class="rail-heading">COLOR EXTERIOR</span>
+        <div class="color-list" id="colorList">
+          <button type="button" class="color-chip active" data-color="arena" style="--swatch:#bbac91" aria-label="Color arena" title="Arena"></button>
+          <button type="button" class="color-chip" data-color="blanco" style="--swatch:#efeeeb" aria-label="Color blanco" title="Blanco"></button>
+          <button type="button" class="color-chip" data-color="gris" style="--swatch:#697276" aria-label="Color gris" title="Gris"></button>
+          <button type="button" class="color-chip" data-color="negro" style="--swatch:#182128" aria-label="Color negro" title="Negro"></button>
+        </div>
+        <span class="color-name" id="colorName">ARENA</span>
+      </div>
+      <div class="rail-block rail-note">
+        <span class="rail-heading">CONTROLES</span>
+        <span id="interactionHint">Modelo 3D pendiente · vista fotográfica provisional</span>
+      </div>
+    </section>
+
+    <div class="mission-selector" id="missionSelector" hidden>
+      <button type="button" class="selector-arrow" id="prevMission" aria-label="Prueba anterior">←</button>
+      <div class="selector-current"><span class="selector-meta">SELECCIONA TU DESAFÍO</span><strong id="selectorName">01 — ROCK CHALLENGE</strong></div>
+      <div class="selector-progress" id="selectorDots" aria-label="Cuatro pruebas"></div>
+      <button type="button" class="selector-arrow" id="nextMission" aria-label="Prueba siguiente">→</button>
+    </div>
+
+    <footer class="bottom-bar">
+      <div class="bottom-left"><span class="frame-index">01 <em>/</em> 02</span><span id="stepName">EXPLORA EL VEHÍCULO</span></div>
+      <div class="bottom-middle">MOVEMENT THAT INSPIRES.</div>
+      <div class="bottom-right"><span>CAMPAÑA KIA TASMAN</span><span class="small-cross">✳</span> 2026</div>
+    </footer>
+
+    <div class="modal-backdrop" id="infoModal" hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button type="button" class="modal-close" id="modalClose" aria-label="Cerrar">×</button>
+        <div class="eyebrow"><span class="red-line"></span> KIA TASMAN</div>
+        <h2 id="modalTitle">TECNOLOGÍA TODOTERRENO</h2>
+        <p id="modalBody"></p>
+        <a class="modal-link" href="https://www.kia.com/ec/showroom/Tasman0/features.html" target="_blank" rel="noopener noreferrer">VER EN KIA ECUADOR ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-backdrop" id="missionModal" hidden>
+      <div class="modal mission-modal" role="dialog" aria-modal="true" aria-labelledby="missionModalTitle">
+        <button type="button" class="modal-close" id="missionModalClose" aria-label="Cerrar">×</button>
+        <div class="eyebrow"><span class="red-line"></span> EXPERIENCIA CINEMATOGRÁFICA</div>
+        <h2 id="missionModalTitle">ROCK CHALLENGE</h2>
+        <p>Esta prueba se integrará con el video cinematográfico generado en Unreal Engine. El menú de selección ya está preparado.</p>
+        <div class="mission-placeholder"><span>VIDEO DE PRUEBA PENDIENTE</span><span>16:9 · UNREAL ENGINE</span></div>
+        <a class="modal-link" href="https://www.kia.com/ec/shopping-tools/request-a-test-drive.html" target="_blank" rel="noopener noreferrer">AGENDAR TEST DRIVE ↗</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
