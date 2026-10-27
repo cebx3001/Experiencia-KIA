@@ -36,7 +36,7 @@ function setMode(mode){
  $("primaryLabel").textContent=mission?"START / INICIAR PRUEBA":"EXPLORAR PRUEBAS";
  $("secondaryButton").textContent=mission?"VOLVER AL VEHÍCULO":"VER CARACTERÍSTICAS +";
  document.querySelector(".frame-index").innerHTML=mission?'02 <em>/</em> 02':'01 <em>/</em> 02';
- if(mission)renderLevel();else document.querySelectorAll(".scene-rocks,.scene-flood,.scene-mud,.scene-descent").forEach(n=>n.classList.replace("scene-flood","scene-rocks"));
+ if(mission)renderLevel();else { const root=$("experience"); levels.forEach(l=>root.classList.remove(l.cls)); root.classList.add("scene-rocks"); }
 }
 function renderLevel(){
  const item=levels[state.level];
