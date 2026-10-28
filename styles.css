@@ -88,3 +88,31 @@
  .component-number{font-size:7px}
  .component-arrow{font-size:11px}
 }
+
+
+/* KIA TASMAN — refined editorial instrument panel / studio edition */
+.right-rail{width:190px;gap:20px;top:24%;padding:18px 0 12px 19px;border-left:1px solid rgba(255,255,255,.21);align-items:stretch}
+.rail-label{padding-bottom:12px;font-size:9px;letter-spacing:.28em;color:#fff;border-bottom:1px solid rgba(255,255,255,.32)}
+.rail-block{gap:9px}
+.rail-heading{font-size:9px;letter-spacing:.18em;font-weight:500;color:rgba(255,255,255,.63)}
+.camera-buttons{display:flex;gap:12px;justify-content:flex-start;border-bottom:1px solid rgba(255,255,255,.24)}
+.camera-buttons button{border:0;border-bottom:2px solid transparent;margin-bottom:-1px;background:transparent;color:rgba(255,255,255,.58);font-size:10px;letter-spacing:.04em;font-weight:600;padding:9px 0 11px;transition:color .2s,border-color .2s}
+.camera-buttons button.selected,.camera-buttons button:hover{background:transparent;border-color:#fff;color:#fff}
+.color-list{gap:12px;padding:7px 0 2px}
+.color-chip{height:19px;width:19px;border:1px solid rgba(255,255,255,.4);box-shadow:0 1px 6px rgba(0,0,0,.25)}
+.color-chip.active::after{inset:-5px;border-color:rgba(255,255,255,.9)}
+.color-name{font-size:9px;letter-spacing:.11em;color:rgba(255,255,255,.87);line-height:1.45}
+.components-rail{gap:8px}
+.component-button-grid{border-bottom:1px solid rgba(255,255,255,.18)}
+.component-button-grid button{min-height:34px;grid-template-columns:18px minmax(0,1fr) 10px;gap:8px;padding:7px 0;border-top:1px solid rgba(255,255,255,.17);font-size:10px;font-weight:500;letter-spacing:.12em}
+.component-button-grid button:hover,.component-button-grid button:focus-visible,.component-button-grid button.is-active{background:transparent;color:#fff}
+.component-number{font-size:8px;color:rgba(255,255,255,.42)}
+.component-arrow{font-size:12px;color:rgba(255,255,255,.5)}
+.start-button{background:#fff;color:#05141f;min-height:46px;letter-spacing:.13em;padding:0 20px;transition:background .2s,transform .2s}
+.start-button:hover{background:#e8edf0;transform:translateY(-1px)}
+.outline-button{min-height:46px;border:0;border-bottom:1px solid rgba(255,255,255,.65);padding:0 3px;background:transparent;font-size:10px;letter-spacing:.12em}
+.outline-button:hover{background:transparent;border-bottom-color:white}
+@media(max-width:1090px){.right-rail{width:153px;right:20px;top:18%;gap:10px;padding-left:12px}.camera-buttons{gap:7px}.camera-buttons button{font-size:9px;padding:7px 0}}
+@media(max-height:580px){.right-rail{width:132px;right:12px;top:14%;gap:7px;padding-left:9px}.rail-block{gap:5px}.component-button-grid button{min-height:25px;padding:4px 0;font-size:8px;grid-template-columns:14px minmax(0,1fr) 9px;gap:3px}.camera-buttons{gap:5px}.camera-buttons button{font-size:7px;padding:6px 0}.color-list{gap:8px;padding:2px 0}.color-chip{height:17px;width:17px}}
+@media(max-width:750px) and (orientation:landscape){.right-rail{width:118px;right:10px;top:17%;gap:7px;padding-left:8px}.camera-buttons{gap:4px}.camera-buttons button{font-size:7px}.component-button-grid button{font-size:8px}}
+@media(orientation:portrait){.right-rail{width:118px;right:10px;top:17%;gap:7px;padding-left:8px}.rail-block{gap:5px}.camera-buttons{gap:4px}.camera-buttons button{font-size:7px;padding:6px 0}.component-button-grid button{min-height:25px;padding:4px 0;font-size:8px;grid-template-columns:14px minmax(0,1fr) 9px;gap:3px}.color-chip{height:17px;width:17px}}
