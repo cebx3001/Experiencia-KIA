@@ -59,9 +59,9 @@ export async function mountKiaPlayCanvas({
   app.graphicsDevice.maxPixelRatio=Math.min(window.devicePixelRatio||1,mobile?1.35:1.75);
   app.setCanvasFillMode(pc.FILLMODE_NONE);
   app.setCanvasResolution(pc.RESOLUTION_AUTO);
-  app.scene.ambientLight=new pc.Color(.39,.43,.48);
-  app.scene.exposure=1.10;
-  app.scene.skyboxIntensity=1.2;
+  app.scene.ambientLight=new pc.Color(.20,.22,.24);
+  app.scene.exposure=1.0;
+  app.scene.skyboxIntensity=1.0;
   app.scene.skybox=null;
   let environment=null;
   try {
@@ -77,25 +77,34 @@ export async function mountKiaPlayCanvas({
     clearColor:new pc.Color(0,0,0,0),
     priority:0
   });
-  camera.camera.toneMapping=pc.TONEMAP_ACES;
+  camera.camera.toneMapping=pc.TONEMAP_ACES; // Plain output until CameraFrame is enabled.
   app.root.addChild(camera);
 
   function light(name,type,color,intensity,rotation,shadow=false) {
     const entity=new pc.Entity(name);
     entity.addComponent("light",{
       type,color:new pc.Color(...color),intensity,castShadows:shadow,
-      shadowResolution:mobile?1024:2048,shadowDistance:26,
-      shadowBias:.18,normalOffsetBias:.035,
+      shadowResolution:mobile?1024:2048,shadowDistance:24,
+      shadowBias:.045,normalOffsetBias:.012,
       shadowType:pc.SHADOW_PCF5_32F
     });
     entity.setEulerAngles(...rotation);
     app.root.addChild(entity);
     return entity;
   }
-  light("Studio key softbox","directional",[1,.98,.95],2.45,[42,35,0],true);
-  light("Studio cool fill","directional",[.74,.84,1],1.0,[28,-120,0]);
-  light("Studio rear rim","directional",[1,.91,.78],1.1,[-25,150,0]);
-  light("Studio ceiling bounce","directional",[.95,.98,1],.42,[80,0,0]);
+  const shadowKey=light("Studio key / floor contact","directional",[1,.98,.96],1.35,[42,35,0],true);
+  // PCSS is contact-hardening: wheels stay grounded; lifted shadows soften.
+  // The engine automatically falls back to PCF on devices without support.
+  if(!mobile){
+    shadowKey.light.shadowType=pc.SHADOW_PCSS_32F;
+    shadowKey.light.penumbraSize=1.7;
+    shadowKey.light.penumbraFalloff=1.15;
+    shadowKey.light.shadowSamples=16;
+    shadowKey.light.shadowBlockerSamples=12;
+  }
+  light("Subtle blue fill","directional",[.88,.93,1],.35,[28,-120,0]);
+  light("Subtle rear rim","directional",[1,.96,.90],.40,[-25,150,0]);
+  // The real HDR studio, not extra directionals, provides softbox reflections.
 
   pc.dracoInitialize({
     jsUrl:"https://www.gstatic.com/draco/versioned/decoders/1.5.7/draco_wasm_wrapper.js",
@@ -116,9 +125,47 @@ export async function mountKiaPlayCanvas({
   const debug=window.__kiaPlayCanvasViewer={
     engine:"playcanvas",status:"loading",asset:assetUrl,
     meshCount:0,texturesBound:0,doorsFound:[],materialCorrections:[],
-    lighting:"procedural studio softbox IBL + four-point shadows",
+    lighting:"loading Poly Haven Studio Small 08 HDR / PCSS shadow system",
+    hdriStatus:"pending",hdriUrl:"https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/studio_small_08_1k.hdr",
+    postProcess:"pending",
     paintMode:"texture-preserving PBR tint",error:null
   };
+
+  debug.postProcess=studioCameraFrame?"CameraFrame: HDR / TAA / SSAO / restrained grading":"ACES camera fallback";
+  let studioCubemap=null;
+  const studioHdrUrl=debug.hdriUrl;
+  // Keep the actual photographic environment INVISIBLE. It exists only
+  // in reflection and PBR lighting, not as a scenic backdrop.
+  app.assets.loadFromUrl(studioHdrUrl,"texture",(error,hdrAsset)=>{
+    if(error||!hdrAsset?.resource){
+      debug.hdriStatus="fallback-procedural";
+      console.warn("Studio Small 08 HDR unavailable; using local softbox fallback",error);
+      return;
+    }
+    try {
+      const hdr=hdrAsset.resource;
+      studioCubemap=pc.EnvLighting.generateSkyboxCubemap(hdr);
+      const lighting=pc.EnvLighting.generateLightingSource(hdr);
+      const hdrAtlas=pc.EnvLighting.generateAtlas(lighting);
+      lighting.destroy();
+      app.scene.envAtlas=hdrAtlas;
+      app.scene.skybox=null;
+      app.scene.skyboxIntensity=1.0;
+      if(environment){ environment.atlas.destroy();environment.source.destroy(); }
+      environment={atlas:hdrAtlas,source:hdr};
+      // Sharp studio strips on the clear coat; blurred levels on base paint.
+      for(const item of painted){
+        item.material.envAtlas=hdrAtlas;
+        item.material.cubeMap=studioCubemap;
+        item.material.update();
+      }
+      debug.hdriStatus="loaded-hdr";
+      debug.lighting="Studio Small 08 1K HDR / prefiltered IBL + PCSS/PCF contact shadows";
+    }catch(error){
+      debug.hdriStatus="fallback-conversion-failed";
+      console.warn("HDR environment conversion failed, using procedural IBL",error);
+    }
+  });
 
   function applyCamera() {
     if(override) {
@@ -152,6 +199,36 @@ export async function mountKiaPlayCanvas({
   app.scene.on("postrender",()=>{
     for(const fn of frameListeners)fn(camera,lastWidth,lastHeight);
   });
+  // HDR camera pipeline. The photographic look is a camera/render pipeline,
+  // not a pile of directional lights. Keep the existing HTML overlays outside.
+  let studioCameraFrame=null;
+  try {
+    studioCameraFrame=new pc.CameraFrame(app,camera.camera);
+    studioCameraFrame.rendering.toneMapping=pc.TONEMAP_ACES;
+    studioCameraFrame.rendering.samples=mobile?2:1;
+    studioCameraFrame.rendering.renderTargetScale=1;
+    studioCameraFrame.taa.enabled=!mobile;
+    studioCameraFrame.taa.jitter=.7;
+    studioCameraFrame.rendering.sharpness=mobile?0:.18;
+    studioCameraFrame.ssao.type=mobile?pc.SSAOTYPE_NONE:pc.SSAOTYPE_COMBINE;
+    studioCameraFrame.ssao.intensity=.22;
+    studioCameraFrame.ssao.radius=12;
+    studioCameraFrame.ssao.power=2.5;
+    studioCameraFrame.ssao.samples=12;
+    studioCameraFrame.grading.enabled=true;
+    studioCameraFrame.grading.contrast=1.045;
+    studioCameraFrame.grading.saturation=.99;
+    studioCameraFrame.bloom.intensity=mobile?0:.012;
+    studioCameraFrame.bloom.threshold=1.2;
+    studioCameraFrame.rendering.sceneDepthMap=!mobile;
+    studioCameraFrame.enabled=true;
+    studioCameraFrame.update();
+    camera.camera.toneMapping=pc.TONEMAP_LINEAR;
+  }catch(error) {
+    console.warn("Kia CameraFrame pipeline unavailable: keeping ACES camera",error);
+    try{studioCameraFrame?.destroy();}catch{}
+    studioCameraFrame=null;
+  }
   app.start();
   resize();
 
@@ -393,10 +470,14 @@ export async function mountKiaPlayCanvas({
         if(mat.name==="Car"&&isBody) {
           const paint=mat.clone();
           paint.name="Kia Paint · "+node.name;
-          paint.clearCoat=Math.max(.72,paint.clearCoat||0);
-          paint.clearCoatGloss=.89;
-          paint.useMetalness=true;
-          paint.metalness=Math.max(.16,paint.metalness||0);
+          // Preserve the GLB metalness, roughness, normals and maps;
+          // add only the physically plausible automotive varnish layer.
+          paint.clearCoat=Math.max(.90,paint.clearCoat||0);
+          paint.clearCoatGloss=.93;
+          if(studioCubemap&&environment){
+            paint.envAtlas=environment.atlas;
+            paint.cubeMap=studioCubemap;
+          }
           paint.update();
           mi.material=paint;
           painted.push({material:paint,source:paint.diffuse.clone()});
@@ -443,6 +524,7 @@ export async function mountKiaPlayCanvas({
     debug.meshCount=meshCount;
     debug.texturesBound=texturesBound;
     debug.paintMeshCount=painted.length;
+    debug.materialPolicy="original maps/roughness/metalness retained; body clearcoat only";
     debug.status="loaded";
     setPaintColor("arena");
     requestRender();
@@ -456,7 +538,7 @@ export async function mountKiaPlayCanvas({
       getCameraPosition:()=>{const p=camera.getPosition();return[p.x,p.y,p.z];},
       getRadius:()=>radius,
       getModel:()=>model,
-      destroy:()=>{observer.disconnect();app.destroy();}
+      destroy:()=>{observer.disconnect();studioCameraFrame?.destroy();app.destroy();}
     };
   }catch(error){
     debug.status="failed";debug.error=String(error);
