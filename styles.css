@@ -1,5 +1,5 @@
 :root{--black:#05141f;--white:#fff;--red:#ea0029;--muted:#b3bec4;--hair:rgba(255,255,255,.21);--sand:#c8b69c}
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--black);color:var(--white);font-family:Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased}body{overscroll-behavior:none}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:2px solid white;outline-offset:3px}button:disabled{cursor:default}button[hidden],section[hidden],div[hidden],canvas[hidden]{display:none!important}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--black);color:var(--white);font-family:var(--kia-body);-webkit-font-smoothing:antialiased}body{overscroll-behavior:none}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:2px solid white;outline-offset:3px}button:disabled{cursor:default}button[hidden],section[hidden],div[hidden],canvas[hidden]{display:none!important}
 .experience{position:relative;isolation:isolate;width:100vw;height:100vh;height:100dvh;min-width:0;overflow:hidden;background:var(--black);touch-action:pan-y}
 .ambient-backdrop,.ambient-image,.ambient-shade{position:absolute;inset:0;pointer-events:none}.ambient-backdrop{z-index:-2;background:#23353b}.ambient-image{background-size:cover;background-position:center center;filter:saturate(.72) contrast(1.08);opacity:.7;transform:scale(1.015);transition:background-image .35s,filter .7s}.scene-rocks .ambient-image{background-position:center 60%;background-image:linear-gradient(90deg,rgba(5,20,31,.5),rgba(5,20,31,.03)),url('https://images.unsplash.com/photo-1721804979422-82da29eda31b?auto=format&fit=crop&w=1920&q=85')}.scene-flood .ambient-image{background-image:linear-gradient(90deg,rgba(5,20,31,.75),rgba(5,20,31,.08)),url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1920&q=82')}.scene-mud .ambient-image{background-image:linear-gradient(90deg,rgba(5,20,31,.78),rgba(5,20,31,.08)),url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1920&q=82')}.scene-descent .ambient-image{background-image:linear-gradient(90deg,rgba(5,20,31,.79),rgba(5,20,31,.08)),url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=82')}
 .ambient-shade{background:linear-gradient(90deg,rgba(5,20,31,.99) 0%,rgba(5,20,31,.94) 18%,rgba(5,20,31,.56) 41%,rgba(5,20,31,.15) 70%,rgba(5,20,31,.75) 100%),linear-gradient(180deg,rgba(5,20,31,.66),transparent 30%,transparent 60%,rgba(5,20,31,.97))}.ridgeline{position:absolute;bottom:11%;left:36%;width:85%;height:27%;opacity:.25;background:linear-gradient(0deg,rgba(5,20,31,.8),transparent);clip-path:polygon(0% 100%,0% 66%,11% 46%,23% 69%,35% 21%,42% 34%,53% 12%,67% 52%,81% 19%,100% 63%,100% 100%);pointer-events:none}.ridgeline-near{opacity:.3;bottom:6%;height:18%;left:12%;transform:scaleX(-1)}.horizon-floor{position:absolute;bottom:-12%;left:10%;right:0;height:23%;background:radial-gradient(ellipse,rgba(11,17,17,.78),transparent 65%);pointer-events:none}
@@ -130,8 +130,8 @@
 
 
 /* KIA 3D ANNOTATIONS — world-anchored, camera-following, not modals. */
-.kia-annotations{position:absolute;inset:0;z-index:8;pointer-events:none;overflow:visible;font-family:Inter,Arial,sans-serif}
-.kia-annotation-pin{position:absolute;z-index:2;width:28px;height:28px;padding:0;border:1px solid rgba(255,255,255,.9);border-radius:50%;background:rgba(5,20,31,.56);color:#fff;pointer-events:auto;display:grid;place-items:center;transform:translate(-50%,-50%);transition:opacity .22s,background .22s,box-shadow .22s;box-shadow:0 0 0 4px rgba(255,255,255,.11),0 3px 20px rgba(0,0,0,.23);font:400 20px/1 Arial,sans-serif;cursor:pointer}
+.kia-annotations{position:absolute;inset:0;z-index:8;pointer-events:none;overflow:visible;font-family:var(--kia-body)}
+.kia-annotation-pin{position:absolute;z-index:2;width:28px;height:28px;padding:0;border:1px solid rgba(255,255,255,.9);border-radius:50%;background:rgba(5,20,31,.56);color:#fff;pointer-events:auto;display:grid;place-items:center;transform:translate(-50%,-50%);transition:opacity .22s,background .22s,box-shadow .22s;box-shadow:0 0 0 4px rgba(255,255,255,.11),0 3px 20px rgba(0,0,0,.23);font:400 20px/1 var(--kia-mono);cursor:pointer}
 .kia-annotation-pin::before{content:"";position:absolute;inset:-8px;border:1px solid rgba(255,255,255,.24);border-radius:50%;animation:kiaAnnotationPulse 3s ease-out infinite;pointer-events:none}
 .kia-annotation-pin span{display:block;line-height:1;transform:translateY(-1px)}
 .kia-annotation-pin:hover,.kia-annotation-pin:focus-visible,.kia-annotation-pin.is-selected{background:#ea0029;box-shadow:0 0 0 4px rgba(234,0,41,.18),0 2px 15px rgba(0,0,0,.35)}
@@ -268,7 +268,7 @@
 }
 .kia-feature-floating strong{font-size:clamp(13px,1.5vw,19px);line-height:1.12;font-weight:800;letter-spacing:-.02em;display:block;margin-bottom:10px}
 .kia-feature-floating p{margin:0;font-size:clamp(11px,1vw,13px);line-height:1.48;color:#e1e7ed}
-.kia-feature-floating button{position:absolute;right:5px;top:4px;width:27px;height:27px;padding:0;border:0;background:transparent;color:#fff;font:20px/1 Arial}
+.kia-feature-floating button{position:absolute;right:5px;top:4px;width:27px;height:27px;padding:0;border:0;background:transparent;color:#fff;font:20px/1 var(--kia-mono)}
 .kia-feature-floating[hidden]{display:none!important}
 @media(max-height:580px){
  .kia-feature-floating{right:calc(clamp(145px,18vw,190px) + 22px);bottom:16%;max-height:39%;padding:12px 24px 12px 12px;width:clamp(160px,22vw,210px)}
@@ -639,7 +639,7 @@
 /* KIA TASMAN — TYPOGRAPHIC SYSTEM / editorial v18
    Monument Extended is commercially licensed and can be supplied by the
    rights holder. Until a licensed font is installed, Unbounded Black 900
-   provides an openly licensed extended fallback without Inter / Roboto. */
+   provides an openly licensed extended fallback without a generic humanist default. */
 :root{
   --kia-display:'Monument Extended','Unbounded',sans-serif;
   --kia-body:'Space Grotesk',sans-serif;
