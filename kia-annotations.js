@@ -1,131 +1,69 @@
-// 3D annotations: anchored markers, authored camera views and animated
-// on-model detail. Mirrors PlayCanvas annotation interaction, not modal dialogs.
-const CONTENT={
-  front_fascia:{number:"01",title:"FAROS",description:"Diseño frontal, iluminación y parrilla.",angle:25,zoom:.83},
-  wheel_front_left:{number:"02",title:"RUEDAS",description:"Diseño de llantas y neumáticos todoterreno.",angle:-65,zoom:.81},
-  interior:{number:"03",title:"CABINA",description:"Asientos, espacio interior y tecnología a bordo.",angle:44,zoom:.84},
-  cargo_bed:{number:"04",title:"CAJA DE CARGA",description:"Zona de carga y capacidad de transporte.",angle:145,zoom:.81}
+// KIA: annotations live ONLY in the collapsible UI — no floating markers.
+// Each selection drives an authored camera pose on the existing real GLB.
+const DETAILS={
+ front_fascia:{title:"Faros LED",description:"Faros delanteros y firma luminosa de la Tasman.",anchor:"front_fascia",angle:0,zoom:.80},
+ wheel_front_left:{title:"Ruedas todoterreno",description:"Llantas de aleación de 17 pulgadas y neumáticos para distintos terrenos, según versión.",anchor:"wheel_front_left",angle:-75,zoom:.76},
+ hood:{title:"Capó",description:"Vista del panel delantero y sus líneas de diseño.",anchor:"hood",angle:27,zoom:.81},
+ windshield:{title:"Parabrisas",description:"Geometría del parabrisas y la zona de visibilidad del conductor.",anchor:"windshield",angle:20,zoom:.83},
+ cargo_bed:{title:"Caja de carga",description:"Área posterior destinada a transportar equipaje y materiales.",anchor:"cargo_bed",angle:145,zoom:.82},
+ tailgate:{title:"Compuerta trasera",description:"Portón posterior de acceso a la caja de carga.",anchor:"tailgate",angle:180,zoom:.80},
+ rear_bumper_and_lights:{title:"Luces posteriores",description:"Diseño del conjunto de iluminación y parachoques trasero.",anchor:"rear_bumper_and_lights",angle:180,zoom:.78},
+ door_front_left:{title:"Puertas",description:"Acceso a la cabina de doble fila; la puerta del conductor puede abrirse para entrar.",anchor:"door_front_left",angle:-80,zoom:.86},
+ eld:{title:"Diferencial e-LD",description:"Vista del área del eje trasero. El bloqueo electrónico de diferencial ayuda a mejorar la tracción; el mecanismo no está animado en este modelo.",anchor:"wheel_rear_left",angle:160,zoom:.75},
+ interior:{title:"Acceso a la cabina",description:"Apertura de la puerta del conductor y recorrido de entrada al espacio interior.",interior:true},
+ display:{title:"Pantalla panorámica",description:"Encuadre del tablero y del conjunto de pantallas panorámicas. Equipamiento según versión.",interior:true},
+ infotainment:{title:"Infoentretenimiento",description:"Acercamiento a los controles y la zona central de la consola.",interior:true},
+ wireless:{title:"Cargador inalámbrico",description:"Zona de la consola donde se sitúan los cargadores inalámbricos en las versiones equipadas.",interior:true},
+ seats:{title:"Asientos eléctricos",description:"Vista de los asientos delanteros; las funciones eléctricas dependen del equipamiento.",interior:true},
+ ambient:{title:"Iluminación ambiental",description:"Vista del ambiente de la cabina. El modelo 3D no simula el encendido de las luces.",interior:true},
+ walkin:{title:"Passenger walk-in switch",description:"Sistema de acceso para que los pasajeros posteriores ajusten el asiento delantero en versiones equipadas; el interruptor no está separado en el GLB.",interior:true},
+ xtrek:{title:"Modo X-TREK",description:"Vista de los mandos de conducción. X-TREK mantiene una velocidad baja y constante fuera del asfalto; la función no se activa en esta demo.",interior:true},
+ rock:{title:"Modo Roca",description:"Vista del selector de terreno. En la variante X-Pro se selecciona con 4WD 4L; la simulación no modifica la tracción.",interior:true}
 };
 
-export function mountKiaAnnotations({host,viewer,onChange=()=>{}}){
-  const overlay=document.createElement("div");
-  overlay.className="kia-annotations";
-  overlay.setAttribute("aria-label","Anotaciones tridimensionales del vehículo");
-  host.appendChild(overlay);
-  const markers=new Map();
-  for(const [id,data] of Object.entries(CONTENT)){
-    const anchor=viewer.getFeatureAnchor(id);
-    if(!anchor)continue;
-    const button=document.createElement("button");
-    button.type="button";
-    button.className="kia-annotation-pin";
-    button.dataset.feature=id;
-    button.setAttribute("aria-label","Explorar "+data.title.toLowerCase());
-    button.title=data.title;
-    const glyph=document.createElement("span");
-    glyph.textContent="+";
-    glyph.setAttribute("aria-hidden","true");
-    button.appendChild(glyph);
-    button.addEventListener("click",event=>{
-      event.preventDefault();event.stopPropagation();select(id);
-    });
-    overlay.appendChild(button);
-    markers.set(id,{button,anchor,data});
-  }
-  const leader=document.createElement("div");
-  leader.className="kia-annotation-leader";
-  leader.setAttribute("aria-hidden","true");
-  overlay.appendChild(leader);
-
-  const detail=document.createElement("section");
-  detail.className="kia-annotation-detail";
-  detail.setAttribute("aria-label","Detalle seleccionado del vehículo");
-  const eyebrow=document.createElement("div");eyebrow.className="kia-annotation-eyebrow";
-  const heading=document.createElement("h3");heading.className="kia-annotation-heading";
-  const description=document.createElement("p");description.className="kia-annotation-description";
-  const close=document.createElement("button");
-  close.type="button";close.className="kia-annotation-close";
-  close.textContent="×";close.setAttribute("aria-label","Cerrar detalle y mostrar vehículo completo");
-  close.addEventListener("click",()=>dismiss());
-  detail.append(eyebrow,heading,description,close);
-  overlay.appendChild(detail);
-
-  let selected=null,activePoint=null;
-  const clamp=(value,min,max)=>Math.min(Math.max(value,min),max);
-
-  function layout(){
-    const width=Math.max(1,host.clientWidth);
-    const height=Math.max(1,host.clientHeight);
-    for(const [id,marker] of markers){
-      const screen=viewer.projectPoint(marker.anchor);
-      marker.button.style.left=screen.x+"px";
-      marker.button.style.top=screen.y+"px";
-      const outside=screen.x<16||screen.x>width-16||screen.y<16||screen.y>height-16;
-      marker.button.classList.toggle("is-offscreen",!screen.visible||outside);
-      marker.button.classList.toggle("is-selected",id===selected);
-    }
-    if(!selected||!activePoint)return;
-    const p=viewer.projectPoint(activePoint);
-    const cardWidth=Math.min(206,Math.max(138,width*.37));
-    const cardHeight=113;
-    const right=p.x<width*.53;
-    const boxX=clamp(right?p.x+31:p.x-cardWidth-31,6,Math.max(6,width-cardWidth-6));
-    const boxY=clamp(p.y-cardHeight*.48,8,Math.max(8,height-cardHeight-8));
-    detail.style.setProperty("--annotation-x",boxX+"px");
-    detail.style.setProperty("--annotation-y",boxY+"px");
-    detail.style.setProperty("--annotation-width",cardWidth+"px");
-    // A thin connector visibly binds the information to the moving 3D point.
-    const endX=right?boxX:boxX+cardWidth;
-    const endY=boxY+37;
-    const dx=endX-p.x,dy=endY-p.y;
-    const length=Math.hypot(dx,dy);
-    leader.style.left=p.x+"px";
-    leader.style.top=p.y+"px";
-    leader.style.width=length+"px";
-    leader.style.transform="rotate("+Math.atan2(dy,dx)+"rad)";
-    const visible=p.visible&&p.x>=-12&&p.x<=width+12&&p.y>=-12&&p.y<=height+12;
-    leader.classList.toggle("is-offscreen",!visible);
-  }
-
-  function select(id){
-    const marker=markers.get(id);
-    if(!marker)return false;
-    selected=id;
-    activePoint=marker.anchor;
-    eyebrow.textContent="KIA TASMAN  /  "+marker.data.number;
-    heading.textContent=marker.data.title;
-    description.textContent=marker.data.description;
-    detail.classList.remove("is-open");
-    leader.classList.remove("is-open");
-    overlay.classList.add("has-selection");
-    viewer.focusOnPart(marker.anchor,{angle:marker.data.angle,radiusFactor:marker.data.zoom,duration:960});
-    // Display the technical annotation as the camera arrives, rather than
-    // opening an unrelated full-screen text modal.
-    requestAnimationFrame(()=>{
-      detail.classList.add("is-open");
-      leader.classList.add("is-open");
-      layout();
-    });
-    onChange(id);
-    layout();
-    return true;
-  }
-  function dismiss({reset=true}={}){
-    selected=null;activePoint=null;
-    overlay.classList.remove("has-selection");
-    detail.classList.remove("is-open");
-    leader.classList.remove("is-open");
-    if(reset)viewer.resetView();
-    onChange(null);
-    layout();
-  }
-  const unsubscribe=viewer.addFrameListener(layout);
-  layout();
-  window.__kiaAnnotations={
-    get selected(){return selected},
-    available:[...markers.keys()],
-    select,dismiss
-  };
-  return {select,dismiss,get selected(){return selected},available:[...markers.keys()],
-    destroy(){unsubscribe();overlay.remove();}};
+export function mountKiaAnnotations({viewer,onChange=()=>{}}){
+ const detail=document.getElementById("featureDetail");
+ if(!detail)throw new Error("The interface detail panel was not found");
+ let selected=null;
+ function dismiss({reset=true}={}){
+   selected=null;
+   detail.hidden=true;
+   detail.replaceChildren();
+   document.querySelectorAll(".micro-feature").forEach(button=>button.classList.remove("is-active"));
+   if(reset)viewer.resetView();
+   onChange(null);
+ }
+ function select(id){
+   const item=DETAILS[id];
+   if(!item)return false;
+   selected=id;
+   document.querySelectorAll(".micro-feature").forEach(button=>button.classList.toggle("is-active",button.dataset.feature===id));
+   const sourceButton=document.querySelector('.micro-feature[data-feature="'+id+'"]');
+   if(sourceButton){
+     const panel=sourceButton.closest(".micro-panel");
+     if(panel)panel.appendChild(detail); // Keep notes inside the currently open micro-menu.
+   }
+   detail.replaceChildren();
+   const title=document.createElement("strong");
+   title.textContent=item.title;
+   const description=document.createElement("p");
+   description.textContent=item.description;
+   const close=document.createElement("button");
+   close.type="button";
+   close.textContent="×";
+   close.setAttribute("aria-label","Cerrar anotación");
+   close.addEventListener("click",()=>dismiss());
+   detail.append(title,description,close);
+   detail.hidden=false;
+   if(item.interior) viewer.enterCabin(id);
+   else {
+     const anchor=viewer.getFeatureAnchor(item.anchor);
+     if(anchor)viewer.focusOnPart(anchor,{angle:item.angle,radiusFactor:item.zoom,duration:980});
+   }
+   onChange(id);
+   return true;
+ }
+ window.__kiaAnnotations={get selected(){return selected},available:Object.keys(DETAILS),select,dismiss,markerCount:0};
+ return {select,dismiss,get selected(){return selected},available:Object.keys(DETAILS),
+  destroy(){detail.replaceChildren();detail.hidden=true}};
 }
