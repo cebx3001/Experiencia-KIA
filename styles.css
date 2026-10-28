@@ -415,3 +415,161 @@
   .bottom-bar .bottom-right{display:flex!important}
   .bottom-bar .footer-testdrive{font-size:8px;gap:6px;padding:5px 0}
 }
+
+
+/* KIA EDITORIAL GAME CAROUSEL v13: four navigation categories only.
+   All options live in an unboxed, horizontally swipable selector underneath
+   the truck, while true vehicle facts stay lower-right above the CTA. */
+.kia-category-rail{
+  position:absolute;
+  top:19%;
+  right:clamp(19px,3.1vw,60px);
+  width:clamp(137px,16.2vw,218px);
+  padding-left:13px;
+  border-left:1px solid rgba(255,255,255,.32);
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  z-index:10;
+  max-height:none;
+}
+.kia-category-rail .rail-label{
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:.17em;
+  padding-bottom:9px;
+  color:rgba(243,247,250,.54);
+  border-bottom:0;
+}
+.kia-category-buttons{display:flex;flex-direction:column;gap:2px;width:100%}
+.kia-category{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  width:100%;
+  min-height:36px;
+  padding:7px 1px 7px 0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  font-family:inherit;
+  font-size:clamp(11px,1.12vw,15px);
+  font-weight:650;
+  letter-spacing:.045em;
+  color:rgba(238,244,247,.63);
+  text-align:left;
+  transition:color .2s ease;
+}
+.kia-category span{font-size:16px;font-weight:400;color:rgba(244,248,250,.30);transition:color .2s}
+.kia-category.is-active,.kia-category:hover,.kia-category:focus-visible{color:#fff}
+.kia-category.is-active span{color:var(--red)}
+.kia-category[aria-pressed="true"]{font-weight:850}
+.kia-feature-carousel{
+  position:absolute;
+  z-index:8;
+  left:27%;
+  width:min(47%,680px);
+  bottom:calc(61px + 16px);
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  pointer-events:auto;
+  user-select:none;
+}
+.kia-feature-carousel[hidden],.kia-feature-carousel.is-disabled{display:none!important}
+.kia-carousel-meta{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:18px;
+  width:100%;
+  font-size:9px;
+  letter-spacing:.16em;
+  color:rgba(242,247,250,.59);
+  font-weight:600;
+}
+.kia-carousel-main{display:flex;align-items:center;width:100%;gap:5px;min-height:52px}
+.kia-carousel-arrow{
+  display:flex;align-items:center;justify-content:center;
+  flex:0 0 32px;min-width:0;height:38px;
+  border:0;background:transparent;color:rgba(255,255,255,.78);
+  font-size:24px;font-weight:300;cursor:pointer;
+}
+.kia-carousel-arrow:focus-visible,.kia-carousel-arrow:hover{color:#fff}
+.kia-carousel-window{height:56px;position:relative;min-width:0;flex:1;overflow:hidden;touch-action:pan-y;mask-image:linear-gradient(to right,transparent 0%,#000 10%,#000 90%,transparent 100%);-webkit-mask-image:linear-gradient(to right,transparent 0%,#000 10%,#000 90%,transparent 100%)}
+.kia-carousel-choice{position:absolute;height:100%;top:0;display:flex;align-items:center;justify-content:center;background:none;box-shadow:none;border:0;color:rgba(255,255,255,.35);font-family:inherit;font-size:clamp(12px,1.4vw,19px);letter-spacing:.02em;font-weight:520;white-space:nowrap;cursor:pointer;padding:0;overflow:visible}
+.kia-carousel-selected{left:22%;width:56%;font-size:clamp(18px,2.1vw,32px);font-weight:850;letter-spacing:-.045em;color:#fff;z-index:1;text-shadow:0 2px 17px rgba(0,0,0,.35)}
+.kia-carousel-prev{left:-29%;width:45%;justify-content:flex-end}
+.kia-carousel-next{right:-29%;width:45%;justify-content:flex-start}
+.kia-carousel-prev:hover,.kia-carousel-next:hover{color:rgba(255,255,255,.75)}
+.kia-carousel-indicator{height:2px;width:44px;background:rgba(255,255,255,.26)}
+.kia-carousel-indicator span{display:block;height:100%;width:54%;background:var(--red);margin:auto}
+.kia-carousel-window.carousel-updated .kia-carousel-selected{animation:kiaCarouselTitle .28s ease both}
+.kia-carousel-window.carousel-updated .kia-carousel-next,.kia-carousel-window.carousel-updated .kia-carousel-prev{animation:kiaCarouselPeek .25s ease both}
+@keyframes kiaCarouselTitle{from{opacity:.35;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@keyframes kiaCarouselPeek{from{opacity:.1}to{opacity:1}}
+/* Lower-right metadata is strictly typographic: no cards, lines, backing
+   or motion on X. It lives directly above AGENDAR TEST DRIVE. */
+.kia-bottom-description{
+  position:absolute;
+  z-index:9;
+  right:clamp(25px,4.1vw,78px);
+  bottom:calc(61px + 22px);
+  width:clamp(145px,18vw,242px);
+  max-height:27%;
+  overflow-y:auto;
+  background:transparent;
+  box-shadow:none;
+  border:0;
+  border-radius:0;
+  padding:0 20px 0 0;
+  color:#fff;
+  text-align:left;
+}
+.kia-bottom-description[hidden]{display:none!important}
+.kia-bottom-description strong{font-size:clamp(12px,1.2vw,16px);font-weight:850;line-height:1.1;letter-spacing:-.01em;display:block;margin:0 0 7px}
+.kia-bottom-description p{color:#edf1f3;font-size:clamp(10px,.92vw,12px);font-weight:450;line-height:1.46;margin:0;text-wrap:pretty}
+.kia-bottom-description button{position:absolute;top:0;right:0;border:0;background:transparent;padding:0;font-size:18px;line-height:20px;color:#dee4e7;cursor:pointer}
+@media(max-width:1090px){
+  .kia-category-rail{top:16%;width:150px;right:20px}
+  .kia-category{min-height:29px;font-size:11px}
+  .kia-feature-carousel{bottom:calc(52px + 8px);left:26%;width:49%}
+  .kia-carousel-choice{font-size:12px}.kia-carousel-selected{font-size:clamp(15px,2.1vw,25px)}
+  .kia-bottom-description{bottom:calc(52px + 18px);width:162px;right:22px;max-height:28%}
+}
+@media(max-height:580px){
+  .kia-category-rail{top:14%;right:12px;width:clamp(124px,16.5vw,172px);gap:4px;padding-left:9px}
+  .kia-category-rail .rail-label{font-size:7px;padding-bottom:3px}
+  .kia-category{min-height:25px;font-size:10px;padding:3px 0}
+  .kia-category span{font-size:12px}
+  .kia-feature-carousel{bottom:43px;left:25%;width:50%;gap:0}
+  .kia-carousel-meta{font-size:7px;gap:10px}
+  .kia-carousel-main{min-height:34px}
+  .kia-carousel-window{height:36px}
+  .kia-carousel-choice{font-size:10px}
+  .kia-carousel-selected{font-size:clamp(13px,2.4vw,20px)}
+  .kia-carousel-arrow{flex-basis:24px;height:30px;font-size:20px}
+  .kia-bottom-description{bottom:46px;right:14px;width:clamp(118px,16vw,170px);max-height:35%;padding-right:15px}
+  .kia-bottom-description strong{font-size:11px;margin-bottom:4px}
+  .kia-bottom-description p{font-size:9px;line-height:1.35}
+  .kia-bottom-description button{font-size:17px}
+}
+@media(max-width:750px) and (orientation:landscape){
+  .kia-feature-carousel{left:29%;width:45%}
+  .kia-carousel-selected{font-size:clamp(12px,2.1vw,18px)}
+  .kia-bottom-description{right:12px;width:128px}
+}
+@media(orientation:portrait){
+  .kia-category-rail{top:14%;right:10px;width:145px;gap:5px;padding-left:10px}
+  .kia-category{min-height:27px;font-size:10px}
+  .kia-feature-carousel{bottom:43px;left:27%;width:48%}
+  .kia-carousel-selected{font-size:clamp(14px,2.2vw,21px)}
+  .kia-bottom-description{bottom:47px;right:12px;width:145px;max-height:34%}
+  .kia-bottom-description strong{font-size:11px}
+  .kia-bottom-description p{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){
+  .kia-carousel-window.carousel-updated .kia-carousel-choice{animation:none!important}
+}
