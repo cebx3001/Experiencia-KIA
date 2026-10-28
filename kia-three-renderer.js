@@ -410,11 +410,14 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
             // Greenish, neutral, nearly black, red and transparent texels
             // do NOT receive a color transformation.
             vec3 kiaSource=diffuseColor.rgb;
+            // Actual paint atlas contains near-neutral sand beige: R≈G>B.
+            // Detect warm B-deficit rather than requiring a large R-G gap.
+            // Gray/black trim has G≈B, red lamps have G≈B.
             float kiaWarmMask=
-              smoothstep(0.008,0.045,kiaSource.r-kiaSource.g)*
-              smoothstep(0.006,0.032,kiaSource.g-kiaSource.b);
+              smoothstep(-0.028,0.002,kiaSource.r-kiaSource.g)*
+              smoothstep(0.024,0.068,kiaSource.g-kiaSource.b)*
+              smoothstep(0.055,0.125,kiaSource.g);
             float kiaLuma=dot(kiaSource,vec3(0.2126,0.7152,0.0722));
-            kiaWarmMask*=smoothstep(0.035,0.105,kiaLuma);
             float kiaShade=clamp(kiaLuma/0.33,0.26,1.60);
             diffuseColor.rgb=mix(
               kiaSource,
@@ -423,7 +426,7 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
             );`
           );
         };
-        painted.customProgramCacheKey=()=>"kia-paint-selective-v2";
+        painted.customProgramCacheKey=()=>"kia-paint-sand-atlas-v4";
         painted.needsUpdate=true;
         paintShaderMaterial=painted;
       }
