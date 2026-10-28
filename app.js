@@ -67,7 +67,7 @@ document.addEventListener("keydown",e=>{
  if(e.key==="Escape"){closeDialog("infoModal");closeDialog("missionModal");}
  if(state.mode==="mission"){if(e.key==="ArrowLeft")setLevel(state.level-1);if(e.key==="ArrowRight")setLevel(state.level+1);}
 });
-document.querySelectorAll(".hotspot").forEach(b=>b.addEventListener("click",()=>{const m=modalInfo[b.dataset.info];openDialog("infoModal",m.title,m.body);}));
+// Object-linked hotspots are installed after the actual GLB and semantic manifest load.
 document.querySelectorAll(".color-chip").forEach(b=>b.addEventListener("click",()=>{
  state.color=b.dataset.color;
  document.querySelectorAll(".color-chip").forEach(el=>el.classList.toggle("active",el===b));
@@ -81,6 +81,7 @@ document.querySelectorAll("#cameraButtons button").forEach(b=>b.addEventListener
 
 async function initVehicle(){
  const url="./assets/kia-tasman.glb";
+ const manifestUrl="./assets/kia-tasman-components.json";
  // The page works as a menu before the model is uploaded; do not fetch PlayCanvas unnecessarily.
  try{
    const res=await fetch(url,{method:"HEAD",cache:"no-store"});
@@ -122,7 +123,8 @@ async function initVehicle(){
        state.radius=Math.max(maxSize*1.65,2.5);
      }
      state.target=new pc.Vec3(0,0,0);
-     moveCamera();canvas.hidden=false;$("carFallback").hidden=true;$("hotspots").hidden=false;
+     moveCamera();canvas.hidden=false;$("carFallback").hidden=true;
+     installVehicleAnnotations(pc, app, root, canvas, manifestUrl);
      $("interactionHint").textContent="DESLIZA PARA GIRAR · TOCA + PARA EXPLORAR";
      recolorModel();
    });
@@ -160,3 +162,70 @@ function recolorModel(){
  }));
 }
 initVehicle();
+
+const featureCopy={
+ wheel_front_left:"Neumático delantero izquierdo. Observa el perfil de la rueda y su diseño para terrenos exigentes.",
+ wheel_front_right:"Neumático delantero derecho. Componente de contacto con la superficie.",
+ wheel_rear_left:"Neumático trasero izquierdo. Parte del conjunto de rodamiento y tracción.",
+ wheel_rear_right:"Neumático trasero derecho. Parte del conjunto de rodamiento y tracción.",
+ front_fascia:"Conjunto frontal: parrilla, faros y parachoques. La iluminación y sus acabados se identifican aquí.",
+ windshield:"Parabrisas. Elemento que incorpora los limpiaparabrisas y, según la versión, el sistema de detección de lluvia.",
+ cargo_bed:"Caja de carga o paila. Espacio destinado a transportar equipaje y materiales.",
+ tailgate:"Compuerta de la paila. Pieza con bisagras de apertura hacia abajo.",
+ interior:"Cabina e interior. Explora el espacio, los asientos y la tecnología a bordo.",
+ hood:"Capó delantero. Panel de acceso al compartimento del motor.",
+ door_front_left:"Puerta delantera izquierda. Acceso a la cabina.",
+ door_front_right:"Puerta delantera derecha. Acceso a la cabina.",
+ door_rear_left:"Puerta trasera izquierda. Acceso a la segunda fila.",
+ door_rear_right:"Puerta trasera derecha. Acceso a la segunda fila.",
+ rear_bumper_and_lights:"Conjunto posterior, con luces traseras y parachoques."
+};
+const annotationPriority=["wheel_front_left","wheel_front_right","wheel_rear_left","wheel_rear_right","front_fascia","windshield","cargo_bed","tailgate","interior","door_front_left","door_front_right","rear_bumper_and_lights"];
+function installVehicleAnnotations(pc, app, root, canvas, manifestUrl){
+ const host=$("hotspots");
+ const stage=$("stage");
+ fetch(manifestUrl).then(r=>{if(!r.ok)throw new Error("No se pudo cargar el manifiesto de componentes");return r.json();})
+ .then(data=>{
+   const byComponent=new Map((data.annotations||[]).map(a=>[a.componentId,a]));
+   const components=new Map((data.components||[]).map(c=>[c.id,c]));
+   const markers=[];
+   host.replaceChildren();
+   for(const id of annotationPriority){
+     const component=components.get(id),ann=byComponent.get(id);
+     if(!component||!ann)continue;
+     const btn=document.createElement("button");
+     btn.type="button";btn.className="hotspot";btn.textContent="+";
+     btn.title=component.label;btn.setAttribute("aria-label","Ver "+component.label);
+     btn.addEventListener("click",()=>openDialog("infoModal",component.label,featureCopy[id]||"Explora este componente de la Kia Tasman."));
+     host.append(btn);
+     const node=root.findByName(ann.node)||root.findByName(ann.parentNode);
+     markers.push({btn,ann,node,withMarker:!!(node&&node.name===ann.node)});
+   }
+   if(!markers.length)return;
+   host.hidden=false;
+   function update(){
+     if(!state.camera||!state.model||state.mode!=="vehicle"){host.style.display="none";return;}
+     host.style.display="";
+     const rect=canvas.getBoundingClientRect(), stageRect=stage.getBoundingClientRect();
+     for(const {btn,ann,node,withMarker} of markers){
+       let p;
+       if(withMarker){p=node.getPosition();}
+       else if(node && Array.isArray(ann.localPosition)){p=node.getWorldTransform().transformPoint(new pc.Vec3(...ann.localPosition));}
+       else if(Array.isArray(ann.position)){p=root.getWorldTransform().transformPoint(new pc.Vec3(...ann.position));}
+       else {btn.hidden=true;continue;}
+       const projected=state.camera.camera.worldToScreen(p);
+       const cameraPos=state.camera.getPosition();
+       const dir=p.clone().sub(cameraPos);
+       const fwd=state.camera.forward;
+       const visible=dir.dot(fwd)>0&&projected.x>=0&&projected.x<=canvas.width&&projected.y>=0&&projected.y<=canvas.height;
+       btn.hidden=!visible;
+       if(visible){
+         const sx=rect.left-stageRect.left+(projected.x/canvas.width)*rect.width;
+         const sy=rect.top-stageRect.top+(projected.y/canvas.height)*rect.height;
+         btn.style.left=sx+"px";btn.style.top=sy+"px";
+       }
+     }
+   }
+   app.on("update",update);update();
+ }).catch(e=>console.error("Kia annotations:",e));
+}
