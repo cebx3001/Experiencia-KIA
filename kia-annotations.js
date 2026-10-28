@@ -1,24 +1,20 @@
 // KIA: annotations live ONLY in the collapsible UI — no floating markers.
 // Each selection drives an authored camera pose on the existing real GLB.
 const DETAILS={
- front_fascia:{title:"Faros LED",description:"Faros delanteros y firma luminosa de la Tasman.",anchor:"front_fascia",angle:0,zoom:.80},
- wheel_front_left:{title:"Ruedas todoterreno",description:"Llantas de aleación de 17 pulgadas y neumáticos para distintos terrenos, según versión.",anchor:"wheel_front_left",angle:-75,zoom:.76},
- hood:{title:"Capó",description:"Vista del panel delantero y sus líneas de diseño.",anchor:"hood",angle:27,zoom:.81},
- windshield:{title:"Parabrisas",description:"Geometría del parabrisas y la zona de visibilidad del conductor.",anchor:"windshield",angle:20,zoom:.83},
- cargo_bed:{title:"Caja de carga",description:"Área posterior destinada a transportar equipaje y materiales.",anchor:"cargo_bed",angle:145,zoom:.82},
- tailgate:{title:"Compuerta trasera",description:"Portón posterior de acceso a la caja de carga.",anchor:"tailgate",angle:180,zoom:.80},
- rear_bumper_and_lights:{title:"Luces posteriores",description:"Diseño del conjunto de iluminación y parachoques trasero.",anchor:"rear_bumper_and_lights",angle:180,zoom:.78},
- door_front_left:{title:"Puertas",description:"Acceso a la cabina de doble fila; la puerta del conductor puede abrirse para entrar.",anchor:"door_front_left",angle:-80,zoom:.86},
- eld:{title:"Diferencial e-LD",description:"Vista del área del eje trasero. El bloqueo electrónico de diferencial ayuda a mejorar la tracción; el mecanismo no está animado en este modelo.",anchor:"wheel_rear_left",angle:160,zoom:.75},
+ front_fascia:{title:"Faros LED",description:"Primer plano de ambos faros LED y su firma luminosa.",anchor:"front_fascia",angle:0,closeDistance:2.52,elevation:.10,lookOffset:[0,.23,.10]},
+ wheel_front_left:{title:"Ruedas todoterreno",description:"Primer plano del rin de 17 pulgadas y del neumático todoterreno.",anchor:"wheel_front_left",angle:-90,closeDistance:1.75,elevation:.09},
+ hood:{title:"Capó",description:"Acercamiento a la superficie y líneas del capó.",anchor:"hood",angle:15,closeDistance:2.50,elevation:.55},
+ windshield:{title:"Parabrisas",description:"Vista cercana del parabrisas completo y sus marcos.",anchor:"windshield",angle:8,closeDistance:2.28,elevation:.34},
+ cargo_bed:{title:"Caja de carga",description:"Acercamiento desde arriba al volumen útil de la caja.",anchor:"cargo_bed",angle:165,closeDistance:2.60,elevation:.63,lookOffset:[0,-.12,-.35]},
+ tailgate:{title:"Compuerta trasera",description:"Primer plano de la compuerta y su acabado exterior.",anchor:"tailgate",angle:180,closeDistance:2.00,elevation:.06},
+ rear_bumper_and_lights:{title:"Luces posteriores",description:"Primer plano de los faros traseros y del parachoques.",anchor:"rear_bumper_and_lights",angle:180,closeDistance:2.12,elevation:.13,lookOffset:[0,.25,0]},
+ door_front_left:{title:"Puertas",description:"Vista cercana de las puertas y del acceso a la cabina.",anchor:"door_front_left",angle:-90,closeDistance:2.20,elevation:.12},
  interior:{title:"Acceso a la cabina",description:"Apertura sincronizada de las cuatro puertas y recorrido de entrada a la cabina.",interior:true},
  display:{title:"Pantalla panorámica",description:"Encuadre del tablero y del conjunto de pantallas panorámicas. Equipamiento según versión.",interior:true},
  infotainment:{title:"Infoentretenimiento",description:"Acercamiento a los controles y la zona central de la consola.",interior:true},
  wireless:{title:"Cargador inalámbrico",description:"Zona de la consola donde se sitúan los cargadores inalámbricos en las versiones equipadas.",interior:true},
  seats:{title:"Asientos eléctricos",description:"Vista de los asientos delanteros; las funciones eléctricas dependen del equipamiento.",interior:true},
  ambient:{title:"Iluminación ambiental",description:"Vista del ambiente de la cabina. El modelo 3D no simula el encendido de las luces.",interior:true},
- walkin:{title:"Passenger walk-in switch",description:"Sistema de acceso para que los pasajeros posteriores ajusten el asiento delantero en versiones equipadas; el interruptor no está separado en el GLB.",interior:true},
- xtrek:{title:"Modo X-TREK",description:"Vista de los mandos de conducción. X-TREK mantiene una velocidad baja y constante fuera del asfalto; la función no se activa en esta demo.",interior:true},
- rock:{title:"Modo Roca",description:"Vista del selector de terreno. En la variante X-Pro se selecciona con 4WD 4L; la simulación no modifica la tracción.",interior:true}
 };
 
 export function mountKiaAnnotations({viewer,onChange=()=>{}}){
@@ -38,11 +34,6 @@ export function mountKiaAnnotations({viewer,onChange=()=>{}}){
    if(!item)return false;
    selected=id;
    document.querySelectorAll(".micro-feature").forEach(button=>button.classList.toggle("is-active",button.dataset.feature===id));
-   const sourceButton=document.querySelector('.micro-feature[data-feature="'+id+'"]');
-   if(sourceButton){
-     const panel=sourceButton.closest(".micro-panel");
-     if(panel)panel.appendChild(detail); // Keep notes inside the currently open micro-menu.
-   }
    detail.replaceChildren();
    const title=document.createElement("strong");
    title.textContent=item.title;
@@ -58,7 +49,7 @@ export function mountKiaAnnotations({viewer,onChange=()=>{}}){
    if(item.interior) viewer.enterCabin(id);
    else {
      const anchor=viewer.getFeatureAnchor(item.anchor);
-     if(anchor)viewer.focusOnPart(anchor,{angle:item.angle,radiusFactor:item.zoom,duration:980});
+     if(anchor)viewer.focusOnPart(anchor,{angle:item.angle,radiusFactor:item.zoom,closeDistance:item.closeDistance,elevation:item.elevation,lookOffset:item.lookOffset,duration:980});
    }
    onChange(id);
    return true;
