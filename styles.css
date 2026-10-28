@@ -669,12 +669,12 @@ button{font-family:var(--kia-mono)}
   font-synthesis:weight;
 }
 .vehicle-copy h1{
-  font-size:clamp(39px,5.45vw,100px);
+  font-size:clamp(39px,5.45vw,88px);
   margin:11px 0 22px;
   max-width:100%;
 }
 .mission-copy h1{
-  font-size:clamp(35px,4.5vw,78px);
+  font-size:clamp(35px,3.8vw,62px);
   line-height:.96;
   letter-spacing:-.025em;
   white-space:normal;
