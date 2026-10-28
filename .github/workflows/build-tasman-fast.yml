@@ -22,6 +22,8 @@ jobs:
           gltf-transform webp assets/kia-tasman.glb /tmp/tasman-fullres-webp.glb --quality 95
           gltf-transform draco /tmp/tasman-fullres-webp.glb assets/kia-tasman-fast.glb
           curl -fL --retry 3 --max-time 20 "https://raw.githubusercontent.com/playcanvas/engine/main/examples/assets/cubemaps/studio-env-atlas.png" -o assets/studio-env-atlas.png
+      - name: Install image validation library
+        run: python3 -m pip install --break-system-packages Pillow
       - name: Verify all model parts, materials, animation and texture dimensions
         shell: bash
         run: |
