@@ -250,3 +250,33 @@
 /* Mission navigation has priority: compact vehicle-config menus belong only
    to model exploration and must never intercept the mission arrows on mobile. */
 .experience.is-mission-mode .kia-compact-rail{visibility:hidden;pointer-events:none;opacity:0}
+
+
+/* A persistent, readable technical description OUTSIDE the scrollable micro-menu. */
+.kia-feature-floating{
+ position:absolute;z-index:11;
+ right:calc(clamp(152px,17vw,230px) + clamp(12px,2.5vw,38px) + 18px);
+ bottom:14%;top:auto;
+ width:clamp(185px,20vw,255px);
+ max-height:35%;overflow:auto;
+ border-left:3px solid #ea0029;
+ background:rgba(5,20,31,.94);color:#fff;
+ padding:18px 30px 18px 17px;
+ box-shadow:0 16px 40px rgba(0,0,0,.3);
+ backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+ animation:kiaMenuReveal .3s ease both;
+}
+.kia-feature-floating strong{font-size:clamp(13px,1.5vw,19px);line-height:1.12;font-weight:800;letter-spacing:-.02em;display:block;margin-bottom:10px}
+.kia-feature-floating p{margin:0;font-size:clamp(11px,1vw,13px);line-height:1.48;color:#e1e7ed}
+.kia-feature-floating button{position:absolute;right:5px;top:4px;width:27px;height:27px;padding:0;border:0;background:transparent;color:#fff;font:20px/1 Arial}
+.kia-feature-floating[hidden]{display:none!important}
+@media(max-height:580px){
+ .kia-feature-floating{right:calc(clamp(145px,18vw,190px) + 22px);bottom:16%;max-height:39%;padding:12px 24px 12px 12px;width:clamp(160px,22vw,210px)}
+ .kia-feature-floating strong{font-size:14px;margin-bottom:6px}
+ .kia-feature-floating p{font-size:10px;line-height:1.39}
+}
+@media(orientation:portrait){
+ .kia-feature-floating{right:176px;bottom:15%;width:200px;padding:11px 24px 11px 11px}
+ .kia-feature-floating strong{font-size:14px}
+ .kia-feature-floating p{font-size:10px}
+}
