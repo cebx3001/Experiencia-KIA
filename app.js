@@ -112,15 +112,15 @@ async function initVehicle(){
   ? "./assets/kia-tasman.glb" : "./assets/kia-tasman-quality.glb";
  try{
   showModelStatus("CARGANDO KIA TASMAN 3D");
-  const {mountKiaThree}=await import("./kia-three-renderer.js?v=20261028-overview-v17");
-  const viewer=await mountKiaThree({
+  const {mountKiaPlayCanvas}=await import("./kia-playcanvas-renderer.js?v=20261028-studio-v1");
+  const viewer=await mountKiaPlayCanvas({
    canvas,host:stage,assetUrl,initialAngle:state.angle,
    onAngleChange:degrees=>{state.angle=degrees;}
   });
   state.viewer=viewer;
   recolorModel();
   try{
-   const {mountKiaAnnotations}=await import("./kia-annotations.js?v=20261028-editorial-carousel-v14");
+   const {mountKiaAnnotations}=await import("./kia-annotations.js?v=20261028-studio-v1");
    state.annotations=mountKiaAnnotations({host:stage,viewer});
    const {mountKiaCarousel}=await import("./kia-carousel.js?v=20261028-overview-v17");
    state.carousel=mountKiaCarousel({
@@ -137,15 +137,15 @@ async function initVehicle(){
   state.camera=viewer.camera;
   state.ready=true;
   window.__kiaViewerStatus={
-   loaded:true,engine:"three",asset:assetUrl,meshCount:viewer.meshCount,
+   loaded:true,engine:"playcanvas",asset:assetUrl,meshCount:viewer.meshCount,
    texturesBound:viewer.texturesBound,getCamera:viewer.getCameraPosition,
-   status:window.__kiaThreeViewer
+   status:window.__kiaPlayCanvasViewer
   };
   hideModelStatus();
   // The carousel itself presents navigation; no redundant instruction line.
  }catch(error){
-  console.error("Kia Three.js viewer initialization failed",error);
-  window.__kiaViewerStatus={loaded:false,engine:"three",error:String(error)};
+  console.error("Kia PlayCanvas viewer initialization failed",error);
+  window.__kiaViewerStatus={loaded:false,engine:"playcanvas",error:String(error)};
   showModelStatus("NO SE PUDO CARGAR EL MODELO 3D");
  }
 }
@@ -177,7 +177,7 @@ if(new URLSearchParams(location.search).has("debug")){
    const canvas=$("carCanvas"),stage=$("stage");
    const app=state.app;
    let contextLost=null;
-   try{contextLost=state.viewer?.renderer?.getContext?.()?.isContextLost?.()??null;}catch{}
+   try{contextLost=state.viewer?.app?.graphicsDevice?.gl?.isContextLost?.()??null;}catch{}
    const snapshot={
     time:new Date().toISOString(),
     status:$("interactionHint")?.textContent,
@@ -192,7 +192,7 @@ if(new URLSearchParams(location.search).has("debug")){
     stage:[stage.clientWidth,stage.clientHeight],
     camera:state.viewer?.getCameraPosition?.()||null,
     contextLost,
-    drawCalls:state.viewer?.renderer?.info?.render?.calls??null,
+    drawCalls:state.viewer?.app?.stats?.drawCalls?.total??null,
     errors:errors.slice(-5)
    };
    panel.textContent=JSON.stringify(snapshot,null,2);
