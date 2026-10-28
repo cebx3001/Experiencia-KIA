@@ -117,8 +117,12 @@ export function mountKiaCarousel({viewer,annotations,colors,onColorChange}){
       categoryButtons.forEach(button=>{button.classList.remove("is-active");button.setAttribute("aria-pressed","false");});
       return;
     }
+    const previousCategory=category;
     category=nextCategory;
     carousel.hidden=false;
+    // A paint showroom must show the whole truck, not remain inside the cabin
+    // or in a macro shot of a detail.
+    if(nextCategory==="colors"&&previousCategory!=="colors")viewer.setPose("threequarter");
     render(true);
     activate();
   }
@@ -130,8 +134,10 @@ export function mountKiaCarousel({viewer,annotations,colors,onColorChange}){
   }
   function goTo(categoryKey,index){
     if(!data[categoryKey])return;
+    const alreadyActive=category===categoryKey&&!carousel.hidden;
     indices[categoryKey]=((index%data[categoryKey].options.length)+data[categoryKey].options.length)%data[categoryKey].options.length;
-    choose(categoryKey);
+    if(alreadyActive){render(true);activate();}
+    else choose(categoryKey);
   }
   categoryButtons.forEach(button=>button.addEventListener("click",()=>choose(button.dataset.category)));
   $("carouselPrev").addEventListener("click",()=>shift(-1));
