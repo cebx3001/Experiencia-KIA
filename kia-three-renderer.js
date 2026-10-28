@@ -32,7 +32,9 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
   let azimuth=initialAngle*Math.PI/180, inclination=.18, radius=7, model=null;
   const target=new THREE.Vector3(0,1,0);
   const defaultTarget=new THREE.Vector3(0,1,0);
-  let baseRadius=7,animationId=0;
+  let baseRadius=7,animationId=0,cameraOverride=null,cabinOpen=false;
+  let door=null,doorClosedRotation=0;
+  const easing=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
   const frameListeners=new Set();
   let frameRequested=false,lastWidth=0,lastHeight=0;
   const pointers=new Map();
@@ -52,12 +54,17 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
         camera.updateProjectionMatrix();
       }
       const cos=Math.cos(inclination);
-      camera.position.set(
-        target.x+radius*Math.sin(azimuth)*cos,
-        target.y+radius*Math.sin(inclination),
-        target.z+radius*Math.cos(azimuth)*cos
-      );
-      camera.lookAt(target);
+      if(cameraOverride){
+        camera.position.copy(cameraOverride.position);
+        camera.lookAt(cameraOverride.lookAt);
+      }else{
+        camera.position.set(
+          target.x+radius*Math.sin(azimuth)*cos,
+          target.y+radius*Math.sin(inclination),
+          target.z+radius*Math.cos(azimuth)*cos
+        );
+        camera.lookAt(target);
+      }
       renderer.render(scene,camera);
       for(const listener of frameListeners)listener(camera,width,height);
     });
@@ -69,7 +76,8 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
   canvas.addEventListener("webglcontextrestored",requestRender);
 
   const cancelCameraAnimation=()=>{animationId++;};
-  function tweenCamera({point,angle,radiusFactor=1,duration=920}){
+  function tweenCamera({point,angle,radiusFactor=1,duration=920,endInclination=.16}){
+    if(cameraOverride)exitCabin(false);
     cancelCameraAnimation();
     const token=animationId;
     const from={point:target.clone(),angle:azimuth,radius,inclination};
@@ -81,11 +89,11 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
     function tick(now){
       if(token!==animationId)return;
       const t=THREE.MathUtils.clamp((now-start)/duration,0,1);
-      const eased=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+      const eased=easing(t);
       target.copy(from.point).lerp(endPoint,eased);
       azimuth=from.angle+deltaAngle*eased;
       radius=THREE.MathUtils.lerp(from.radius,endRadius,eased);
-      inclination=THREE.MathUtils.lerp(from.inclination,.16,eased);
+      inclination=THREE.MathUtils.lerp(from.inclination,endInclination,eased);
       requestRender();
       if(t<1)requestAnimationFrame(tick);
     }
@@ -93,15 +101,117 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
   }
   function setAngle(degrees){
     cancelCameraAnimation();
+    if(cameraOverride)exitCabin(false);
     azimuth=degrees*Math.PI/180;
     requestRender();
+  }
+  function setPose(pose){
+    const positions={
+      threequarter:{angle:35,inclination:.18},
+      side:{angle:90,inclination:.13},
+      front:{angle:0,inclination:.08},
+      rear:{angle:180,inclination:.11},
+      top:{angle:35,inclination:1.37}
+    };
+    const selected=positions[pose]||positions.threequarter;
+    tweenCamera({point:defaultTarget,angle:selected.angle,radiusFactor:1,endInclination:selected.inclination,duration:900});
+  }
+  function setDoorOpen(open,duration=850){
+    if(!door)return false;
+    const source=door.rotation.y,goal=doorClosedRotation+(open?65:0)*Math.PI/180;
+    const start=performance.now(),token=++doorAnimationToken;
+    function frame(now){
+      if(token!==doorAnimationToken)return;
+      const t=clamp((now-start)/duration,0,1);
+      door.rotation.y=THREE.MathUtils.lerp(source,goal,easing(t));
+      requestRender();
+      if(t<1)requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+    return true;
+  }
+  let doorAnimationToken=0;
+  function exitCabin(animate=true){
+    if(!cameraOverride&&!cabinOpen)return;
+    cabinOpen=false;
+    setDoorOpen(false,800);
+    if(!animate){
+      cameraOverride=null;
+      target.copy(defaultTarget);
+      return;
+    }
+    const currentPos=camera.position.clone(),currentLook=(cameraOverride?.lookAt||target).clone();
+    const endPos=defaultTarget.clone().add(new THREE.Vector3(Math.sin(azimuth)*baseRadius,.18*baseRadius,Math.cos(azimuth)*baseRadius));
+    const endLook=defaultTarget.clone();
+    const token=++animationId,start=performance.now();
+    function frame(now){
+      if(token!==animationId)return;
+      const t=clamp((now-start)/850,0,1),e=easing(t);
+      cameraOverride={
+        position:currentPos.clone().lerp(endPos,e),
+        lookAt:currentLook.clone().lerp(endLook,e)
+      };
+      requestRender();
+      if(t<1)requestAnimationFrame(frame);
+      else{cameraOverride=null;target.copy(defaultTarget);radius=baseRadius;inclination=.18;requestRender();}
+    }
+    requestAnimationFrame(frame);
+  }
+  function enterCabin(detail="interior"){
+    if(!model)return;
+    cancelCameraAnimation();
+    const wasCabin=cabinOpen;
+    cabinOpen=true;
+    setDoorOpen(true,850);
+    model.updateMatrixWorld(true);
+    // Source geometry is +Y up, +Z forward and -X is driver's side.
+    const cabinPos=model.localToWorld(new THREE.Vector3(-.45,1.48,.34));
+    const outside=model.localToWorld(new THREE.Vector3(-1.66,1.48,.52));
+    const targets={
+      interior:[-.02,1.48,1.48],
+      display:[-.14,1.49,1.33],
+      infotainment:[.12,1.34,1.28],
+      wireless:[.08,1.18,1.05],
+      seats:[-.4,1.17,-.42],
+      ambient:[.23,1.43,.95],
+      walkin:[.46,1.18,-.20],
+      xtrek:[.22,1.23,1.10],
+      rock:[.22,1.23,1.10]
+    };
+    const entryLook=model.localToWorld(new THREE.Vector3(...(targets[detail]||targets.interior)));
+    const beginning=camera.position.clone();
+    const initialLook=(cameraOverride?.lookAt||target).clone();
+    const token=++animationId,start=performance.now();
+    function frame(now){
+      if(token!==animationId)return;
+      const t=clamp((now-start)/(wasCabin?650:1720),0,1);
+      let position,look;
+      if(wasCabin){
+        const e=easing(t);
+        position=beginning.clone().lerp(cabinPos,e);
+        look=initialLook.clone().lerp(entryLook,e);
+      }else if(t<.45){
+        const e=easing(t/.45);
+        position=beginning.clone().lerp(outside,e);
+        look=initialLook.clone().lerp(model.localToWorld(new THREE.Vector3(-.4,1.38,.5)),e);
+      }else{
+        const e=easing((t-.45)/.55);
+        position=outside.clone().lerp(cabinPos,e);
+        look=model.localToWorld(new THREE.Vector3(-.4,1.38,.5)).lerp(entryLook,e);
+      }
+      cameraOverride={position,lookAt:look};
+      requestRender();
+      if(t<1)requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
   }
   function focusOnPart(position,options={}){
     const point=defaultTarget.clone().lerp(position,.72);
     tweenCamera({point,angle:options.angle??35,radiusFactor:options.radiusFactor??.88,duration:options.duration??920});
   }
   function resetView(degrees=35){
-    tweenCamera({point:defaultTarget,angle:degrees,radiusFactor:1,duration:820});
+    if(cabinOpen)exitCabin(true);
+    else tweenCamera({point:defaultTarget,angle:degrees,radiusFactor:1,duration:820});
   }
   function getFeatureAnchor(id){
     if(!model)return null;
@@ -199,6 +309,11 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
     }
   });
   scene.add(model);
+  door=model.getObjectByName("door_front_left");
+  doorClosedRotation=door?.rotation.y||0;
+  debug.doorAvailable=!!door;
+  debug.doorName=door?.name||null;
+  debug.modelAnimations=gltf.animations?.map(a=>a.name)||[];
   const bounds=new THREE.Box3().setFromObject(model);
   const size=bounds.getSize(new THREE.Vector3());
   target.copy(bounds.getCenter(new THREE.Vector3()));
@@ -233,7 +348,7 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
   decoder.dispose();
   return {
     engine:"three",model,camera,renderer,scene,meshCount,texturesBound,
-    setAngle,resetView,focusOnPart,getFeatureAnchor,projectPoint,requestRender,
+    setAngle,setPose,enterCabin,exitCabin,focusOnPart,resetView,getFeatureAnchor,projectPoint,requestRender,
     addFrameListener:listener=>{frameListeners.add(listener);requestRender();return ()=>frameListeners.delete(listener);},
     getCameraPosition:()=>camera.position.toArray(),
     getRadius:()=>radius,
