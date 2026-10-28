@@ -1,0 +1,56 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Kia GLB structural audit</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{background:#091119;color:#eee;font:14px/1.55 monospace;padding:24px}pre{white-space:pre-wrap;word-break:break-word}h2{color:#bfe5ff}</style>
+<h1>Kia GLB structural audit</h1><p>This independent audit does not alter the 3D viewer.</p><pre id="out">Starting...</pre>
+<script type="module">
+const out=document.getElementById('out');let reports={};
+const show=()=>{out.textContent=JSON.stringify(reports,null,2);};
+async function parseGLB(path) {
+ const start=performance.now();
+ const response=await fetch('../assets/'+path,{cache:'no-store'});
+ if(!response.ok)throw Error('HTTP '+response.status);
+ const buffer=await response.arrayBuffer();
+ const data=new DataView(buffer);
+ if(data.getUint32(0,true)!==0x46546c67)throw Error('Not a GLB');
+ const len=data.getUint32(12,true);
+ const gltf=JSON.parse(new TextDecoder().decode(new Uint8Array(buffer,20,len)));
+ const materials=(gltf.materials||[]).map((m,i)=>({
+  i,name:m.name||'',alpha:m.alphaMode||'OPAQUE',double:!!m.doubleSided,
+  roughness:m.pbrMetallicRoughness?.roughnessFactor??1,metalness:m.pbrMetallicRoughness?.metallicFactor??1,
+  baseTexture:m.pbrMetallicRoughness?.baseColorTexture?.index??null, normalTexture:m.normalTexture?.index??null
+ }));
+ const primitives=(gltf.meshes||[]).flatMap((m,mi)=>(m.primitives||[]).map((p,pi)=>({mesh:mi,meshName:m.name||'',i:pi,mat:p.material??null,mode:p.mode??4,
+  normal:p.attributes?.NORMAL!=null,tangent:p.attributes?.TANGENT!=null,
+  vertices:gltf.accessors?.[p.attributes?.POSITION]?.count??0,
+  indices:gltf.accessors?.[p.indices]?.count??0})));
+ const uniqueMaterialIds=[...new Set(primitives.map(p=>p.mat))];
+ const nodes=(gltf.nodes||[]).map((n,i)=>({i,name:n.name||'',mesh:n.mesh,scale:n.scale,rotation:n.rotation})).filter(n=>n.mesh!=null);
+ const triCount=primitives.reduce((a,p)=>a+(p.indices ? p.indices/3 : p.vertices/3),0);
+ return {
+  file:path,bytes:buffer.byteLength,downloadAndParseMs:Math.round(performance.now()-start),
+  counts:{nodes:gltf.nodes?.length||0,meshNodes:nodes.length,meshes:gltf.meshes?.length||0,primitives:primitives.length,
+   materials:materials.length,materialsUsed:uniqueMaterialIds.length,textures:gltf.textures?.length||0,images:gltf.images?.length||0,triangles:Math.round(triCount),
+   normalsMissing:primitives.filter(p=>!p.normal).length,
+   alphaBlend:materials.filter(m=>m.alpha==='BLEND').length,alphaMask:materials.filter(m=>m.alpha==='MASK').length,
+   doubleSided:materials.filter(m=>m.double).length
+  },
+  extensions:gltf.extensionsUsed||[],materials,
+  meshNodes:nodes,primitives:primitives.map(p=>({...p,materialName:materials[p.mat]?.name||null}))
+ };
+}
+for(const file of ['kia-tasman-quality.glb','kia-tasman.glb']){
+ try {reports[file]={status:'loading'};show();const r=await parseGLB(file);reports[file]={status:'loaded',...r};show();}
+ catch(e){reports[file]={status:'error',message:String(e)};show();}
+}
+if(reports['kia-tasman-quality.glb']?.status==='loaded'&&reports['kia-tasman.glb']?.status==='loaded'){
+ const q=reports['kia-tasman-quality.glb'],o=reports['kia-tasman.glb'];
+ const nodes=s=>new Set(s.meshNodes.map(n=>n.name));
+ const originalNames=nodes(o),qualityNames=nodes(q);
+ reports.comparison={qualityNodesMissing:[...originalNames].filter(x=>!qualityNames.has(x)),qualityOnlyNodes:[...qualityNames].filter(x=>!originalNames.has(x)),
+ trianglesRetained:q.counts.triangles/o.counts.triangles,
+ materialRetained:q.counts.materials/o.counts.materials};
+ show();
+}
+</script>
