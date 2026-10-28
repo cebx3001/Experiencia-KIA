@@ -66,6 +66,18 @@ jobs:
               };
             });
             console.log("THREE INITIAL:",JSON.stringify(initial));
+            const hoodProbe=await page.evaluate(()=>{
+              const grid=[];
+              for(const ny of [.65,.50,.35,.20,.05,-.10,-.25,-.40,-.55]){
+                for(const nx of [-.75,-.55,-.35,-.15,.05,.25,.45,.65,.85]){
+                  const hits=window.__kiaThreeViewer?.probeAtNDC?.(nx,ny);
+                  if(hits?.length)grid.push({nx,ny,h: hits[0]});
+                }
+              }
+              return grid;
+            });
+            console.log("HOOD RAYCAST GRID:",JSON.stringify(hoodProbe));
+
             if(!initial.loaded||initial.engine!=="three"||initial.meshCount<23||
                initial.texturesBound<1||!initial.corrected?.includes("Car")||
                !initial.corrected?.includes("Interior")||!initial.canvasVisible||
