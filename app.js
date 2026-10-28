@@ -40,9 +40,11 @@ function setMode(mode){
  // The cinematic challenges always show the vehicle closed; restoring
  // the vehicle view respects the Interior menu's expanded state.
  if(mission)state.viewer?.setDoorsOpen(false);
- else state.viewer?.setDoorsOpen($("toggleInterior").getAttribute("aria-expanded")==="true");
+ else state.viewer?.setDoorsOpen(state.carousel?.category==="interior" && !$("kiaFeatureCarousel").hidden);
  $("vehicleCopy").hidden=mission;$("missionCopy").hidden=!mission;
  $("missionSelector").hidden=!mission;
+ $("kiaFeatureCarousel").classList.toggle("is-disabled",mission);
+ if(mission)$("featureDetail").hidden=true;
  $("sectionIndex").textContent=mission?"02 / PRUEBAS":"01 / VEHÍCULO";
  $("stepName").textContent=mission?"SELECCIONA TU MISIÓN":"EXPLORA EL VEHÍCULO";
  $("primaryLabel").textContent=mission?"START / INICIAR PRUEBA":"EXPLORAR PRUEBAS";
@@ -68,7 +70,7 @@ function setLevel(index){state.level=(index+levels.length)%levels.length;renderL
 $("primaryButton").addEventListener("click",()=>state.mode==="vehicle"?setMode("mission"):openDialog("missionModal",levels[state.level].name));
 $("secondaryButton").addEventListener("click",()=>{
  if(state.mode==="mission")setMode("vehicle");
- else openDialog("infoModal",modalInfo.general.title,modalInfo.general.body);
+ else state.carousel?.choose("exterior");
 });
 $("prevMission").addEventListener("click",()=>setLevel(state.level-1));
 $("nextMission").addEventListener("click",()=>setLevel(state.level+1));
@@ -79,41 +81,7 @@ document.addEventListener("keydown",e=>{
  if(e.key==="Escape"){closeDialog("infoModal");closeDialog("missionModal");}
  if(state.mode==="mission"){if(e.key==="ArrowLeft")setLevel(state.level-1);if(e.key==="ArrowRight")setLevel(state.level+1);}
 });
-// Controls are in collapsible UI micro-menus, with no markers over the vehicle.
-document.querySelectorAll(".color-chip").forEach(b=>b.addEventListener("click",()=>{
- state.color=b.dataset.color;
- document.querySelectorAll(".color-chip").forEach(el=>el.classList.toggle("active",el===b));
- $("colorName").textContent=colors[state.color].label;
- recolorModel();
-}));
-// Only one of the three micro-menus can be expanded at once.
-const groups=[
- {toggle:$("toggleCameras"),panel:$("panelCameras")},
- {toggle:$("toggleExterior"),panel:$("panelExterior")},
- {toggle:$("toggleInterior"),panel:$("panelInterior")}
-];
-function setMicroMenu(panelId){
- for(const group of groups){
-  const shouldOpen=group.panel.id===panelId;
-  group.panel.hidden=!shouldOpen;
-  group.toggle.setAttribute("aria-expanded",String(shouldOpen));
- }
- if(state.annotations?.selected)state.annotations.dismiss({reset:true});
- // Expanding INTERIOR reveals all four doors; closing the accordion
- // or switching to Exterior/Cameras closes them again.
- state.viewer?.setDoorsOpen(panelId==="panelInterior");
-}
-groups.forEach(group=>group.toggle.addEventListener("click",()=>{
- const open=group.toggle.getAttribute("aria-expanded")==="true";
- setMicroMenu(open?null:group.panel.id);
-}));
-document.querySelectorAll("#cameraButtons button").forEach(button=>button.addEventListener("click",()=>{
- state.angle=Number(button.dataset.angle);
- document.querySelectorAll("#cameraButtons button").forEach(other=>other.classList.toggle("selected",other===button));
- if(state.annotations?.selected)state.annotations.dismiss({reset:false});
- state.viewer?.setPose(button.dataset.pose);
-}));
-
+// Interactive controls are managed by the game-style horizontal carousel.
 async function initVehicle(){
  const canvas=$("carCanvas"),stage=$("stage");
  const assetUrl=new URLSearchParams(location.search).get("model")==="original"
@@ -123,25 +91,19 @@ async function initVehicle(){
   const {mountKiaThree}=await import("./kia-three-renderer.js?v=20261028-one-seat-real-v11");
   const viewer=await mountKiaThree({
    canvas,host:stage,assetUrl,initialAngle:state.angle,
-   onAngleChange:degrees=>{
-    state.angle=degrees;
-    document.querySelectorAll("#cameraButtons button").forEach(button=>
-     button.classList.toggle("selected",Math.abs(Number(button.dataset.angle)-degrees)<.5));
-   }
+   onAngleChange:degrees=>{state.angle=degrees;}
   });
   state.viewer=viewer;
-  if($("toggleInterior").getAttribute("aria-expanded")==="true")viewer.setDoorsOpen(true);
   recolorModel();
   try{
-   const {mountKiaAnnotations}=await import("./kia-annotations.js?v=20261028-unboxed-right-v11");
-   state.annotations=mountKiaAnnotations({
-    host:stage,viewer,
-    onChange:id=>{
-     document.querySelectorAll("[data-feature]").forEach(button=>
-      button.classList.toggle("is-active",button.dataset.feature===id));
-     if(id)document.querySelectorAll("#cameraButtons button").forEach(button=>
-      button.classList.remove("selected"));
-    }
+   const {mountKiaAnnotations}=await import("./kia-annotations.js?v=20261028-editorial-carousel-v13");
+   state.annotations=mountKiaAnnotations({host:stage,viewer});
+   const {mountKiaCarousel}=await import("./kia-carousel.js?v=20261028-editorial-carousel-v13");
+   state.carousel=mountKiaCarousel({
+     viewer,
+     annotations:state.annotations,
+     colors,
+     onColorChange:key=>{state.color=key;recolorModel();}
    });
   }catch(annotationError){
    console.warn("Kia annotations unavailable; vehicle remains interactive",annotationError);
@@ -174,39 +136,6 @@ function recolorModel(){
   if(state.viewer)state.viewer.setPaintColor(state.color);
 }
 initVehicle();
-
-const featureCopy={
- wheel_front_left:"Ruedas de la Tasman. Observa el diseño de las llantas y los neumáticos del vehículo.",
- wheel_front_right:"Neumático delantero derecho. Componente de contacto con la superficie.",
- wheel_rear_left:"Neumático trasero izquierdo. Parte del conjunto de rodamiento y tracción.",
- wheel_rear_right:"Neumático trasero derecho. Parte del conjunto de rodamiento y tracción.",
- front_fascia:"Conjunto frontal: parrilla, faros y parachoques. La iluminación y sus acabados se identifican aquí.",
- windshield:"Parabrisas. Elemento que incorpora los limpiaparabrisas y, según la versión, el sistema de detección de lluvia.",
- cargo_bed:"Caja de carga o paila. Espacio destinado a transportar equipaje y materiales.",
- tailgate:"Compuerta de la paila. Pieza con bisagras de apertura hacia abajo.",
- interior:"Cabina e interior. Explora el espacio, los asientos y la tecnología a bordo.",
- hood:"Capó delantero. Panel de acceso al compartimento del motor.",
- door_front_left:"Puerta delantera izquierda. Acceso a la cabina.",
- door_front_right:"Puerta delantera derecha. Acceso a la cabina.",
- door_rear_left:"Puerta trasera izquierda. Acceso a la segunda fila.",
- door_rear_right:"Puerta trasera derecha. Acceso a la segunda fila.",
- rear_bumper_and_lights:"Conjunto posterior, con luces traseras y parachoques."
-};
-const buttonFeatureLabels={
- wheel_front_left:"RUEDAS",
- front_fascia:"FAROS Y FRENTE",
- interior:"CABINA",
- cargo_bed:"CAJA DE CARGA"
-};
-document.querySelectorAll("[data-feature]").forEach(button=>{
- button.addEventListener("click",()=>{
-  const id=button.dataset.feature;
-  document.querySelectorAll("[data-feature]").forEach(el=>el.classList.toggle("is-active",el===button));
-  // True 3D annotation: animated camera focus, anchored hotspot and
-  // editorial callout beside the vehicle — never a blocking text modal.
-  state.annotations?.select(id);
- });
-});
 
 /* KIA DIAGNOSTIC VIEW: append ?debug=1 to inspect status without developer tools. */
 if(new URLSearchParams(location.search).has("debug")){
