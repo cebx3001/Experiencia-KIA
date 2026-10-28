@@ -280,3 +280,11 @@
  .kia-feature-floating strong{font-size:14px}
  .kia-feature-floating p{font-size:10px}
 }
+
+
+/* Raise the entire left editorial block as one unit, including its CTAs. */
+.side-content{top:20%}
+@media(max-width:1090px){.side-content{top:18%}}
+@media(max-height:580px){.side-content{top:14.5%}}
+@media(max-width:750px) and (orientation:landscape){.side-content{top:14.5%}}
+@media(orientation:portrait){.side-content{top:14.5%}}
