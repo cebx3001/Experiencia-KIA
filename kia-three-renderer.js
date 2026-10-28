@@ -388,6 +388,10 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
           shader.uniforms.kiaPaintTarget=paintUniform;
           shader.uniforms.kiaPaintBlend=paintMixUniform;
           shader.fragmentShader=shader.fragmentShader.replace(
+            "#include <common>",
+            "#include <common>\\nuniform vec3 kiaPaintTarget;\\nuniform float kiaPaintBlend;"
+          );
+          shader.fragmentShader=shader.fragmentShader.replace(
             "#include <map_fragment>",
             `#include <map_fragment>
             // Source baseColor map uses an original warm Tan Beige paint.
