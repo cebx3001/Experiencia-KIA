@@ -112,7 +112,9 @@ jobs:
             if(!cabin.inside||!cabin.doorExists||Math.abs(cabin.angle)<45||cabin.selected!=="interior")
               throw Error("Door opening and cabin entry failed: "+JSON.stringify(cabin));
             await page.locator('#featureDetail button[aria-label="Cerrar anotación"]').click();
-            await page.waitForTimeout(1250);
+            await page.waitForFunction(()=>!window.__kiaThreeViewer?.isInCabin?.()&&
+              Math.abs(window.__kiaThreeViewer?.getDoorDegrees?.()??100)<2,
+              null,{timeout:15000,polling:140});
             const exit=await page.evaluate(()=>({inside:window.__kiaThreeViewer?.isInCabin?.(),angle:window.__kiaThreeViewer?.getDoorDegrees?.()}));
             if(exit.inside||Math.abs(exit.angle)>2)throw Error("Door did not close: "+JSON.stringify(exit));
             console.log("MICROMENU PASS:",JSON.stringify({menus,front,top,cabin,exit}));
