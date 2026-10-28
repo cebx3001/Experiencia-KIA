@@ -200,7 +200,7 @@
 .scene-flood .ambient-image{
   background-image:
     linear-gradient(90deg,rgba(5,20,31,.76) 0%,rgba(5,20,31,.30) 51%,rgba(5,20,31,.08) 75%,rgba(5,20,31,.32) 100%),
-    url("https://images-prod.trailsoffroad.com/scout_routes/2922/trail_reviews/1782503172_f581715d-10e5-4fad-a461-8d26a7430ab7-800.jpg");
+    url("https://images.unsplash.com/photo-1754810075322-4cc911cfdfdb?auto=format&fit=crop&w=1920&q=84");
   background-position:center 55%;
   filter:saturate(.95) contrast(1.12);
   opacity:.96;
