@@ -439,6 +439,11 @@ export async function mountKiaPlayCanvas({
     floor.addComponent("render",{type:"plane",material:floorMat,receiveShadows:true});
     floor.setLocalScale(Math.max(18,size.x*3),1,Math.max(18,size.z*3));
     floor.setPosition(center.x,min.y-.035,center.z);
+    // Mobile portrait uses a photographic scene preview behind the transparent canvas.
+    // Keep the studio floor on desktop without covering that backdrop on phones.
+    const mobilePortrait=matchMedia("(orientation:portrait) and (max-width:700px)");
+    floor.enabled=!mobilePortrait.matches;
+    mobilePortrait.addEventListener("change",event=>{floor.enabled=!event.matches;});
     app.root.addChild(floor);
     debug.bounds={min:[min.x,min.y,min.z],max:[max.x,max.y,max.z]};
     debug.meshCount=meshCount;
