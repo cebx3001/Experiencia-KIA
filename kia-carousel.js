@@ -42,10 +42,10 @@ export function mountKiaCarousel({viewer,annotations,colors,onColorChange}){
     interior:{
       label:"INTERIOR",
       options:[
+        {id:"interior",label:"CABINA"},
         {id:"seats",label:"ASIENTO DELANTERO"},
         {id:"display",label:"PANTALLA"},
-        {id:"infotainment",label:"CONTROLES"},
-        {id:"interior",label:"ENTRAR A CABINA"}
+        {id:"infotainment",label:"CONTROLES"}
       ]
     }
   };
@@ -108,20 +108,21 @@ export function mountKiaCarousel({viewer,annotations,colors,onColorChange}){
   }
   function choose(nextCategory){
     if(!data[nextCategory])return;
-    if(category===nextCategory && !carousel.hidden) {
-      // A repeated category tap closes only the chooser, not the vehicle.
-      carousel.hidden=true;
-      if(category==="interior")viewer.setDoorsOpen(false);
-      if(annotations?.selected)annotations.dismiss({reset:false});
-      $("featureDetail").hidden=true;
-      categoryButtons.forEach(button=>{button.classList.remove("is-active");button.setAttribute("aria-pressed","false");});
-      return;
-    }
     const previousCategory=category;
     category=nextCategory;
     carousel.hidden=false;
-    // A paint showroom must show the whole truck, not remain inside the cabin
-    // or in a macro shot of a detail.
+    if(nextCategory==="interior"){
+      // First, a full exterior shot as all FOUR doors open. No camera entry
+      // merely from tapping the category: CABINA is a separate carousel step.
+      indices.interior=0;
+      if(annotations?.selected)annotations.dismiss({reset:false});
+      $("featureDetail").hidden=true;
+      viewer.setPose("threequarter");
+      viewer.setDoorsOpen(true);
+      render(true);
+      return;
+    }
+    // Other categories preview their chosen item on the same bottom carousel.
     if(nextCategory==="colors"&&previousCategory!=="colors")viewer.setPose("threequarter");
     render(true);
     activate();
