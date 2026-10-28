@@ -180,6 +180,33 @@ jobs:
             await page.locator("#primaryButton").click();
             if(!(await page.locator("#kiaFeatureCarousel").isHidden())||
                !(await page.locator(".kia-category-rail").isHidden()))throw Error("Mission must hide model controls");
+            const missionNav=await page.evaluate(()=>{
+              const root=document.getElementById("missionSelector");
+              const box=getComputedStyle(root);
+              const title=document.getElementById("selectorName");
+              return {
+                visible:!root.hidden,
+                background:box.backgroundColor,
+                borderLeft:box.borderLeftWidth,
+                borderTop:box.borderTopWidth,
+                label:title.textContent,
+                previous:document.getElementById("missionPeekPrev").textContent,
+                next:document.getElementById("missionPeekNext").textContent,
+                number:document.getElementById("missionCounter").textContent,
+                bounds:root.getBoundingClientRect().toJSON()
+              };
+            });
+            console.log("MISSION EDITORIAL CAROUSEL:",JSON.stringify(missionNav));
+            if(!missionNav.visible||missionNav.background!=="rgba(0, 0, 0, 0)"||
+               missionNav.borderLeft!=="0px"||missionNav.borderTop!=="0px"||
+               !missionNav.previous||!missionNav.next||missionNav.label!=="ROCK CHALLENGE")
+               throw Error("Driving challenge selector is still boxed or missing peek words");
+            await page.locator("#nextMission").click();
+            if(await page.locator("#selectorName").innerText()!=="WATER CROSSING")
+               throw Error("Mission carousel did not advance");
+            await page.locator("#missionPeekNext").click();
+            if(await page.locator("#selectorName").innerText()!=="SAND CHALLENGE")
+               throw Error("Mission side option did not navigate");
             await page.locator("#secondaryButton").click();
             await page.setViewportSize({width:390,height:844});
             await page.waitForTimeout(350);
