@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Unbounded:wght@700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=20261028-kia-typography-v19">
+  <link rel="stylesheet" href="./styles.css?v=20261028-monument-missions-v20">
   <script type="importmap">
     {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}
   </script>
@@ -65,6 +65,7 @@
         <button type="button" class="kia-category" data-category="exterior" aria-pressed="false">EXTERIOR <span aria-hidden="true">↗</span></button>
         <button type="button" class="kia-category" data-category="interior" aria-pressed="false">INTERIOR <span aria-hidden="true">↗</span></button>
       </div>
+      <section id="featureDetail" class="kia-bottom-description" hidden role="region" aria-live="polite" aria-label="Información del vehículo"></section>
     </nav>
 
     <nav class="kia-feature-carousel" id="kiaFeatureCarousel" aria-label="Carrusel de características">
@@ -81,14 +82,19 @@
       <div class="kia-carousel-indicator" aria-hidden="true"><span></span></div>
     </nav>
 
-    <section id="featureDetail" class="kia-bottom-description" hidden role="region" aria-live="polite" aria-label="Información del vehículo"></section>
-
-    <div class="mission-selector" id="missionSelector" hidden>
-      <button type="button" class="selector-arrow" id="prevMission" aria-label="Prueba anterior">←</button>
-      <div class="selector-current"><span class="selector-meta">SELECCIONA TU DESAFÍO</span><strong id="selectorName">01 — ROCK CHALLENGE</strong></div>
-      <div class="selector-progress" id="selectorDots" aria-label="Cuatro pruebas"></div>
-      <button type="button" class="selector-arrow" id="nextMission" aria-label="Prueba siguiente">→</button>
-    </div>
+    <nav class="mission-selector" id="missionSelector" hidden aria-label="Explorar pruebas de conducción">
+      <div class="kia-carousel-meta"><span>DESAFÍOS</span><span id="missionCounter">01 / 04</span></div>
+      <div class="kia-carousel-main">
+        <button type="button" class="kia-carousel-arrow" id="prevMission" aria-label="Prueba anterior">←</button>
+        <div class="kia-carousel-window" id="missionCarouselWindow">
+          <button type="button" class="kia-carousel-choice kia-carousel-prev" id="missionPeekPrev" aria-label="Prueba anterior"></button>
+          <button type="button" class="kia-carousel-choice kia-carousel-selected" id="selectorName" aria-label="Prueba seleccionada">ROCK CHALLENGE</button>
+          <button type="button" class="kia-carousel-choice kia-carousel-next" id="missionPeekNext" aria-label="Prueba siguiente"></button>
+        </div>
+        <button type="button" class="kia-carousel-arrow" id="nextMission" aria-label="Prueba siguiente">→</button>
+      </div>
+      <div class="kia-carousel-indicator" aria-hidden="true"><span></span></div>
+    </nav>
 
     <footer class="bottom-bar">
       <div class="bottom-left"><span class="frame-index">01 <em>/</em> 02</span><span id="stepName">EXPLORA EL VEHÍCULO</span></div>
