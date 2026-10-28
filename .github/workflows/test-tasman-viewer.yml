@@ -111,18 +111,22 @@ jobs:
               inside:window.__kiaThreeViewer?.isInCabin?.(),
               doorExists:window.__kiaThreeViewer?.doorAvailable,
               angle:window.__kiaThreeViewer?.getDoorDegrees?.(),
+              doors:window.__kiaThreeViewer?.getAllDoorDegrees?.(),
               camera:window.__kiaViewerStatus?.getCamera?.(),
               selected:window.__kiaAnnotations?.selected
             }));
             console.log("CABIN ENTRY:",JSON.stringify(cabin));
-            if(!cabin.inside||!cabin.doorExists||Math.abs(cabin.angle)<45||cabin.selected!=="interior")
-              throw Error("Door opening and cabin entry failed: "+JSON.stringify(cabin));
+            if(!cabin.inside||!cabin.doorExists||cabin.selected!=="interior"||
+                Object.keys(cabin.doors||{}).length!==4||
+                Object.values(cabin.doors).some(angle=>Math.abs(angle)<55))
+              throw Error("All four doors must open fully on entering cabin: "+JSON.stringify(cabin));
             await page.locator('#featureDetail button[aria-label="Cerrar anotación"]').click();
             await page.waitForFunction(()=>!window.__kiaThreeViewer?.isInCabin?.()&&
-              Math.abs(window.__kiaThreeViewer?.getDoorDegrees?.()??100)<2,
+              Object.keys(window.__kiaThreeViewer?.getAllDoorDegrees?.()||{}).length===4&&
+              Object.values(window.__kiaThreeViewer.getAllDoorDegrees()).every(angle=>Math.abs(angle)<2),
               null,{timeout:15000,polling:140});
             const exit=await page.evaluate(()=>({inside:window.__kiaThreeViewer?.isInCabin?.(),angle:window.__kiaThreeViewer?.getDoorDegrees?.()}));
-            if(exit.inside||Math.abs(exit.angle)>2)throw Error("Door did not close: "+JSON.stringify(exit));
+            if(exit.inside||Object.values(await page.evaluate(()=>window.__kiaThreeViewer.getAllDoorDegrees())).some(angle=>Math.abs(angle)>2))throw Error("Four doors did not close: "+JSON.stringify(exit));
             console.log("MICROMENU PASS:",JSON.stringify({menus,front,top,cabin,exit}));
             // Mission backdrops: three distinct real landscapes, while the
             // SAME live 3D Kia stays in front of every environment.
