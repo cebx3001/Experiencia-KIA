@@ -192,14 +192,22 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
     // Seat annotation is intentionally viewed FROM OUTSIDE through the open
     // front door: frame the full seats, not just headrests or the dashboard.
     if(detail==="seats"){
-      const seatPos=model.localToWorld(new THREE.Vector3(-2.2,1.30,-.16));
-      const seatLook=model.localToWorld(new THREE.Vector3(-.08,1.06,-.12));
+      // Full driver's seat, viewed through the opened left door.
+      // Move the lens forwards relative to the previous position and aim
+      // at the seat cushion/back together, not rear headrests/dashboard.
+      const seatPos=model.localToWorld(new THREE.Vector3(-1.64,1.37,.92));
+      const seatLook=model.localToWorld(new THREE.Vector3(-.43,1.10,.21));
+      const seatInitialFov=camera.fov;
       const from=camera.position.clone(),fromLook=(cameraOverride?.lookAt||target).clone();
       const token=++animationId,start=performance.now();
       function seatFrame(now){
         if(token!==animationId)return;
         const t=clamp((now-start)/1120,0,1),e=easing(t);
-        cameraOverride={position:from.clone().lerp(seatPos,e),lookAt:fromLook.clone().lerp(seatLook,e)};
+        cameraOverride={
+          position:from.clone().lerp(seatPos,e),
+          lookAt:fromLook.clone().lerp(seatLook,e),
+          fov:THREE.MathUtils.lerp(seatInitialFov,49,e)
+        };
         requestRender();
         if(t<1)requestAnimationFrame(seatFrame);
       }
