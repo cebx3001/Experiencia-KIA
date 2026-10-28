@@ -634,3 +634,223 @@
 @media(orientation:portrait){
   .primary-actions{gap:14px}
 }
+
+
+/* KIA TASMAN — TYPOGRAPHIC SYSTEM / editorial v18
+   Monument Extended is commercially licensed and can be supplied by the
+   rights holder. Until a licensed font is installed, Unbounded Black 900
+   provides an openly licensed extended fallback without Inter / Roboto. */
+:root{
+  --kia-display:'Monument Extended','Unbounded',sans-serif;
+  --kia-body:'Space Grotesk',sans-serif;
+  --kia-mono:'JetBrains Mono',monospace;
+  --kia-numeral:'Space Grotesk',sans-serif;
+}
+html,body,button,input,select,textarea{
+  font-family:var(--kia-body);
+}
+html,body{
+  font-weight:500;
+  letter-spacing:-.01em;
+}
+button{font-family:var(--kia-mono)}
+
+/* Solid, extended, low and exceptionally heavy title.
+   Keep the complete word within the LEFT editorial column. */
+.vehicle-copy h1,
+.mission-copy h1{
+  font-family:var(--kia-display);
+  font-weight:900;
+  font-style:normal;
+  font-kerning:normal;
+  letter-spacing:-.02em;
+  text-transform:uppercase;
+  line-height:.90;
+  font-synthesis:weight;
+}
+.vehicle-copy h1{
+  font-size:clamp(39px,5.45vw,100px);
+  margin:11px 0 22px;
+  max-width:100%;
+}
+.mission-copy h1{
+  font-size:clamp(35px,4.5vw,78px);
+  line-height:.96;
+  letter-spacing:-.025em;
+  white-space:normal;
+  margin:10px 0 19px;
+}
+.stage-watermark{
+  font-family:var(--kia-display);
+  font-weight:900;
+  letter-spacing:-.035em;
+  line-height:.9;
+}
+.modal h2{
+  font-family:var(--kia-display);
+  font-weight:900;
+  letter-spacing:-.02em;
+  line-height:1;
+}
+.topbar-model strong{
+  font-family:var(--kia-display);
+  font-weight:900;
+  letter-spacing:-.02em;
+}
+.vehicle-copy .year{
+  display:block;
+  font-family:var(--kia-numeral);
+  font-weight:700;
+  font-size:.72em;
+  font-variant-numeric:tabular-nums;
+  color:transparent;
+  -webkit-text-stroke:1.5px #fff;
+  paint-order:stroke fill;
+  letter-spacing:-.045em;
+  line-height:1;
+  margin-top:4px;
+}
+.frame-index,
+.mission-id,
+#missionNumber{
+  font-family:var(--kia-numeral);
+  font-variant-numeric:tabular-nums;
+  font-weight:700;
+  letter-spacing:-.045em;
+  line-height:1;
+}
+.frame-index{
+  color:transparent;
+  -webkit-text-stroke:.8px #fff;
+  font-size:21px;
+}
+.frame-index em{
+  -webkit-text-stroke:0;
+  color:var(--muted);
+  font-weight:500;
+}
+/* Small, technical mono vocabulary across the controls and UI chrome. */
+.eyebrow,
+.kicker,
+.topbar-model span,
+.topbar-middle,
+.rail-label,
+.rail-heading,
+.feature-label,
+.bottom-left #stepName,
+.bottom-middle,
+.footer-testdrive,
+.kia-category,
+.kia-carousel-meta,
+.kia-carousel-choice,
+.kia-carousel-arrow,
+.kia-bottom-description button,
+.primary-actions button,
+.selector-meta,
+.selector-current strong,
+.selector-arrow,
+.model-loading,
+.modal-link,
+.modal-close,
+.mission-placeholder,
+.component-number,
+.component-arrow{
+  font-family:var(--kia-mono);
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.kia-category{
+  letter-spacing:.12em;
+  font-weight:600;
+}
+.kia-category[aria-pressed="true"]{
+  font-weight:700;
+}
+.kia-carousel-selected{
+  font-family:var(--kia-mono);
+  font-weight:700;
+  letter-spacing:.015em;
+}
+.kia-carousel-prev,
+.kia-carousel-next{
+  font-family:var(--kia-mono);
+  font-weight:600;
+  letter-spacing:.08em;
+}
+.kia-bottom-description strong,
+.mission-feature strong{
+  font-family:var(--kia-body);
+  font-weight:700;
+  letter-spacing:-.01em;
+  line-height:1.16;
+}
+.vehicle-copy p,
+.mission-copy p,
+.kia-bottom-description p,
+.modal p,
+.kia-rail-description p{
+  font-family:var(--kia-body);
+  font-weight:500;
+  letter-spacing:-.01em;
+  line-height:1.2;
+}
+.vehicle-copy .subcopy{
+  font-family:var(--kia-body);
+  font-weight:500;
+  letter-spacing:-.01em;
+  line-height:1.35;
+}
+.mission-copy p{line-height:1.28}
+.kia-bottom-description p{line-height:1.3}
+.kia-carousel-meta,
+.eyebrow,
+.footer-testdrive,
+.primary-actions button{
+  letter-spacing:.12em;
+}
+.kicker{letter-spacing:.16em}
+.bottom-right .footer-testdrive{
+  font-family:var(--kia-mono);
+  font-weight:600;
+  letter-spacing:.12em;
+}
+
+/* Monument Extended-style proportions need adaptive type widths.
+   These are typography-only limits: no moves to the model or controls. */
+@media(max-width:1090px){
+  .vehicle-copy h1{font-size:clamp(34px,5.35vw,59px);margin:6px 0 15px}
+  .mission-copy h1{font-size:clamp(29px,4.35vw,54px);margin:5px 0 12px}
+  .vehicle-copy .year{font-size:.74em}
+  .kia-carousel-selected{letter-spacing:0}
+}
+@media(max-height:580px){
+  .vehicle-copy h1{font-size:clamp(28px,5.35vw,55px);margin:4px 0 11px}
+  .mission-copy h1{font-size:clamp(25px,4.5vw,50px);margin:4px 0 10px}
+  .vehicle-copy .year{font-size:.73em;-webkit-text-stroke:1.2px}
+  .vehicle-copy p,.mission-copy p{font-size:11px;line-height:1.2}
+  .vehicle-copy .subcopy{font-size:9.5px;line-height:1.3}
+  .kia-carousel-selected{font-size:clamp(12px,1.9vw,18px)}
+  .kia-carousel-prev,.kia-carousel-next{font-size:9px}
+  .primary-actions button{letter-spacing:.06em;font-size:8.5px}
+  .footer-testdrive{font-size:8px;letter-spacing:.07em}
+}
+@media(max-width:750px) and (orientation:landscape){
+  .vehicle-copy h1{font-size:clamp(25px,5vw,37px)}
+  .mission-copy h1{font-size:clamp(23px,4.2vw,35px)}
+  .vehicle-copy .year{-webkit-text-stroke:1px}
+  .kia-category{font-size:9px;letter-spacing:.06em}
+  .kia-carousel-selected{font-size:11px}
+  .kia-bottom-description p{font-size:9px;line-height:1.24}
+}
+@media(orientation:portrait){
+  .vehicle-copy h1{font-size:clamp(21px,5.05vw,38px);margin:5px 0 11px}
+  .mission-copy h1{font-size:clamp(17px,3.85vw,34px);margin:5px 0 11px}
+  .vehicle-copy .year{font-size:.78em;-webkit-text-stroke:1px;margin-top:3px}
+  .vehicle-copy p,.mission-copy p{font-size:10px;line-height:1.2}
+  .vehicle-copy .subcopy{font-size:9px;line-height:1.3}
+  .kia-category{font-size:9px;letter-spacing:.07em}
+  .kia-carousel-selected{font-size:clamp(10px,2.9vw,15px);letter-spacing:-.015em}
+  .kia-carousel-prev,.kia-carousel-next{font-size:9px;letter-spacing:0}
+  .bottom-right .footer-testdrive{font-size:8px;letter-spacing:.055em}
+}
