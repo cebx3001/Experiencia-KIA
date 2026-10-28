@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Kia paint mask diagnostic</title><meta name="viewport" content="width=device-width, initial-scale=1"><script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script><style>body{background:#141a20;color:#f1f4fa;font:13px monospace}canvas{max-width:90vw;max-height:60vh;object-fit:contain;border:1px solid #888}pre{white-space:pre-wrap}</style></head><body><h3>Kia original paint atlas inspection</h3><pre id="output">Loading GLB...</pre><canvas id="atlas"></canvas><script type="module">
+import * as THREE from 'three';import{GLTFLoader}from'three/addons/loaders/GLTFLoader.js';import{DRACOLoader}from'three/addons/loaders/DRACOLoader.js';
+const draco=new DRACOLoader();draco.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/');const loader=new GLTFLoader();loader.setDRACOLoader(draco);
+loader.load('./assets/kia-tasman-quality.glb',gltf=>{
+ let car,interior;const groups=[];
+ gltf.scene.traverse(o=>{if(!o.isMesh)return;const mat=Array.isArray(o.material)?o.material:[o.material];
+ groups.push({node:o.name,material:mat.map(m=>m?.name),uv:o.geometry.getAttribute('uv')?.count});
+ for(const m of mat){if(m?.name==='Car')car=m;if(m?.name==='Interior')interior=m}});
+ const tex=car?.map,image=tex?.image;if(!image){document.querySelector('#output').textContent=JSON.stringify({error:'NO BASE COLOR MAP',groups},null,2);return}
+ const width=image.width,height=image.height;const canvas=document.querySelector('#atlas');canvas.width=width;canvas.height=height;
+ const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(image,0,0);
+ const data=ctx.getImageData(0,0,width,height).data;
+ const buckets=new Map(),swatches=[];
+ let beige=0,alpha=0,pixels=0;
+ for(let i=0;i<data.length;i+=4){const r=data[i],g=data[i+1],b=data[i+2],a=data[i+3];if(a<32){alpha++;continue}
+ pixels++;
+ const k=[Math.floor(r/16)*16,Math.floor(g/16)*16,Math.floor(b/16)*16].join(',');
+ buckets.set(k,(buckets.get(k)||0)+1);
+ if(r>g*1.08&&g>b*1.06&&r>65&&g>45)beige++;
+ }
+ const top=[...buckets.entries()].sort((a,b)=>b[1]-a[1]).slice(0,35).map(([rgb,count])=>({rgb,count,fraction:(count/pixels).toFixed(4)}));
+ const detail={texture:{width,height},materials:{Car:{color:car.color.toArray(),name:car.name,transparent:car.transparent,roughness:car.roughness,metalness:car.metalness},Interior:{name:interior?.name}},groups,maskCandidate:beige/pixels,alpha,pixels,topColors:top};
+ document.querySelector('#output').textContent=JSON.stringify(detail,null,2);
+ window.__paintAudit=detail;
+},undefined,err=>document.querySelector('#output').textContent='ERROR:'+err);
+</script></body></html>
