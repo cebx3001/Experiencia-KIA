@@ -355,6 +355,79 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
       mat.needsUpdate=true;
     }
   });
+  // Do not tint the entire atlas: Car also contains dark trim and glass.
+  // Keep the original texture, normals and physical specular properties.
+  // Only warm Tan Beige paint texels in exterior panels are recolored.
+  const paintPalette={
+    arena:"#ad9271",
+    gris:"#4e5961",
+    negro:"#10151a",
+    verde:"#65736b"
+  };
+  const paintUniform={value:new THREE.Color(paintPalette.arena)};
+  const paintMixUniform={value:0};
+  const paintedExterior=new Set([
+    "body_details","cabin_body","hood","cargo_bed_sides","tailgate",
+    "door_front_left","door_front_right","door_rear_left","door_rear_right"
+  ]);
+  let paintMeshCount=0;
+  let paintShaderMaterial=null;
+  model.traverse(object=>{
+    if(!object.isMesh)return;
+    const parentName=object.parent?.name||"";
+    const eligible=[...paintedExterior].some(name=>
+      object.name===name||object.name.startsWith(name+"_")||parentName===name);
+    if(!eligible)return;
+    const source=object.material;
+    const paintOne=material=>{
+      if(!material||material.name!=="Car"||!material.map)return material;
+      if(!paintShaderMaterial){
+        const painted=material.clone();
+        painted.name="Car · paint-only shader";
+        painted.onBeforeCompile=shader=>{
+          shader.uniforms.kiaPaintTarget=paintUniform;
+          shader.uniforms.kiaPaintBlend=paintMixUniform;
+          shader.fragmentShader=shader.fragmentShader.replace(
+            "#include <map_fragment>",
+            `#include <map_fragment>
+            // Source baseColor map uses an original warm Tan Beige paint.
+            // Greenish, neutral, nearly black, red and transparent texels
+            // do NOT receive a color transformation.
+            vec3 kiaSource=diffuseColor.rgb;
+            float kiaWarmMask=
+              smoothstep(0.008,0.045,kiaSource.r-kiaSource.g)*
+              smoothstep(0.006,0.032,kiaSource.g-kiaSource.b);
+            float kiaLuma=dot(kiaSource,vec3(0.2126,0.7152,0.0722));
+            kiaWarmMask*=smoothstep(0.035,0.105,kiaLuma);
+            float kiaShade=clamp(kiaLuma/0.33,0.26,1.60);
+            diffuseColor.rgb=mix(
+              kiaSource,
+              kiaPaintTarget*kiaShade,
+              kiaPaintBlend*kiaWarmMask
+            );`
+          );
+        };
+        painted.customProgramCacheKey=()=>"kia-paint-selective-v2";
+        painted.needsUpdate=true;
+        paintShaderMaterial=painted;
+      }
+      paintMeshCount++;
+      return paintShaderMaterial;
+    };
+    object.material=Array.isArray(source)?source.map(paintOne):paintOne(source);
+  });
+  debug.paintMeshCount=paintMeshCount;
+  debug.paintMode="warm-texel-selective-PBR";
+  debug.paintApplied="arena";
+  function setPaintColor(name){
+    if(!Object.hasOwn(paintPalette,name))return false;
+    paintUniform.value.set(paintPalette[name]);
+    paintMixUniform.value=name==="arena"?0:1;
+    debug.paintApplied=name;
+    requestRender();
+    return paintMeshCount>0;
+  }
+
   scene.add(model);
   for(const definition of doorDefinitions){
     const node=model.getObjectByName(definition.name);
@@ -403,7 +476,7 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
   decoder.dispose();
   return {
     engine:"three",model,camera,renderer,scene,meshCount,texturesBound,
-    setAngle,setPose,enterCabin,exitCabin,focusOnPart,resetView,getFeatureAnchor,projectPoint,requestRender,
+    setAngle,setPose,enterCabin,exitCabin,focusOnPart,resetView,setPaintColor,getFeatureAnchor,projectPoint,requestRender,
     addFrameListener:listener=>{frameListeners.add(listener);requestRender();return ()=>frameListeners.delete(listener);},
     getCameraPosition:()=>camera.position.toArray(),
     getRadius:()=>radius,
