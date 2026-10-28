@@ -73,6 +73,10 @@ jobs:
               throw Error("THREE INTEGRATION FAILED: "+JSON.stringify(initial));
             }
             await page.locator('#cameraButtons [data-angle="90"]').click();
+            await page.waitForFunction(previous=>
+              JSON.stringify(window.__kiaViewerStatus?.getCamera?.())!==JSON.stringify(previous),
+              initial.camera,{timeout:8000,polling:60}
+            );
             const after=await page.evaluate(()=>window.__kiaViewerStatus?.getCamera?.());
             if(!after||JSON.stringify(after)===JSON.stringify(initial.camera))throw Error("Camera buttons not wired");
             console.log("THREE CAMERA:",JSON.stringify({before:initial.camera,after}));
@@ -83,6 +87,10 @@ jobs:
             await page.mouse.down();
             await page.mouse.move(mx+60,my,{steps:5});
             await page.mouse.up();
+            await page.waitForFunction(previous=>
+              JSON.stringify(window.__kiaViewerStatus?.getCamera?.())!==JSON.stringify(previous),
+              after,{timeout:8000,polling:60}
+            );
             const afterDrag=await page.evaluate(()=>window.__kiaViewerStatus?.getCamera?.());
             if(JSON.stringify(after)===JSON.stringify(afterDrag))throw Error("Pointer rotation not wired");
             console.log("THREE DRAG:",JSON.stringify({before:after,after:afterDrag}));
