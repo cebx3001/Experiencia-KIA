@@ -102,7 +102,11 @@ jobs:
             await page.locator("#toggleInterior").click();
             if(!(await page.locator("#panelExterior").isHidden()))throw Error("Exterior menu stayed open");
             await page.locator('.micro-feature[data-feature="interior"]').click();
-            await page.waitForTimeout(2100);
+            // Three.js uses requestAnimationFrame; software Chromium is sometimes
+            // much slower than a real GPU, so wait for the actual hinge angle.
+            await page.waitForFunction(()=>window.__kiaThreeViewer?.isInCabin?.()&&
+              Math.abs(window.__kiaThreeViewer?.getDoorDegrees?.()??0)>=45,
+              null,{timeout:20000,polling:120});
             const cabin=await page.evaluate(()=>({
               inside:window.__kiaThreeViewer?.isInCabin?.(),
               doorExists:window.__kiaThreeViewer?.doorAvailable,
