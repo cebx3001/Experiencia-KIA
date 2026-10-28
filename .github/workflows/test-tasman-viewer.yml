@@ -136,6 +136,28 @@ jobs:
             console.log("EXTERIOR NOTE:",await page.locator("#featureDetail").innerText());
             await page.locator("#toggleInterior").click();
             if(!(await page.locator("#panelExterior").isHidden()))throw Error("Exterior menu stayed open");
+            // Expanding the menu by itself must open all four doors,
+            // with a single corresponding mechanical opening sound.
+            await page.waitForFunction(()=>
+              Object.keys(window.__kiaThreeViewer?.getAllDoorDegrees?.()||{}).length===4&&
+              Object.values(window.__kiaThreeViewer.getAllDoorDegrees()).every(v=>Math.abs(v)>55),
+              null,{timeout:25000,polling:150});
+            const openedOnMenu=await page.evaluate(()=>({
+              degrees:window.__kiaThreeViewer.getAllDoorDegrees(),
+              openSound:window.__kiaThreeViewer?.doorAudio?.openCount,
+              source:window.__kiaThreeViewer?.doorAudio?.source
+            }));
+            console.log("INTERIOR MENU FOUR DOORS AND AUDIO:",JSON.stringify(openedOnMenu));
+            if(!openedOnMenu.openSound||!openedOnMenu.source)throw Error("Door open sound not triggered");
+            await page.locator('.micro-feature[data-feature="seats"]').click();
+            await page.waitForFunction(()=>window.__kiaAnnotations?.selected==="seats",null,{timeout:10000});
+            await page.waitForTimeout(1300);
+            console.log("SINGLE SEAT VIEW:",JSON.stringify(await page.evaluate(()=>({
+              fov:window.__kiaViewerStatus?.getCamera?.(),doors:window.__kiaThreeViewer?.getAllDoorDegrees?.()
+            }))));
+            await page.locator('.micro-feature[data-feature="display"]').click();
+            await page.waitForFunction(()=>window.__kiaThreeViewer?.lastCameraDetail==="display",null,{timeout:10000});
+            console.log("FRONTAL DISPLAY VIEW triggered");
             await page.locator('.micro-feature[data-feature="interior"]').click();
             // Three.js uses requestAnimationFrame; software Chromium is sometimes
             // much slower than a real GPU, so wait for the actual hinge angle.
@@ -162,6 +184,11 @@ jobs:
               null,{timeout:15000,polling:140});
             const exit=await page.evaluate(()=>({inside:window.__kiaThreeViewer?.isInCabin?.(),angle:window.__kiaThreeViewer?.getDoorDegrees?.()}));
             if(exit.inside||Object.values(await page.evaluate(()=>window.__kiaThreeViewer.getAllDoorDegrees())).some(angle=>Math.abs(angle)>2))throw Error("Four doors did not close: "+JSON.stringify(exit));
+            // Switching out of Interior must close all four doors, and the
+            // closing latch/thump must be triggered once.
+            await page.locator("#toggleExterior").click();
+            const closedSound=await page.evaluate(()=>window.__kiaThreeViewer?.doorAudio?.closeCount);
+            if(!(closedSound>0))throw Error("Door close sound was not triggered");
             console.log("MICROMENU PASS:",JSON.stringify({menus,front,top,cabin,exit}));
             // Mission backdrops: three distinct real landscapes, while the
             // SAME live 3D Kia stays in front of every environment.
