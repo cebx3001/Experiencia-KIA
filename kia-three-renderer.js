@@ -379,12 +379,13 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
   const paintUniform={value:new THREE.Color(paintPalette.arena)};
   const paintMixUniform={value:0};
   const paintedExterior=new Set([
-    "body_details","cabin_body","hood","cargo_bed_sides","tailgate",
+    "body_details","cabin_body","hood","windshield","cargo_bed_sides","tailgate",
     "door_front_left","door_front_right","door_rear_left","door_rear_right"
   ]);
   let paintMeshCount=0;
   let paintShaderMaterial=null;
   let paintHoodMaterial=null;
+  let paintWindshieldMaterial=null;
   model.traverse(object=>{
     if(!object.isMesh)return;
     const parentName=object.parent?.name||"";
@@ -393,9 +394,12 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
     if(!eligible)return;
     const source=object.material;
     const isHood=object.name==="hood_mesh"||object.name==="hood"||parentName==="hood";
+    const isWindshield=object.name==="windshield_mesh"||object.name==="windshield"||parentName==="windshield";
     const paintOne=material=>{
       if(!material||material.name!=="Car"||!material.map)return material;
-      if((isHood&&!paintHoodMaterial)||(!isHood&&!paintShaderMaterial)){
+      if((isHood&&!paintHoodMaterial)||
+         (isWindshield&&!paintWindshieldMaterial)||
+         (!isHood&&!isWindshield&&!paintShaderMaterial)){
         const painted=material.clone();
         painted.name="Car · paint-only shader";
         painted.onBeforeCompile=shader=>{
@@ -432,9 +436,9 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
             // baked atlas island is near-neutral, so allow its brighter
             // texels in addition to the warm-sand detection above.
             ${isHood?"kiaWarmMask=max(kiaWarmMask,smoothstep(0.055,0.18,kiaLuma));":""}
-            // The broad bonnet is baked into body_details, not the narrowly
-            // named 'hood' mesh. Use actual world geometry to find its
-            // upward-facing front surface without touching windows/tyres.
+            // Raycast confirmed broad bonnet pixels in windshield_mesh
+            // (source mesh naming is misleading). Only target its upward
+            // horizontal front surface, never the actual window glass.
             float kiaBonnetRegion=
               smoothstep(0.88,1.13,vKiaWorldPos.y)*
               (1.0-smoothstep(1.52,1.76,vKiaWorldPos.y))*
@@ -442,10 +446,9 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
               (1.0-smoothstep(2.30,2.58,vKiaWorldPos.z))*
               (1.0-smoothstep(0.78,1.02,abs(vKiaWorldPos.x)))*
               smoothstep(0.18,0.58,abs(vKiaWorldNormal.y));
-            kiaWarmMask=max(
-              kiaWarmMask,
-              kiaBonnetRegion*smoothstep(0.085,0.19,kiaLuma)
-            );
+            ${isWindshield
+              ?"kiaWarmMask=kiaBonnetRegion*smoothstep(0.085,0.19,kiaLuma);"
+              :"kiaWarmMask=max(kiaWarmMask,kiaBonnetRegion*smoothstep(0.085,0.19,kiaLuma));"}
             float kiaShade=clamp(kiaLuma/0.33,0.26,1.60);
             diffuseColor.rgb=mix(
               kiaSource,
@@ -454,18 +457,20 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
             );`
           );
         };
-        painted.customProgramCacheKey=()=>isHood?"kia-hood-geometric-v6":"kia-sand-geometric-v6";
+        painted.customProgramCacheKey=()=>isWindshield?"kia-windshield-bonnet-v7":(isHood?"kia-hood-v7":"kia-body-v7");
         painted.needsUpdate=true;
-        if(isHood)paintHoodMaterial=painted;
+        if(isWindshield)paintWindshieldMaterial=painted;
+        else if(isHood)paintHoodMaterial=painted;
         else paintShaderMaterial=painted;
       }
       paintMeshCount++;
-      return isHood?paintHoodMaterial:paintShaderMaterial;
+      return isWindshield?paintWindshieldMaterial:(isHood?paintHoodMaterial:paintShaderMaterial);
     };
     object.material=Array.isArray(source)?source.map(paintOne):paintOne(source);
   });
   debug.paintMeshCount=paintMeshCount;
   debug.hoodPaintMaterialReady=!!paintHoodMaterial;
+  debug.bonnetPaintMaterialReady=!!paintWindshieldMaterial;
   debug.paintMode="warm-texel-selective-PBR";
   debug.paintApplied="arena";
   function setPaintColor(name){
