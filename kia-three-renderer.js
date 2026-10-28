@@ -516,6 +516,25 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
       if(mat.map)texturesBound++;
     }
   });
+  // Read-only diagnostic: raycast the visible surface so a hood paint fix
+  // can target the actual GLB mesh instead of guessing by node names.
+  debug.probeAtNDC=(nx,ny)=>{
+    if(!model||!Number.isFinite(nx)||!Number.isFinite(ny))return [];
+    const probeRay=new THREE.Raycaster();
+    camera.updateMatrixWorld(true);
+    model.updateMatrixWorld(true);
+    probeRay.setFromCamera(new THREE.Vector2(nx,ny),camera);
+    const hits=probeRay.intersectObject(model,true);
+    return hits.slice(0,3).map(hit=>({
+      mesh:hit.object.name,
+      parent:hit.object.parent?.name||null,
+      material:Array.isArray(hit.object.material)?hit.object.material.map(m=>m.name):hit.object.material?.name,
+      point:hit.point.toArray().map(v=>+v.toFixed(4)),
+      uv:hit.uv?.toArray().map(v=>+v.toFixed(4)),
+      distance:+hit.distance.toFixed(3),
+      faceNormal:hit.face?.normal?.toArray().map(v=>+v.toFixed(4))
+    }));
+  };
   debug.meshCount=meshCount;
   debug.texturesBound=texturesBound;
   debug.textureObjects=uniqueTextures.size;
