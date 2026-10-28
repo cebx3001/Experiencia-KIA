@@ -370,3 +370,48 @@
   .kia-compact-rail .kia-rail-description strong{font-size:12px}
   .kia-compact-rail .kia-rail-description p{font-size:10px;line-height:1.43}
 }
+
+
+/* Test drive CTA belongs to the bottom-right footer, not the top bar.
+   Plain text link, preserving the site's editorial treatment. */
+.bottom-bar .bottom-right{
+  display:flex;
+  margin-left:auto;
+  justify-content:flex-end;
+  align-items:center;
+  flex:0 0 auto;
+}
+.bottom-bar .footer-testdrive{
+  display:inline-flex;
+  align-items:center;
+  gap:14px;
+  color:#fff;
+  text-decoration:none;
+  font-family:inherit;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.1em;
+  white-space:nowrap;
+  padding:8px 0;
+}
+.bottom-bar .footer-testdrive span{
+  font-size:20px;
+  line-height:1;
+  color:var(--red);
+  font-weight:400;
+}
+.bottom-bar .footer-testdrive:hover,
+.bottom-bar .footer-testdrive:focus-visible{color:#fff;text-decoration:underline;text-underline-offset:5px}
+@media(max-width:1090px){
+  .bottom-bar .bottom-right{display:flex!important}
+  .bottom-bar .footer-testdrive{font-size:9px;gap:8px}
+}
+@media(max-height:580px){
+  .bottom-bar .bottom-right{display:flex!important}
+  .bottom-bar .footer-testdrive{font-size:8px;gap:6px}
+  .bottom-bar .footer-testdrive span{font-size:17px}
+}
+@media(orientation:portrait){
+  .bottom-bar .bottom-right{display:flex!important}
+  .bottom-bar .footer-testdrive{font-size:8px;gap:6px;padding:5px 0}
+}
