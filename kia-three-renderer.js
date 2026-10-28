@@ -384,6 +384,7 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
   ]);
   let paintMeshCount=0;
   let paintShaderMaterial=null;
+  let paintHoodMaterial=null;
   model.traverse(object=>{
     if(!object.isMesh)return;
     const parentName=object.parent?.name||"";
@@ -391,9 +392,10 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
       object.name===name||object.name.startsWith(name+"_")||parentName===name);
     if(!eligible)return;
     const source=object.material;
+    const isHood=object.name==="hood_mesh"||object.name==="hood"||parentName==="hood";
     const paintOne=material=>{
       if(!material||material.name!=="Car"||!material.map)return material;
-      if(!paintShaderMaterial){
+      if((isHood&&!paintHoodMaterial)||(!isHood&&!paintShaderMaterial)){
         const painted=material.clone();
         painted.name="Car · paint-only shader";
         painted.onBeforeCompile=shader=>{
@@ -418,6 +420,10 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
               smoothstep(0.024,0.068,kiaSource.g-kiaSource.b)*
               smoothstep(0.055,0.125,kiaSource.g);
             float kiaLuma=dot(kiaSource,vec3(0.2126,0.7152,0.0722));
+            // The single hood mesh is a separate paint surface whose
+            // baked atlas island is near-neutral, so allow its brighter
+            // texels in addition to the warm-sand detection above.
+            ${isHood?"kiaWarmMask=max(kiaWarmMask,smoothstep(0.055,0.18,kiaLuma));":""}
             float kiaShade=clamp(kiaLuma/0.33,0.26,1.60);
             diffuseColor.rgb=mix(
               kiaSource,
@@ -426,16 +432,18 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
             );`
           );
         };
-        painted.customProgramCacheKey=()=>"kia-paint-sand-atlas-v4";
+        painted.customProgramCacheKey=()=>isHood?"kia-hood-paint-v5":"kia-sand-body-paint-v5";
         painted.needsUpdate=true;
-        paintShaderMaterial=painted;
+        if(isHood)paintHoodMaterial=painted;
+        else paintShaderMaterial=painted;
       }
       paintMeshCount++;
-      return paintShaderMaterial;
+      return isHood?paintHoodMaterial:paintShaderMaterial;
     };
     object.material=Array.isArray(source)?source.map(paintOne):paintOne(source);
   });
   debug.paintMeshCount=paintMeshCount;
+  debug.hoodPaintMaterialReady=!!paintHoodMaterial;
   debug.paintMode="warm-texel-selective-PBR";
   debug.paintApplied="arena";
   function setPaintColor(name){
