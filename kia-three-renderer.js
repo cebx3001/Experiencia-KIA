@@ -263,21 +263,57 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
     // Seat annotation is intentionally viewed FROM OUTSIDE through the open
     // front door: frame the full seats, not just headrests or the dashboard.
     if(detail==="seats"){
-      // Full driver's seat, viewed through the opened left door.
-      // Move the lens forwards relative to the previous position and aim
-      // at the seat cushion/back together, not rear headrests/dashboard.
-      const seatPos=model.localToWorld(new THREE.Vector3(-1.64,1.37,.92));
-      const seatLook=model.localToWorld(new THREE.Vector3(-.43,1.10,.21));
+      // The exported interior is ONE combined mesh. Locate the driver's
+      // actual seat inside that mesh by its spatial volume; the previous
+      // shot aimed near the dashboard and missed the cushion.
+      const interiorMesh=model.getObjectByName("interior_mesh");
+      const vertices=interiorMesh?.geometry?.getAttribute("position");
+      const region=new THREE.Box3();
+      region.makeEmpty();
+      let points=0;
+      if(vertices){
+        model.updateMatrixWorld(true);
+        const localTransform=new THREE.Matrix4().copy(model.matrixWorld).invert()
+          .multiply(interiorMesh.matrixWorld);
+        const p=new THREE.Vector3();
+        for(let i=0;i<vertices.count;i+=6){
+          p.fromBufferAttribute(vertices,i).applyMatrix4(localTransform);
+          // Driver-side, between rear and dashboard. Includes the full
+          // seat back + cushion but excludes opposite seat and dashboard.
+          if(p.x<-.20&&p.x>-.73&&p.z>-.12&&p.z<.68&&p.y>.91&&p.y<1.46){
+            region.expandByPoint(p);points++;
+          }
+        }
+      }
+      const centre=points>80 ? region.getCenter(new THREE.Vector3()) :
+        new THREE.Vector3(-.43,1.18,.24);
+      centre.x=clamp(centre.x,-.51,-.32);
+      centre.y=clamp(centre.y,1.12,1.24);
+      centre.z=clamp(centre.z,.04,.39);
+      // Outside the open door's swing arc. Perpendicular close-up reveals
+      // one complete seat rather than the headrests or dashboard.
+      const lensLocal=new THREE.Vector3(-1.42,centre.y+.07,centre.z-.12);
+      const seatPos=model.localToWorld(lensLocal);
+      const seatLook=model.localToWorld(centre.clone());
+      debug.seatFraming={
+        source:"interior_mesh driver-seat spatial subset",
+        sampledVertices:points,
+        regionMin:region.isEmpty()?null:region.min.toArray().map(v=>+v.toFixed(3)),
+        regionMax:region.isEmpty()?null:region.max.toArray().map(v=>+v.toFixed(3)),
+        target:seatLook.toArray().map(v=>+v.toFixed(3)),
+        position:seatPos.toArray().map(v=>+v.toFixed(3)),
+        targetFov:42
+      };
       const seatInitialFov=camera.fov;
       const from=camera.position.clone(),fromLook=(cameraOverride?.lookAt||target).clone();
       const token=++animationId,start=performance.now();
       function seatFrame(now){
         if(token!==animationId)return;
-        const t=clamp((now-start)/1120,0,1),e=easing(t);
+        const t=clamp((now-start)/970,0,1),e=easing(t);
         cameraOverride={
           position:from.clone().lerp(seatPos,e),
           lookAt:fromLook.clone().lerp(seatLook,e),
-          fov:THREE.MathUtils.lerp(seatInitialFov,49,e)
+          fov:THREE.MathUtils.lerp(seatInitialFov,42,e)
         };
         requestRender();
         if(t<1)requestAnimationFrame(seatFrame);
