@@ -370,6 +370,15 @@ export async function mountKiaPlayCanvas({
     // Do not hide headlights or any actual vehicle components.
     const studioObjectName=/(soft[ _.-]?box|light[ _.-]?box|light[ _.-]?panel|studio[ _.-]?(floor|wall|set|light|rig)|photo[ _.-]?studio|cyclorama|backdrop|background[ _.-]?plane|area[ _.-]?light)/i;
     const removedSetObjects=[];
+    const disabledImportedLights=[];
+    model.forEach(node=>{
+      // Lights packaged inside the 3D file are not part of the vehicle viewer's
+      // controlled lighting setup. Keep any genuine car headlamp components.
+      if(node.light&&!/(headlight|taillight|brakelight|foglight|indicator|turnsignal)/i.test(node.name||"")){
+        node.light.enabled=false;
+        disabledImportedLights.push(node.name||"(unnamed)");
+      }
+    });
     model.forEach(node=>{
       if(node===model||!node.render)return;
       const name=node.name||"";
@@ -387,6 +396,7 @@ export async function mountKiaPlayCanvas({
       }
     });
     debug.removedSetObjects=removedSetObjects;
+    debug.disabledImportedLights=disabledImportedLights;
     debug.sceneCleanup="no softbox geometry, no skybox, no generated floor";
     const activeVehicleNode=node=>{
       for(let parent=node;parent&&parent!==model;parent=parent.parent){
