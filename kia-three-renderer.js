@@ -401,9 +401,17 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
         painted.onBeforeCompile=shader=>{
           shader.uniforms.kiaPaintTarget=paintUniform;
           shader.uniforms.kiaPaintBlend=paintMixUniform;
+          shader.vertexShader=shader.vertexShader.replace(
+            "#include <common>",
+            "#include <common>\nvarying vec3 vKiaWorldPos;\nvarying vec3 vKiaWorldNormal;"
+          );
+          shader.vertexShader=shader.vertexShader.replace(
+            "#include <begin_vertex>",
+            "#include <begin_vertex>\nvKiaWorldPos=(modelMatrix*vec4(position,1.0)).xyz;\nvKiaWorldNormal=normalize(mat3(modelMatrix)*normal);"
+          );
           shader.fragmentShader=shader.fragmentShader.replace(
             "#include <common>",
-            "#include <common>\nuniform vec3 kiaPaintTarget;\nuniform float kiaPaintBlend;"
+            "#include <common>\nvarying vec3 vKiaWorldPos;\nvarying vec3 vKiaWorldNormal;\nuniform vec3 kiaPaintTarget;\nuniform float kiaPaintBlend;"
           );
           shader.fragmentShader=shader.fragmentShader.replace(
             "#include <map_fragment>",
@@ -424,6 +432,20 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
             // baked atlas island is near-neutral, so allow its brighter
             // texels in addition to the warm-sand detection above.
             ${isHood?"kiaWarmMask=max(kiaWarmMask,smoothstep(0.055,0.18,kiaLuma));":""}
+            // The broad bonnet is baked into body_details, not the narrowly
+            // named 'hood' mesh. Use actual world geometry to find its
+            // upward-facing front surface without touching windows/tyres.
+            float kiaBonnetRegion=
+              smoothstep(0.88,1.13,vKiaWorldPos.y)*
+              (1.0-smoothstep(1.52,1.76,vKiaWorldPos.y))*
+              smoothstep(0.93,1.28,vKiaWorldPos.z)*
+              (1.0-smoothstep(2.30,2.58,vKiaWorldPos.z))*
+              (1.0-smoothstep(0.78,1.02,abs(vKiaWorldPos.x)))*
+              smoothstep(0.18,0.58,abs(vKiaWorldNormal.y));
+            kiaWarmMask=max(
+              kiaWarmMask,
+              kiaBonnetRegion*smoothstep(0.085,0.19,kiaLuma)
+            );
             float kiaShade=clamp(kiaLuma/0.33,0.26,1.60);
             diffuseColor.rgb=mix(
               kiaSource,
@@ -432,7 +454,7 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
             );`
           );
         };
-        painted.customProgramCacheKey=()=>isHood?"kia-hood-paint-v5":"kia-sand-body-paint-v5";
+        painted.customProgramCacheKey=()=>isHood?"kia-hood-geometric-v6":"kia-sand-geometric-v6";
         painted.needsUpdate=true;
         if(isHood)paintHoodMaterial=painted;
         else paintShaderMaterial=painted;
