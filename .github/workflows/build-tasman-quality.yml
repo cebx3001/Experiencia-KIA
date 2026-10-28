@@ -32,7 +32,7 @@ jobs:
               head=f.read(20); assert head[:4]==b'glTF'
               jlen,jtype=struct.unpack_from('<I4s',head,12);assert jtype==b'JSON'
               d=json.loads(f.read(jlen))
-              blen,btype=struct.unpack('<I4s',f.read(8));assert btype==b'BIN\\x00'
+              blen,btype=struct.unpack('<I4s',f.read(8));assert btype[:3]==b'BIN'
               binary=f.read(blen)
             return d,binary
           a,ab=read('assets/kia-tasman.glb')
