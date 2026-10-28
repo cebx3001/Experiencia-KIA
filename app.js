@@ -85,7 +85,7 @@ document.querySelectorAll("#cameraButtons button").forEach(b=>b.addEventListener
 }));
 
 async function initVehicle(){
- const url="./assets/kia-tasman.glb";
+ const url="./assets/kia-tasman-mobile.glb";
  const manifestUrl="./assets/kia-tasman-components.json";
  // The page works as a menu before the model is uploaded; do not fetch PlayCanvas unnecessarily.
  try{
@@ -93,9 +93,21 @@ async function initVehicle(){
    if(!res.ok)throw new Error("GLB no disponible: HTTP "+res.status);
  }catch(e){console.warn("No se encontró la Kia Tasman 3D",e);window.__kiaViewerStatus={error:String(e)};hideModelStatus();return;}
  let pc;
- try{showModelStatus("INICIANDO VISUALIZADOR 3D");pc=await import("https://cdn.jsdelivr.net/npm/playcanvas@2.23.1/build/playcanvas.mjs");}
+ try{
+  showModelStatus("INICIANDO VISUALIZADOR 3D");
+  pc=await import("https://cdn.jsdelivr.net/npm/playcanvas@2.23.1/build/playcanvas.mjs");
+  pc.WasmModule.setConfig("DracoDecoderModule",{
+    glueUrl:"https://developer.playcanvas.com/assets/modules/draco/draco.wasm.js",
+    wasmUrl:"https://developer.playcanvas.com/assets/modules/draco/draco.wasm.wasm"
+  });
+  showModelStatus("PREPARANDO VEHÍCULO 3D");
+  await Promise.race([
+    new Promise((resolve,reject)=>pc.WasmModule.getInstance("DracoDecoderModule",(mod)=>mod?resolve():reject(new Error("Draco decoder unavailable")))),
+    new Promise((_,reject)=>setTimeout(()=>reject(new Error("Draco decoder timeout")),25000))
+  ]);
+}
  catch(e){console.warn("PlayCanvas could not load",e);window.__kiaViewerStatus={error:String(e)};hideModelStatus();return;}
- showModelStatus("CARGANDO KIA TASMAN 3D · 93 MB");
+ showModelStatus("CARGANDO KIA TASMAN 3D · 6 MB");
  const canvas=$("carCanvas");
  let app;
  try{
@@ -119,8 +131,15 @@ async function initVehicle(){
    camera.camera.toneMapping=pc.TONEMAP_ACES;
    app.assets.loadFromUrl(url,"container",(err,asset)=>{
      if(err||!asset){console.error("Could not load Kia GLB",err);hideModelStatus();window.__kiaViewerStatus={error:String(err||"GLB sin asset")};return;}
-     const root=asset.resource.instantiateRenderEntity({castShadows:false});
-     app.root.addChild(root);
+     let root;
+     try{
+       root=asset.resource.instantiateRenderEntity({castShadows:false});
+       app.root.addChild(root);
+     }catch(e){
+       console.error("Kia GLB cannot instantiate",e);
+       window.__kiaViewerStatus={error:String(e)};
+       hideModelStatus();return;
+     }
      const meshCount=root.findComponents("render").reduce((n,c)=>n+(c.meshInstances?.length||0),0);
      if(meshCount===0){
        console.error("Kia GLB: no renderable meshes");hideModelStatus();
