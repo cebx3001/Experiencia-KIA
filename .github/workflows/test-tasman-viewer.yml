@@ -94,12 +94,37 @@ jobs:
             const afterDrag=await page.evaluate(()=>window.__kiaViewerStatus?.getCamera?.());
             if(JSON.stringify(after)===JSON.stringify(afterDrag))throw Error("Pointer rotation not wired");
             console.log("THREE DRAG:",JSON.stringify({before:after,after:afterDrag}));
+            const annotations=await page.evaluate(()=>({
+              available:window.__kiaAnnotations?.available,
+              count:document.querySelectorAll(".kia-annotation-pin").length
+            }));
+            console.log("ANNOTATIONS FOUND:",JSON.stringify(annotations));
+            if(!annotations.available?.includes("front_fascia")||annotations.count<3)throw Error("Model-anchored annotation positions missing");
+            await page.locator(".component-button-grid [data-feature='front_fascia']").click();
+            await page.waitForFunction(()=>
+              window.__kiaAnnotations?.selected==="front_fascia"&&
+              document.querySelector(".kia-annotation-detail")?.classList.contains("is-open"),
+              null,{timeout:10000}
+            );
+            if(await page.locator("#infoModal").isVisible())throw Error("Legacy text modal opened instead of 3D annotation");
+            await page.waitForTimeout(1150);
+            const annotationState=await page.evaluate(()=>({
+              selected:window.__kiaAnnotations?.selected,
+              focusedCamera:window.__kiaViewerStatus?.getCamera?.(),
+              content:document.querySelector(".kia-annotation-heading")?.textContent,
+              pins:document.querySelectorAll(".kia-annotation-pin:not(.is-offscreen)").length
+            }));
+            console.log("ANNOTATION SELECTED:",JSON.stringify(annotationState));
+            if(annotationState.content!=="FAROS"||JSON.stringify(annotationState.focusedCamera)===JSON.stringify(afterDrag))
+              throw Error("Annotation did not move camera or show on-model label");
+            await page.locator(".kia-annotation-close").click();
+            if(await page.locator(".kia-annotation-detail.is-open").count())throw Error("Annotation did not close");
             await page.screenshot({path:"kia-three-mobile-landscape.png",timeout:30000});
             await page.setViewportSize({width:390,height:844});
             await page.waitForTimeout(300);
             await page.screenshot({path:"kia-three-mobile-portrait.png",timeout:30000});
             if(pageErrors.length)throw Error("Browser JS errors: "+pageErrors.join("; "));
-            console.log("PASS: Three.js viewer, opacity fix, interface, cameras, pointer rotation and mobile viewports");
+            console.log("PASS: Three.js viewer, opacity fix, camera motion, clickable 3D annotations, no text modal, mobile viewports");
             await browser.close();
           })().catch(error=>{console.error(error);process.exit(1)});
           NODE
