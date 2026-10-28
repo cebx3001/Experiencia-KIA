@@ -127,6 +127,44 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
       top:{angle:35,inclination:1.37}
     };
     const selected=positions[pose]||positions.threequarter;
+    if(cameraOverride){
+      // Preserve the current macro/cabin camera and smoothly pull back to
+      // the complete car. Avoid jumping to the stale orbit before returning.
+      const startPos=camera.position.clone();
+      const startLook=(cameraOverride.lookAt||target).clone();
+      const startFov=camera.fov;
+      const destAz=THREE.MathUtils.degToRad(selected.angle);
+      const destIncl=selected.inclination;
+      const goalLook=defaultTarget.clone();
+      const goalPos=goalLook.clone().add(new THREE.Vector3(
+        baseRadius*Math.sin(destAz)*Math.cos(destIncl),
+        baseRadius*Math.sin(destIncl),
+        baseRadius*Math.cos(destAz)*Math.cos(destIncl)
+      ));
+      cabinOpen=false;
+      const token=++animationId,start=performance.now();
+      function pullBack(now){
+        if(token!==animationId)return;
+        const t=clamp((now-start)/1150,0,1),e=easing(t);
+        cameraOverride={
+          position:startPos.clone().lerp(goalPos,e),
+          lookAt:startLook.clone().lerp(goalLook,e),
+          fov:THREE.MathUtils.lerp(startFov,42,e)
+        };
+        requestRender();
+        if(t<1)requestAnimationFrame(pullBack);
+        else{
+          target.copy(defaultTarget);
+          azimuth=destAz;
+          inclination=destIncl;
+          radius=baseRadius;
+          cameraOverride=null;
+          requestRender();
+        }
+      }
+      requestAnimationFrame(pullBack);
+      return;
+    }
     tweenCamera({point:defaultTarget,angle:selected.angle,radiusFactor:1,endInclination:selected.inclination,duration:900});
   }
   let doorAnimationToken=0;
