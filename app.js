@@ -14,6 +14,10 @@ const colors = {
  negro:{label:"AURORA BLACK PEARL (ABP)",rgb:[.035,.045,.055]}
 };
 const $ = id => document.getElementById(id);
+function showModelStatus(message){
+ const status=$("modelLoading");if(status){status.hidden=false;status.textContent=message;}
+}
+function hideModelStatus(){const status=$("modelLoading");if(status)status.hidden=true;}
 const state = { mode:"vehicle", level:0, color:"arena", angle:35, ready:false, model:null, app:null, camera:null, pivot:null, radius:8, target:null, dragging:false, pointerX:0, angleDrag:35, materials:new Map() };
 const modalInfo={
   rock:{title:"MODO ROCA",body:"El Modo Roca optimiza la tracción en superficies rocosas. En la Tasman X-Pro se selecciona con 4WD 4L."},
@@ -87,10 +91,11 @@ async function initVehicle(){
  try{
    const res=await fetch(url,{method:"HEAD",cache:"no-store"});
    if(!res.ok)throw new Error("GLB no disponible: HTTP "+res.status);
- }catch(e){console.warn("No se encontró la Kia Tasman 3D",e);$("interactionHint").textContent="NO SE PUDO ABRIR EL MODELO 3D";return;}
+ }catch(e){console.warn("No se encontró la Kia Tasman 3D",e);$("interactionHint").textContent="NO SE PUDO ABRIR EL MODELO 3D";showModelStatus("GLB NO DISPONIBLE EN GITHUB PAGES");return;}
  let pc;
- try{pc=await import("https://cdn.jsdelivr.net/npm/playcanvas@2.23.1/build/playcanvas.mjs");}
- catch(e){console.warn("PlayCanvas could not load",e);$("interactionHint").textContent="ERROR AL INICIAR VISOR 3D";return;}
+ try{showModelStatus("INICIANDO VISUALIZADOR 3D");pc=await import("https://cdn.jsdelivr.net/npm/playcanvas@2.23.1/build/playcanvas.mjs");}
+ catch(e){console.warn("PlayCanvas could not load",e);$("interactionHint").textContent="ERROR AL INICIAR VISOR 3D";showModelStatus("ERROR AL INICIAR MOTOR 3D");return;}
+ showModelStatus("CARGANDO KIA TASMAN 3D · 93 MB");
  const canvas=$("carCanvas");
  let app;
  try{
@@ -113,12 +118,12 @@ async function initVehicle(){
    camera.camera.gammaCorrection=pc.GAMMA_SRGB;
    camera.camera.toneMapping=pc.TONEMAP_ACES;
    app.assets.loadFromUrl(url,"container",(err,asset)=>{
-     if(err||!asset){console.error("Could not load Kia GLB",err);$("interactionHint").textContent="ERROR AL CARGAR VEHÍCULO 3D";window.__kiaViewerStatus={error:String(err||"GLB sin asset")};return;}
+     if(err||!asset){showModelStatus("ERROR AL DESCARGAR O PROCESAR MODELO 3D");console.error("Could not load Kia GLB",err);$("interactionHint").textContent="ERROR AL CARGAR VEHÍCULO 3D";window.__kiaViewerStatus={error:String(err||"GLB sin asset")};return;}
      const root=asset.resource.instantiateRenderEntity({castShadows:false});
      app.root.addChild(root);
      const meshCount=root.findComponents("render").reduce((n,c)=>n+(c.meshInstances?.length||0),0);
      if(meshCount===0){
-       $("interactionHint").textContent="MODELO 3D SIN GEOMETRÍA";
+       $("interactionHint").textContent="MODELO 3D SIN GEOMETRÍA";showModelStatus("ARCHIVO 3D SIN GEOMETRÍA");
        window.__kiaViewerStatus={error:"GLB sin mallas"};
        return;
      }
@@ -134,6 +139,7 @@ async function initVehicle(){
        doResize();
        canvas.style.visibility="visible";
        $("carFallback").hidden=true;
+       hideModelStatus();
      }));
      installVehicleAnnotations(pc, app, root, canvas, manifestUrl);
      $("interactionHint").textContent="DESLIZA PARA GIRAR · TOCA + PARA EXPLORAR";
@@ -153,7 +159,7 @@ async function initVehicle(){
    canvas.addEventListener("pointerdown",e=>{state.dragging=true;state.pointerX=e.clientX;canvas.setPointerCapture(e.pointerId)});
    canvas.addEventListener("pointermove",e=>{if(!state.dragging)return;const dx=e.clientX-state.pointerX;state.pointerX=e.clientX;state.angle+=dx*.4;moveCamera();});
    for(const ev of ["pointerup","pointercancel"])canvas.addEventListener(ev,()=>{state.dragging=false;});
- }catch(e){console.error("PlayCanvas scene init failed",e);canvas.hidden=true;$("interactionHint").textContent="ERROR AL INICIAR VISOR 3D";window.__kiaViewerStatus={error:String(e)};}
+ }catch(e){console.error("PlayCanvas scene init failed",e);canvas.hidden=true;$("interactionHint").textContent="ERROR AL INICIAR VISOR 3D";showModelStatus("ERROR DE INICIALIZACIÓN WEBGL");window.__kiaViewerStatus={error:String(e)};}
 }
 function moveCamera(){
  if(!state.camera||!state.target)return;
