@@ -88,7 +88,7 @@ async function initVehicle(){
   ? "./assets/kia-tasman.glb" : "./assets/kia-tasman-quality.glb";
  try{
   showModelStatus("CARGANDO KIA TASMAN 3D");
-  const {mountKiaThree}=await import("./kia-three-renderer.js?v=20261028-one-seat-real-v11");
+  const {mountKiaThree}=await import("./kia-three-renderer.js?v=20261028-overview-v17");
   const viewer=await mountKiaThree({
    canvas,host:stage,assetUrl,initialAngle:state.angle,
    onAngleChange:degrees=>{state.angle=degrees;}
@@ -98,7 +98,7 @@ async function initVehicle(){
   try{
    const {mountKiaAnnotations}=await import("./kia-annotations.js?v=20261028-editorial-carousel-v14");
    state.annotations=mountKiaAnnotations({host:stage,viewer});
-   const {mountKiaCarousel}=await import("./kia-carousel.js?v=20261028-editorial-carousel-v14");
+   const {mountKiaCarousel}=await import("./kia-carousel.js?v=20261028-overview-v17");
    state.carousel=mountKiaCarousel({
      viewer,
      annotations:state.annotations,
