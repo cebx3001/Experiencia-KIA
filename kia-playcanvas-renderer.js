@@ -131,7 +131,7 @@ export async function mountKiaPlayCanvas({
     paintMode:"texture-preserving PBR tint",error:null
   };
 
-  debug.postProcess=studioCameraFrame?"CameraFrame: HDR / TAA / SSAO / restrained grading":"ACES camera fallback";
+  debug.postProcess="initializing";
   let studioCubemap=null;
   const studioHdrUrl=debug.hdriUrl;
   // Keep the actual photographic environment INVISIBLE. It exists only
@@ -231,6 +231,7 @@ export async function mountKiaPlayCanvas({
   }
   app.start();
   resize();
+  debug.postProcess=studioCameraFrame?"CameraFrame: HDR / TAA / SSAO / restrained grading":"ACES camera fallback";
 
   function cancel(){token++;override=null;}
   function animateTo(position,lookAt,fov=42,duration=920,done=null) {
