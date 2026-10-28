@@ -85,7 +85,7 @@ document.querySelectorAll("#cameraButtons button").forEach(b=>b.addEventListener
 }));
 
 async function initVehicle(){
- const url="./assets/kia-tasman-mobile.glb";
+ const url="./assets/kia-tasman-fast.glb";
  const manifestUrl="./assets/kia-tasman-components.json";
  // The page works as a menu before the model is uploaded; do not fetch PlayCanvas unnecessarily.
  try{
@@ -107,7 +107,7 @@ async function initVehicle(){
   ]);
 }
  catch(e){console.warn("PlayCanvas could not load",e);window.__kiaViewerStatus={error:String(e)};hideModelStatus();return;}
- showModelStatus("CARGANDO KIA TASMAN 3D · 6 MB");
+ showModelStatus("CARGANDO KIA TASMAN 3D");
  const canvas=$("carCanvas");
  let app;
  try{
@@ -122,10 +122,17 @@ async function initVehicle(){
    const camera=new pc.Entity("TasmanCamera");
    camera.addComponent("camera",{clearColor:new pc.Color(0,0,0,0),fov:42,nearClip:.05,farClip:500});
    app.root.addChild(camera);state.camera=camera;
-   const sun=new pc.Entity("KeyLight");sun.addComponent("light",{type:"directional",color:new pc.Color(1,.94,.87),intensity:2.3,castShadows:true,shadowResolution:1024});
+   const sun=new pc.Entity("KeyLight");sun.addComponent("light",{type:"directional",color:new pc.Color(1,.94,.87),intensity:1.25,castShadows:false});
    sun.setEulerAngles(30,135,0);app.root.addChild(sun);
    const fill=new pc.Entity("FillLight");fill.addComponent("light",{type:"directional",color:new pc.Color(.64,.79,1),intensity:1.4});fill.setEulerAngles(-25,-50,0);app.root.addChild(fill);
-   app.scene.ambientLight=new pc.Color(.38,.42,.45);
+   // Image-based lighting makes the metallic body and glass reflect a studio environment.
+   // Load only a 127 KB local environment atlas, independently of the GLB.
+   app.assets.loadFromUrl("./assets/studio-env-atlas.png","texture",(envError,envAsset)=>{
+     if(envError||!envAsset){console.warn("Environment atlas unavailable",envError);return;}
+     app.scene.envAtlas=envAsset.resource;
+     app.renderNextFrame=true;
+   });
+   app.scene.ambientLight=new pc.Color(.45,.47,.50);
    app.scene.exposure=1.05;
    camera.camera.gammaCorrection=pc.GAMMA_SRGB;
    camera.camera.toneMapping=pc.TONEMAP_ACES;
@@ -153,6 +160,8 @@ async function initVehicle(){
      doResize();
      moveCamera();
      state.ready=true;
+     // A configurator is static between interactions: stop burning mobile GPU cycles.
+     setTimeout(()=>{if(state.ready){app.autoRender=false;app.renderNextFrame=true;}},1400);
      window.__kiaViewerStatus={loaded:true,meshCount,canvas:()=>[canvas.width,canvas.height],cameraTarget:[0,1.05,0],radius:8.1};
      requestAnimationFrame(()=>requestAnimationFrame(()=>{
        doResize();
@@ -160,9 +169,10 @@ async function initVehicle(){
        
        hideModelStatus();
      }));
-     installVehicleAnnotations(pc, app, root, canvas, manifestUrl);
+     // Component facts are accessed from separate UI buttons, not dots on the GLB.
      $("interactionHint").textContent="DESLIZA PARA GIRAR · TOCA + PARA EXPLORAR";
-     recolorModel();
+     // Keep the original material maps untouched on the main Arena color.
+     // A single shared "Car" atlas covers many non-paint parts.
    });
    const doResize=()=>{
      if(!state.app)return;
@@ -171,6 +181,7 @@ async function initVehicle(){
      const w=Math.max(32,Math.round(stage.clientWidth));
      const h=Math.max(32,Math.round(stage.clientHeight));
      if(canvas.width!==w||canvas.height!==h)app.resizeCanvas(w,h);
+     app.renderNextFrame=true;
    };
    new ResizeObserver(doResize).observe($("stage"));
    window.addEventListener("resize",doResize);
@@ -186,6 +197,7 @@ function moveCamera(){
  const r=state.radius;
  state.camera.setPosition(state.target.x+Math.sin(a)*r,state.target.y+r*.26,state.target.z+Math.cos(a)*r);
  state.camera.lookAt(state.target);
+ if(state.app)state.app.renderNextFrame=true;
 }
 function recolorModel(){
  if(!state.model||!state.app)return;
@@ -204,6 +216,7 @@ function recolorModel(){
      const clone=mat.clone();mi.material=clone;state.materials.set(mi,clone);
    }
    const local=state.materials.get(mi);local.diffuse.set(rgb[0],rgb[1],rgb[2]);local.update();
+   state.app.renderNextFrame=true;
  }));
 }
 initVehicle();
@@ -225,55 +238,17 @@ const featureCopy={
  door_rear_right:"Puerta trasera derecha. Acceso a la segunda fila.",
  rear_bumper_and_lights:"Conjunto posterior, con luces traseras y parachoques."
 };
-const annotationPriority=["wheel_front_left","wheel_front_right","wheel_rear_left","wheel_rear_right","front_fascia","windshield","cargo_bed","tailgate","interior","door_front_left","door_front_right","rear_bumper_and_lights"];
-function installVehicleAnnotations(pc, app, root, canvas, manifestUrl){
- const host=$("hotspots");
- const stage=$("stage");
- fetch(manifestUrl).then(r=>{if(!r.ok)throw new Error("No se pudo cargar el manifiesto de componentes");return r.json();})
- .then(data=>{
-   const byComponent=new Map((data.annotations||[]).map(a=>[a.componentId,a]));
-   const components=new Map((data.components||[]).map(c=>[c.id,c]));
-   const markers=[];
-   host.replaceChildren();
-   for(const id of annotationPriority){
-     const component=components.get(id),ann=byComponent.get(id);
-     if(!component||!ann)continue;
-     const btn=document.createElement("button");
-     btn.type="button";btn.className="hotspot";btn.textContent="+";
-     btn.title=component.label;btn.setAttribute("aria-label","Ver "+component.label);
-     btn.addEventListener("click",()=>openDialog("infoModal",component.label,featureCopy[id]||"Explora este componente de la Kia Tasman."));
-     host.append(btn);
-     const node=root.findByName(ann.node)||root.findByName(ann.parentNode);
-     markers.push({btn,ann,node,withMarker:!!(node&&node.name===ann.node)});
-   }
-   if(!markers.length)return;
-   host.hidden=false;
-   function update(){
-     if(!state.camera||!state.model||state.mode!=="vehicle"){host.style.display="none";return;}
-     host.style.display="";
-     // Markers use the same unrotated coordinate system as the canvas.
-     for(const {btn,ann,node,withMarker} of markers){
-       let p;
-       if(withMarker){p=node.getPosition();}
-       else if(node && Array.isArray(ann.localPosition)){p=node.getWorldTransform().transformPoint(new pc.Vec3(...ann.localPosition));}
-       else if(Array.isArray(ann.position)){p=root.getWorldTransform().transformPoint(new pc.Vec3(...ann.position));}
-       else {btn.hidden=true;continue;}
-       const projected=state.camera.camera.worldToScreen(p);
-       const cameraPos=state.camera.getPosition();
-       const dir=p.clone().sub(cameraPos);
-       const fwd=state.camera.forward;
-       const visible=dir.dot(fwd)>0&&projected.x>=0&&projected.x<=canvas.width&&projected.y>=0&&projected.y<=canvas.height;
-       btn.hidden=!visible;
-       if(visible){
-         const sx=(projected.x/canvas.width)*canvas.clientWidth;
-         const sy=(projected.y/canvas.height)*canvas.clientHeight;
-         btn.style.left=sx+"px";btn.style.top=sy+"px";
-       }
-     }
-   }
-   app.on("update",update);update();
- }).catch(e=>console.error("Kia annotations:",e));
-}
+const buttonFeatureLabels={
+ wheel_front_left:"NEUMÁTICOS",front_fascia:"FAROS Y FRENTE",
+ interior:"CABINA",cargo_bed:"PAILA",tailgate:"COMPUERTA",
+ windshield:"PARABRISAS"
+};
+document.querySelectorAll("[data-feature]").forEach(button=>{
+ button.addEventListener("click",()=>{
+  const id=button.dataset.feature;
+  openDialog("infoModal",buttonFeatureLabels[id]||"COMPONENTE",featureCopy[id]||"Detalle del vehículo");
+ });
+});
 
 /* KIA DIAGNOSTIC VIEW: append ?debug=1 to inspect status without developer tools. */
 if(new URLSearchParams(location.search).has("debug")){
