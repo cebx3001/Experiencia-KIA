@@ -678,7 +678,7 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
   decoder.dispose();
   return {
     engine:"three",model,camera,renderer,scene,meshCount,texturesBound,
-    setAngle,setPose,enterCabin,exitCabin,focusOnPart,resetView,setPaintColor,getFeatureAnchor,projectPoint,requestRender,
+    setAngle,setPose,setDoorsOpen:setDoorOpen,enterCabin,exitCabin,focusOnPart,resetView,setPaintColor,getFeatureAnchor,projectPoint,requestRender,
     addFrameListener:listener=>{frameListeners.add(listener);requestRender();return ()=>frameListeners.delete(listener);},
     getCameraPosition:()=>camera.position.toArray(),
     getRadius:()=>radius,
