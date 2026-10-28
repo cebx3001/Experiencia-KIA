@@ -150,3 +150,44 @@
 @keyframes kiaAnnotationPulse{0%{opacity:.6;transform:scale(.8)}65%,100%{opacity:0;transform:scale(1.45)}}
 @media(max-height:580px){.kia-annotation-pin{width:24px;height:24px;font-size:18px}.kia-annotation-detail{padding:10px 23px 10px 11px;min-height:90px}.kia-annotation-eyebrow{margin-bottom:5px;font-size:7px}.kia-annotation-heading{font-size:15px;margin-bottom:6px}.kia-annotation-description{font-size:9px;line-height:1.36}}
 @media(prefers-reduced-motion:reduce){.kia-annotation-pin::before{animation:none}.kia-annotation-detail,.kia-annotation-leader{transition:none}}
+
+
+/* Kia expandable micro-menus: one open section, nothing on the 3D mesh. */
+.kia-annotations{display:none!important}
+.kia-compact-rail{width:clamp(152px,17vw,230px);right:clamp(12px,2.5vw,38px);top:20%;padding:10px 0 10px 13px;gap:10px;z-index:10;border-left:1px solid rgba(255,255,255,.26);max-height:65%;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.26) transparent}
+.kia-compact-rail .rail-label{font-size:8px;letter-spacing:.2em;margin-bottom:2px;color:rgba(255,255,255,.6)}
+.kia-compact-rail .rail-note{display:none}
+.kia-rail-accordion{display:flex;flex-direction:column;gap:4px}
+.kia-compact-rail .micro-group{border-bottom:1px solid rgba(255,255,255,.15)}
+.kia-compact-rail .micro-toggle{width:100%;padding:10px 1px 10px 0;display:flex;align-items:center;justify-content:space-between;text-align:left;border:0;background:transparent;color:#fff;font-size:10px;letter-spacing:.07em;font-weight:600;gap:10px}
+.kia-compact-rail .micro-toggle-main{display:flex;gap:9px;align-items:center}
+.kia-compact-rail .micro-chevron{color:rgba(255,255,255,.66);font-size:16px;font-weight:300;transition:transform .22s}
+.kia-compact-rail .micro-toggle[aria-expanded="true"] .micro-chevron{transform:rotate(45deg);color:#ea0029}
+.kia-compact-rail .mini-camera{height:15px;width:15px;flex-shrink:0;display:block}
+.kia-compact-rail .micro-menu-glyph{font-size:17px;line-height:15px;width:15px;color:#ccd4d8;text-align:center}
+.kia-compact-rail .micro-panel{padding:5px 0 12px;animation:kiaMenuReveal .25s ease both}
+.kia-compact-rail .micro-panel[hidden]{display:none!important}
+.kia-compact-rail .camera-pose-list{display:flex;flex-direction:column;gap:1px}
+.kia-compact-rail .camera-pose-list .camera-pose{width:100%;min-height:30px;text-align:left;padding:5px 5px 5px 7px;background:transparent;border:0;color:rgba(255,255,255,.67);font-size:9px;font-weight:500;letter-spacing:.04em;display:flex;align-items:center;gap:9px;transition:background .2s,color .2s}
+.kia-compact-rail .camera-pose-list .camera-pose.selected,.kia-compact-rail .camera-pose-list .camera-pose:hover{background:rgba(255,255,255,.095);color:#fff}
+.kia-compact-rail .camera-pose-list .camera-pose.selected{border-left:2px solid #ea0029;padding-left:5px}
+.kia-compact-rail .camera-pose-list .camera-pose .mini-camera{width:14px;height:14px}
+.kia-compact-rail .micro-group-caption{font-size:8px;font-weight:500;letter-spacing:.14em;color:#b6c2c8;margin:6px 0 8px}
+.kia-compact-rail .color-list{display:flex;flex-wrap:nowrap;gap:10px;align-items:center;padding:0 0 5px}
+.kia-compact-rail .color-chip{width:21px;height:21px;min-width:21px;border-radius:50%;background:var(--swatch);box-shadow:0 0 0 1px rgba(255,255,255,.24)}
+.kia-compact-rail .color-chip.active{outline:1px solid white;outline-offset:3px}
+.kia-compact-rail .color-name{font-size:8px;line-height:1.4;letter-spacing:.08em;color:#eee;display:block;min-height:18px;margin-bottom:12px}
+.kia-compact-rail .component-button-grid{display:flex;flex-direction:column;gap:0;padding:0;margin:0}
+.kia-compact-rail .micro-feature{width:100%;display:grid;grid-template-columns:17px minmax(0,1fr) 12px;align-items:center;gap:5px;min-height:30px;padding:6px 3px 6px 0;text-align:left;border:0;border-bottom:1px solid rgba(255,255,255,.11);background:transparent;color:rgba(255,255,255,.78);font-size:9px;letter-spacing:.015em;font-weight:500;line-height:1.25;transition:color .2s,background .2s}
+.kia-compact-rail .micro-feature:hover,.kia-compact-rail .micro-feature.is-active{color:#fff;background:rgba(255,255,255,.08)}
+.kia-compact-rail .micro-index{font-size:8px;color:rgba(255,255,255,.48);font-weight:400;font-variant-numeric:tabular-nums}
+.kia-compact-rail .micro-arrow{justify-self:end;font-size:13px;color:rgba(255,255,255,.5)}
+.kia-compact-rail .micro-detail{border-left:2px solid #ea0029;background:rgba(5,20,31,.86);padding:10px 22px 10px 9px;margin:8px 0 0;position:relative;animation:kiaMenuReveal .3s ease}
+.kia-compact-rail .micro-detail[hidden]{display:none!important}
+.kia-compact-rail .micro-detail strong{display:block;font-size:11px;letter-spacing:.01em;line-height:1.3;margin-bottom:5px}
+.kia-compact-rail .micro-detail p{margin:0;font-size:9px;color:#d3dce0;line-height:1.45}
+.kia-compact-rail .micro-detail button{position:absolute;top:4px;right:2px;border:0;color:#fff;background:transparent;font-size:18px;padding:2px 5px}
+@keyframes kiaMenuReveal{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-height:580px){.kia-compact-rail{top:15%;max-height:68%;width:clamp(145px,18vw,190px);right:12px;padding-left:9px;gap:6px}.kia-compact-rail .micro-toggle{font-size:9px;padding:6px 1px}.kia-compact-rail .micro-panel{padding:4px 0 8px}.kia-compact-rail .micro-feature{font-size:8px;min-height:25px;padding:4px 2px}.kia-compact-rail .camera-pose-list .camera-pose{min-height:25px;font-size:8px}.kia-compact-rail .color-chip{width:18px;height:18px;min-width:18px}.kia-compact-rail .micro-detail p{font-size:8px}}
+@media(orientation:portrait){.kia-compact-rail{width:153px;right:9px;top:15%;max-height:68%;padding-left:9px}}
+@media(prefers-reduced-motion:reduce){.kia-compact-rail .micro-panel,.kia-compact-rail .micro-detail{animation:none}}
