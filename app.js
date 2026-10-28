@@ -8,10 +8,10 @@ const levels = [
 ];
 // Exterior colors from Kia's official Tasman color catalog; market stock can vary.
 const colors = {
- arena:{label:"ARENA",rgb:[.64,.55,.40]},
- blanco:{label:"SNOW WHITE PEARL (SWP)",rgb:[.93,.92,.90]},
- gris:{label:"INTERSTELLAR GRAY (AGT)",rgb:[.28,.32,.34]},
- negro:{label:"AURORA BLACK PEARL (ABP)",rgb:[.035,.045,.055]}
+ arena:{label:"ARENA · TAN BEIGE (TAM)",rgb:[.68,.57,.43]},
+ gris:{label:"INTERSTELLAR GRAY (AGT)",rgb:[.30,.35,.38]},
+ negro:{label:"AURORA BLACK PEARL (ABP)",rgb:[.055,.075,.085]},
+ verde:{label:"CITYSCAPE GREEN (CGE)",rgb:[.40,.46,.42]}
 };
 const $ = id => document.getElementById(id);
 function showModelStatus(message){
@@ -74,16 +74,36 @@ document.addEventListener("keydown",e=>{
  if(e.key==="Escape"){closeDialog("infoModal");closeDialog("missionModal");}
  if(state.mode==="mission"){if(e.key==="ArrowLeft")setLevel(state.level-1);if(e.key==="ArrowRight")setLevel(state.level+1);}
 });
-// Object-linked hotspots are installed after the actual GLB and semantic manifest load.
+// Controls are in collapsible UI micro-menus, with no markers over the vehicle.
 document.querySelectorAll(".color-chip").forEach(b=>b.addEventListener("click",()=>{
  state.color=b.dataset.color;
  document.querySelectorAll(".color-chip").forEach(el=>el.classList.toggle("active",el===b));
  $("colorName").textContent=colors[state.color].label;
  recolorModel();
 }));
-document.querySelectorAll("#cameraButtons button").forEach(b=>b.addEventListener("click",()=>{
- state.angle=Number(b.dataset.angle);document.querySelectorAll("#cameraButtons button").forEach(el=>el.classList.toggle("selected",el===b));
- moveCamera();
+// Only one of the three micro-menus can be expanded at once.
+const groups=[
+ {toggle:$("toggleCameras"),panel:$("panelCameras")},
+ {toggle:$("toggleExterior"),panel:$("panelExterior")},
+ {toggle:$("toggleInterior"),panel:$("panelInterior")}
+];
+function setMicroMenu(panelId){
+ for(const group of groups){
+  const shouldOpen=group.panel.id===panelId;
+  group.panel.hidden=!shouldOpen;
+  group.toggle.setAttribute("aria-expanded",String(shouldOpen));
+ }
+ if(state.annotations?.selected)state.annotations.dismiss({reset:true});
+}
+groups.forEach(group=>group.toggle.addEventListener("click",()=>{
+ const open=group.toggle.getAttribute("aria-expanded")==="true";
+ setMicroMenu(open?null:group.panel.id);
+}));
+document.querySelectorAll("#cameraButtons button").forEach(button=>button.addEventListener("click",()=>{
+ state.angle=Number(button.dataset.angle);
+ document.querySelectorAll("#cameraButtons button").forEach(other=>other.classList.toggle("selected",other===button));
+ if(state.annotations?.selected)state.annotations.dismiss({reset:false});
+ state.viewer?.setPose(button.dataset.pose);
 }));
 
 async function initVehicle(){
@@ -92,7 +112,7 @@ async function initVehicle(){
   ? "./assets/kia-tasman.glb" : "./assets/kia-tasman-quality.glb";
  try{
   showModelStatus("CARGANDO KIA TASMAN 3D");
-  const {mountKiaThree}=await import("./kia-three-renderer.js?v=20261028-annotations-v1");
+  const {mountKiaThree}=await import("./kia-three-renderer.js?v=20261028-micromenu-v1");
   const viewer=await mountKiaThree({
    canvas,host:stage,assetUrl,initialAngle:state.angle,
    onAngleChange:degrees=>{
@@ -103,7 +123,7 @@ async function initVehicle(){
   });
   state.viewer=viewer;
   try{
-   const {mountKiaAnnotations}=await import("./kia-annotations.js?v=20261028-hotspots-v1");
+   const {mountKiaAnnotations}=await import("./kia-annotations.js?v=20261028-micromenu-v1");
    state.annotations=mountKiaAnnotations({
     host:stage,viewer,
     onChange:id=>{
@@ -126,7 +146,7 @@ async function initVehicle(){
    status:window.__kiaThreeViewer
   };
   hideModelStatus();
-  $("interactionHint").textContent="DESLIZA PARA GIRAR · TOCA LOS PUNTOS 3D";
+  $("interactionHint").textContent="DESLIZA PARA GIRAR · EXPLORA DESDE EL MENÚ";
  }catch(error){
   console.error("Kia Three.js viewer initialization failed",error);
   window.__kiaViewerStatus={loaded:false,engine:"three",error:String(error)};
