@@ -33,7 +33,15 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
   const target=new THREE.Vector3(0,1,0);
   const defaultTarget=new THREE.Vector3(0,1,0);
   let baseRadius=7,animationId=0,cameraOverride=null,cabinOpen=false;
-  let door=null,doorClosedRotation=0;
+  // Four independent door pivots are preserved in the original GLB.
+  // Mirrored doors swing in opposite directions around their own hinges.
+  const doorDefinitions=[
+    {name:"door_front_left",open:65},
+    {name:"door_rear_left",open:65},
+    {name:"door_front_right",open:-65},
+    {name:"door_rear_right",open:-65}
+  ];
+  const doors=[];
   const easing=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
   const frameListeners=new Set();
   let frameRequested=false,lastWidth=0,lastHeight=0;
@@ -116,21 +124,24 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
     const selected=positions[pose]||positions.threequarter;
     tweenCamera({point:defaultTarget,angle:selected.angle,radiusFactor:1,endInclination:selected.inclination,duration:900});
   }
+  let doorAnimationToken=0;
   function setDoorOpen(open,duration=850){
-    if(!door)return false;
-    const source=door.rotation.y,goal=doorClosedRotation+(open?65:0)*Math.PI/180;
+    if(!doors.length)return false;
+    const source=doors.map(door=>door.node.rotation.y);
+    const destinations=doors.map(door=>door.closed+(open?door.open:0)*Math.PI/180);
     const start=performance.now(),token=++doorAnimationToken;
     function frame(now){
       if(token!==doorAnimationToken)return;
-      const t=clamp((now-start)/duration,0,1);
-      door.rotation.y=THREE.MathUtils.lerp(source,goal,easing(t));
+      const t=clamp((now-start)/duration,0,1),e=easing(t);
+      for(let index=0;index<doors.length;index++){
+        doors[index].node.rotation.y=THREE.MathUtils.lerp(source[index],destinations[index],e);
+      }
       requestRender();
       if(t<1)requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
-    return true;
+    return doors.length===4;
   }
-  let doorAnimationToken=0;
   function exitCabin(animate=true){
     if(!cameraOverride&&!cabinOpen)return;
     cabinOpen=false;
@@ -309,11 +320,17 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
     }
   });
   scene.add(model);
-  door=model.getObjectByName("door_front_left");
-  doorClosedRotation=door?.rotation.y||0;
-  debug.doorAvailable=!!door;
-  debug.doorName=door?.name||null;
-  debug.getDoorDegrees=()=>door?(door.rotation.y-doorClosedRotation)*180/Math.PI:null;
+  for(const definition of doorDefinitions){
+    const node=model.getObjectByName(definition.name);
+    if(node)doors.push({name:definition.name,node,open:definition.open,closed:node.rotation.y});
+  }
+  debug.doorAvailable=doors.length===4;
+  debug.doorName=doors.map(item=>item.name).join(", ");
+  debug.doorNames=doors.map(item=>item.name);
+  debug.getDoorDegrees=()=>doors.find(item=>item.name==="door_front_left")
+    ? (doors.find(item=>item.name==="door_front_left").node.rotation.y-doors.find(item=>item.name==="door_front_left").closed)*180/Math.PI : null;
+  debug.getAllDoorDegrees=()=>Object.fromEntries(doors.map(item=>[item.name,
+    (item.node.rotation.y-item.closed)*180/Math.PI]));
   debug.isInCabin=()=>cabinOpen;
   debug.modelAnimations=gltf.animations?.map(a=>a.name)||[];
   const bounds=new THREE.Box3().setFromObject(model);
