@@ -1,10 +1,10 @@
 // KIA TASMAN — first-stage selector.
 // The real GLB is intentionally loaded only when assets/kia-tasman.glb is available.
 const levels = [
-  { id:"rocks", name:"ROCK CHALLENGE", title:"ROCK<br>CHALLENGE", desc:"Domina un terreno rocoso y descubre el control todoterreno de la Tasman.", tech:"MODO ROCA · MONITOR DE VISTA DEL TERRENO", cls:"scene-rocks" },
-  { id:"flood", name:"FLOOD CROSSING", title:"FLOOD<br>CROSSING", desc:"Atraviesa una zona inundada y descubre su capacidad de vadeo.", tech:"VADEO · HASTA 800 MM A 7 KM/H", cls:"scene-flood" },
-  { id:"mud", name:"MUD ESCAPE", title:"MUD<br>ESCAPE", desc:"Explora la tracción y el control sobre un terreno lleno de lodo.", tech:"MODO BARRO · DIFERENCIAL e-LD", cls:"scene-mud" },
-  { id:"descent", name:"X-TREK DESCENT", title:"X-TREK<br>DESCENT", desc:"Avanza a baja velocidad por un descenso técnico de montaña.", tech:"MODO X-TREK", cls:"scene-descent" }
+  { id:"rocks", name:"ROCK CHALLENGE", title:"ROCK<br>CHALLENGE", desc:"Supera las rocas en modo Rock y desciende con la asistencia X-TREK.", tech:"ROCK MODE · X-TREK", cls:"scene-rocks" },
+  { id:"flood", name:"WATER CROSSING", title:"WATER<br>CROSSING", desc:"Cruza un arroyo y descubre la capacidad de vadeo de la Tasman.", tech:"CAPACIDAD DE VADEO · HASTA 800 MM", cls:"scene-flood" },
+  { id:"mud", name:"SAND CHALLENGE", title:"SAND<br>CHALLENGE", desc:"Sube y baja dunas mostrando la tracción 4×4 en arena.", tech:"SAND MODE · TRACCIÓN 4×4", cls:"scene-mud" },
+  { id:"descent", name:"STORM CHALLENGE", title:"STORM<br>CHALLENGE", desc:"Avanza bajo una tormenta sobre una carretera mojada.", tech:"4A · TRACCIÓN AUTOMÁTICA 4×4", cls:"scene-descent" }
 ];
 // Exterior colors from Kia's official Tasman color catalog; market stock can vary.
 const colors = {
@@ -86,11 +86,11 @@ async function initVehicle(){
  // The page works as a menu before the model is uploaded; do not fetch PlayCanvas unnecessarily.
  try{
    const res=await fetch(url,{method:"HEAD",cache:"no-store"});
-   if(!res.ok)return;
- }catch{return;}
+   if(!res.ok)throw new Error("GLB no disponible: HTTP "+res.status);
+ }catch(e){console.warn("No se encontró la Kia Tasman 3D",e);$("interactionHint").textContent="NO SE PUDO ABRIR EL MODELO 3D";return;}
  let pc;
  try{pc=await import("https://cdn.jsdelivr.net/npm/playcanvas@2.23.1/build/playcanvas.mjs");}
- catch(e){console.warn("PlayCanvas could not load",e);return;}
+ catch(e){console.warn("PlayCanvas could not load",e);$("interactionHint").textContent="ERROR AL INICIAR VISOR 3D";return;}
  const canvas=$("carCanvas");
  let app;
  try{
@@ -110,42 +110,49 @@ async function initVehicle(){
    app.scene.gammaCorrection=pc.GAMMA_SRGB;
    app.scene.toneMapping=pc.TONEMAP_ACES;
    app.assets.loadFromUrl(url,"container",(err,asset)=>{
-     if(err||!asset){console.error("Could not load Kia GLB",err);return;}
+     if(err||!asset){console.error("Could not load Kia GLB",err);$("interactionHint").textContent="ERROR AL CARGAR VEHÍCULO 3D";return;}
      const root=asset.resource.instantiateRenderEntity({castShadows:true});
      app.root.addChild(root);state.model=root;state.ready=true;
      const box=new pc.BoundingBox();
      let has=false;
      root.findComponents("render").forEach(c=>(c.meshInstances||[]).forEach(mi=>{if(mi.aabb){if(!has){box.copy(mi.aabb);has=true;}else box.add(mi.aabb);}}));
      if(has){
-       const center=box.center.clone();
-       const extent=box.halfExtents;
-       root.setPosition(-center.x,-center.y,-center.z);
-       const maxSize=Math.max(extent.x,extent.y,extent.z)*2;
-       state.radius=Math.max(maxSize*1.65,2.5);
-     }
-     state.target=new pc.Vec3(0,0,0);
-     moveCamera();canvas.hidden=false;$("carFallback").hidden=true;
+        // Orbit around the actual rendered model bounds.
+        state.target=box.center.clone();
+        const extent=box.halfExtents;
+        const maxSize=Math.max(extent.x,extent.y,extent.z)*2;
+        state.radius=Math.max(maxSize*1.15,2.8);
+      }else{
+        state.target=new pc.Vec3(0,1,0);
+        state.radius=9;
+        console.warn("Kia GLB has no measurable render bounds");
+      }
+      canvas.hidden=false;
+      doResize();
+      moveCamera();
+      $("carFallback").hidden=true;
      installVehicleAnnotations(pc, app, root, canvas, manifestUrl);
      $("interactionHint").textContent="DESLIZA PARA GIRAR · TOCA + PARA EXPLORAR";
      recolorModel();
    });
    const doResize=()=>{
      if(!state.app)return;
-     const bounds=canvas.getBoundingClientRect();
-     app.resizeCanvas(Math.max(16,Math.round(bounds.width)),Math.max(16,Math.round(bounds.height)));
+     // Use unrotated landscape dimensions, not transformed screen dimensions.
+     app.resizeCanvas(Math.max(16,Math.round(canvas.clientWidth)),Math.max(16,Math.round(canvas.clientHeight)));
    };
-   new ResizeObserver(doResize).observe(canvas);
+   new ResizeObserver(doResize).observe($("stage"));
+   window.addEventListener("resize",doResize);
    doResize();
    canvas.addEventListener("pointerdown",e=>{state.dragging=true;state.pointerX=e.clientX;canvas.setPointerCapture(e.pointerId)});
    canvas.addEventListener("pointermove",e=>{if(!state.dragging)return;const dx=e.clientX-state.pointerX;state.pointerX=e.clientX;state.angle+=dx*.4;moveCamera();});
    for(const ev of ["pointerup","pointercancel"])canvas.addEventListener(ev,()=>{state.dragging=false;});
- }catch(e){console.error("PlayCanvas scene init failed",e);canvas.hidden=true;}
+ }catch(e){console.error("PlayCanvas scene init failed",e);canvas.hidden=true;$("interactionHint").textContent="ERROR AL INICIAR VISOR 3D";}
 }
 function moveCamera(){
  if(!state.camera||!state.target)return;
  const a=state.angle*Math.PI/180;
  const r=state.radius;
- state.camera.setPosition(Math.sin(a)*r,r*.26,Math.cos(a)*r);
+ state.camera.setPosition(state.target.x+Math.sin(a)*r,state.target.y+r*.26,state.target.z+Math.cos(a)*r);
  state.camera.lookAt(state.target);
 }
 function recolorModel(){
@@ -212,7 +219,7 @@ function installVehicleAnnotations(pc, app, root, canvas, manifestUrl){
    function update(){
      if(!state.camera||!state.model||state.mode!=="vehicle"){host.style.display="none";return;}
      host.style.display="";
-     const rect=canvas.getBoundingClientRect(), stageRect=stage.getBoundingClientRect();
+     // Markers use the same unrotated coordinate system as the canvas.
      for(const {btn,ann,node,withMarker} of markers){
        let p;
        if(withMarker){p=node.getPosition();}
@@ -226,8 +233,8 @@ function installVehicleAnnotations(pc, app, root, canvas, manifestUrl){
        const visible=dir.dot(fwd)>0&&projected.x>=0&&projected.x<=canvas.width&&projected.y>=0&&projected.y<=canvas.height;
        btn.hidden=!visible;
        if(visible){
-         const sx=rect.left-stageRect.left+(projected.x/canvas.width)*rect.width;
-         const sy=rect.top-stageRect.top+(projected.y/canvas.height)*rect.height;
+         const sx=(projected.x/canvas.width)*canvas.clientWidth;
+         const sy=(projected.y/canvas.height)*canvas.clientHeight;
          btn.style.left=sx+"px";btn.style.top=sy+"px";
        }
      }
