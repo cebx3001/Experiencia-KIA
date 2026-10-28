@@ -1045,7 +1045,7 @@ button{font-family:var(--kia-mono)}
   .experience .ambient-backdrop{display:block;background:#15232c!important}
   .experience .ambient-image{
     display:block!important;inset:0;
-    background-image:url("https://images.unsplash.com/photo-1758407909328-6b46fbfc5f98?auto=format&fit=crop&w=1200&q=78")!important;
+    background-image:url("https://images.unsplash.com/photo-1755398104003-67d116e62f38?auto=format&fit=crop&w=1200&q=80")!important;
     background-size:cover;background-position:54% 53%;
     filter:brightness(.71) saturate(.80) contrast(1.08);
     opacity:1;transform:none;
