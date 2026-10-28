@@ -432,21 +432,8 @@ export async function mountKiaPlayCanvas({
     radius=Math.max(size.y/(2*Math.tan(vfov/2)),Math.hypot(size.x,size.z)/(2*Math.tan(hfov/2)))*1.16;
     baseRadius=radius=clamp(radius,4,24);
 
-    // Infinite neutral cyclorama floor, catching genuine real-time shadows.
-    const floor=new pc.Entity("Studio shadow floor");
-    const floorMat=new pc.StandardMaterial();
-    floorMat.diffuse=new pc.Color(.115,.128,.14);
-    floorMat.useMetalness=true;floorMat.metalness=.08;floorMat.gloss=.42;
-    floorMat.update();
-    floor.addComponent("render",{type:"plane",material:floorMat,receiveShadows:true});
-    floor.setLocalScale(Math.max(18,size.x*3),1,Math.max(18,size.z*3));
-    floor.setPosition(center.x,min.y-.035,center.z);
-    // Mobile portrait uses a photographic scene preview behind the transparent canvas.
-    // Keep the studio floor on desktop without covering that backdrop on phones.
-    const mobilePortrait=matchMedia("(orientation:portrait) and (max-width:700px)");
-    floor.enabled=!mobilePortrait.matches;
-    mobilePortrait.addEventListener("change",event=>{floor.enabled=!event.matches;});
-    app.root.addChild(floor);
+    // No studio floor or set geometry: render only the vehicle over the UI backdrop.
+    // Studio lighting stays active solely for vehicle illumination and reflections.
     debug.bounds={min:[min.x,min.y,min.z],max:[max.x,max.y,max.z]};
     debug.meshCount=meshCount;
     debug.texturesBound=texturesBound;
