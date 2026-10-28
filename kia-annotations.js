@@ -1,7 +1,7 @@
 // KIA: annotations live ONLY in the collapsible UI — no floating markers.
 // Each selection drives an authored camera pose on the existing real GLB.
 const DETAILS={
- front_fascia:{title:"Faros LED",description:"Primer plano de ambos faros LED y su firma luminosa.",anchor:"front_fascia",angle:0,closeDistance:2.52,elevation:.10,lookOffset:[0,.23,.10]},
+ front_fascia:{title:"Faro LED delantero",description:"Primer plano de un solo faro delantero y su firma luminosa.",anchor:"headlight_front_left",angle:-18,closeDistance:.86,elevation:.08,fov:30},
  wheel_front_left:{title:"Ruedas todoterreno",description:"Primer plano del rin de 17 pulgadas y del neumático todoterreno.",anchor:"wheel_front_left",angle:-90,closeDistance:1.75,elevation:.09},
  hood:{title:"Capó",description:"Acercamiento a la superficie y líneas del capó.",anchor:"hood",angle:15,closeDistance:2.50,elevation:.55},
  windshield:{title:"Parabrisas",description:"Vista cercana del parabrisas completo y sus marcos.",anchor:"windshield",angle:8,closeDistance:2.28,elevation:.34},
@@ -11,7 +11,7 @@ const DETAILS={
  rear_bumper_and_lights:{title:"Luces posteriores",description:"Primer plano de los faros traseros y del parachoques.",anchor:"rear_bumper_and_lights",angle:180,closeDistance:2.12,elevation:.13,lookOffset:[0,.25,0]},
  door_front_left:{title:"Puertas",description:"Vista cercana de las puertas y del acceso a la cabina.",anchor:"door_front_left",angle:-90,closeDistance:2.20,elevation:.12},
  interior:{title:"Acceso a la cabina",description:"Apertura sincronizada de las cuatro puertas y recorrido de entrada a la cabina.",interior:true},
- display:{title:"Pantalla panorámica",description:"Encuadre del tablero y del conjunto de pantallas panorámicas. Equipamiento según versión.",interior:true},
+ display:{title:"Pantalla panorámica",description:"Primer plano frontal de la pantalla panorámica del tablero. Equipamiento según versión.",interior:true},
  infotainment:{title:"Infoentretenimiento",description:"Acercamiento a los controles y la zona central de la consola.",interior:true},
  seats:{title:"Asientos eléctricos",description:"Vista de los asientos delanteros; las funciones eléctricas dependen del equipamiento.",interior:true},
 };
@@ -48,7 +48,7 @@ export function mountKiaAnnotations({viewer,onChange=()=>{}}){
    if(item.interior) viewer.enterCabin(id);
    else {
      const anchor=viewer.getFeatureAnchor(item.anchor);
-     if(anchor)viewer.focusOnPart(anchor,{angle:item.angle,radiusFactor:item.zoom,closeDistance:item.closeDistance,elevation:item.elevation,lookOffset:item.lookOffset,duration:980});
+     if(anchor)viewer.focusOnPart(anchor,{angle:item.angle,radiusFactor:item.zoom,closeDistance:item.closeDistance,elevation:item.elevation,fov:item.fov,lookOffset:item.lookOffset,duration:980});
    }
    onChange(id);
    return true;
