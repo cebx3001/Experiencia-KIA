@@ -1,18 +1,15 @@
-name: Verify Kia Tasman 3D in Chromium
-
+name: Verify Kia Tasman Three.js on mobile-sized Chromium
 on:
   workflow_dispatch:
   push:
     paths:
       - 'app.js'
       - 'index.html'
-      - 'assets/kia-tasman-fast.glb'
-      - 'assets/studio-env-atlas.png'
+      - 'kia-three-renderer.js'
+      - 'assets/kia-tasman-quality.glb'
       - '.github/workflows/test-tasman-viewer.yml'
-
 permissions:
   contents: read
-
 jobs:
   browser-test:
     runs-on: ubuntu-latest
@@ -26,7 +23,7 @@ jobs:
         run: |
           npm install --no-save playwright@1.56.1
           npx playwright install --with-deps chromium
-      - name: Load model and inspect WebGL
+      - name: Verify integrated Three.js 3D viewer and UI
         shell: bash
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/tasman-server.log 2>&1 &
@@ -38,50 +35,69 @@ jobs:
               "--enable-webgl","--enable-unsafe-swiftshader",
               "--no-sandbox","--disable-dev-shm-usage"
             ]});
-            const page=await browser.newPage({viewport:{width:1000,height:640},deviceScaleFactor:1});
-            page.on("pageerror",e=>console.log("PAGEERROR:",e.message));
-            page.on("console",m=>{if(m.type()==="error"||m.type()==="warning")console.log("CONSOLE:",m.text())});
-            page.on("requestfailed",r=>console.log("REQUEST FAILED:",r.url(),r.failure()?.errorText));
-            const started=Date.now();
-            await page.goto("http://127.0.0.1:8765/",{waitUntil:"domcontentloaded",timeout:30000});
-            try{
-              await page.waitForFunction(()=>window.__kiaViewerStatus?.loaded===true||!!window.__kiaViewerStatus?.error,{timeout:120000,polling:500});
-            }catch(e){console.log("WAIT:",e.message)}
-            await page.waitForFunction(()=>window.__kiaEnvReady===true,{timeout:30000}).catch(()=>{});
-            await page.waitForTimeout(1200);
-            const loadMilliseconds=Date.now()-started;
-            const state=await page.evaluate(()=>{
-              const c=document.querySelector("#carCanvas");
-              const o=window.__kiaViewerStatus||null;
-              return {status:o&&{...o,canvas:undefined},hidden:c.hidden,visibility:getComputedStyle(c).visibility,
-                size:[c.width,c.height],hint:document.querySelector("#interactionHint")?.textContent,
-                modelStatus:document.querySelector("#modelLoading")?.textContent,
-                envReady:!!window.__kiaEnvReady,
-                componentButtons:document.querySelectorAll('.component-button-grid button').length,
-                hotspots:document.querySelectorAll('.hotspot, #hotspots').length,
-                panel:document.querySelector('[aria-label="KIA 3D technical diagnostic"]')?.textContent};
+            const page=await browser.newPage({
+              viewport:{width:915,height:412},
+              deviceScaleFactor:1,isMobile:true,hasTouch:true
             });
-            const legacy=await page.evaluate(()=>({
-              obsoleteElement:!!document.querySelector("#carFallback, .car-fallback"),
-              obsoletePhoto:Array.from(document.styleSheets).some(sheet=>{
-                try{return Array.from(sheet.cssRules||[]).some(rule=>rule.cssText.includes("kia-kiev.com.ua"));}catch{return false;}
-              })
-            }));
-            console.log("VIEWER_RESULT:",JSON.stringify({...state,loadMilliseconds},null,2));
-            console.log("LEGACY_PHOTO_CHECK:",JSON.stringify(legacy));
-            if(!state.status?.loaded||state.status.meshCount<=0||state.visibility!=="visible"||state.status.texturesBound<1||!state.envReady||state.componentButtons!==6||state.hotspots!==0||legacy.obsoleteElement||legacy.obsoletePhoto){
-              await browser.close();
-              process.exit(1);
+            const pageErrors=[];
+            page.on("pageerror",error=>pageErrors.push(error.message));
+            page.on("console",m=>{if(m.type()==="error")console.log("CONSOLE:",m.text())});
+            page.on("requestfailed",r=>console.log("REQUEST FAILED:",r.url(),r.failure()?.errorText));
+            await page.goto("http://127.0.0.1:8765/?integration-test=three",{waitUntil:"domcontentloaded",timeout:45000});
+            await page.waitForFunction(
+              ()=>window.__kiaViewerStatus?.loaded===true || !!window.__kiaViewerStatus?.error,
+              null,{timeout:150000,polling:300}
+            );
+            const initial=await page.evaluate(()=>{
+              const status=window.__kiaViewerStatus||{};
+              const debug=window.__kiaThreeViewer||{};
+              const canvas=document.querySelector("#carCanvas");
+              return {
+                loaded:status.loaded,
+                error:status.error||debug.error,
+                engine:status.engine,meshCount:status.meshCount,
+                texturesBound:status.texturesBound,
+                corrected:debug.opaqueCorrected,
+                canvasVisible:!canvas.hidden&&getComputedStyle(canvas).visibility==="visible",
+                camera:status.getCamera?.(),
+                cameraButtons:document.querySelectorAll("#cameraButtons button").length,
+                featureButtons:document.querySelectorAll("[data-feature]").length,
+                hasOriginalUI:!!document.querySelector(".topbar")&&!!document.querySelector(".right-rail"),
+              };
+            });
+            console.log("THREE INITIAL:",JSON.stringify(initial));
+            if(!initial.loaded||initial.engine!=="three"||initial.meshCount<23||
+               initial.texturesBound<1||!initial.corrected?.includes("Car")||
+               !initial.corrected?.includes("Interior")||!initial.canvasVisible||
+               !initial.hasOriginalUI||initial.cameraButtons!==3||initial.featureButtons!==4) {
+              throw Error("THREE INTEGRATION FAILED: "+JSON.stringify(initial));
             }
-            try{
-              await page.screenshot({path:"kia-browser-test.png",timeout:12000,animations:"disabled"});
-            }catch(e){console.log("OPTIONAL SCREENSHOT FAILED:",e.message)}
+            await page.locator('#cameraButtons [data-angle="90"]').click();
+            const after=await page.evaluate(()=>window.__kiaViewerStatus?.getCamera?.());
+            if(!after||JSON.stringify(after)===JSON.stringify(initial.camera))throw Error("Camera buttons not wired");
+            console.log("THREE CAMERA:",JSON.stringify({before:initial.camera,after}));
+            const box=await page.locator("#carCanvas").boundingBox();
+            if(!box)throw Error("Missing 3D canvas");
+            const mx=box.x+box.width*.5, my=box.y+box.height*.52;
+            await page.mouse.move(mx,my);
+            await page.mouse.down();
+            await page.mouse.move(mx+60,my,{steps:5});
+            await page.mouse.up();
+            const afterDrag=await page.evaluate(()=>window.__kiaViewerStatus?.getCamera?.());
+            if(JSON.stringify(after)===JSON.stringify(afterDrag))throw Error("Pointer rotation not wired");
+            console.log("THREE DRAG:",JSON.stringify({before:after,after:afterDrag}));
+            await page.screenshot({path:"kia-three-mobile-landscape.png",timeout:30000});
+            await page.setViewportSize({width:390,height:844});
+            await page.waitForTimeout(300);
+            await page.screenshot({path:"kia-three-mobile-portrait.png",timeout:30000});
+            if(pageErrors.length)throw Error("Browser JS errors: "+pageErrors.join("; "));
+            console.log("PASS: Three.js viewer, opacity fix, interface, cameras, pointer rotation and mobile viewports");
             await browser.close();
-          })().catch(err=>{console.error(err);process.exit(1)});
+          })().catch(error=>{console.error(error);process.exit(1)});
           NODE
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: kia-tasman-browser-capture
-          path: kia-browser-test.png
+          name: kia-three-mobile-screenshots
+          path: kia-three-mobile-*.png
           if-no-files-found: ignore
