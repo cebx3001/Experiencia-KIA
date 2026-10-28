@@ -85,7 +85,7 @@ document.querySelectorAll("#cameraButtons button").forEach(b=>b.addEventListener
 }));
 
 async function initVehicle(){
- const url="./assets/kia-tasman-fast.glb";
+ const url="./assets/kia-tasman-quality.glb";
 
  // The HTML already preloads the GLB with GET. A separate HEAD check
  // would add a network roundtrip and defeat the browser's preload reuse.
@@ -132,14 +132,33 @@ async function initVehicle(){
    studioLight("StudioOverheadKey",[1,.975,.94],2.25,[76,30,0]);
    studioLight("StudioFrontSoftbox",[.94,.97,1],.85,[36,130,0]);
    studioLight("StudioRearRim",[.74,.85,1],1.05,[40,-115,0]);
-   // Invisible studio HDR environment: contributes to PBR bodywork, metal,
-   // glazing and strip reflections, never drawn as the scene background.
-   // The camera stays transparent over the existing photographic backdrop.
+   // HDR studio light is material-only: NEVER create or draw a skybox.
+   // The environment must not appear as a panorama or geometry behind the car.
+   app.scene.setSkybox(null);
+   app.scene.envAtlas=null;
+   let studioReflectionAtlas=null;
+   const bindInvisibleStudioEnvironment=()=>{
+     if(!state.model||!studioReflectionAtlas)return;
+     const updated=new Set();
+     state.model.findComponents("render").forEach(component=>
+       (component.meshInstances||[]).forEach(instance=>{
+         const material=instance.material;
+         if(!material||updated.has(material))return;
+         updated.add(material);
+         if("envAtlas" in material){
+           material.envAtlas=studioReflectionAtlas;
+           material.useSkybox=false;
+           material.update();
+         }
+       })
+     );
+     app.renderNextFrame=true;
+   };
    app.assets.loadFromUrl("./assets/studio-env-atlas.png","texture",(envError,envAsset)=>{
      if(envError||!envAsset){console.warn("Studio reflection atlas unavailable",envError);return;}
-     app.scene.envAtlas=envAsset.resource;
+     studioReflectionAtlas=envAsset.resource;
+     bindInvisibleStudioEnvironment();
      window.__kiaEnvReady=true;
-     app.renderNextFrame=true;
    });
    app.scene.ambientLight=new pc.Color(.27,.3,.34);
    app.scene.exposure=1.0;
@@ -163,9 +182,10 @@ async function initVehicle(){
        return;
      }
      state.model=root;
+     bindInvisibleStudioEnvironment();
      // Semantic manifest: Y-up, meters, origin below midpoint between axles.
      state.target=new pc.Vec3(0,1.05,0);
-     state.radius=8.1;
+     state.radius=6.65;
      doResize();
      moveCamera();
      state.ready=true;
@@ -174,8 +194,8 @@ async function initVehicle(){
      window.__kiaViewerStatus={
        loaded:true,meshCount,
        texturesBound:root.findComponents("render").reduce((n,c)=>n+(c.meshInstances||[]).filter(mi=>!!mi.material?.diffuseMap).length,0),
-       canvas:()=>[canvas.width,canvas.height],cameraTarget:[0,1.05,0],radius:8.1,
-       asset:"kia-tasman-fast.glb"
+       canvas:()=>[canvas.width,canvas.height],cameraTarget:[0,1.05,0],radius:6.65,
+       asset:"kia-tasman-quality.glb"
      };
      requestAnimationFrame(()=>requestAnimationFrame(()=>{
        doResize();
