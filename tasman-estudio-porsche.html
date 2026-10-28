@@ -9,14 +9,21 @@
 :root{font-family:Arial,Helvetica,sans-serif;color:#19212a;color-scheme:light}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;overflow:hidden}
-body{background:radial-gradient(ellipse at 48% 42%,#fbfbfb 0%,#e5e6e8 50%,#bfc3c7 100%)}
+body{background:#f2f2f2;transition:background-color .25s}
+body.theme-black{background:#090a0c;color:#f3f3f3}
+body.theme-black #head .eyebrow,body.theme-black #head p,body.theme-black #hint{color:#d4d5d6}
+body.theme-black .label{color:#f3f3f3}
 #viewer,#viewer canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;display:block}
 #viewer canvas{outline:none}
 #head{position:absolute;top:clamp(18px,3vw,42px);left:clamp(18px,3vw,42px);pointer-events:none}
 #head .eyebrow{font-size:11px;letter-spacing:.18em;font-weight:700;color:#515760}
 #head h1{font-size:clamp(28px,4vw,52px);letter-spacing:-.055em;line-height:.95;margin:10px 0 8px;font-weight:800}
 #head p{font-size:11px;letter-spacing:.14em;margin:0;color:#58616b}
-#pill{position:absolute;right:clamp(18px,3vw,42px);top:clamp(18px,3vw,42px);font-size:10px;letter-spacing:.12em;padding:10px 13px;border:1px solid #87909b;border-radius:100px;color:#30373f;background:rgba(255,255,255,.38);backdrop-filter:blur(6px)}
+#backgroundSwitch{position:absolute;right:clamp(18px,3vw,42px);top:clamp(18px,3vw,42px);display:flex;gap:18px;z-index:3}
+#backgroundSwitch button{background:none;border:0;padding:7px 0;color:#60666b;font:700 10px Arial,Helvetica,sans-serif;letter-spacing:.15em;cursor:pointer}
+#backgroundSwitch button[aria-pressed=true]{color:#12161a;border-bottom:2px solid currentColor}
+body.theme-black #backgroundSwitch button{color:#999}
+body.theme-black #backgroundSwitch button[aria-pressed=true]{color:#fff}
 #bottom{position:absolute;bottom:max(22px,env(safe-area-inset-bottom));left:clamp(18px,3vw,42px);right:clamp(18px,3vw,42px);display:flex;justify-content:space-between;gap:18px;align-items:flex-end;pointer-events:none}
 #swatches{display:flex;gap:12px;align-items:center;pointer-events:auto}
 .swatch{appearance:none;display:block;width:37px;height:37px;border-radius:100%;border:2px solid rgba(255,255,255,.92);cursor:pointer;background-color:var(--paint);box-shadow:0 2px 9px #0003,0 0 0 1px #3335;transition:transform .15s}
@@ -28,10 +35,11 @@ body{background:radial-gradient(ellipse at 48% 42%,#fbfbfb 0%,#e5e6e8 50%,#bfc3c
 #status.hidden{opacity:0;visibility:hidden}
 #message{position:absolute;bottom:100px;right:25px;max-width:min(460px,88vw);font-size:12px;line-height:1.5;color:#8c2230;background:#fff9;padding:15px;border-radius:8px;display:none}
 #reset{pointer-events:auto;cursor:pointer;background:#151b21;color:#fff;border:0;border-radius:50px;padding:12px 20px;font-size:10px;font-weight:700;letter-spacing:.13em}
-#credits{position:absolute;bottom:6px;left:clamp(18px,3vw,42px);font-size:9px;color:#75797d;letter-spacing:.05em}
+#credits{display:none}
+body.theme-black #reset{background:#e2e3e4;color:#111}
 @media(max-width:650px){
   #head h1{font-size:29px}
-  #pill{font-size:9px;top:22px}
+  #backgroundSwitch{top:22px;gap:12px}
   #bottom{align-items:stretch;flex-direction:column-reverse;bottom:max(25px,env(safe-area-inset-bottom));gap:20px}
   #hint{text-align:left}
   #swatches{gap:10px}
@@ -44,7 +52,7 @@ body{background:radial-gradient(ellipse at 48% 42%,#fbfbfb 0%,#e5e6e8 50%,#bfc3c
 <body>
 <div id="viewer"><canvas id="renderCanvas" aria-label="Kia Tasman en estudio fotográfico interactivo"></canvas></div>
 <header id="head"><div class="eyebrow">KIA / CONFIGURADOR 3D</div><h1>TASMAN</h1><p>ESTUDIO · PLAYCANVAS</p></header>
-<div id="pill">PROTOTIPO DE ILUMINACIÓN</div>
+<div id="backgroundSwitch" role="group" aria-label="Fondo de estudio"><button type="button" data-bg="white" aria-pressed="true">BLANCO</button><button type="button" data-bg="black" aria-pressed="false">NEGRO</button></div>
 <div id="bottom">
   <div><div class="label" id="paintName">PINTURA ORIGINAL · ARENA</div>
     <div id="swatches" role="group" aria-label="Colores de pintura">
@@ -56,7 +64,7 @@ body{background:radial-gradient(ellipse at 48% 42%,#fbfbfb 0%,#e5e6e8 50%,#bfc3c
   </div>
   <div id="hint"><button id="reset" type="button">VISTA INICIAL ↗</button><div style="margin-top:12px">ARRASTRAR PARA GIRAR · PELLIZCAR PARA ZOOM</div></div>
 </div>
-<div id="credits">ILUMINACIÓN HDR: OCTAGON LAMPS PHOTO STUDIO — REFERENCIA DEL CONFIGURADOR PORSCHE / PLAYCANVAS</div>
+
 <div id="status" role="status">PREPARANDO ESTUDIO...</div>
 <div id="message" role="alert"></div>
 <script type="module">
@@ -69,6 +77,7 @@ const message=document.getElementById('message');
 const paintName=document.getElementById('paintName');
 const mobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 const V=(x=0,y=0,z=0)=>new pc.Vec3(x,y,z);
+let studioFloorMaterial=null;
 const PAINTS={
  arena:{label:'PINTURA ORIGINAL · ARENA',color:[1,1,1],metalness:.35},
  gris:{label:'GRIS METÁLICO · PRUEBA',color:[.65,.68,.72],metalness:.65},
@@ -91,7 +100,7 @@ app.scene.exposure=1.06;
 app.scene.skyboxIntensity=1.2;
 app.scene.skybox=null;
 const camera=new pc.Entity('Studio camera');
-camera.addComponent('camera',{fov:37,nearClip:.08,farClip:250,clearColor:new pc.Color(.87,.88,.89),priority:0});
+camera.addComponent('camera',{fov:37,nearClip:.08,farClip:250,clearColor:new pc.Color(.95,.95,.95),priority:0});
 camera.camera.toneMapping=pc.TONEMAP_ACES;
 app.root.addChild(camera);
 
@@ -114,8 +123,14 @@ function fallbackEnvironment(){
  const g=c.getContext('2d');const gradient=g.createLinearGradient(0,0,0,512);
  gradient.addColorStop(0,'#e4e8ed');gradient.addColorStop(.32,'#9ca6b2');gradient.addColorStop(.65,'#414b56');gradient.addColorStop(1,'#79818b');
  g.fillStyle=gradient;g.fillRect(0,0,1024,512);
- for(const box of [[45,85,175,270],[305,70,138,290],[630,95,230,165],[900,95,90,230]]){
-  g.shadowColor='#fff';g.shadowBlur=34;g.fillStyle='#fff';g.fillRect(...box);
+ // Smooth ambient reflection without any visible octagon or rectangular fixture.
+ for(const [x,y,rx,ry,alpha] of [[170,140,280,170,.62],[530,108,220,210,.56],[850,190,260,165,.60],[470,370,320,110,.18]]){
+  g.save();g.translate(x,y);g.scale(rx,ry);
+  const glow=g.createRadialGradient(0,0,0,0,0,1);
+  glow.addColorStop(0,'rgba(255,255,255,'+alpha+')');
+  glow.addColorStop(.48,'rgba(250,252,255,'+(alpha*.38)+')');
+  glow.addColorStop(1,'rgba(255,255,255,0)');
+  g.fillStyle=glow;g.beginPath();g.arc(0,0,1,0,Math.PI*2);g.fill();g.restore();
  }
  const source=new pc.Texture(app.graphicsDevice,{name:'Studio fallback',width:1024,height:512,format:pc.PIXELFORMAT_RGBA8,mipmaps:true});
  source.setSource(c);return source;
@@ -131,15 +146,14 @@ async function load(url,type){
  return await new Promise((resolve,reject)=>app.assets.loadFromUrl(url,type,(err,asset)=>err?reject(err):resolve(asset)));
 }
 async function startHDR(){
- // Same octagonal softbox HDR as the official PlayCanvas Porsche configurator.
+ // Porsche-inspired PBR, but soft environment lighting has no visible fixtures.
+ app.scene.skybox=null;
  try{
-  const hdr=await load('https://playcanvas.github.io/web-components/examples/assets/skies/octagon-lamps-photo-studio-2k.hdr','texture');
-  buildEnvironment(hdr.resource);
-  metrics.lighting='Porsche HDR · Octagon Lamps Photo Studio';
- }catch(err){
-  console.warn('Original Porsche HDR not available; using generated softboxes',err);
-  try{buildEnvironment(fallbackEnvironment());metrics.lighting='Softbox HDR fallback';}
-  catch(e){metrics.lighting='Direct studio lights fallback';console.warn(e);}
+  buildEnvironment(fallbackEnvironment());
+  metrics.lighting='Smooth studio IBL + four invisible lights';
+ }catch(e){
+  metrics.lighting='Four invisible studio lights';
+  console.warn('Studio IBL unavailable',e);
  }
 }
 function resize(){
@@ -156,6 +170,22 @@ window.addEventListener('resize',resize);
 window.addEventListener('orientationchange',resize);
 app.on('update',()=>{resize();updateCamera();});
 app.start();resize();
+
+function setBackground(theme){
+ const dark=theme==='black';
+ document.body.classList.toggle('theme-black',dark);
+ app.scene.skybox=null;
+ camera.camera.clearColor=dark?new pc.Color(.035,.039,.047):new pc.Color(.95,.95,.95);
+ if(studioFloorMaterial){
+  studioFloorMaterial.diffuse=dark?new pc.Color(.018,.021,.024):new pc.Color(.77,.77,.77);
+  studioFloorMaterial.emissive=dark?new pc.Color(.012,.013,.016):new pc.Color(.06,.06,.06);
+  studioFloorMaterial.update();
+ }
+ for(const button of document.querySelectorAll('[data-bg]'))
+  button.setAttribute('aria-pressed',String(button.dataset.bg===theme));
+ metrics.background=theme;
+}
+document.querySelectorAll('[data-bg]').forEach(button=>button.addEventListener('click',()=>setBackground(button.dataset.bg)));
 
 function applyPaint(key){
  const choice=PAINTS[key]||PAINTS.arena;
@@ -254,9 +284,10 @@ try{
  const floor=new pc.Entity('Studio cyclorama');
  const floorMat=new pc.StandardMaterial();
  floorMat.name='Neutral studio floor';
- floorMat.diffuse=new pc.Color(.78,.79,.8);
+ floorMat.diffuse=new pc.Color(.77,.77,.77);
  floorMat.gloss=.32;floorMat.useMetalness=true;floorMat.metalness=0;
  floorMat.update();
+ studioFloorMaterial=floorMat;
  floor.addComponent('render',{type:'plane',material:floorMat,castShadows:false,receiveShadows:true});
  floor.setPosition(target.x,min.y-.025,target.z);
  floor.setLocalScale(Math.max(40,sx*4),1,Math.max(40,sz*4));
@@ -264,7 +295,7 @@ try{
  metrics.bounds={min:[min.x,min.y,min.z],max:[max.x,max.y,max.z]};
  metrics.originalMaterials=[...colors];metrics.bodyMaterials=painted.length;
  metrics.status='ready';
- applyPaint('arena');updateCamera();
+ applyPaint('arena');setBackground('white');updateCamera();
  status.classList.add('hidden');
 }catch(err){
  console.error(err);metrics.status='error';metrics.error=String(err);
