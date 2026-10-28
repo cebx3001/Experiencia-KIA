@@ -116,3 +116,14 @@
 @media(max-height:580px){.right-rail{width:132px;right:12px;top:14%;gap:7px;padding-left:9px}.rail-block{gap:5px}.component-button-grid button{min-height:25px;padding:4px 0;font-size:8px;grid-template-columns:14px minmax(0,1fr) 9px;gap:3px}.camera-buttons{gap:5px}.camera-buttons button{font-size:7px;padding:6px 0}.color-list{gap:8px;padding:2px 0}.color-chip{height:17px;width:17px}}
 @media(max-width:750px) and (orientation:landscape){.right-rail{width:118px;right:10px;top:17%;gap:7px;padding-left:8px}.camera-buttons{gap:4px}.camera-buttons button{font-size:7px}.component-button-grid button{font-size:8px}}
 @media(orientation:portrait){.right-rail{width:118px;right:10px;top:17%;gap:7px;padding-left:8px}.rail-block{gap:5px}.camera-buttons{gap:4px}.camera-buttons button{font-size:7px;padding:6px 0}.component-button-grid button{min-height:25px;padding:4px 0;font-size:8px;grid-template-columns:14px minmax(0,1fr) 9px;gap:3px}.color-chip{height:17px;width:17px}}
+
+
+/* Vehicle-first composition: large hero, subordinate interface. */
+.stage{inset:7% 7% 7% 19%}
+.side-content{width:min(28vw,410px);max-width:33%;top:26%}
+.vehicle-copy h1{font-size:clamp(54px,7.2vw,130px)}
+.stage-watermark{opacity:.48}
+@media(max-width:1090px){.stage{inset:7% 5% 7% 20%}.side-content{width:34%;max-width:36%}}
+@media(max-height:580px){.stage{inset:8% 5% 6% 19%}.side-content{width:34%;max-width:34%}.vehicle-copy h1{font-size:min(8vh,58px)}}
+@media(max-width:750px) and (orientation:landscape){.stage{inset:8% 4% 6% 19%}.side-content{width:35%;max-width:35%}}
+@media(orientation:portrait){.stage{inset:8% 4% 6% 19%}.side-content{width:35%;max-width:35%}.vehicle-copy h1{font-size:clamp(37px,7.6vh,61px)}}
