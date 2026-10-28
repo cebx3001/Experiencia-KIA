@@ -96,9 +96,9 @@ async function initVehicle(){
   state.viewer=viewer;
   recolorModel();
   try{
-   const {mountKiaAnnotations}=await import("./kia-annotations.js?v=20261028-editorial-carousel-v13");
+   const {mountKiaAnnotations}=await import("./kia-annotations.js?v=20261028-editorial-carousel-v14");
    state.annotations=mountKiaAnnotations({host:stage,viewer});
-   const {mountKiaCarousel}=await import("./kia-carousel.js?v=20261028-editorial-carousel-v13");
+   const {mountKiaCarousel}=await import("./kia-carousel.js?v=20261028-editorial-carousel-v14");
    state.carousel=mountKiaCarousel({
      viewer,
      annotations:state.annotations,
