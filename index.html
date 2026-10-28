@@ -9,11 +9,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=20261028-testdrive-footer-v12">
+  <link rel="stylesheet" href="./styles.css?v=20261028-editorial-carousel-v13">
   <script type="importmap">
     {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}
   </script>
-  <script type="module" src="./app.js?v=20261028-one-seat-real-v11"></script>
+  <script type="module" src="./app.js?v=20261028-editorial-carousel-v13"></script>
 </head>
 <body>
   <main id="experience" class="experience scene-rocks" aria-label="Experiencia Kia Tasman 2026">
@@ -58,61 +58,31 @@
       </div>
     </section>
 
-    <section class="right-rail kia-compact-rail" aria-label="Controles de la Kia Tasman">
-      <div class="rail-label">CONFIGURACIÓN</div>
-      <div class="kia-rail-accordion">
-        <div class="micro-group">
-          <button type="button" class="micro-toggle" id="toggleCameras" aria-expanded="false" aria-controls="panelCameras"><span class="micro-toggle-main"><svg class="mini-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h4l2-2h6l2 2h4v12H3z"/><circle cx="12" cy="13" r="3.4"/></svg><span>VISTAS DE CÁMARA</span></span><span class="micro-chevron" aria-hidden="true">+</span></button>
-          <div class="micro-panel" id="panelCameras" hidden>
-            <div class="camera-buttons camera-pose-list" id="cameraButtons">
-            <button type="button" data-angle="35" data-pose="threequarter" class="camera-pose selected"><svg class="mini-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h4l2-2h6l2 2h4v12H3z"/><circle cx="12" cy="13" r="3.4"/></svg><span>3/4 DELANTERA</span></button>
-            <button type="button" data-angle="90" data-pose="side" class="camera-pose"><svg class="mini-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h4l2-2h6l2 2h4v12H3z"/><circle cx="12" cy="13" r="3.4"/></svg><span>LATERAL</span></button>
-            <button type="button" data-angle="0" data-pose="front" class="camera-pose"><svg class="mini-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h4l2-2h6l2 2h4v12H3z"/><circle cx="12" cy="13" r="3.4"/></svg><span>FRONTAL</span></button>
-            <button type="button" data-angle="180" data-pose="rear" class="camera-pose"><svg class="mini-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h4l2-2h6l2 2h4v12H3z"/><circle cx="12" cy="13" r="3.4"/></svg><span>TRASERA</span></button>
-            <button type="button" data-angle="35" data-pose="top" class="camera-pose"><svg class="mini-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h4l2-2h6l2 2h4v12H3z"/><circle cx="12" cy="13" r="3.4"/></svg><span>SUPERIOR</span></button>
-            </div>
-          </div>
-        </div>
-        <div class="micro-group">
-          <button type="button" class="micro-toggle" id="toggleExterior" aria-expanded="false" aria-controls="panelExterior"><span class="micro-toggle-main"><span class="micro-menu-glyph" aria-hidden="true">↗</span><span>EXTERIOR</span></span><span class="micro-chevron" aria-hidden="true">+</span></button>
-          <div class="micro-panel" id="panelExterior" hidden>
-            <div class="micro-group-caption">ACABADO DE CARROCERÍA</div>
-            <div class="color-list" id="colorList">
-              <button type="button" class="color-chip active" data-color="arena" style="--swatch:#ad9271" aria-label="Arena · Tan Beige" title="Tan Beige (TAM)"></button>
-              <button type="button" class="color-chip" data-color="gris" style="--swatch:#4e5961" aria-label="Interstellar Gray" title="Interstellar Gray (AGT)"></button>
-              <button type="button" class="color-chip" data-color="negro" style="--swatch:#10151a" aria-label="Aurora Black Pearl" title="Aurora Black Pearl (ABP)"></button>
-              <button type="button" class="color-chip" data-color="verde" style="--swatch:#65736b" aria-label="Cityscape Green" title="Cityscape Green (CGE)"></button>
-            </div>
-            <span class="color-name" id="colorName">ARENA · TAN BEIGE</span>
-            <div class="micro-group-caption">DETALLES EXTERIORES</div>
-            <div class="component-button-grid"><button type="button" class="micro-feature" data-feature="front_fascia" aria-label="Explorar faros led"><span class="micro-index">01</span><span>FAROS LED</span><span aria-hidden="true" class="micro-arrow">↗</span></button>
-              <button type="button" class="micro-feature" data-feature="wheel_front_left" aria-label="Explorar ruedas 17″"><span class="micro-index">02</span><span>RUEDAS 17″</span><span aria-hidden="true" class="micro-arrow">↗</span></button>
-              <button type="button" class="micro-feature" data-feature="hood" aria-label="Explorar capó"><span class="micro-index">03</span><span>CAPÓ</span><span aria-hidden="true" class="micro-arrow">↗</span></button>
-              <button type="button" class="micro-feature" data-feature="windshield" aria-label="Explorar parabrisas"><span class="micro-index">04</span><span>PARABRISAS</span><span aria-hidden="true" class="micro-arrow">↗</span></button>
-              <button type="button" class="micro-feature" data-feature="cargo_bed" aria-label="Explorar caja de carga"><span class="micro-index">05</span><span>CAJA DE CARGA</span><span aria-hidden="true" class="micro-arrow">↗</span></button>
-              <button type="button" class="micro-feature" data-feature="tailgate" aria-label="Explorar compuerta"><span class="micro-index">06</span><span>COMPUERTA</span><span aria-hidden="true" class="micro-arrow">↗</span></button>
-              <button type="button" class="micro-feature" data-feature="rear_bumper_and_lights" aria-label="Explorar luces traseras"><span class="micro-index">07</span><span>LUCES TRASERAS</span><span aria-hidden="true" class="micro-arrow">↗</span></button>
-              <button type="button" class="micro-feature" data-feature="exhaust" aria-label="Explorar salida de escape"><span class="micro-index">08</span><span>ESCAPE</span><span aria-hidden="true" class="micro-arrow">↗</span></button>
-              <button type="button" class="micro-feature" data-feature="door_front_left" aria-label="Explorar puertas"><span class="micro-index">09</span><span>PUERTAS</span><span aria-hidden="true" class="micro-arrow">↗</span></button>
-              </div>
-          </div>
-        </div>
-        <div class="micro-group">
-          <button type="button" class="micro-toggle" id="toggleInterior" aria-expanded="false" aria-controls="panelInterior"><span class="micro-toggle-main"><span class="micro-menu-glyph" aria-hidden="true">⌁</span><span>INTERIOR</span></span><span class="micro-chevron" aria-hidden="true">+</span></button>
-          <div class="micro-panel" id="panelInterior" hidden>
-            <div class="micro-group-caption">CABINA Y SISTEMAS</div>
-            <div class="component-button-grid"><button type="button" class="micro-feature" data-feature="interior" aria-label="Explorar entrar a cabina"><span class="micro-index">01</span><span>ENTRAR A CABINA</span><span aria-hidden="true" class="micro-arrow">↗</span></button>
-              <button type="button" class="micro-feature" data-feature="display" aria-label="Explorar pantalla panorámica"><span class="micro-index">02</span><span>PANTALLA PANORÁMICA</span><span aria-hidden="true" class="micro-arrow">↗</span></button>
-              <button type="button" class="micro-feature" data-feature="infotainment" aria-label="Explorar infoentretenimiento"><span class="micro-index">03</span><span>INFOENTRETENIMIENTO</span><span aria-hidden="true" class="micro-arrow">↗</span></button>
-              <button type="button" class="micro-feature" data-feature="seats" aria-label="Explorar asientos eléctricos"><span class="micro-index">05</span><span>ASIENTOS ELÉCTRICOS</span><span aria-hidden="true" class="micro-arrow">↗</span></button>
-              </div>
-          </div>
-        </div>
+    <nav class="right-rail kia-category-rail" aria-label="Explorar Kia Tasman">
+      <div class="rail-label">EXPLORA TASMAN</div>
+      <div class="kia-category-buttons" role="group" aria-label="Categorías del vehículo">
+        <button type="button" class="kia-category is-active" data-category="cameras" aria-pressed="true">CÁMARAS <span aria-hidden="true">↗</span></button>
+        <button type="button" class="kia-category" data-category="colors" aria-pressed="false">COLORES <span aria-hidden="true">↗</span></button>
+        <button type="button" class="kia-category" data-category="exterior" aria-pressed="false">EXTERIOR <span aria-hidden="true">↗</span></button>
+        <button type="button" class="kia-category" data-category="interior" aria-pressed="false">INTERIOR <span aria-hidden="true">↗</span></button>
       </div>
+    </nav>
 
-      <div id="featureDetail" class="kia-rail-description" hidden role="region" aria-live="polite" aria-label="Descripción de la característica seleccionada"></div>
-      <div class="rail-block rail-note"><span class="rail-heading">CONTROLES</span><span id="interactionHint">CARGANDO VEHÍCULO 3D…</span></div>
-    </section>
+    <nav class="kia-feature-carousel" id="kiaFeatureCarousel" aria-label="Carrusel de características">
+      <div class="kia-carousel-meta"><span id="carouselCategory">CÁMARAS</span><span id="carouselCounter">01 / 05</span></div>
+      <div class="kia-carousel-main">
+        <button class="kia-carousel-arrow" id="carouselPrev" type="button" aria-label="Opción anterior">←</button>
+        <div class="kia-carousel-window" id="carouselWindow">
+          <button type="button" class="kia-carousel-choice kia-carousel-prev" id="carouselPeekPrev" aria-label="Ver opción anterior"></button>
+          <button type="button" class="kia-carousel-choice kia-carousel-selected" id="carouselSelected" aria-current="true"></button>
+          <button type="button" class="kia-carousel-choice kia-carousel-next" id="carouselPeekNext" aria-label="Ver opción siguiente"></button>
+        </div>
+        <button class="kia-carousel-arrow" id="carouselNext" type="button" aria-label="Opción siguiente">→</button>
+      </div>
+      <div class="kia-carousel-indicator" aria-hidden="true"><span></span></div>
+    </nav>
+
+    <section id="featureDetail" class="kia-bottom-description" hidden role="region" aria-live="polite" aria-label="Información del vehículo"></section>
 
     <div class="mission-selector" id="missionSelector" hidden>
       <button type="button" class="selector-arrow" id="prevMission" aria-label="Prueba anterior">←</button>
