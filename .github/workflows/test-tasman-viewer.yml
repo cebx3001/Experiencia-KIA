@@ -69,62 +69,59 @@ jobs:
             if(!initial.loaded||initial.engine!=="three"||initial.meshCount<23||
                initial.texturesBound<1||!initial.corrected?.includes("Car")||
                !initial.corrected?.includes("Interior")||!initial.canvasVisible||
-               !initial.hasOriginalUI||initial.cameraButtons!==3||initial.featureButtons!==4) {
+               !initial.hasOriginalUI||initial.cameraButtons!==5||initial.featureButtons!==18) {
               throw Error("THREE INTEGRATION FAILED: "+JSON.stringify(initial));
             }
-            await page.locator('#cameraButtons [data-angle="90"]').click();
-            await page.waitForFunction(previous=>
-              JSON.stringify(window.__kiaViewerStatus?.getCamera?.())!==JSON.stringify(previous),
-              initial.camera,{timeout:8000,polling:60}
-            );
-            const after=await page.evaluate(()=>window.__kiaViewerStatus?.getCamera?.());
-            if(!after||JSON.stringify(after)===JSON.stringify(initial.camera))throw Error("Camera buttons not wired");
-            console.log("THREE CAMERA:",JSON.stringify({before:initial.camera,after}));
-            const box=await page.locator("#carCanvas").boundingBox();
-            if(!box)throw Error("Missing 3D canvas");
-            const mx=box.x+box.width*.5, my=box.y+box.height*.52;
-            await page.mouse.move(mx,my);
-            await page.mouse.down();
-            await page.mouse.move(mx+60,my,{steps:5});
-            await page.mouse.up();
-            await page.waitForFunction(previous=>
-              JSON.stringify(window.__kiaViewerStatus?.getCamera?.())!==JSON.stringify(previous),
-              after,{timeout:8000,polling:60}
-            );
-            const afterDrag=await page.evaluate(()=>window.__kiaViewerStatus?.getCamera?.());
-            if(JSON.stringify(after)===JSON.stringify(afterDrag))throw Error("Pointer rotation not wired");
-            console.log("THREE DRAG:",JSON.stringify({before:after,after:afterDrag}));
-            const annotations=await page.evaluate(()=>({
-              available:window.__kiaAnnotations?.available,
-              count:document.querySelectorAll(".kia-annotation-pin").length
+            const menus=await page.evaluate(()=>({
+              open:Array.from(document.querySelectorAll(".micro-toggle")).filter(b=>b.getAttribute("aria-expanded")==="true").length,
+              panelsHidden:Array.from(document.querySelectorAll(".micro-panel")).every(p=>p.hidden),
+              pins:document.querySelectorAll(".kia-annotation-pin").length,
+              colors:Array.from(document.querySelectorAll(".color-chip")).map(b=>b.dataset.color)
             }));
-            console.log("ANNOTATIONS FOUND:",JSON.stringify(annotations));
-            if(!annotations.available?.includes("front_fascia")||annotations.count<3)throw Error("Model-anchored annotation positions missing");
-            await page.locator(".component-button-grid [data-feature='front_fascia']").click();
-            await page.waitForFunction(()=>
-              window.__kiaAnnotations?.selected==="front_fascia"&&
-              document.querySelector(".kia-annotation-detail")?.classList.contains("is-open"),
-              null,{timeout:10000}
-            );
-            if(await page.locator("#infoModal").isVisible())throw Error("Legacy text modal opened instead of 3D annotation");
-            await page.waitForTimeout(1150);
-            const annotationState=await page.evaluate(()=>({
-              selected:window.__kiaAnnotations?.selected,
-              focusedCamera:window.__kiaViewerStatus?.getCamera?.(),
-              content:document.querySelector(".kia-annotation-heading")?.textContent,
-              pins:document.querySelectorAll(".kia-annotation-pin:not(.is-offscreen)").length
+            if(!menus.panelsHidden||menus.pins!==0||
+              JSON.stringify(menus.colors)!==JSON.stringify(["arena","gris","negro","verde"]))
+              throw Error("Unexpected default micro-menus or colors: "+JSON.stringify(menus));
+            await page.locator("#toggleCameras").click();
+            await page.locator('#cameraButtons [data-pose="front"]').click();
+            await page.waitForTimeout(1000);
+            const front=await page.evaluate(()=>window.__kiaViewerStatus?.getCamera?.());
+            await page.locator('#cameraButtons [data-pose="top"]').click();
+            await page.waitForTimeout(1000);
+            const top=await page.evaluate(()=>window.__kiaViewerStatus?.getCamera?.());
+            if(!(top?.[1]>front?.[1]+1.0))throw Error("Top camera did not move overhead");
+            await page.locator("#toggleExterior").click();
+            if(!(await page.locator("#panelCameras").isHidden()))throw Error("Cameras menu stayed open");
+            await page.locator('.micro-feature[data-feature="front_fascia"]').click();
+            await page.waitForFunction(()=>window.__kiaAnnotations?.selected==="front_fascia"&&
+              !document.getElementById("featureDetail").hidden,null,{timeout:10000});
+            if(await page.locator("#infoModal").isVisible())throw Error("Legacy info modal opened");
+            if(await page.locator(".kia-annotation-pin").count())throw Error("Hotspots visible over model");
+            console.log("EXTERIOR NOTE:",await page.locator("#featureDetail").innerText());
+            await page.locator("#toggleInterior").click();
+            if(!(await page.locator("#panelExterior").isHidden()))throw Error("Exterior menu stayed open");
+            await page.locator('.micro-feature[data-feature="interior"]').click();
+            await page.waitForTimeout(2100);
+            const cabin=await page.evaluate(()=>({
+              inside:window.__kiaThreeViewer?.isInCabin?.(),
+              doorExists:window.__kiaThreeViewer?.doorAvailable,
+              angle:window.__kiaThreeViewer?.getDoorDegrees?.(),
+              camera:window.__kiaViewerStatus?.getCamera?.(),
+              selected:window.__kiaAnnotations?.selected
             }));
-            console.log("ANNOTATION SELECTED:",JSON.stringify(annotationState));
-            if(annotationState.content!=="FAROS"||JSON.stringify(annotationState.focusedCamera)===JSON.stringify(afterDrag))
-              throw Error("Annotation did not move camera or show on-model label");
-            await page.locator(".kia-annotation-close").click();
-            if(await page.locator(".kia-annotation-detail.is-open").count())throw Error("Annotation did not close");
+            console.log("CABIN ENTRY:",JSON.stringify(cabin));
+            if(!cabin.inside||!cabin.doorExists||Math.abs(cabin.angle)<45||cabin.selected!=="interior")
+              throw Error("Door opening and cabin entry failed: "+JSON.stringify(cabin));
+            await page.locator('#featureDetail button[aria-label="Cerrar anotación"]').click();
+            await page.waitForTimeout(1250);
+            const exit=await page.evaluate(()=>({inside:window.__kiaThreeViewer?.isInCabin?.(),angle:window.__kiaThreeViewer?.getDoorDegrees?.()}));
+            if(exit.inside||Math.abs(exit.angle)>2)throw Error("Door did not close: "+JSON.stringify(exit));
+            console.log("MICROMENU PASS:",JSON.stringify({menus,front,top,cabin,exit}));
             await page.screenshot({path:"kia-three-mobile-landscape.png",timeout:30000});
             await page.setViewportSize({width:390,height:844});
             await page.waitForTimeout(300);
             await page.screenshot({path:"kia-three-mobile-portrait.png",timeout:30000});
             if(pageErrors.length)throw Error("Browser JS errors: "+pageErrors.join("; "));
-            console.log("PASS: Three.js viewer, opacity fix, camera motion, clickable 3D annotations, no text modal, mobile viewports");
+            console.log("PASS: mobile Three.js, 5 camera poses, 18 menu annotations, 4 official swatches, hinged door entry/exit, zero 3D markers");
             await browser.close();
           })().catch(error=>{console.error(error);process.exit(1)});
           NODE
