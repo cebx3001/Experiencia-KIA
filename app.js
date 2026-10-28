@@ -85,123 +85,44 @@ document.querySelectorAll("#cameraButtons button").forEach(b=>b.addEventListener
 }));
 
 async function initVehicle(){
- const url=new URLSearchParams(location.search).get("model")==="original" ? "./assets/kia-tasman.glb" : "./assets/kia-tasman-quality.glb";
-
- // The HTML already preloads the GLB with GET. A separate HEAD check
- // would add a network roundtrip and defeat the browser's preload reuse.
- let pc;
+ const canvas=$("carCanvas"),stage=$("stage");
+ const assetUrl=new URLSearchParams(location.search).get("model")==="original"
+  ? "./assets/kia-tasman.glb" : "./assets/kia-tasman-quality.glb";
  try{
-  showModelStatus("INICIANDO VISUALIZADOR 3D");
-  pc=await import("https://cdn.jsdelivr.net/npm/playcanvas@2.23.1/build/playcanvas.mjs");
-  if(url.includes("quality.glb")){
-    pc.WasmModule.setConfig("DracoDecoderModule",{
-      glueUrl:"https://developer.playcanvas.com/assets/modules/draco/draco.wasm.js",
-      wasmUrl:"https://developer.playcanvas.com/assets/modules/draco/draco.wasm.wasm"
-    });
-    showModelStatus("PREPARANDO VEHÍCULO 3D");
-    await Promise.race([
-      new Promise((resolve,reject)=>pc.WasmModule.getInstance("DracoDecoderModule",(mod)=>mod?resolve():reject(new Error("Draco decoder unavailable")))),
-      new Promise((_,reject)=>setTimeout(()=>reject(new Error("Draco decoder timeout")),25000))
-    ]);
-  }
-}
- catch(e){console.warn("PlayCanvas could not load",e);window.__kiaViewerStatus={error:String(e)};hideModelStatus();return;}
- showModelStatus("CARGANDO KIA TASMAN 3D");
- const canvas=$("carCanvas");
- let app;
- try{
-   // WebGL initialization must not occur on an element with display:none.
-   canvas.hidden=false;
-   canvas.style.visibility="hidden";
-   app=new pc.Application(canvas,{graphicsDeviceOptions:{alpha:true,antialias:true,powerPreference:"high-performance"}});
-   app.start();
-   app.setCanvasFillMode(pc.FILLMODE_NONE);
-   app.setCanvasResolution(pc.RESOLUTION_AUTO);
-   state.app=app;
-   const camera=new pc.Entity("TasmanCamera");
-   camera.addComponent("camera",{clearColor:new pc.Color(0,0,0,0),fov:42,nearClip:.05,farClip:500});
-   app.root.addChild(camera);state.camera=camera;
-   // Baseline GLB renderer for mobile diagnosis: no HDRI, no reflection atlas,
-   // no clearcoat, no studio rig and no material/geometry overrides.
-   // A single neutral light provides visibility without changing GLB materials.
-   const neutral=new pc.Entity("NeutralLight");
-   neutral.addComponent("light",{type:"directional",color:new pc.Color(1,1,1),intensity:1.35,castShadows:false});
-   neutral.setEulerAngles(55,25,0);
-   app.root.addChild(neutral);
-   app.scene.ambientLight=new pc.Color(.40,.40,.40);
-   camera.camera.gammaCorrection=pc.GAMMA_SRGB;
-   camera.camera.toneMapping=pc.TONEMAP_ACES;
-   app.assets.loadFromUrl(url,"container",(err,asset)=>{
-     if(err||!asset){console.error("Could not load Kia GLB",err);hideModelStatus();window.__kiaViewerStatus={error:String(err||"GLB sin asset")};return;}
-     let root;
-     try{
-       root=asset.resource.instantiateRenderEntity({castShadows:false});
-       app.root.addChild(root);
-     }catch(e){
-       console.error("Kia GLB cannot instantiate",e);
-       window.__kiaViewerStatus={error:String(e)};
-       hideModelStatus();return;
-     }
-     const meshCount=root.findComponents("render").reduce((n,c)=>n+(c.meshInstances?.length||0),0);
-     if(meshCount===0){
-       console.error("Kia GLB: no renderable meshes");hideModelStatus();
-       window.__kiaViewerStatus={error:"GLB sin mallas"};
-       return;
-     }
-     state.model=root;
-     // Preserve geometry, source PBR material assignments and GLB alpha modes.
-     // Semantic manifest: Y-up, meters, origin below midpoint between axles.
-     state.target=new pc.Vec3(0,1.05,0);
-     state.radius=6.65;
-     doResize();
-     moveCamera();
-     state.ready=true;
-     // Continuous render while diagnosing rotation-related disappearances on mobile.
-     window.__kiaViewerStatus={
-       loaded:true,meshCount,
-       texturesBound:root.findComponents("render").reduce((n,c)=>n+(c.meshInstances||[]).filter(mi=>!!mi.material?.diffuseMap).length,0),
-       canvas:()=>[canvas.width,canvas.height],cameraTarget:[0,1.05,0],radius:6.65,
-       asset:url
-     };
-     requestAnimationFrame(()=>requestAnimationFrame(()=>{
-       doResize();
-       canvas.style.visibility="visible";
-       
-       hideModelStatus();
-     }));
-     // Component facts are accessed from separate UI buttons, not dots on the GLB.
-     $("interactionHint").textContent="DESLIZA PARA GIRAR · EXPLORA LAS PIEZAS CON LOS BOTONES";
-     // Keep the original material maps untouched on the main Arena color.
-     // A single shared "Car" atlas covers many non-paint parts.
-   });
-   const doResize=()=>{
-     if(!state.app)return;
-     // Use unrotated landscape dimensions, not transformed screen dimensions.
-     const stage=$("stage");
-     const w=Math.max(32,Math.round(stage.clientWidth));
-     const h=Math.max(32,Math.round(stage.clientHeight));
-     if(canvas.width!==w||canvas.height!==h)app.resizeCanvas(w,h);
-     app.renderNextFrame=true;
-   };
-   new ResizeObserver(doResize).observe($("stage"));
-   window.addEventListener("resize",doResize);
-   doResize();
-   canvas.addEventListener("pointerdown",e=>{state.dragging=true;state.pointerX=e.clientX;canvas.setPointerCapture(e.pointerId)});
-   canvas.addEventListener("pointermove",e=>{if(!state.dragging)return;const dx=e.clientX-state.pointerX;state.pointerX=e.clientX;state.angle+=dx*.4;moveCamera();});
-   for(const ev of ["pointerup","pointercancel"])canvas.addEventListener(ev,()=>{state.dragging=false;});
- }catch(e){console.error("PlayCanvas scene init failed",e);canvas.hidden=true;hideModelStatus();window.__kiaViewerStatus={error:String(e)};}
+  showModelStatus("CARGANDO KIA TASMAN 3D");
+  const {mountKiaThree}=await import("./kia-three-renderer.js?v=20261028-three-integrated-v1");
+  const viewer=await mountKiaThree({
+   canvas,host:stage,assetUrl,initialAngle:state.angle,
+   onAngleChange:degrees=>{
+    state.angle=degrees;
+    document.querySelectorAll("#cameraButtons button").forEach(button=>
+     button.classList.toggle("selected",Math.abs(Number(button.dataset.angle)-degrees)<.5));
+   }
+  });
+  state.viewer=viewer;
+  state.app=viewer;
+  state.model=viewer.model;
+  state.camera=viewer.camera;
+  state.ready=true;
+  window.__kiaViewerStatus={
+   loaded:true,engine:"three",asset:assetUrl,meshCount:viewer.meshCount,
+   texturesBound:viewer.texturesBound,getCamera:viewer.getCameraPosition,
+   status:window.__kiaThreeViewer
+  };
+  hideModelStatus();
+  $("interactionHint").textContent="DESLIZA PARA GIRAR · EXPLORA LAS PIEZAS CON LOS BOTONES";
+ }catch(error){
+  console.error("Kia Three.js viewer initialization failed",error);
+  window.__kiaViewerStatus={loaded:false,engine:"three",error:String(error)};
+  showModelStatus("NO SE PUDO CARGAR EL MODELO 3D");
+ }
 }
 function moveCamera(){
- if(!state.camera||!state.target)return;
- const a=state.angle*Math.PI/180;
- const r=state.radius;
- state.camera.setPosition(state.target.x+Math.sin(a)*r,state.target.y+r*.26,state.target.z+Math.cos(a)*r);
- state.camera.lookAt(state.target);
- if(state.app)state.app.renderNextFrame=true;
+ if(state.viewer)state.viewer.setAngle(state.angle);
 }
-// Paint selector remains visible but GLB paint modification is temporarily suspended
-// while diagnosing source materials on Android.
-function recolorModel(){ /* no source-material mutation */ }
+// One shared Car texture atlas includes trim and glass; preserve it exactly.
+// The UI color selection remains independent until body panels are separable.
+function recolorModel(){ /* material-safe: selection only */ }
 initVehicle();
 
 const featureCopy={
@@ -258,7 +179,7 @@ if(new URLSearchParams(location.search).has("debug")){
    const canvas=$("carCanvas"),stage=$("stage");
    const app=state.app;
    let contextLost=null;
-   try{contextLost=app?.graphicsDevice?.gl?.isContextLost?.()??null;}catch{}
+   try{contextLost=state.viewer?.renderer?.getContext?.()?.isContextLost?.()??null;}catch{}
    const snapshot={
     time:new Date().toISOString(),
     status:$("interactionHint")?.textContent,
@@ -267,13 +188,13 @@ if(new URLSearchParams(location.search).has("debug")){
     ready:state.ready,
     model:!!state.model,
     modelState:window.__kiaViewerStatus?.error||"OK",
-    meshes:state.model?.findComponents("render")?.reduce((n,c)=>n+(c.meshInstances?.length||0),0)||0,
+    meshes:window.__kiaViewerStatus?.meshCount||0,
     renderer:!!app,
     canvas:{hidden:canvas.hidden,cssDisplay:getComputedStyle(canvas).display,cssVisibility:getComputedStyle(canvas).visibility,width:canvas.width,height:canvas.height,clientWidth:canvas.clientWidth,clientHeight:canvas.clientHeight},
     stage:[stage.clientWidth,stage.clientHeight],
-    camera:state.camera?.getPosition?.().toString?.(),
+    camera:state.viewer?.getCameraPosition?.()||null,
     contextLost,
-    drawCalls:app?.stats?.drawCalls?.total??null,
+    drawCalls:state.viewer?.renderer?.info?.render?.calls??null,
     errors:errors.slice(-5)
    };
    panel.textContent=JSON.stringify(snapshot,null,2);
