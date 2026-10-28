@@ -69,6 +69,11 @@ export async function mountKiaPlayCanvas({
     priority:0
   });
   camera.camera.toneMapping=pc.TONEMAP_ACES;
+  // Preserve the environment atlas for paint reflections, but never draw
+  // its skybox/background. The CSS forest must show through alpha=0 pixels.
+  camera.camera.layers=camera.camera.layers.filter(id=>id!==pc.LAYERID_SKYBOX);
+  camera.camera.clearColorBuffer=true;
+  camera.camera.clearColor=new pc.Color(0,0,0,0);
   app.root.addChild(camera);
 
   function light(name,type,color,intensity,rotation,shadow=false) {
