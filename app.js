@@ -6,11 +6,12 @@ const levels = [
   { id:"mud", name:"MUD ESCAPE", title:"MUD<br>ESCAPE", desc:"Explora la tracción y el control sobre un terreno lleno de lodo.", tech:"MODO BARRO · DIFERENCIAL e-LD", cls:"scene-mud" },
   { id:"descent", name:"X-TREK DESCENT", title:"X-TREK<br>DESCENT", desc:"Avanza a baja velocidad por un descenso técnico de montaña.", tech:"MODO X-TREK", cls:"scene-descent" }
 ];
+// Exterior colors from Kia's official Tasman color catalog; market stock can vary.
 const colors = {
- arena:{label:"ARENA", rgb:[.61,.53,.40]},
- blanco:{label:"BLANCO",rgb:[.87,.87,.84]},
- gris:{label:"GRIS",rgb:[.34,.39,.41]},
- negro:{label:"NEGRO",rgb:[.055,.083,.11]}
+ arena:{label:"TAN BEIGE (TAM)",rgb:[.64,.55,.40]},
+ blanco:{label:"SNOW WHITE PEARL (SWP)",rgb:[.93,.92,.90]},
+ gris:{label:"INTERSTELLAR GRAY (AGT)",rgb:[.28,.32,.34]},
+ negro:{label:"AURORA BLACK PEARL (ABP)",rgb:[.035,.045,.055]}
 };
 const $ = id => document.getElementById(id);
 const state = { mode:"vehicle", level:0, color:"arena", angle:35, ready:false, model:null, app:null, camera:null, pivot:null, radius:8, target:null, dragging:false, pointerX:0, angleDrag:35, materials:new Map() };
@@ -153,8 +154,13 @@ function recolorModel(){
  // Only recognized paint/body material names are colorized; glazing, tyres and chrome are preserved.
  const rgb=colors[state.color].rgb;
  state.model.findComponents("render").forEach(c=>(c.meshInstances||[]).forEach(mi=>{
-   const mat=mi.material;const name=((mat?.name||"")+" "+(mi.node?.name||"")).toLowerCase();
-   if(!/(paint|body|carrocer|exterior|bodywork|doorpaint|painted)/.test(name))return;
+   const mat=mi.material;
+   const names=[];let node=mi.node;
+   for(let i=0;node&&i<3;i++,node=node.parent)names.push(node.name||"");
+   const name=((mat?.name||"")+" "+names.join(" ")).toLowerCase();
+   // Recolor factory paint only, never glass, lighting, rubber, trim or the cabin.
+   if(!/(paint|painted|bodypaint|bodywork|carroceria|carrocería|tan.beige|exterior.color|body.color|cabin_body|hood)/.test(name))return;
+   if(/glass|window|windshield|tire|tyre|rubber|light|lamp|chrome|metal|trim|interior|seat|wheel|brake|grille|plastic|black/.test((mat?.name||"").toLowerCase()))return;
    if(!state.materials.has(mi)){
      const clone=mat.clone();mi.material=clone;state.materials.set(mi,clone);
    }
