@@ -50,10 +50,41 @@
 .model-loading{position:absolute;z-index:5;left:50%;top:50%;transform:translate(-50%,-50%);max-width:65%;padding:14px 20px;border:1px solid rgba(255,255,255,.3);background:rgba(5,20,31,.89);color:#fff;text-align:center;letter-spacing:.14em;font-size:10px;font-weight:700;pointer-events:none;white-space:normal;line-height:1.6}
 .model-loading[hidden]{display:none!important}
 
-/* Controls live in the rail: no dots, markers, labels or hotspots over the 3D model. */
+/* Editorial detail navigation: one clear list outside the vehicle.
+   No decorative circles, tooltip badges or pin clusters cover the 3D model. */
 .hotspots,.hotspot,.hotspot-a,.hotspot-b,.hotspot-c{display:none!important}
-.component-button-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;width:100%}
-.component-button-grid button{padding:7px 3px;min-height:26px;background:rgba(5,20,31,.7);border:1px solid rgba(255,255,255,.25);color:#f2f5f7;font-size:8px;font-weight:700;letter-spacing:.04em;text-align:center}
-.component-button-grid button:active,.component-button-grid button:hover{border-color:#fff;background:rgba(255,255,255,.17)}
-@media(max-height:580px){.right-rail{top:15%;gap:8px}.rail-block{gap:6px}.components-rail .rail-heading{font-size:8px}.component-button-grid button{min-height:23px;padding:5px 2px;font-size:7px}.rail-note{display:none}}
-@media(orientation:portrait){.right-rail{top:15%;gap:8px}.rail-block{gap:6px}.component-button-grid button{min-height:23px;padding:5px 2px;font-size:7px}}
+.components-rail{gap:8px}
+.component-button-grid{display:flex;flex-direction:column;gap:0;width:100%;border-bottom:1px solid rgba(255,255,255,.22)}
+.component-button-grid button{
+  display:grid;grid-template-columns:22px minmax(0,1fr) 13px;align-items:center;gap:6px;
+  border:0;border-top:1px solid rgba(255,255,255,.22);
+  border-radius:0;background:transparent;color:#f2f4f6;
+  min-height:36px;padding:8px 1px;
+  text-align:left;font-size:10px;font-weight:650;letter-spacing:.075em;
+  line-height:1.3;transition:color .2s,background-color .2s
+}
+.component-button-grid button:hover,.component-button-grid button:focus-visible,.component-button-grid button.is-active{
+  background:rgba(255,255,255,.065);color:white
+}
+.component-number{font-size:9px;font-weight:500;letter-spacing:0;color:#a0b0bc;font-variant-numeric:tabular-nums}
+.component-button-grid button.is-active .component-number{color:var(--red)}
+.component-name{min-width:0}
+.component-arrow{justify-self:end;font-size:13px;font-weight:400;color:#a0b0bc}
+.component-button-grid button:hover .component-arrow,.component-button-grid button.is-active .component-arrow{color:#fff}
+@media(max-height:580px){
+ .right-rail{top:15%;gap:8px}
+ .rail-block{gap:7px}
+ .components-rail{gap:5px}
+ .component-button-grid button{min-height:27px;padding:5px 1px;font-size:8px;grid-template-columns:16px minmax(0,1fr) 11px;gap:3px}
+ .component-number{font-size:7px}
+ .component-arrow{font-size:11px}
+ .rail-note{display:none}
+}
+@media(orientation:portrait){
+ .right-rail{top:15%;gap:8px}
+ .rail-block{gap:7px}
+ .components-rail{gap:5px}
+ .component-button-grid button{min-height:27px;padding:5px 1px;font-size:8px;grid-template-columns:16px minmax(0,1fr) 11px;gap:3px}
+ .component-number{font-size:7px}
+ .component-arrow{font-size:11px}
+}
