@@ -59,6 +59,8 @@ jobs:
               hasOldAccordion:!!document.querySelector(".kia-rail-accordion"),
               testDriveBottom:!!document.querySelector(".bottom-right .footer-testdrive"),
               leftPromo:!!document.querySelector(".side-content #primaryButton"),
+              textOnlyPromo:getComputedStyle(document.querySelector(".side-content #primaryButton")).backgroundColor,
+              rightRailBorder:getComputedStyle(document.querySelector(".kia-category-rail")).borderLeftWidth,
               descriptionBelow:!!document.querySelector("#featureDetail.kia-bottom-description")
             }));
             console.log("EDITORIAL INIT:",JSON.stringify(initial));
@@ -66,6 +68,7 @@ jobs:
               !initial.corrected?.includes("Car")||!initial.corrected?.includes("Interior")||
               JSON.stringify(initial.categories)!==JSON.stringify(["cameras","colors","exterior","interior"])||
               initial.hasOldAccordion||!initial.testDriveBottom||!initial.leftPromo||
+              initial.textOnlyPromo!=="rgba(0, 0, 0, 0)"||initial.rightRailBorder!=="0px"||
               !initial.descriptionBelow||!initial.carouselVisible)
               throw Error("Editorial vehicle layout or viewer failed: "+JSON.stringify(initial));
             const peek=await page.evaluate(()=>({
@@ -100,23 +103,42 @@ jobs:
             if(!(await page.locator("#featureDetail").isHidden())||
                await page.evaluate(()=>window.__kiaCarousel.selected)!=="front_fascia")
               throw Error("X must hide only descriptive text");
+            const macroPos=await page.evaluate(()=>window.__kiaViewerStatus?.getCamera?.());
             await page.locator(".kia-category[data-category='interior']").click();
+            // Category itself returns to a full-car camera AND opens 4 doors.
+            // It must NOT enter the cabin until the explicit CABINA choice.
             await page.waitForFunction(()=>
               Object.keys(window.__kiaThreeViewer?.getAllDoorDegrees?.()||{}).length===4&&
               Object.values(window.__kiaThreeViewer.getAllDoorDegrees()).every(a=>Math.abs(a)>55),
               null,{timeout:25000,polling:200});
+            await page.waitForTimeout(1200);
+            const overview=await page.evaluate(()=>({
+              option:window.__kiaCarousel?.selected,
+              selectedAnnotation:window.__kiaAnnotations?.selected,
+              inCabin:window.__kiaThreeViewer?.isInCabin?.(),
+              camera:window.__kiaViewerStatus?.getCamera?.(),
+              doors:window.__kiaThreeViewer?.getAllDoorDegrees?.()
+            }));
+            console.log("INTERIOR GENERAL VIEW FIRST:",JSON.stringify({macroPos,overview}));
+            if(overview.option!=="interior"||overview.selectedAnnotation||overview.inCabin||
+               document.getElementById("carouselSelected").textContent!=="CABINA")
+              throw Error("Interior category must show full truck with doors first, not enter cabin");
+            await page.locator("#carouselSelected").click();
+            await page.waitForFunction(()=>window.__kiaThreeViewer?.isInCabin?.()&&
+              window.__kiaAnnotations?.selected==="interior",null,{timeout:22000});
+            console.log("CABINA EXPLICIT ENTRY OK");
+            await page.locator("#carouselNext").click();
             await page.waitForFunction(()=>window.__kiaAnnotations?.selected==="seats"&&
               !!window.__kiaThreeViewer?.seatFraming?.target,
               null,{timeout:20000,polling:150});
-            await page.waitForTimeout(1100);
             const interior=await page.evaluate(()=>({
               option:window.__kiaCarousel.selected,
               doors:window.__kiaThreeViewer.getAllDoorDegrees(),
               seat:window.__kiaThreeViewer.seatFraming,
               sound:window.__kiaThreeViewer.doorAudio?.openCount
             }));
-            console.log("INTERIOR:",JSON.stringify(interior));
-            if(interior.option!=="seats"||!interior.sound||!interior.seat.target)
+            console.log("SEAT AFTER CABINA:",JSON.stringify(interior));
+            if(interior.option!=="seats"||!interior.sound||!interior.seat?.target)
               throw Error("Interior carousel did not open doors and focus seat");
             await page.locator(".kia-category[data-category='colors']").click();
             await page.waitForFunction(()=>
