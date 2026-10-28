@@ -95,6 +95,9 @@ function setMicroMenu(panelId){
   group.toggle.setAttribute("aria-expanded",String(shouldOpen));
  }
  if(state.annotations?.selected)state.annotations.dismiss({reset:true});
+ // Expanding INTERIOR reveals all four doors; closing the accordion
+ // or switching to Exterior/Cameras closes them again.
+ state.viewer?.setDoorsOpen(panelId==="panelInterior");
 }
 groups.forEach(group=>group.toggle.addEventListener("click",()=>{
  const open=group.toggle.getAttribute("aria-expanded")==="true";
@@ -123,6 +126,7 @@ async function initVehicle(){
    }
   });
   state.viewer=viewer;
+  if($("toggleInterior").getAttribute("aria-expanded")==="true")viewer.setDoorsOpen(true);
   recolorModel();
   try{
    const {mountKiaAnnotations}=await import("./kia-annotations.js?v=20261028-single-lamp-screen-v8");
