@@ -147,9 +147,16 @@ jobs:
             await page.locator('.micro-feature[data-feature="seats"]').click();
             await page.waitForFunction(()=>window.__kiaAnnotations?.selected==="seats",null,{timeout:10000});
             await page.waitForTimeout(1300);
-            console.log("SINGLE SEAT VIEW:",JSON.stringify(await page.evaluate(()=>({
-              fov:window.__kiaViewerStatus?.getCamera?.(),doors:window.__kiaThreeViewer?.getAllDoorDegrees?.()
-            }))));
+            const seatView=await page.evaluate(()=>({
+              framing:window.__kiaThreeViewer?.seatFraming,
+              camera:window.__kiaViewerStatus?.getCamera?.(),
+              centerHits:window.__kiaThreeViewer?.probeAtNDC?.(0,0),
+              doors:window.__kiaThreeViewer?.getAllDoorDegrees?.()
+            }));
+            console.log("SINGLE SEAT VIEW:",JSON.stringify(seatView));
+            if(!seatView.framing||seatView.framing.sampledVertices<80||
+               !seatView.camera||!seatView.framing.target)
+               throw Error("Camera did not target driver's seat geometry");
             await page.locator('.micro-feature[data-feature="display"]').click();
             await page.waitForFunction(()=>window.__kiaThreeViewer?.lastCameraDetail==="display",null,{timeout:10000});
             console.log("FRONTAL DISPLAY VIEW triggered");
@@ -172,19 +179,39 @@ jobs:
                 Object.keys(cabin.doors||{}).length!==4||
                 Object.values(cabin.doors).some(angle=>Math.abs(angle)<55))
               throw Error("All four doors must open fully on entering cabin: "+JSON.stringify(cabin));
+            const beforeClose=await page.evaluate(()=>({
+              camera:window.__kiaViewerStatus?.getCamera?.(),
+              opened:window.__kiaThreeViewer?.isInCabin?.(),
+              selected:window.__kiaAnnotations?.selected,
+              openMenu:document.getElementById("toggleInterior").getAttribute("aria-expanded"),
+              rightRail:document.getElementById("featureDetail").closest(".right-rail")!==null,
+              detailBg:getComputedStyle(document.getElementById("featureDetail")).backgroundColor,
+              detailBorder:getComputedStyle(document.getElementById("featureDetail")).borderLeftWidth
+            }));
+            if(!beforeClose.rightRail||beforeClose.detailBg!=="rgba(0, 0, 0, 0)"||beforeClose.detailBorder!=="0px")
+              throw Error("Description must be plain text inside the right rail: "+JSON.stringify(beforeClose));
             await page.locator('#featureDetail button[aria-label="Cerrar anotación"]').click();
+            await page.waitForTimeout(250);
+            const afterClose=await page.evaluate(()=>({
+              camera:window.__kiaViewerStatus?.getCamera?.(),
+              opened:window.__kiaThreeViewer?.isInCabin?.(),
+              selected:window.__kiaAnnotations?.selected,
+              openMenu:document.getElementById("toggleInterior").getAttribute("aria-expanded"),
+              descriptionHidden:document.getElementById("featureDetail").hidden
+            }));
+            console.log("X HIDES TEXT ONLY:",JSON.stringify({beforeClose,afterClose}));
+            if(!afterClose.descriptionHidden||!afterClose.opened||afterClose.openMenu!=="true"||
+               afterClose.selected!=="interior")
+              throw Error("X incorrectly reset camera/menu/doors");
+            // Switching out of Interior, not X, must close the four doors.
+            await page.locator("#toggleExterior").click();
             await page.waitForFunction(()=>!window.__kiaThreeViewer?.isInCabin?.()&&
               Object.keys(window.__kiaThreeViewer?.getAllDoorDegrees?.()||{}).length===4&&
               Object.values(window.__kiaThreeViewer.getAllDoorDegrees()).every(angle=>Math.abs(angle)<2),
-              null,{timeout:15000,polling:140});
-            const exit=await page.evaluate(()=>({inside:window.__kiaThreeViewer?.isInCabin?.(),angle:window.__kiaThreeViewer?.getDoorDegrees?.()}));
-            if(exit.inside||Object.values(await page.evaluate(()=>window.__kiaThreeViewer.getAllDoorDegrees())).some(angle=>Math.abs(angle)>2))throw Error("Four doors did not close: "+JSON.stringify(exit));
-            // Switching out of Interior must close all four doors, and the
-            // closing latch/thump must be triggered once.
-            await page.locator("#toggleExterior").click();
+              null,{timeout:20000,polling:140});
             const closedSound=await page.evaluate(()=>window.__kiaThreeViewer?.doorAudio?.closeCount);
             if(!(closedSound>0))throw Error("Door close sound was not triggered");
-            console.log("MICROMENU PASS:",JSON.stringify({menus,front,top,cabin,exit}));
+            console.log("MICROMENU PASS:",JSON.stringify({menus,front,top,cabin,afterClose}));
             // Mission backdrops: three distinct real landscapes, while the
             // SAME live 3D Kia stays in front of every environment.
             await page.locator("#primaryButton").click();
