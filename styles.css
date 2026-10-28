@@ -288,3 +288,85 @@
 @media(max-height:580px){.side-content{top:14.5%}}
 @media(max-width:750px) and (orientation:landscape){.side-content{top:14.5%}}
 @media(orientation:portrait){.side-content{top:14.5%}}
+
+
+/* Right-side feature descriptions are typography, never floating cards.
+   The menu scrolls independently, while the selected description remains
+   legible in its own right rail without ever covering the vehicle. */
+.kia-compact-rail{
+  max-height:72%;
+  overflow:visible;
+  align-items:stretch;
+  padding-right:2px;
+}
+.kia-compact-rail .rail-label{flex:0 0 auto}
+.kia-compact-rail .kia-rail-accordion{
+  min-height:0;
+  flex:1 1 auto;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,255,255,.3) transparent;
+}
+.kia-compact-rail .kia-rail-description{
+  width:100%;
+  box-sizing:border-box;
+  position:relative;
+  flex:0 0 auto;
+  max-height:36%;
+  overflow-y:auto;
+  margin-top:14px;
+  padding:5px 24px 1px 0;
+  background:transparent;
+  box-shadow:none;
+  border:0;
+  border-radius:0;
+  backdrop-filter:none;
+  color:#fff;
+  animation:kiaMenuReveal .25s ease both;
+}
+.kia-compact-rail .kia-rail-description[hidden]{display:none!important}
+.kia-compact-rail .kia-rail-description strong{
+  display:block;
+  font-size:clamp(12px,1.2vw,16px);
+  font-weight:750;
+  letter-spacing:-.025em;
+  line-height:1.12;
+  margin:0 0 8px;
+  color:#fff;
+}
+.kia-compact-rail .kia-rail-description p{
+  font-size:clamp(10px,.92vw,12px);
+  line-height:1.47;
+  font-weight:400;
+  color:rgba(244,248,251,.91);
+  letter-spacing:0;
+  margin:0;
+  text-wrap:pretty;
+}
+.kia-compact-rail .kia-rail-description button{
+  position:absolute;
+  right:0;
+  top:0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  color:#dce3e7;
+  padding:0;
+  width:22px;height:22px;
+  line-height:22px;
+  font-size:18px;
+  cursor:pointer;
+}
+@media(max-height:580px){
+  .kia-compact-rail{max-height:73%;overflow:visible}
+  .kia-compact-rail .kia-rail-description{max-height:38%;margin-top:8px}
+  .kia-compact-rail .kia-rail-description strong{font-size:12px;margin-bottom:5px}
+  .kia-compact-rail .kia-rail-description p{font-size:10px;line-height:1.37}
+}
+@media(orientation:portrait){
+  .kia-compact-rail{max-height:70%;overflow:visible}
+  .kia-compact-rail .kia-rail-description{max-height:37%;margin-top:9px}
+  .kia-compact-rail .kia-rail-description strong{font-size:12px}
+  .kia-compact-rail .kia-rail-description p{font-size:10px;line-height:1.43}
+}
