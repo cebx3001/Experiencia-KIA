@@ -73,6 +73,11 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
         );
         camera.lookAt(target);
       }
+      const desiredFov=cameraOverride?.fov??42;
+      if(Math.abs(camera.fov-desiredFov)>.005){
+        camera.fov=desiredFov;
+        camera.updateProjectionMatrix();
+      }
       renderer.render(scene,camera);
       for(const listener of frameListeners)listener(camera,width,height);
     });
@@ -201,6 +206,44 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
       requestAnimationFrame(seatFrame);
       return;
     }
+    if(detail==="display"){
+      // Direct, nearly frontal cockpit view: whole panoramic display occupies
+      // the frame, rather than the former oblique side shot of the dashboard.
+      // Approach via the opened driver's door before entering camera space.
+      const screenPos=model.localToWorld(new THREE.Vector3(.06,1.34,.30));
+      const screenTarget=model.localToWorld(new THREE.Vector3(.06,1.37,1.12));
+      const startPos=camera.position.clone();
+      const startLook=(cameraOverride?.lookAt||target).clone();
+      const initialFov=camera.fov;
+      const token=++animationId,start=performance.now();
+      const duration=wasCabin?750:1700;
+      function screenFrame(now){
+        if(token!==animationId)return;
+        const t=clamp((now-start)/duration,0,1);
+        let position,look;
+        if(!wasCabin&&t<.40){
+          const e=easing(t/.40);
+          position=startPos.clone().lerp(outside,e);
+          look=startLook.clone().lerp(model.localToWorld(new THREE.Vector3(-.35,1.35,.75)),e);
+        }else{
+          const e=easing(wasCabin?t:(t-.40)/.60);
+          const entryFrom=wasCabin?startPos:outside;
+          const lookFrom=wasCabin?startLook:model.localToWorld(new THREE.Vector3(-.35,1.35,.75));
+          position=entryFrom.clone().lerp(screenPos,e);
+          look=lookFrom.clone().lerp(screenTarget,e);
+        }
+        cameraOverride={
+          position,
+          lookAt:look,
+          fov:THREE.MathUtils.lerp(initialFov,38,easing(t))
+        };
+        requestRender();
+        if(t<1)requestAnimationFrame(screenFrame);
+      }
+      debug.lastCameraDetail="display";
+      requestAnimationFrame(screenFrame);
+      return;
+    }
     const entryLook=model.localToWorld(new THREE.Vector3(...(targets[detail]||targets.interior)));
     const beginning=camera.position.clone();
     const initialLook=(cameraOverride?.lookAt||target).clone();
@@ -250,6 +293,7 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
     const goal=lookAt.clone().addScaledVector(direction,distance);
     const source=camera.position.clone();
     const sourceLook=(cameraOverride?.lookAt||target).clone();
+    const initialFov=camera.fov;
     if(cabinOpen){ cabinOpen=false;setDoorOpen(false,750); }
     const token=++animationId,begin=performance.now();
     function frame(now){
@@ -257,7 +301,8 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
       const t=clamp((now-begin)/(options.duration??950),0,1),e=easing(t);
       cameraOverride={
         position:source.clone().lerp(goal,e),
-        lookAt:sourceLook.clone().lerp(lookAt,e)
+        lookAt:sourceLook.clone().lerp(lookAt,e),
+        fov:THREE.MathUtils.lerp(initialFov,options.fov??42,e)
       };
       requestRender();
       if(t<1)requestAnimationFrame(frame);
@@ -270,6 +315,11 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
   }
   function getFeatureAnchor(id){
     if(!model)return null;
+    if(id==="headlight_front_left"){
+      // The fascia mesh combines both headlamps and grille. Aim directly at
+      // the left lamp in world space, not the full fascia bounding-box center.
+      return model.localToWorld(new THREE.Vector3(-.77,1.12,2.43));
+    }
     const all=[];
     model.traverse(object=>{
       if(!object.isMesh)return;
