@@ -37,6 +37,10 @@ function setMode(mode){
  $("experience").classList.toggle("is-mission-mode",mission);
  $("stage").classList.toggle("kia-annotation-mode-hidden",mission);
  if(mission&&state.annotations?.selected)state.annotations.dismiss({reset:false});
+ // The cinematic challenges always show the vehicle closed; restoring
+ // the vehicle view respects the Interior menu's expanded state.
+ if(mission)state.viewer?.setDoorsOpen(false);
+ else state.viewer?.setDoorsOpen($("toggleInterior").getAttribute("aria-expanded")==="true");
  $("vehicleCopy").hidden=mission;$("missionCopy").hidden=!mission;
  $("missionSelector").hidden=!mission;
  $("sectionIndex").textContent=mission?"02 / PRUEBAS":"01 / VEHÍCULO";
