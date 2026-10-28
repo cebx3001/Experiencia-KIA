@@ -119,19 +119,30 @@ async function initVehicle(){
    const camera=new pc.Entity("TasmanCamera");
    camera.addComponent("camera",{clearColor:new pc.Color(0,0,0,0),fov:42,nearClip:.05,farClip:500});
    app.root.addChild(camera);state.camera=camera;
-   const sun=new pc.Entity("KeyLight");sun.addComponent("light",{type:"directional",color:new pc.Color(1,.94,.87),intensity:1.25,castShadows:false});
-   sun.setEulerAngles(30,135,0);app.root.addChild(sun);
-   const fill=new pc.Entity("FillLight");fill.addComponent("light",{type:"directional",color:new pc.Color(.64,.79,1),intensity:1.4});fill.setEulerAngles(-25,-50,0);app.root.addChild(fill);
-   // Image-based lighting makes the metallic body and glass reflect a studio environment.
-   // Load only a 127 KB local environment atlas, independently of the GLB.
+   // STUDIO LIGHT RIG — overhead key and rim lights reveal the silhouette
+   // while a separate reflection atlas supplies the long softbox highlights.
+   // Directional lights add shape; the atlas supplies broad PBR reflections.
+   const studioLight=(name,color,intensity,euler)=>{
+     const light=new pc.Entity(name);
+     light.addComponent("light",{type:"directional",color:new pc.Color(...color),intensity,castShadows:false});
+     light.setEulerAngles(...euler);
+     app.root.addChild(light);
+     return light;
+   };
+   studioLight("StudioOverheadKey",[1,.975,.94],2.25,[76,30,0]);
+   studioLight("StudioFrontSoftbox",[.94,.97,1],.85,[36,130,0]);
+   studioLight("StudioRearRim",[.74,.85,1],1.05,[40,-115,0]);
+   // Invisible studio HDR environment: contributes to PBR bodywork, metal,
+   // glazing and strip reflections, never drawn as the scene background.
+   // The camera stays transparent over the existing photographic backdrop.
    app.assets.loadFromUrl("./assets/studio-env-atlas.png","texture",(envError,envAsset)=>{
-     if(envError||!envAsset){console.warn("Environment atlas unavailable",envError);return;}
+     if(envError||!envAsset){console.warn("Studio reflection atlas unavailable",envError);return;}
      app.scene.envAtlas=envAsset.resource;
      window.__kiaEnvReady=true;
      app.renderNextFrame=true;
    });
-   app.scene.ambientLight=new pc.Color(.45,.47,.50);
-   app.scene.exposure=1.05;
+   app.scene.ambientLight=new pc.Color(.27,.3,.34);
+   app.scene.exposure=1.0;
    camera.camera.gammaCorrection=pc.GAMMA_SRGB;
    camera.camera.toneMapping=pc.TONEMAP_ACES;
    app.assets.loadFromUrl(url,"container",(err,asset)=>{
