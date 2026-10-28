@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#dedfe1">
+<title>KIA TASMAN — Estudio PlayCanvas</title>
+<style>
+:root{font-family:Arial,Helvetica,sans-serif;color:#19212a;color-scheme:light}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;overflow:hidden}
+body{background:radial-gradient(ellipse at 48% 42%,#fbfbfb 0%,#e5e6e8 50%,#bfc3c7 100%)}
+#viewer,#viewer canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;display:block}
+#viewer canvas{outline:none}
+#head{position:absolute;top:clamp(18px,3vw,42px);left:clamp(18px,3vw,42px);pointer-events:none}
+#head .eyebrow{font-size:11px;letter-spacing:.18em;font-weight:700;color:#515760}
+#head h1{font-size:clamp(28px,4vw,52px);letter-spacing:-.055em;line-height:.95;margin:10px 0 8px;font-weight:800}
+#head p{font-size:11px;letter-spacing:.14em;margin:0;color:#58616b}
+#pill{position:absolute;right:clamp(18px,3vw,42px);top:clamp(18px,3vw,42px);font-size:10px;letter-spacing:.12em;padding:10px 13px;border:1px solid #87909b;border-radius:100px;color:#30373f;background:rgba(255,255,255,.38);backdrop-filter:blur(6px)}
+#bottom{position:absolute;bottom:max(22px,env(safe-area-inset-bottom));left:clamp(18px,3vw,42px);right:clamp(18px,3vw,42px);display:flex;justify-content:space-between;gap:18px;align-items:flex-end;pointer-events:none}
+#swatches{display:flex;gap:12px;align-items:center;pointer-events:auto}
+.swatch{appearance:none;display:block;width:37px;height:37px;border-radius:100%;border:2px solid rgba(255,255,255,.92);cursor:pointer;background-color:var(--paint);box-shadow:0 2px 9px #0003,0 0 0 1px #3335;transition:transform .15s}
+.swatch:hover,.swatch:focus-visible{transform:scale(1.12)}
+.swatch[aria-pressed="true"]{box-shadow:0 2px 9px #0003,0 0 0 2px #121820}
+.label{font-size:10px;letter-spacing:.16em;font-weight:700;margin-bottom:13px;white-space:nowrap}
+#hint{font-size:11px;letter-spacing:.09em;text-align:right;color:#575d63}
+#status{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;background:#e1e3e5;color:#313841;font-size:12px;font-weight:bold;letter-spacing:.2em;transition:opacity .5s}
+#status.hidden{opacity:0;visibility:hidden}
+#message{position:absolute;bottom:100px;right:25px;max-width:min(460px,88vw);font-size:12px;line-height:1.5;color:#8c2230;background:#fff9;padding:15px;border-radius:8px;display:none}
+#reset{pointer-events:auto;cursor:pointer;background:#151b21;color:#fff;border:0;border-radius:50px;padding:12px 20px;font-size:10px;font-weight:700;letter-spacing:.13em}
+#credits{position:absolute;bottom:6px;left:clamp(18px,3vw,42px);font-size:9px;color:#75797d;letter-spacing:.05em}
+@media(max-width:650px){
+  #head h1{font-size:29px}
+  #pill{font-size:9px;top:22px}
+  #bottom{align-items:stretch;flex-direction:column-reverse;bottom:max(25px,env(safe-area-inset-bottom));gap:20px}
+  #hint{text-align:left}
+  #swatches{gap:10px}
+  #head{max-width:60vw}
+  #credits{display:none}
+}
+</style>
+<script type="importmap">{"imports":{"playcanvas":"https://cdn.jsdelivr.net/npm/playcanvas@2.23.1/build/playcanvas.mjs"}}</script>
+</head>
+<body>
+<div id="viewer"><canvas id="renderCanvas" aria-label="Kia Tasman en estudio fotográfico interactivo"></canvas></div>
+<header id="head"><div class="eyebrow">KIA / CONFIGURADOR 3D</div><h1>TASMAN</h1><p>ESTUDIO · PLAYCANVAS</p></header>
+<div id="pill">PROTOTIPO DE ILUMINACIÓN</div>
+<div id="bottom">
+  <div><div class="label" id="paintName">PINTURA ORIGINAL · ARENA</div>
+    <div id="swatches" role="group" aria-label="Colores de pintura">
+      <button class="swatch" style="--paint:#bcb29b" data-paint="arena" title="Arena original" aria-label="Arena original" aria-pressed="true"></button>
+      <button class="swatch" style="--paint:#777c80" data-paint="gris" title="Gris" aria-label="Gris" aria-pressed="false"></button>
+      <button class="swatch" style="--paint:#161a1f" data-paint="negro" title="Negro" aria-label="Negro" aria-pressed="false"></button>
+      <button class="swatch" style="--paint:#66766a" data-paint="verde" title="Verde" aria-label="Verde" aria-pressed="false"></button>
+    </div>
+  </div>
+  <div id="hint"><button id="reset" type="button">VISTA INICIAL ↗</button><div style="margin-top:12px">ARRASTRAR PARA GIRAR · PELLIZCAR PARA ZOOM</div></div>
+</div>
+<div id="credits">ILUMINACIÓN HDR: OCTAGON LAMPS PHOTO STUDIO — REFERENCIA DEL CONFIGURADOR PORSCHE / PLAYCANVAS</div>
+<div id="status" role="status">PREPARANDO ESTUDIO...</div>
+<div id="message" role="alert"></div>
+<script type="module">
+import * as pc from 'playcanvas';
+
+const canvas=document.getElementById('renderCanvas');
+const host=document.getElementById('viewer');
+const status=document.getElementById('status');
+const message=document.getElementById('message');
+const paintName=document.getElementById('paintName');
+const mobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+const V=(x=0,y=0,z=0)=>new pc.Vec3(x,y,z);
+const PAINTS={
+ arena:{label:'PINTURA ORIGINAL · ARENA',color:[1,1,1],metalness:.35},
+ gris:{label:'GRIS METÁLICO · PRUEBA',color:[.65,.68,.72],metalness:.65},
+ negro:{label:'NEGRO · PRUEBA',color:[.16,.17,.18],metalness:.65},
+ verde:{label:'VERDE · PRUEBA',color:[.55,.66,.55],metalness:.55}
+};
+const painted=[];
+let target=V(0,1,0),radius=9,baseRadius=9,azimuth=Math.PI*.23,elevation=.16;
+let minRadius=2.5,maxRadius=36,pinchDistance=0;
+const pointers=new Map();
+const metrics={status:'starting',engine:'PlayCanvas 2.23.1',model:'assets/kia-tasman-quality.glb',lighting:'loading',meshCount:0,bodyMaterials:0,originalMaterials:[],error:null};
+window.__tasmanStudio=metrics;
+
+const app=new pc.Application(canvas,{graphicsDeviceOptions:{alpha:false,antialias:true,powerPreference:'high-performance'}});
+app.graphicsDevice.maxPixelRatio=Math.min(window.devicePixelRatio||1,mobile?1.4:2);
+app.setCanvasFillMode(pc.FILLMODE_NONE);
+app.setCanvasResolution(pc.RESOLUTION_AUTO);
+app.scene.ambientLight=new pc.Color(.32,.34,.36);
+app.scene.exposure=1.06;
+app.scene.skyboxIntensity=1.2;
+app.scene.skybox=null;
+const camera=new pc.Entity('Studio camera');
+camera.addComponent('camera',{fov:37,nearClip:.08,farClip:250,clearColor:new pc.Color(.87,.88,.89),priority:0});
+camera.camera.toneMapping=pc.TONEMAP_ACES;
+app.root.addChild(camera);
+
+function addLight(name,color,intensity,rotation,casts=false){
+ const light=new pc.Entity(name);
+ light.addComponent('light',{type:'directional',color:new pc.Color(...color),intensity,castShadows:casts,
+   shadowResolution:mobile?1024:2048,shadowDistance:35,shadowBias:.12,normalOffsetBias:.03,
+   shadowType:pc.SHADOW_PCF5_32F});
+ light.setEulerAngles(...rotation);
+ app.root.addChild(light);
+ return light;
+}
+addLight('Key softbox', [1,.985,.96],2.2,[38,-34,0],true);
+addLight('Fill softbox',[.83,.90,1],.8,[27,115,0]);
+addLight('Rear rim',[1,.95,.88],1.0,[45,165,0]);
+addLight('Ceiling fill',[1,1,1],.35,[80,0,0]);
+
+function fallbackEnvironment(){
+ const c=document.createElement('canvas');c.width=1024;c.height=512;
+ const g=c.getContext('2d');const gradient=g.createLinearGradient(0,0,0,512);
+ gradient.addColorStop(0,'#e4e8ed');gradient.addColorStop(.32,'#9ca6b2');gradient.addColorStop(.65,'#414b56');gradient.addColorStop(1,'#79818b');
+ g.fillStyle=gradient;g.fillRect(0,0,1024,512);
+ for(const box of [[45,85,175,270],[305,70,138,290],[630,95,230,165],[900,95,90,230]]){
+  g.shadowColor='#fff';g.shadowBlur=34;g.fillStyle='#fff';g.fillRect(...box);
+ }
+ const source=new pc.Texture(app.graphicsDevice,{name:'Studio fallback',width:1024,height:512,format:pc.PIXELFORMAT_RGBA8,mipmaps:true});
+ source.setSource(c);return source;
+}
+function buildEnvironment(texture){
+ const lighting=pc.EnvLighting.generateLightingSource(texture);
+ const atlas=pc.EnvLighting.generateAtlas(lighting);
+ lighting.destroy();
+ app.scene.envAtlas=atlas;
+ metrics.lighting='HDR studio environment';
+}
+async function load(url,type){
+ return await new Promise((resolve,reject)=>app.assets.loadFromUrl(url,type,(err,asset)=>err?reject(err):resolve(asset)));
+}
+async function startHDR(){
+ // Same octagonal softbox HDR as the official PlayCanvas Porsche configurator.
+ try{
+  const hdr=await load('https://playcanvas.github.io/web-components/examples/assets/skies/octagon-lamps-photo-studio-2k.hdr','texture');
+  buildEnvironment(hdr.resource);
+  metrics.lighting='Porsche HDR · Octagon Lamps Photo Studio';
+ }catch(err){
+  console.warn('Original Porsche HDR not available; using generated softboxes',err);
+  try{buildEnvironment(fallbackEnvironment());metrics.lighting='Softbox HDR fallback';}
+  catch(e){metrics.lighting='Direct studio lights fallback';console.warn(e);}
+ }
+}
+function resize(){
+ const w=Math.max(1,host.clientWidth),h=Math.max(1,host.clientHeight);
+ if(Math.abs(canvas.width-w*app.graphicsDevice.maxPixelRatio)>2 || Math.abs(canvas.height-h*app.graphicsDevice.maxPixelRatio)>2)app.resizeCanvas(w,h);
+}
+function updateCamera(){
+ const c=Math.cos(elevation);
+ camera.setPosition(target.x+Math.sin(azimuth)*radius*c,target.y+Math.sin(elevation)*radius,target.z+Math.cos(azimuth)*radius*c);
+ camera.lookAt(target);
+}
+new ResizeObserver(resize).observe(host);
+window.addEventListener('resize',resize);
+window.addEventListener('orientationchange',resize);
+app.on('update',()=>{resize();updateCamera();});
+app.start();resize();
+
+function applyPaint(key){
+ const choice=PAINTS[key]||PAINTS.arena;
+ for(const item of painted){
+  // Keep all original PBR textures: colors only tint designated body parts.
+  if(key==='arena')item.material.diffuse.copy(item.original);
+  else item.material.diffuse.set(...choice.color);
+  item.material.metalness=choice.metalness;
+  item.material.update();
+ }
+ paintName.textContent=choice.label;
+ for(const el of document.querySelectorAll('[data-paint]'))
+  el.setAttribute('aria-pressed',String(el.dataset.paint===key));
+ metrics.selectedPaint=key;
+}
+document.querySelectorAll('[data-paint]').forEach(button=>button.addEventListener('click',()=>applyPaint(button.dataset.paint)));
+document.getElementById('reset').addEventListener('click',()=>{azimuth=Math.PI*.23;elevation=.16;radius=baseRadius;});
+
+canvas.addEventListener('pointerdown',e=>{
+ if(e.pointerType==='mouse'&&e.button!==0)return;
+ pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+ canvas.setPointerCapture(e.pointerId);
+});
+canvas.addEventListener('pointermove',e=>{
+ const old=pointers.get(e.pointerId);if(!old)return;
+ pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+ if(pointers.size===1){
+  azimuth+=(e.clientX-old.x)*.009;
+  elevation=Math.max(-.18,Math.min(1.35,elevation+(e.clientY-old.y)*.004));
+ }else if(pointers.size===2){
+  const p=[...pointers.values()];
+  const d=Math.hypot(p[0].x-p[1].x,p[0].y-p[1].y);
+  if(pinchDistance)radius=Math.max(minRadius,Math.min(maxRadius,radius*pinchDistance/Math.max(1,d)));
+  pinchDistance=d;
+ }
+});
+for(const evt of ['pointerup','pointercancel','lostpointercapture'])
+ canvas.addEventListener(evt,e=>{pointers.delete(e.pointerId);if(pointers.size<2)pinchDistance=0});
+canvas.addEventListener('wheel',e=>{
+ e.preventDefault();radius=Math.max(minRadius,Math.min(maxRadius,radius*(e.deltaY>0?1.1:.9)));
+},{passive:false});
+
+pc.dracoInitialize({
+ jsUrl:'https://www.gstatic.com/draco/versioned/decoders/1.5.7/draco_wasm_wrapper.js',
+ wasmUrl:'https://www.gstatic.com/draco/versioned/decoders/1.5.7/draco_decoder.wasm',
+ lazyInit:true,numWorkers:2
+});
+
+try{
+ status.textContent='CARGANDO KIA TASMAN...';
+ const [asset]=await Promise.all([load('./assets/kia-tasman-quality.glb','container'),startHDR()]);
+ const car=asset.resource.instantiateRenderEntity({castShadows:true,receiveShadows:true});
+ app.root.addChild(car);
+ const colors=new Set();
+ let min=V(Infinity,Infinity,Infinity),max=V(-Infinity,-Infinity,-Infinity);
+ car.forEach(node=>{
+  if(!node.render)return;
+  for(const mesh of node.render.meshInstances){
+   metrics.meshCount++;
+   mesh.castShadow=true;
+   const mat=mesh.material;if(!mat)continue;
+   colors.add(mat.name||'(unnamed)');
+   // The GLB's shared Car/Interior atlases are incorrectly exported with BLEND.
+   if(mat.name==='Car'||mat.name==='Interior'){
+     mat.blendType=pc.BLEND_NONE;mat.opacity=1;mat.alphaTest=0;mat.depthWrite=true;mat.update();
+   }
+   const label=((node.name||'')+' '+(node.parent?.name||'')).toLowerCase();
+   const body=/body_details|cabin_body|hood|cargo_bed_sides|tailgate|door_front_|door_rear_/.test(label);
+   if(mat.name==='Car'&&body){
+    const coat=mat.clone();
+    coat.name='Tasman studio lacquer · '+node.name;
+    coat.useMetalness=true;
+    coat.metalness=.35;
+    coat.gloss=.83;
+    coat.clearCoat=.8;
+    coat.clearCoatGloss=.92;
+    coat.update();
+    mesh.material=coat;
+    painted.push({material:coat,original:coat.diffuse.clone()});
+   }
+   const b=mesh.aabb,low=b.getMin(),high=b.getMax();
+   min.x=Math.min(min.x,low.x);min.y=Math.min(min.y,low.y);min.z=Math.min(min.z,low.z);
+   max.x=Math.max(max.x,high.x);max.y=Math.max(max.y,high.y);max.z=Math.max(max.z,high.z);
+  }
+ });
+ if(!Number.isFinite(min.x))throw Error('El GLB no contiene geometría visible');
+ target.set((max.x+min.x)/2,(max.y+min.y)/2,(max.z+min.z)/2);
+ const sx=max.x-min.x,sy=max.y-min.y,sz=max.z-min.z;
+ const vfov=37*Math.PI/180;
+ const hfov=2*Math.atan(Math.tan(vfov/2)*Math.max(.25,host.clientWidth/host.clientHeight));
+ baseRadius=Math.max(sy/(2*Math.tan(vfov/2)),Math.hypot(sx,sz)/(2*Math.tan(hfov/2)))*1.22;
+ baseRadius=Math.max(4,Math.min(32,baseRadius));
+ radius=baseRadius;minRadius=Math.max(1.8,baseRadius*.38);maxRadius=baseRadius*3;
+ 
+ // Porsche-like seamless cyclorama, lit by the studio and receiving real shadows.
+ const floor=new pc.Entity('Studio cyclorama');
+ const floorMat=new pc.StandardMaterial();
+ floorMat.name='Neutral studio floor';
+ floorMat.diffuse=new pc.Color(.78,.79,.8);
+ floorMat.gloss=.32;floorMat.useMetalness=true;floorMat.metalness=0;
+ floorMat.update();
+ floor.addComponent('render',{type:'plane',material:floorMat,castShadows:false,receiveShadows:true});
+ floor.setPosition(target.x,min.y-.025,target.z);
+ floor.setLocalScale(Math.max(40,sx*4),1,Math.max(40,sz*4));
+ app.root.addChild(floor);
+ metrics.bounds={min:[min.x,min.y,min.z],max:[max.x,max.y,max.z]};
+ metrics.originalMaterials=[...colors];metrics.bodyMaterials=painted.length;
+ metrics.status='ready';
+ applyPaint('arena');updateCamera();
+ status.classList.add('hidden');
+}catch(err){
+ console.error(err);metrics.status='error';metrics.error=String(err);
+ status.textContent='NO SE PUDO CARGAR EL MODELO';
+ message.style.display='block';
+ message.textContent=String(err);
+}
+</script>
+</body>
+</html>
