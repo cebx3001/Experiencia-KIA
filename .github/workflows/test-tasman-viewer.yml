@@ -83,10 +83,12 @@ jobs:
               throw Error("Unexpected default micro-menus or colors: "+JSON.stringify(menus));
             await page.locator("#toggleCameras").click();
             await page.locator('#cameraButtons [data-pose="front"]').click();
-            await page.waitForTimeout(1000);
+            await page.waitForTimeout(1300);
             const front=await page.evaluate(()=>window.__kiaViewerStatus?.getCamera?.());
             await page.locator('#cameraButtons [data-pose="top"]').click();
-            await page.waitForTimeout(1000);
+            await page.waitForFunction(frontY=>
+              (window.__kiaViewerStatus?.getCamera?.()?.[1]||0)>frontY+1.0,
+              front[1],{timeout:18000,polling:150});
             const top=await page.evaluate(()=>window.__kiaViewerStatus?.getCamera?.());
             if(!(top?.[1]>front?.[1]+1.0))throw Error("Top camera did not move overhead");
             await page.locator("#toggleExterior").click();
@@ -118,12 +120,34 @@ jobs:
             const exit=await page.evaluate(()=>({inside:window.__kiaThreeViewer?.isInCabin?.(),angle:window.__kiaThreeViewer?.getDoorDegrees?.()}));
             if(exit.inside||Math.abs(exit.angle)>2)throw Error("Door did not close: "+JSON.stringify(exit));
             console.log("MICROMENU PASS:",JSON.stringify({menus,front,top,cabin,exit}));
+            // Mission backdrops: three distinct real landscapes, while the
+            // SAME live 3D Kia stays in front of every environment.
+            await page.locator("#primaryButton").click();
+            const expectedScenes=[
+              ["scene-flood","photo-1754810075322-4cc911cfdfdb"],
+              ["scene-mud","photo-1488197047962-b48492212cda"],
+              ["scene-descent","photo-1640320350390-1865c83b51b3"]
+            ];
+            for(const [cls,photo] of expectedScenes){
+              await page.locator("#nextMission").click();
+              const view=await page.evaluate(()=>({
+                scene:document.querySelector("#experience").className,
+                background:getComputedStyle(document.querySelector(".ambient-image")).backgroundImage,
+                truck:window.__kiaViewerStatus?.loaded,
+                canvasVisible:getComputedStyle(document.querySelector("#carCanvas")).visibility
+              }));
+              console.log("MISSION ENVIRONMENT:",JSON.stringify(view));
+              if(!view.scene.includes(cls)||!view.background.includes(photo)||
+                 !view.truck||view.canvasVisible!=="visible")
+                throw Error("Wrong mission scene or 3D Tasman disappeared: "+JSON.stringify(view));
+            }
+            await page.locator("#secondaryButton").click();
             await page.screenshot({path:"kia-three-mobile-landscape.png",timeout:30000});
             await page.setViewportSize({width:390,height:844});
             await page.waitForTimeout(300);
             await page.screenshot({path:"kia-three-mobile-portrait.png",timeout:30000});
             if(pageErrors.length)throw Error("Browser JS errors: "+pageErrors.join("; "));
-            console.log("PASS: mobile Three.js, 5 camera poses, 18 menu annotations, 4 official swatches, hinged door entry/exit, zero 3D markers");
+            console.log("PASS: mobile Three.js, 5 cameras, 18 menu annotations, 4 official colors, hinged cab door, zero 3D markers, creek/dunes/rain scene images");
             await browser.close();
           })().catch(error=>{console.error(error);process.exit(1)});
           NODE
