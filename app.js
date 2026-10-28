@@ -34,6 +34,7 @@ function openDialog(id,title,body) {
 function closeDialog(id){$(id).hidden=true;}
 function setMode(mode){
  state.mode=mode;const mission=mode==="mission";
+ $("experience").classList.toggle("is-mission-mode",mission);
  $("stage").classList.toggle("kia-annotation-mode-hidden",mission);
  if(mission&&state.annotations?.selected)state.annotations.dismiss({reset:false});
  $("vehicleCopy").hidden=mission;$("missionCopy").hidden=!mission;
