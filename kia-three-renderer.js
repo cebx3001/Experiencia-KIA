@@ -389,7 +389,7 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
           shader.uniforms.kiaPaintBlend=paintMixUniform;
           shader.fragmentShader=shader.fragmentShader.replace(
             "#include <common>",
-            "#include <common>\\nuniform vec3 kiaPaintTarget;\\nuniform float kiaPaintBlend;"
+            "#include <common>\nuniform vec3 kiaPaintTarget;\nuniform float kiaPaintBlend;"
           );
           shader.fragmentShader=shader.fragmentShader.replace(
             "#include <map_fragment>",
