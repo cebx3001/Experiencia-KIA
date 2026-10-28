@@ -67,6 +67,8 @@ export async function mountKiaPlayCanvas({
   try {
     environment=makeStudioEnvironment(app.graphicsDevice);
     app.scene.envAtlas=environment.atlas;
+    // Lighting and reflections only: never render the studio HDRI as a backdrop.
+    app.scene.skybox=null;
   } catch(error) {
     console.warn("Studio IBL unavailable; using calibrated studio lights",error);
   }
