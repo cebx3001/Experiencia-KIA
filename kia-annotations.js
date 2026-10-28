@@ -13,7 +13,7 @@ const DETAILS={
  interior:{title:"Acceso a la cabina",description:"Apertura sincronizada de las cuatro puertas y recorrido de entrada a la cabina.",interior:true},
  display:{title:"Pantalla panorámica",description:"Primer plano frontal de la pantalla panorámica del tablero. Equipamiento según versión.",interior:true},
  infotainment:{title:"Infoentretenimiento",description:"Acercamiento a los controles y la zona central de la consola.",interior:true},
- seats:{title:"Asientos eléctricos",description:"Vista de los asientos delanteros; las funciones eléctricas dependen del equipamiento.",interior:true},
+ seats:{title:"Asiento delantero",description:"Primer plano de un asiento completo: cojín, respaldo y cabecera, visto desde la puerta abierta.",interior:true},
 };
 
 export function mountKiaAnnotations({viewer,onChange=()=>{}}){
@@ -42,7 +42,11 @@ export function mountKiaAnnotations({viewer,onChange=()=>{}}){
    close.type="button";
    close.textContent="×";
    close.setAttribute("aria-label","Cerrar anotación");
-   close.addEventListener("click",()=>dismiss());
+   // X hides only the writing. It must not reset the camera, close doors,
+   // collapse the menu, or deselect the active feature.
+   close.addEventListener("click",()=>{
+     detail.hidden=true;
+   });
    detail.append(title,description,close);
    detail.hidden=false;
    if(item.interior) viewer.enterCabin(id);
