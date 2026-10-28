@@ -87,11 +87,8 @@ document.querySelectorAll("#cameraButtons button").forEach(b=>b.addEventListener
 async function initVehicle(){
  const url="./assets/kia-tasman-fast.glb";
 
- // The page works as a menu before the model is uploaded; do not fetch PlayCanvas unnecessarily.
- try{
-   const res=await fetch(url,{method:"HEAD",cache:"no-store"});
-   if(!res.ok)throw new Error("GLB no disponible: HTTP "+res.status);
- }catch(e){console.warn("No se encontró la Kia Tasman 3D",e);window.__kiaViewerStatus={error:String(e)};hideModelStatus();return;}
+ // The HTML already preloads the GLB with GET. A separate HEAD check
+ // would add a network roundtrip and defeat the browser's preload reuse.
  let pc;
  try{
   showModelStatus("INICIANDO VISUALIZADOR 3D");
