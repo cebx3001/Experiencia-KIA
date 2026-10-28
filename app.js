@@ -173,7 +173,7 @@ async function initVehicle(){
        hideModelStatus();
      }));
      // Component facts are accessed from separate UI buttons, not dots on the GLB.
-     $("interactionHint").textContent="DESLIZA PARA GIRAR · TOCA + PARA EXPLORAR";
+     $("interactionHint").textContent="DESLIZA PARA GIRAR · EXPLORA LAS PIEZAS CON LOS BOTONES";
      // Keep the original material maps untouched on the main Arena color.
      // A single shared "Car" atlas covers many non-paint parts.
    });
