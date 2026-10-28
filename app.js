@@ -34,6 +34,8 @@ function openDialog(id,title,body) {
 function closeDialog(id){$(id).hidden=true;}
 function setMode(mode){
  state.mode=mode;const mission=mode==="mission";
+ $("stage").classList.toggle("kia-annotation-mode-hidden",mission);
+ if(mission&&state.annotations?.selected)state.annotations.dismiss({reset:false});
  $("vehicleCopy").hidden=mission;$("missionCopy").hidden=!mission;
  $("missionSelector").hidden=!mission;
  $("sectionIndex").textContent=mission?"02 / PRUEBAS":"01 / VEHÍCULO";
@@ -90,7 +92,7 @@ async function initVehicle(){
   ? "./assets/kia-tasman.glb" : "./assets/kia-tasman-quality.glb";
  try{
   showModelStatus("CARGANDO KIA TASMAN 3D");
-  const {mountKiaThree}=await import("./kia-three-renderer.js?v=20261028-three-integrated-v1");
+  const {mountKiaThree}=await import("./kia-three-renderer.js?v=20261028-annotations-v1");
   const viewer=await mountKiaThree({
    canvas,host:stage,assetUrl,initialAngle:state.angle,
    onAngleChange:degrees=>{
