@@ -69,7 +69,7 @@ jobs:
             if(!initial.loaded||initial.engine!=="three"||initial.meshCount<23||
                initial.texturesBound<1||!initial.corrected?.includes("Car")||
                !initial.corrected?.includes("Interior")||!initial.canvasVisible||
-               !initial.hasOriginalUI||initial.cameraButtons!==5||initial.featureButtons!==18) {
+               !initial.hasOriginalUI||initial.cameraButtons!==5||initial.featureButtons!==13) {
               throw Error("THREE INTEGRATION FAILED: "+JSON.stringify(initial));
             }
             const menus=await page.evaluate(()=>({
@@ -93,11 +93,34 @@ jobs:
             if(!(top?.[1]>front?.[1]+1.0))throw Error("Top camera did not move overhead");
             await page.locator("#toggleExterior").click();
             if(!(await page.locator("#panelCameras").isHidden()))throw Error("Cameras menu stayed open");
+            const paintState=await page.evaluate(()=>({
+              count:window.__kiaThreeViewer?.paintMeshCount,
+              mode:window.__kiaThreeViewer?.paintMode,
+              applied:window.__kiaThreeViewer?.paintApplied
+            }));
+            if(!(paintState.count>0)||paintState.applied!=="arena")
+              throw Error("Selective paint not installed: "+JSON.stringify(paintState));
+            await page.waitForTimeout(450);
+            const arenaPixels=await page.locator("#carCanvas").screenshot({timeout:20000});
+            await page.locator('.color-chip[data-color="gris"]').click();
+            await page.waitForTimeout(450);
+            const grayPixels=await page.locator("#carCanvas").screenshot({timeout:20000});
+            const changed=!arenaPixels.equals(grayPixels);
+            console.log("PAINT SWATCH TEST:",JSON.stringify({paintState,changed,gray:await page.evaluate(()=>window.__kiaThreeViewer?.paintApplied)}));
+            if(!changed||await page.evaluate(()=>window.__kiaThreeViewer?.paintApplied)!=="gris")
+              throw Error("Selected color did not visibly recolor 3D model");
+            await page.locator('.color-chip[data-color="verde"]').click();
+            await page.waitForTimeout(400);
+            const greenPixels=await page.locator("#carCanvas").screenshot({timeout:20000});
+            if(grayPixels.equals(greenPixels))throw Error("Different paint colors produce identical 3D render");
+            await page.locator('.color-chip[data-color="arena"]').click();
             await page.locator('.micro-feature[data-feature="front_fascia"]').click();
             await page.waitForFunction(()=>window.__kiaAnnotations?.selected==="front_fascia"&&
               !document.getElementById("featureDetail").hidden,null,{timeout:10000});
             if(await page.locator("#infoModal").isVisible())throw Error("Legacy info modal opened");
             if(await page.locator(".kia-annotation-pin").count())throw Error("Hotspots visible over model");
+            const detailOutside=await page.evaluate(()=>!document.getElementById("featureDetail").closest(".micro-panel"));
+            if(!detailOutside)throw Error("Annotation description is still clipped inside scroll submenu");
             console.log("EXTERIOR NOTE:",await page.locator("#featureDetail").innerText());
             await page.locator("#toggleInterior").click();
             if(!(await page.locator("#panelExterior").isHidden()))throw Error("Exterior menu stayed open");
@@ -155,7 +178,7 @@ jobs:
             await page.waitForTimeout(300);
             await page.screenshot({path:"kia-three-mobile-portrait.png",timeout:30000});
             if(pageErrors.length)throw Error("Browser JS errors: "+pageErrors.join("; "));
-            console.log("PASS: mobile Three.js, 5 cameras, 18 menu annotations, 4 official colors, hinged cab door, zero 3D markers, creek/dunes/rain scene images");
+            console.log("PASS: mobile Three.js, 5 cameras, 13 useful menu annotations, actual 3D paint changes, hinged cab door, zero 3D markers, creek/dunes/rain scene images");
             await browser.close();
           })().catch(error=>{console.error(error);process.exit(1)});
           NODE
