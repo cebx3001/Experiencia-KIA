@@ -375,7 +375,7 @@ export async function mountKiaPlayCanvas({
       const name=node.name||"";
       const materialNames=node.render.meshInstances.map(mi=>mi.material?.name||"").join(" ");
       const namedSet=studioObjectName.test(name)||studioObjectName.test(materialNames);
-      const genericStagePlane=/^(plane|ground|floor)(?:[._ -]?\\d+)?$/i.test(name) &&
+      const genericStagePlane=/^(plane|ground|floor)(?:[._ -]?[0-9]+)?$/i.test(name) &&
         node.render.meshInstances.some(mi=>{
           const box=mi.aabb;
           const ext=box?.halfExtents;
@@ -388,10 +388,15 @@ export async function mountKiaPlayCanvas({
     });
     debug.removedSetObjects=removedSetObjects;
     debug.sceneCleanup="no softbox geometry, no skybox, no generated floor";
+    const activeVehicleNode=node=>{
+      for(let parent=node;parent&&parent!==model;parent=parent.parent){
+        if(!parent.enabled)return false;
+      }
+      return true;
+    };
 
     model.forEach(node=>{
-      if(!node.enabled)return;
-      if(!node.render)return;
+      if(!activeVehicleNode(node)||!node.render)return;
       for(const mi of node.render.meshInstances){
         meshCount++;mi.castShadow=true;
         const mat=mi.material;
@@ -429,7 +434,7 @@ export async function mountKiaPlayCanvas({
     // Inspect world-space geometry, not arbitrary export pivots.
     let min=vec(Infinity,Infinity,Infinity),max=vec(-Infinity,-Infinity,-Infinity);
     model.forEach(node=>{
-      if(!node.render)return;
+      if(!activeVehicleNode(node)||!node.render)return;
       for(const mi of node.render.meshInstances) {
         const a=mi.aabb,low=a.getMin(),high=a.getMax();
         min.x=Math.min(min.x,low.x);min.y=Math.min(min.y,low.y);min.z=Math.min(min.z,low.z);
