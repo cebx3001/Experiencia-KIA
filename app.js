@@ -100,6 +100,20 @@ async function initVehicle(){
    }
   });
   state.viewer=viewer;
+  try{
+   const {mountKiaAnnotations}=await import("./kia-annotations.js?v=20261028-hotspots-v1");
+   state.annotations=mountKiaAnnotations({
+    host:stage,viewer,
+    onChange:id=>{
+     document.querySelectorAll("[data-feature]").forEach(button=>
+      button.classList.toggle("is-active",button.dataset.feature===id));
+     if(id)document.querySelectorAll("#cameraButtons button").forEach(button=>
+      button.classList.remove("selected"));
+    }
+   });
+  }catch(annotationError){
+   console.warn("Kia annotations unavailable; vehicle remains interactive",annotationError);
+  }
   state.app=viewer;
   state.model=viewer.model;
   state.camera=viewer.camera;
@@ -110,7 +124,7 @@ async function initVehicle(){
    status:window.__kiaThreeViewer
   };
   hideModelStatus();
-  $("interactionHint").textContent="DESLIZA PARA GIRAR · EXPLORA LAS PIEZAS CON LOS BOTONES";
+  $("interactionHint").textContent="DESLIZA PARA GIRAR · TOCA LOS PUNTOS 3D";
  }catch(error){
   console.error("Kia Three.js viewer initialization failed",error);
   window.__kiaViewerStatus={loaded:false,engine:"three",error:String(error)};
@@ -118,7 +132,9 @@ async function initVehicle(){
  }
 }
 function moveCamera(){
- if(state.viewer)state.viewer.setAngle(state.angle);
+ if(!state.viewer)return;
+ if(state.annotations?.selected)state.annotations.dismiss({reset:false});
+ state.viewer.resetView(state.angle);
 }
 // One shared Car texture atlas includes trim and glass; preserve it exactly.
 // The UI color selection remains independent until body panels are separable.
@@ -152,14 +168,9 @@ document.querySelectorAll("[data-feature]").forEach(button=>{
  button.addEventListener("click",()=>{
   const id=button.dataset.feature;
   document.querySelectorAll("[data-feature]").forEach(el=>el.classList.toggle("is-active",el===button));
-  // Focus the existing orbit view toward the selected real vehicle part.
-  const angle=Number(button.dataset.angle);
-  if(Number.isFinite(angle)){
-   state.angle=angle;
-   document.querySelectorAll("#cameraButtons button").forEach(el=>el.classList.remove("selected"));
-   moveCamera();
-  }
-  openDialog("infoModal",buttonFeatureLabels[id]||"COMPONENTE",featureCopy[id]||"Detalle del vehículo");
+  // True 3D annotation: animated camera focus, anchored hotspot and
+  // editorial callout beside the vehicle — never a blocking text modal.
+  state.annotations?.select(id);
  });
 });
 
