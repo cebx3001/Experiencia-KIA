@@ -216,9 +216,41 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
     }
     requestAnimationFrame(frame);
   }
+  // Actual close-up camera: unlike the former zoom factor, it can move
+  // closer than the orbit's 3 m safety clamp without changing field of view.
   function focusOnPart(position,options={}){
-    const point=defaultTarget.clone().lerp(position,.72);
-    tweenCamera({point,angle:options.angle??35,radiusFactor:options.radiusFactor??.88,duration:options.duration??920});
+    if(!options.closeDistance){
+      const point=defaultTarget.clone().lerp(position,.72);
+      tweenCamera({point,angle:options.angle??35,radiusFactor:options.radiusFactor??.88,duration:options.duration??920});
+      return;
+    }
+    const angle=(options.angle??35)*Math.PI/180;
+    const elevation=options.elevation??.18;
+    const distance=options.closeDistance;
+    const lookAt=position.clone();
+    const offset=options.lookOffset||[0,0,0];
+    lookAt.add(new THREE.Vector3(...offset));
+    const direction=new THREE.Vector3(
+      Math.sin(angle)*Math.cos(elevation),
+      Math.sin(elevation),
+      Math.cos(angle)*Math.cos(elevation)
+    );
+    const goal=lookAt.clone().addScaledVector(direction,distance);
+    const source=camera.position.clone();
+    const sourceLook=(cameraOverride?.lookAt||target).clone();
+    if(cabinOpen){ cabinOpen=false;setDoorOpen(false,750); }
+    const token=++animationId,begin=performance.now();
+    function frame(now){
+      if(token!==animationId)return;
+      const t=clamp((now-begin)/(options.duration??950),0,1),e=easing(t);
+      cameraOverride={
+        position:source.clone().lerp(goal,e),
+        lookAt:sourceLook.clone().lerp(lookAt,e)
+      };
+      requestRender();
+      if(t<1)requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
   }
   function resetView(degrees=35){
     if(cabinOpen)exitCabin(true);
@@ -252,6 +284,10 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
   }
   const clamp=THREE.MathUtils.clamp;
   canvas.addEventListener("pointerdown",event=>{
+    if(cameraOverride){
+      cameraOverride=null;
+      target.copy(defaultTarget);
+    }
     cancelCameraAnimation();
     pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
     canvas.setPointerCapture(event.pointerId);
