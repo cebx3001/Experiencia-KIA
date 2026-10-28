@@ -31,6 +31,9 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
 
   let azimuth=initialAngle*Math.PI/180, inclination=.18, radius=7, model=null;
   const target=new THREE.Vector3(0,1,0);
+  const defaultTarget=new THREE.Vector3(0,1,0);
+  let baseRadius=7,animationId=0;
+  const frameListeners=new Set();
   let frameRequested=false,lastWidth=0,lastHeight=0;
   const pointers=new Map();
   let previousPinch=0;
@@ -56,6 +59,7 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
       );
       camera.lookAt(target);
       renderer.render(scene,camera);
+      for(const listener of frameListeners)listener(camera,width,height);
     });
   }
   const observer=new ResizeObserver(requestRender);
@@ -64,12 +68,70 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
   window.addEventListener("orientationchange",requestRender);
   canvas.addEventListener("webglcontextrestored",requestRender);
 
+  const cancelCameraAnimation=()=>{animationId++;};
+  function tweenCamera({point,angle,radiusFactor=1,duration=920}){
+    cancelCameraAnimation();
+    const token=animationId;
+    const from={point:target.clone(),angle:azimuth,radius,inclination};
+    const endPoint=point.clone();
+    const endAngle=angle*Math.PI/180;
+    const deltaAngle=Math.atan2(Math.sin(endAngle-azimuth),Math.cos(endAngle-azimuth));
+    const endRadius=THREE.MathUtils.clamp(baseRadius*radiusFactor,3,25);
+    const start=performance.now();
+    function tick(now){
+      if(token!==animationId)return;
+      const t=THREE.MathUtils.clamp((now-start)/duration,0,1);
+      const eased=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+      target.copy(from.point).lerp(endPoint,eased);
+      azimuth=from.angle+deltaAngle*eased;
+      radius=THREE.MathUtils.lerp(from.radius,endRadius,eased);
+      inclination=THREE.MathUtils.lerp(from.inclination,.16,eased);
+      requestRender();
+      if(t<1)requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
   function setAngle(degrees){
+    cancelCameraAnimation();
     azimuth=degrees*Math.PI/180;
     requestRender();
   }
+  function focusOnPart(position,options={}){
+    const point=defaultTarget.clone().lerp(position,.72);
+    tweenCamera({point,angle:options.angle??35,radiusFactor:options.radiusFactor??.88,duration:options.duration??920});
+  }
+  function resetView(degrees=35){
+    tweenCamera({point:defaultTarget,angle:degrees,radiusFactor:1,duration:820});
+  }
+  function getFeatureAnchor(id){
+    if(!model)return null;
+    const all=[];
+    model.traverse(object=>{
+      if(!object.isMesh)return;
+      const name=object.name||"";
+      if(name===id||name===id+"_mesh"||name===id+"_geometry"||name.startsWith(id+"_")){
+        all.push(object);
+      }
+    });
+    if(!all.length)return null;
+    const box=new THREE.Box3().makeEmpty();
+    for(const object of all)box.union(new THREE.Box3().setFromObject(object));
+    if(box.isEmpty())return null;
+    const point=box.getCenter(new THREE.Vector3());
+    const size=box.getSize(new THREE.Vector3());
+    if(id==="front_fascia")point.z+=size.z*.22;
+    if(id==="interior")point.y+=size.y*.15;
+    if(id==="cargo_bed")point.y+=size.y*.3;
+    return point;
+  }
+  function projectPoint(point){
+    const projected=point.clone().project(camera);
+    return {x:(projected.x+1)*.5*lastWidth,y:(1-projected.y)*.5*lastHeight,
+      visible:projected.z>=-1&&projected.z<=1&&lastWidth>0&&lastHeight>0};
+  }
   const clamp=THREE.MathUtils.clamp;
   canvas.addEventListener("pointerdown",event=>{
+    cancelCameraAnimation();
     pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
     canvas.setPointerCapture(event.pointerId);
   });
@@ -140,12 +202,14 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
   const bounds=new THREE.Box3().setFromObject(model);
   const size=bounds.getSize(new THREE.Vector3());
   target.copy(bounds.getCenter(new THREE.Vector3()));
+  defaultTarget.copy(target);
   const verticalFov=camera.fov*Math.PI/180;
   const aspect=Math.max(.2,host.clientWidth/Math.max(1,host.clientHeight));
   const horizontalFov=2*Math.atan(Math.tan(verticalFov/2)*aspect);
   const effectiveWidth=Math.hypot(size.x,size.z);
   radius=Math.max(size.y/(2*Math.tan(verticalFov/2)),effectiveWidth/(2*Math.tan(horizontalFov/2)))*1.15;
   radius=clamp(radius,4,23);
+  baseRadius=radius;
 
   let meshCount=0,texturesBound=0;
   const uniqueTextures=new Set();
@@ -169,7 +233,8 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
   decoder.dispose();
   return {
     engine:"three",model,camera,renderer,scene,meshCount,texturesBound,
-    setAngle,requestRender,
+    setAngle,resetView,focusOnPart,getFeatureAnchor,projectPoint,requestRender,
+    addFrameListener:listener=>{frameListeners.add(listener);requestRender();return ()=>frameListeners.delete(listener);},
     getCameraPosition:()=>camera.position.toArray(),
     getRadius:()=>radius,
     getModel:()=>model
