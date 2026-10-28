@@ -61,9 +61,18 @@ function renderLevel(){
  $("missionTitle").innerHTML=item.title;
  $("missionDesc").textContent=item.desc;
  $("missionTech").textContent=item.tech;
- $("selectorName").textContent=String(state.level+1).padStart(2,"0")+" — "+item.name;
- const dots=$("selectorDots"); dots.replaceChildren();
- levels.forEach((l,i)=>{const btn=document.createElement("button");btn.className="selector-dot"+(i===state.level?" is-active":"");btn.setAttribute("aria-label","Ir a misión "+(i+1));btn.addEventListener("click",()=>setLevel(i));dots.appendChild(btn);});
+ const previous=levels[(state.level+levels.length-1)%levels.length];
+ const following=levels[(state.level+1)%levels.length];
+ $("selectorName").textContent=item.name;
+ $("missionCounter").textContent=String(state.level+1).padStart(2,"0")+" / "+String(levels.length).padStart(2,"0");
+ $("missionPeekPrev").textContent=previous.name;
+ $("missionPeekNext").textContent=following.name;
+ $("missionPeekPrev").setAttribute("aria-label","Anterior: "+previous.name);
+ $("missionPeekNext").setAttribute("aria-label","Siguiente: "+following.name);
+ const windowElement=$("missionCarouselWindow");
+ windowElement.classList.remove("carousel-updated");
+ void windowElement.offsetWidth;
+ windowElement.classList.add("carousel-updated");
  // Color exploration does not alter the predefined sand-color cinematic videos.
 }
 function setLevel(index){state.level=(index+levels.length)%levels.length;renderLevel();}
@@ -74,6 +83,21 @@ $("secondaryButton").addEventListener("click",()=>{
 });
 $("prevMission").addEventListener("click",()=>setLevel(state.level-1));
 $("nextMission").addEventListener("click",()=>setLevel(state.level+1));
+$("missionPeekPrev").addEventListener("click",()=>setLevel(state.level-1));
+$("missionPeekNext").addEventListener("click",()=>setLevel(state.level+1));
+$("selectorName").addEventListener("click",()=>openDialog("missionModal",levels[state.level].name));
+// Swipe in the same direction as the exterior/color carousel.
+let missionDragX=null;
+$("missionCarouselWindow").addEventListener("pointerdown",event=>{
+ if(event.pointerType==="mouse"&&event.button!==0)return;
+ missionDragX=event.clientX;
+});
+$("missionCarouselWindow").addEventListener("pointerup",event=>{
+ if(missionDragX===null)return;
+ const dx=event.clientX-missionDragX;missionDragX=null;
+ if(Math.abs(dx)>25)setLevel(state.level+(dx<0?1:-1));
+});
+$("missionCarouselWindow").addEventListener("pointercancel",()=>{missionDragX=null;});
 $("modalClose").addEventListener("click",()=>closeDialog("infoModal"));
 $("missionModalClose").addEventListener("click",()=>closeDialog("missionModal"));
 for(const id of ["infoModal","missionModal"]){$(id).addEventListener("click",e=>{if(e.target===$(id))closeDialog(id);});}
