@@ -345,9 +345,10 @@ export async function mountKiaPlayCanvas({
     const prev=pointers.get(event.pointerId);if(!prev)return;
     pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
     if(pointers.size===1){
-      const portrait=matchMedia("(orientation:portrait)").matches;
-      const dx=portrait?event.clientY-prev.y:event.clientX-prev.x;
-      const dy=portrait?prev.x-event.clientX:event.clientY-prev.y;
+      // Only legacy tablet portrait is rotated. Mobile portrait is native.
+      const rotated=matchMedia("(orientation:portrait) and (min-width:701px)").matches;
+      const dx=rotated?event.clientY-prev.y:event.clientX-prev.x;
+      const dy=rotated?prev.x-event.clientX:event.clientY-prev.y;
       azimuth+=dx*.009;
       inclination=clamp(inclination+dy*.004,-.26,1.42);
       onAngleChange(azimuth*180/Math.PI);
