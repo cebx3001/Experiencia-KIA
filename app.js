@@ -84,6 +84,48 @@ document.querySelectorAll("#cameraButtons button").forEach(b=>b.addEventListener
  moveCamera();
 }));
 
+function polishStudioPaint(root){
+ // Glossy automotive clearcoat on painted exterior panels; keep the original
+ // texture maps and preserve rubber, glass, trim, interior and chrome.
+ const originalToPolished=new Map();
+ const protectedSurface=/(glass|window|windshield|tire|tyre|rubber|trim|plastic|interior|seat|brake|light|lamp|chrome|grille|matte|rough|fabric|leather|license|plate|mirror)/i;
+ const paintedPanel=/^(hood|cabin_body|cargo_bed_sides|tailgate|door_(front|rear)_(left|right))(?:_mesh)?$/i;
+ const paintMaterial=/(tan[ _.-]?beige|bodypaint|body[ _.-]?color|painted|paint|car[ _.-]?paint|lacquer)/i;
+ let polishedMeshes=0;
+ const polishedNames=new Set();
+ for(const render of root.findComponents("render")){
+  for(const meshInstance of (render.meshInstances||[])){
+   const source=meshInstance.material;
+   if(!source||!("clearCoat" in source))continue;
+   const materialName=source.name||"";
+   let node=meshInstance.node||render.entity;
+   let exteriorPanel=false,protectedNode=false;
+   for(let i=0;node&&i<6;i++,node=node.parent){
+    if(paintedPanel.test(node.name||""))exteriorPanel=true;
+    if(protectedSurface.test(node.name||""))protectedNode=true;
+   }
+   if(protectedSurface.test(materialName)||protectedNode)continue;
+   if(!exteriorPanel&&!paintMaterial.test(materialName))continue;
+   let polished=originalToPolished.get(source);
+   if(!polished){
+    polished=source.clone();
+    // glTF glossInvert stores roughness instead of glossiness.
+    polished.gloss=polished.glossInvert?Math.min(polished.gloss,.13):Math.max(polished.gloss,.87);
+    polished.clearCoat=.98;
+    polished.clearCoatGloss=polished.clearCoatGlossInvert ? .035 : .965;
+    polished.reflectivity=Math.max(polished.reflectivity||1,1.3);
+    polished.update();
+    originalToPolished.set(source,polished);
+    polishedNames.add(materialName||"(unnamed paint)");
+   }
+   meshInstance.material=polished;
+   polishedMeshes++;
+  }
+ }
+ window.__kiaStudioPaint={meshes:polishedMeshes,materials:originalToPolished.size,names:[...polishedNames]};
+ if(state.app)state.app.renderNextFrame=true;
+}
+
 async function initVehicle(){
  const url="./assets/kia-tasman-quality.glb";
 
@@ -182,6 +224,7 @@ async function initVehicle(){
        return;
      }
      state.model=root;
+     polishStudioPaint(root);
      bindInvisibleStudioEnvironment();
      // Semantic manifest: Y-up, meters, origin below midpoint between axles.
      state.target=new pc.Vec3(0,1.05,0);
