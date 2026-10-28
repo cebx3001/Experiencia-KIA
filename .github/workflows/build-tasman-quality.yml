@@ -1,0 +1,69 @@
+name: Build faithful Kia Tasman GLB
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/build-tasman-quality.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install -g @gltf-transform/cli@4.5.1
+      - name: Draco geometry only - do not resize, recompress or rewrite original textures
+        run: |
+          gltf-transform draco assets/kia-tasman.glb assets/kia-tasman-quality.glb
+      - name: Verify all original images, material definitions and animations
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json,struct,hashlib,collections,os
+          def read(path):
+            with open(path,'rb') as f:
+              head=f.read(20); assert head[:4]==b'glTF'
+              jlen,jtype=struct.unpack_from('<I4s',head,12);assert jtype==b'JSON'
+              d=json.loads(f.read(jlen))
+              blen,btype=struct.unpack('<I4s',f.read(8));assert btype==b'BIN\\x00'
+              binary=f.read(blen)
+            return d,binary
+          a,ab=read('assets/kia-tasman.glb')
+          b,bb=read('assets/kia-tasman-quality.glb')
+          print('FILE BYTES',os.path.getsize('assets/kia-tasman.glb'),os.path.getsize('assets/kia-tasman-quality.glb'))
+          for k in ('materials','textures','images','meshes','nodes','animations','scenes'):
+            print(k,len(a.get(k,[])),len(b.get(k,[])))
+          print('Original material list:')
+          for i,m in enumerate(a.get('materials',[])):
+            p=m.get('pbrMetallicRoughness',{})
+            print(i,m.get('name'), 'metallic',p.get('metallicFactor'), 'roughness',p.get('roughnessFactor'),'basecolor',p.get('baseColorFactor'),
+              'baseColorTexture',p.get('baseColorTexture'), 'normalTexture',m.get('normalTexture'))
+          print('Images original:',collections.Counter(i.get('mimeType','?') for i in a.get('images',[])))
+          print('Images quality:',collections.Counter(i.get('mimeType','?') for i in b.get('images',[])))
+          for k in ('materials','textures','images','nodes','animations'):
+            assert len(a.get(k,[]))==len(b.get(k,[])), f'{k} lost!'
+          def img_bytes(d,buf,i):
+            img=d['images'][i];v=d['bufferViews'][img['bufferView']]
+            return buf[v.get('byteOffset',0):v.get('byteOffset',0)+v['byteLength']]
+          for i in range(len(a.get('images',[]))):
+            x=img_bytes(a,ab,i);y=img_bytes(b,bb,i)
+            print('image',i,'bytes',len(x),len(y),'mime',a['images'][i].get('mimeType'),b['images'][i].get('mimeType'))
+            assert hashlib.sha256(x).digest()==hashlib.sha256(y).digest(),f'image {i} changed!'
+          assert [m.get('name') for m in a.get('materials',[])]==[m.get('name') for m in b.get('materials',[])], 'material names changed'
+          assert [n.get('name') for n in a.get('nodes',[])]==[n.get('name') for n in b.get('nodes',[])], 'node names changed'
+          assert 'KHR_draco_mesh_compression' in b.get('extensionsUsed',[])
+          print('PASS: original texture bytes, material names, semantic nodes and animations intact')
+          PY
+      - name: Commit faithful version of GLB
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/kia-tasman-quality.glb
+          git diff --cached --quiet || (git commit -m "Publish faithful Kia model with lossless original textures" && git push)
