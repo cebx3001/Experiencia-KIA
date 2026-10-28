@@ -1241,22 +1241,22 @@ button{font-family:var(--kia-mono)}
 }
 
 
-/* RESTORED LANDSCAPE COMPOSITING
-   The image and interface share the full viewport, as in the original desktop.
-   Only the translucent WebGL canvas edges are feathered: not the live controls. */
-.stage,.stage canvas{background:transparent!important;box-shadow:none!important}
-.stage canvas{
-  -webkit-mask-image:radial-gradient(ellipse farthest-side at center,#000 78%,transparent 100%);
-  mask-image:radial-gradient(ellipse farthest-side at center,#000 78%,transparent 100%);
+/* ONLY THE VEHICLE ON THE LANDSCAPE.
+   The PlayCanvas alpha channel provides true per-pixel transparency.
+   Never clip or fade the canvas: that creates a visible ellipse/rectangle. */
+.stage,.stage canvas{
+  background:transparent!important;
+  box-shadow:none!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+  -webkit-mask:none!important;
+  mask:none!important;
+  opacity:1;
 }
 @media (orientation:portrait) and (max-width:700px){
   .experience .ambient-image{
     background-position:55% 56%;
     filter:saturate(.82) contrast(1.10) brightness(.86);
     opacity:.95;
-  }
-  .stage canvas{
-    -webkit-mask-image:radial-gradient(ellipse farthest-side at center,#000 80%,transparent 100%);
-    mask-image:radial-gradient(ellipse farthest-side at center,#000 80%,transparent 100%);
   }
 }
