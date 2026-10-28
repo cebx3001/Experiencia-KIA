@@ -9,33 +9,22 @@ const copy=v=>new pc.Vec3(v.x,v.y,v.z);
 const interpolate=(a,b,t)=>vec(a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t,a.z+(b.z-a.z)*t);
 const palette={arena:[.72,.61,.47],gris:[.36,.41,.45],negro:[.085,.105,.12],verde:[.42,.49,.43]};
 
-// The reflection environment is deliberately NOT displayed as a photo.
-// Four high-contrast softbox shapes provide realistic controlled body reflections.
-function makeStudioEnvironment(device) {
+// Diffuse, neutral environment for PBR shading only.
+// No studio softbox cards, visible light panels, skybox or background geometry.
+function makeNeutralEnvironment(device) {
   const canvas=document.createElement("canvas");
-  canvas.width=1024;canvas.height=512;
-  const c=canvas.getContext("2d");
-  const grad=c.createLinearGradient(0,0,0,512);
-  grad.addColorStop(0,"#c4ccd3");
-  grad.addColorStop(.28,"#879199");
-  grad.addColorStop(.50,"#414a53");
-  grad.addColorStop(.75,"#252e35");
-  grad.addColorStop(1,"#788089");
-  c.fillStyle=grad;c.fillRect(0,0,1024,512);
-  const boxes=[
-    [74,112,160,190,1],[360,72,120,260,.91],[678,98,230,145,.88],
-    [914,105,86,205,.7],[505,260,95,115,.46]
-  ];
-  for(const [x,y,w,h,power] of boxes) {
-    const glow=c.createRadialGradient(x+w/2,y+h/2,5,x+w/2,y+h/2,Math.max(w,h)*1.16);
-    glow.addColorStop(0,"rgba(255,255,255,"+(.38*power)+")");
-    glow.addColorStop(1,"rgba(255,255,255,0)");
-    c.fillStyle=glow;c.fillRect(x-w,y-h,w*3,h*3);
-    c.fillStyle="rgba(240,246,255,"+(.93*power)+")";
-    c.fillRect(x,y,w,h);
-  }
+  canvas.width=512;canvas.height=256;
+  const context=canvas.getContext("2d");
+  const gradient=context.createLinearGradient(0,0,0,256);
+  gradient.addColorStop(0,"#84929c");
+  gradient.addColorStop(.32,"#78858d");
+  gradient.addColorStop(.53,"#53616b");
+  gradient.addColorStop(.77,"#35414b");
+  gradient.addColorStop(1,"#4b565e");
+  context.fillStyle=gradient;
+  context.fillRect(0,0,canvas.width,canvas.height);
   const source=new pc.Texture(device,{
-    name:"Kia Studio Softboxes",width:1024,height:512,
+    name:"Kia Neutral PBR Illumination",width:512,height:256,
     format:pc.PIXELFORMAT_RGBA8,mipmaps:true
   });
   source.setSource(canvas);
@@ -65,15 +54,15 @@ export async function mountKiaPlayCanvas({
   app.scene.skybox=null;
   let environment=null;
   try {
-    environment=makeStudioEnvironment(app.graphicsDevice);
+    environment=makeNeutralEnvironment(app.graphicsDevice);
     app.scene.envAtlas=environment.atlas;
-    // Lighting and reflections only: never render the studio HDRI as a backdrop.
+    // The neutral IBL contributes illumination only; there are no set objects.
     app.scene.skybox=null;
   } catch(error) {
-    console.warn("Studio IBL unavailable; using calibrated studio lights",error);
+    console.warn("Neutral PBR environment unavailable; using direct lights",error);
   }
 
-  const camera=new pc.Entity("Kia Studio Camera");
+  const camera=new pc.Entity("Kia Camera");
   camera.addComponent("camera",{
     fov:42,nearClip:.06,farClip:300,
     clearColor:new pc.Color(0,0,0,0),
@@ -94,10 +83,10 @@ export async function mountKiaPlayCanvas({
     app.root.addChild(entity);
     return entity;
   }
-  light("Studio key softbox","directional",[1,.98,.95],2.45,[42,35,0],true);
-  light("Studio cool fill","directional",[.74,.84,1],1.0,[28,-120,0]);
-  light("Studio rear rim","directional",[1,.91,.78],1.1,[-25,150,0]);
-  light("Studio ceiling bounce","directional",[.95,.98,1],.42,[80,0,0]);
+  light("Kia key light","directional",[1,.98,.95],2.45,[42,35,0],true);
+  light("Kia fill light","directional",[.74,.84,1],1.0,[28,-120,0]);
+  light("Kia rear rim light","directional",[1,.91,.78],1.1,[-25,150,0]);
+  light("Kia overhead light","directional",[.95,.98,1],.42,[80,0,0]);
 
   pc.dracoInitialize({
     jsUrl:"https://www.gstatic.com/draco/versioned/decoders/1.5.7/draco_wasm_wrapper.js",
@@ -118,7 +107,7 @@ export async function mountKiaPlayCanvas({
   const debug=window.__kiaPlayCanvasViewer={
     engine:"playcanvas",status:"loading",asset:assetUrl,
     meshCount:0,texturesBound:0,doorsFound:[],materialCorrections:[],
-    lighting:"procedural studio softbox IBL + four-point shadows",
+    lighting:"neutral IBL + invisible directional lights",
     paintMode:"texture-preserving PBR tint",error:null
   };
 
@@ -376,7 +365,32 @@ export async function mountKiaPlayCanvas({
         error?reject(error):resolve(result)));
     model=asset.resource.instantiateRenderEntity({castShadows:true,receiveShadows:true});
     app.root.addChild(model);
+
+    // Defensive cleanup of any non-vehicle studio geometry embedded in the GLB.
+    // Do not hide headlights or any actual vehicle components.
+    const studioObjectName=/(soft[ _.-]?box|light[ _.-]?box|light[ _.-]?panel|studio[ _.-]?(floor|wall|set|light|rig)|photo[ _.-]?studio|cyclorama|backdrop|background[ _.-]?plane|area[ _.-]?light)/i;
+    const removedSetObjects=[];
     model.forEach(node=>{
+      if(node===model||!node.render)return;
+      const name=node.name||"";
+      const materialNames=node.render.meshInstances.map(mi=>mi.material?.name||"").join(" ");
+      const namedSet=studioObjectName.test(name)||studioObjectName.test(materialNames);
+      const genericStagePlane=/^(plane|ground|floor)(?:[._ -]?\\d+)?$/i.test(name) &&
+        node.render.meshInstances.some(mi=>{
+          const box=mi.aabb;
+          const ext=box?.halfExtents;
+          return ext&&(ext.x>6||ext.z>6);
+        });
+      if(namedSet||genericStagePlane){
+        node.enabled=false;
+        removedSetObjects.push(name);
+      }
+    });
+    debug.removedSetObjects=removedSetObjects;
+    debug.sceneCleanup="no softbox geometry, no skybox, no generated floor";
+
+    model.forEach(node=>{
+      if(!node.enabled)return;
       if(!node.render)return;
       for(const mi of node.render.meshInstances){
         meshCount++;mi.castShadow=true;
