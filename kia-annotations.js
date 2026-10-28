@@ -10,7 +10,7 @@ const DETAILS={
  rear_bumper_and_lights:{title:"Luces posteriores",description:"Diseño del conjunto de iluminación y parachoques trasero.",anchor:"rear_bumper_and_lights",angle:180,zoom:.78},
  door_front_left:{title:"Puertas",description:"Acceso a la cabina de doble fila; la puerta del conductor puede abrirse para entrar.",anchor:"door_front_left",angle:-80,zoom:.86},
  eld:{title:"Diferencial e-LD",description:"Vista del área del eje trasero. El bloqueo electrónico de diferencial ayuda a mejorar la tracción; el mecanismo no está animado en este modelo.",anchor:"wheel_rear_left",angle:160,zoom:.75},
- interior:{title:"Acceso a la cabina",description:"Apertura de la puerta del conductor y recorrido de entrada al espacio interior.",interior:true},
+ interior:{title:"Acceso a la cabina",description:"Apertura sincronizada de las cuatro puertas y recorrido de entrada a la cabina.",interior:true},
  display:{title:"Pantalla panorámica",description:"Encuadre del tablero y del conjunto de pantallas panorámicas. Equipamiento según versión.",interior:true},
  infotainment:{title:"Infoentretenimiento",description:"Acercamiento a los controles y la zona central de la consola.",interior:true},
  wireless:{title:"Cargador inalámbrico",description:"Zona de la consola donde se sitúan los cargadores inalámbricos en las versiones equipadas.",interior:true},
