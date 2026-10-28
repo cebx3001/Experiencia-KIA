@@ -105,8 +105,10 @@ jobs:
               Object.keys(window.__kiaThreeViewer?.getAllDoorDegrees?.()||{}).length===4&&
               Object.values(window.__kiaThreeViewer.getAllDoorDegrees()).every(a=>Math.abs(a)>55),
               null,{timeout:25000,polling:200});
-            await page.waitForFunction(()=>window.__kiaThreeViewer?.seatFraming?.sampledVertices>80,
-              null,{timeout:30000,polling:150});
+            await page.waitForFunction(()=>window.__kiaAnnotations?.selected==="seats"&&
+              !!window.__kiaThreeViewer?.seatFraming?.target,
+              null,{timeout:20000,polling:150});
+            await page.waitForTimeout(1100);
             const interior=await page.evaluate(()=>({
               option:window.__kiaCarousel.selected,
               doors:window.__kiaThreeViewer.getAllDoorDegrees(),
