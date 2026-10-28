@@ -101,17 +101,17 @@ jobs:
             if(!(paintState.count>0)||paintState.applied!=="arena")
               throw Error("Selective paint not installed: "+JSON.stringify(paintState));
             await page.waitForTimeout(450);
-            const arenaPixels=await page.locator("#carCanvas").screenshot({timeout:20000});
+            const arenaPixels=await page.screenshot({clip:{x:235,y:65,width:410,height:275},animations:"disabled",timeout:30000});
             await page.locator('.color-chip[data-color="gris"]').click();
             await page.waitForTimeout(450);
-            const grayPixels=await page.locator("#carCanvas").screenshot({timeout:20000});
+            const grayPixels=await page.screenshot({clip:{x:235,y:65,width:410,height:275},animations:"disabled",timeout:30000});
             const changed=!arenaPixels.equals(grayPixels);
             console.log("PAINT SWATCH TEST:",JSON.stringify({paintState,changed,gray:await page.evaluate(()=>window.__kiaThreeViewer?.paintApplied)}));
             if(!changed||await page.evaluate(()=>window.__kiaThreeViewer?.paintApplied)!=="gris")
               throw Error("Selected color did not visibly recolor 3D model");
             await page.locator('.color-chip[data-color="verde"]').click();
             await page.waitForTimeout(400);
-            const greenPixels=await page.locator("#carCanvas").screenshot({timeout:20000});
+            const greenPixels=await page.screenshot({clip:{x:235,y:65,width:410,height:275},animations:"disabled",timeout:30000});
             if(grayPixels.equals(greenPixels))throw Error("Different paint colors produce identical 3D render");
             await page.locator('.color-chip[data-color="arena"]').click();
             await page.locator('.micro-feature[data-feature="front_fascia"]').click();
