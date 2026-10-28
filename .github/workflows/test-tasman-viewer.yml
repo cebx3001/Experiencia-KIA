@@ -1,0 +1,68 @@
+name: Verify Kia Tasman 3D in Chromium
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'app.js'
+      - 'index.html'
+      - 'assets/kia-tasman-mobile.glb'
+      - '.github/workflows/test-tasman-viewer.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  browser-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium automation
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Load model and inspect WebGL
+        shell: bash
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/tasman-server.log 2>&1 &
+          node --input-type=commonjs <<'NODE'
+          const {chromium}=require("playwright");
+          (async()=>{
+            const browser=await chromium.launch({headless:true,args:[
+              "--use-gl=angle","--use-angle=swiftshader",
+              "--enable-webgl","--enable-unsafe-swiftshader",
+              "--no-sandbox","--disable-dev-shm-usage"
+            ]});
+            const page=await browser.newPage({viewport:{width:1000,height:640},deviceScaleFactor:1});
+            page.on("pageerror",e=>console.log("PAGEERROR:",e.message));
+            page.on("console",m=>{if(m.type()==="error"||m.type()==="warning")console.log("CONSOLE:",m.text())});
+            page.on("requestfailed",r=>console.log("REQUEST FAILED:",r.url(),r.failure()?.errorText));
+            await page.goto("http://127.0.0.1:8765/?debug=1",{waitUntil:"domcontentloaded",timeout:30000});
+            try{
+              await page.waitForFunction(()=>window.__kiaViewerStatus?.loaded===true||!!window.__kiaViewerStatus?.error,{timeout:120000,polling:500});
+            }catch(e){console.log("WAIT:",e.message)}
+            await page.waitForTimeout(3500);
+            const state=await page.evaluate(()=>{
+              const c=document.querySelector("#carCanvas");
+              const o=window.__kiaViewerStatus||null;
+              return {status:o&&{...o,canvas:undefined},hidden:c.hidden,visibility:getComputedStyle(c).visibility,
+                size:[c.width,c.height],hint:document.querySelector("#interactionHint")?.textContent,
+                modelStatus:document.querySelector("#modelLoading")?.textContent,
+                panel:document.querySelector('[aria-label="KIA 3D technical diagnostic"]')?.textContent};
+            });
+            console.log("VIEWER_RESULT:",JSON.stringify(state,null,2));
+            await page.screenshot({path:"kia-browser-test.png",timeout:30000});
+            await browser.close();
+            if(!state.status?.loaded||state.status.meshCount<=0||state.visibility!=="visible")process.exit(1);
+          })().catch(err=>{console.error(err);process.exit(1)});
+          NODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kia-tasman-browser-capture
+          path: kia-browser-test.png
+          if-no-files-found: ignore
