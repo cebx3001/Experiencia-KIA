@@ -118,7 +118,7 @@ async function initVehicle(){
    status:window.__kiaThreeViewer
   };
   hideModelStatus();
-  $("interactionHint").textContent="DESLIZA PARA GIRAR · EXPLORA DESDE EL MENÚ";
+  // The carousel itself presents navigation; no redundant instruction line.
  }catch(error){
   console.error("Kia Three.js viewer initialization failed",error);
   window.__kiaViewerStatus={loaded:false,engine:"three",error:String(error)};
