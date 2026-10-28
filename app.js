@@ -86,7 +86,7 @@ document.querySelectorAll("#cameraButtons button").forEach(b=>b.addEventListener
 
 async function initVehicle(){
  const url="./assets/kia-tasman-fast.glb";
- const manifestUrl="./assets/kia-tasman-components.json";
+
  // The page works as a menu before the model is uploaded; do not fetch PlayCanvas unnecessarily.
  try{
    const res=await fetch(url,{method:"HEAD",cache:"no-store"});
@@ -130,6 +130,7 @@ async function initVehicle(){
    app.assets.loadFromUrl("./assets/studio-env-atlas.png","texture",(envError,envAsset)=>{
      if(envError||!envAsset){console.warn("Environment atlas unavailable",envError);return;}
      app.scene.envAtlas=envAsset.resource;
+     window.__kiaEnvReady=true;
      app.renderNextFrame=true;
    });
    app.scene.ambientLight=new pc.Color(.45,.47,.50);
@@ -162,7 +163,12 @@ async function initVehicle(){
      state.ready=true;
      // A configurator is static between interactions: stop burning mobile GPU cycles.
      setTimeout(()=>{if(state.ready){app.autoRender=false;app.renderNextFrame=true;}},1400);
-     window.__kiaViewerStatus={loaded:true,meshCount,canvas:()=>[canvas.width,canvas.height],cameraTarget:[0,1.05,0],radius:8.1};
+     window.__kiaViewerStatus={
+       loaded:true,meshCount,
+       texturesBound:root.findComponents("render").reduce((n,c)=>n+(c.meshInstances||[]).filter(mi=>!!mi.material?.diffuseMap).length,0),
+       canvas:()=>[canvas.width,canvas.height],cameraTarget:[0,1.05,0],radius:8.1,
+       asset:"kia-tasman-fast.glb"
+     };
      requestAnimationFrame(()=>requestAnimationFrame(()=>{
        doResize();
        canvas.style.visibility="visible";
