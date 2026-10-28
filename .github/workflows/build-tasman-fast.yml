@@ -1,0 +1,66 @@
+name: Prepare fast high-fidelity Kia Tasman for PlayCanvas
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/build-tasman-fast.yml'
+permissions:
+  contents: write
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install -g @gltf-transform/cli@4.5.1
+      - name: Preserve full resolution texture images, compress using high quality WebP and Draco
+        run: |
+          set -euo pipefail
+          gltf-transform webp assets/kia-tasman.glb /tmp/tasman-fullres-webp.glb --quality 95
+          gltf-transform draco /tmp/tasman-fullres-webp.glb assets/kia-tasman-fast.glb
+          curl -fL --retry 3 --max-time 20 "https://raw.githubusercontent.com/playcanvas/engine/main/examples/assets/cubemaps/studio-env-atlas.png" -o assets/studio-env-atlas.png
+      - name: Verify all model parts, materials, animation and texture dimensions
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json,struct,os,io
+          from PIL import Image
+          def read(path):
+            with open(path,'rb') as f:
+              h=f.read(20)
+              assert h[:4]==b'glTF'
+              n,t=struct.unpack_from('<I4s',h,12);assert t==b'JSON'
+              d=json.loads(f.read(n))
+              nb,t=struct.unpack('<I4s',f.read(8));assert t[:3]==b'BIN'
+              binary=f.read(nb)
+            return d,binary
+          a,aa=read('assets/kia-tasman.glb'); b,bb=read('assets/kia-tasman-fast.glb')
+          for key in ('nodes','meshes','animations','materials','textures','images'):
+            print(key,len(a.get(key,[])),len(b.get(key,[])))
+            assert len(a.get(key,[]))==len(b.get(key,[])), key
+          assert [n.get('name') for n in a['nodes']]==[n.get('name') for n in b['nodes']]
+          assert [n.get('name') for n in a['materials']]==[n.get('name') for n in b['materials']]
+          def texture_dimensions(d,buf):
+            results=[]
+            for img in d['images']:
+              v=d['bufferViews'][img['bufferView']]
+              blob=buf[v.get('byteOffset',0):v.get('byteOffset',0)+v['byteLength']]
+              with Image.open(io.BytesIO(blob)) as im:results.append(im.size)
+            return results
+          from PIL import Image
+          x=texture_dimensions(a,aa);y=texture_dimensions(b,bb)
+          print('Original image resolutions:',x)
+          print('Fast image resolutions:',y)
+          assert x==y, 'The image resolutions changed'
+          assert 'KHR_draco_mesh_compression' in b.get('extensionsUsed',[])
+          print('Original',os.path.getsize('assets/kia-tasman.glb'),'Fast',os.path.getsize('assets/kia-tasman-fast.glb'))
+          PY
+      - name: Commit optimized model and licensed PlayCanvas environment lighting texture
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/kia-tasman-fast.glb assets/studio-env-atlas.png
+          git diff --cached --quiet || (git commit -m "Prepare full resolution fast GLB and studio environment" && git push)
