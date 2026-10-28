@@ -157,7 +157,7 @@ async function initVehicle(){
      requestAnimationFrame(()=>requestAnimationFrame(()=>{
        doResize();
        canvas.style.visibility="visible";
-       $("carFallback").hidden=true;
+       
        hideModelStatus();
      }));
      installVehicleAnnotations(pc, app, root, canvas, manifestUrl);
