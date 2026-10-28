@@ -573,3 +573,8 @@
 @media(prefers-reduced-motion:reduce){
   .kia-carousel-window.carousel-updated .kia-carousel-choice{animation:none!important}
 }
+
+/* Missions take precedence over the vehicle's editorial selectors. */
+.experience.is-mission-mode .kia-category-rail,
+.experience.is-mission-mode .kia-feature-carousel,
+.experience.is-mission-mode .kia-bottom-description{display:none!important}
