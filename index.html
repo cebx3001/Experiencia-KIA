@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css?v=20261028-no-fallback-v2">
-  <script type="module" src="./app.js?v=20261028-no-fallback-v2"></script>
+  <script type="module" src="./app.js?v=20261028-fast-pbr-v1"></script>
 </head>
 <body>
   <main id="experience" class="experience scene-rocks" aria-label="Experiencia Kia Tasman 2026">
@@ -30,9 +30,8 @@
 
     <div class="stage" id="stage">
       <canvas id="carCanvas" aria-label="Visualizador tridimensional de Kia Tasman" hidden></canvas>
-      <div class="model-loading" id="modelLoading" role="status">CARGANDO MODELO TRIDIMENSIONAL · 6 MB</div>
+      <div class="model-loading" id="modelLoading" role="status">CARGANDO MODELO TRIDIMENSIONAL</div>
       <div class="ground-glow" aria-hidden="true"></div>
-      <div class="hotspots" id="hotspots" hidden aria-label="Piezas del vehículo"></div>
       <div class="stage-watermark" aria-hidden="true">TASMAN</div>
     </div>
 
@@ -77,7 +76,18 @@
         </div>
         <span class="color-name" id="colorName">ARENA</span>
       </div>
-      <div class="rail-block rail-note">
+            <div class="rail-block components-rail">
+        <span class="rail-heading">COMPONENTES</span>
+        <div class="component-button-grid" aria-label="Información de componentes del vehículo">
+          <button type="button" data-feature="wheel_front_left">NEUMÁTICOS</button>
+          <button type="button" data-feature="front_fascia">FAROS</button>
+          <button type="button" data-feature="interior">CABINA</button>
+          <button type="button" data-feature="cargo_bed">PAILA</button>
+          <button type="button" data-feature="tailgate">COMPUERTA</button>
+          <button type="button" data-feature="windshield">PARABRISAS</button>
+        </div>
+      </div>
+<div class="rail-block rail-note">
         <span class="rail-heading">CONTROLES</span>
         <span id="interactionHint">CARGANDO VEHÍCULO 3D…</span>
       </div>
