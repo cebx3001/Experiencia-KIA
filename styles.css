@@ -127,3 +127,26 @@
 @media(max-height:580px){.stage{inset:8% 5% 6% 19%}.side-content{width:34%;max-width:34%}.vehicle-copy h1{font-size:min(8vh,58px)}}
 @media(max-width:750px) and (orientation:landscape){.stage{inset:8% 4% 6% 19%}.side-content{width:35%;max-width:35%}}
 @media(orientation:portrait){.stage{inset:8% 4% 6% 19%}.side-content{width:35%;max-width:35%}.vehicle-copy h1{font-size:clamp(37px,7.6vh,61px)}}
+
+
+/* KIA 3D ANNOTATIONS — world-anchored, camera-following, not modals. */
+.kia-annotations{position:absolute;inset:0;z-index:8;pointer-events:none;overflow:visible;font-family:Inter,Arial,sans-serif}
+.kia-annotation-pin{position:absolute;z-index:2;width:28px;height:28px;padding:0;border:1px solid rgba(255,255,255,.9);border-radius:50%;background:rgba(5,20,31,.56);color:#fff;pointer-events:auto;display:grid;place-items:center;transform:translate(-50%,-50%);transition:opacity .22s,background .22s,box-shadow .22s;box-shadow:0 0 0 4px rgba(255,255,255,.11),0 3px 20px rgba(0,0,0,.23);font:400 20px/1 Arial,sans-serif;cursor:pointer}
+.kia-annotation-pin::before{content:"";position:absolute;inset:-8px;border:1px solid rgba(255,255,255,.24);border-radius:50%;animation:kiaAnnotationPulse 3s ease-out infinite;pointer-events:none}
+.kia-annotation-pin span{display:block;line-height:1;transform:translateY(-1px)}
+.kia-annotation-pin:hover,.kia-annotation-pin:focus-visible,.kia-annotation-pin.is-selected{background:#ea0029;box-shadow:0 0 0 4px rgba(234,0,41,.18),0 2px 15px rgba(0,0,0,.35)}
+.kia-annotation-pin.is-offscreen{opacity:0;pointer-events:none}
+.kia-annotations.has-selection .kia-annotation-pin:not(.is-selected){opacity:.22}
+.kia-annotation-leader{position:absolute;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.84),rgba(255,255,255,.4));transform-origin:0 50%;opacity:0;transition:opacity .3s;pointer-events:none;z-index:1}
+.kia-annotation-leader.is-open{opacity:1}
+.kia-annotation-leader.is-offscreen{opacity:0}
+.kia-annotation-detail{position:absolute;top:var(--annotation-y,20%);left:var(--annotation-x,40%);width:var(--annotation-width,206px);min-height:100px;padding:13px 25px 14px 14px;background:rgba(5,20,31,.89);border-left:2px solid #ea0029;box-shadow:0 16px 45px rgba(0,0,0,.22);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;pointer-events:none;opacity:0;transform:translateY(8px) scale(.97);transform-origin:left top;transition:opacity .35s ease,transform .45s cubic-bezier(.2,.8,.2,1);z-index:3}
+.kia-annotation-detail.is-open{pointer-events:auto;opacity:1;transform:translateY(0) scale(1)}
+.kia-annotation-eyebrow{font-size:8px;letter-spacing:.18em;font-weight:600;color:#c0cbd3;text-transform:uppercase;margin-bottom:8px}
+.kia-annotation-heading{font-size:clamp(14px,1.65vw,20px);letter-spacing:-.04em;line-height:1.03;font-weight:800;margin:0 0 8px}
+.kia-annotation-description{font-size:10px;line-height:1.46;color:#d2dade;font-weight:400;margin:0;max-width:185px}
+.kia-annotation-close{position:absolute;top:6px;right:6px;width:22px;height:22px;border:0;background:transparent;color:#e4e9ec;font-size:20px;line-height:22px;padding:0;pointer-events:auto}
+.kia-annotation-mode-hidden .kia-annotations{opacity:0;pointer-events:none}
+@keyframes kiaAnnotationPulse{0%{opacity:.6;transform:scale(.8)}65%,100%{opacity:0;transform:scale(1.45)}}
+@media(max-height:580px){.kia-annotation-pin{width:24px;height:24px;font-size:18px}.kia-annotation-detail{padding:10px 23px 10px 11px;min-height:90px}.kia-annotation-eyebrow{margin-bottom:5px;font-size:7px}.kia-annotation-heading{font-size:15px;margin-bottom:6px}.kia-annotation-description{font-size:9px;line-height:1.36}}
+@media(prefers-reduced-motion:reduce){.kia-annotation-pin::before{animation:none}.kia-annotation-detail,.kia-annotation-leader{transition:none}}
