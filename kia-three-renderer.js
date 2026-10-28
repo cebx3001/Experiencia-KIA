@@ -313,6 +313,8 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
   doorClosedRotation=door?.rotation.y||0;
   debug.doorAvailable=!!door;
   debug.doorName=door?.name||null;
+  debug.getDoorDegrees=()=>door?(door.rotation.y-doorClosedRotation)*180/Math.PI:null;
+  debug.isInCabin=()=>cabinOpen;
   debug.modelAnimations=gltf.animations?.map(a=>a.name)||[];
   const bounds=new THREE.Box3().setFromObject(model);
   const size=bounds.getSize(new THREE.Vector3());
