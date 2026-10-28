@@ -84,6 +84,36 @@ document.querySelectorAll("#cameraButtons button").forEach(b=>b.addEventListener
  moveCamera();
 }));
 
+function stabilizeVehicleFaces(root,pc){
+ // Correct optimized GLB meshes vanishing from certain viewing angles.
+ // Do not change geometry, textures, transparency, reflections or lighting.
+ const copies=new Map();
+ const diagnostic={meshInstances:0,opaqueDoubleSided:0,frustumDisabled:0,materials:[]};
+ for(const component of root.findComponents("render")){
+  for(const instance of component.meshInstances||[]){
+   diagnostic.meshInstances++;
+   // Optimized assets may contain incomplete / inconsistent mesh bounding boxes.
+   // Avoid frustum rejection of otherwise visible vehicle parts.
+   instance.cull=false;
+   diagnostic.frustumDisabled++;
+   const source=instance.material;
+   if(!source||source.blendType!==pc.BLEND_NONE)continue;
+   let corrected=copies.get(source);
+   if(!corrected){
+    corrected=source.clone();
+    corrected.cull=pc.CULLFACE_NONE;
+    if("twoSidedLighting" in corrected)corrected.twoSidedLighting=true;
+    corrected.update();
+    copies.set(source,corrected);
+    diagnostic.materials.push(source.name||"(unnamed)");
+   }
+   instance.material=corrected;
+   diagnostic.opaqueDoubleSided++;
+  }
+ }
+ window.__kiaGeometryStabilization=diagnostic;
+}
+
 function polishStudioPaint(root){
  // Glossy automotive clearcoat on painted exterior panels; keep the original
  // texture maps and preserve rubber, glass, trim, interior and chrome.
@@ -224,6 +254,7 @@ async function initVehicle(){
        return;
      }
      state.model=root;
+     stabilizeVehicleFaces(root,pc);
      polishStudioPaint(root);
      bindInvisibleStudioEnvironment();
      // Semantic manifest: Y-up, meters, origin below midpoint between axles.
