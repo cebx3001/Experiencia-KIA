@@ -112,7 +112,7 @@ async function initVehicle(){
   ? "./assets/kia-tasman.glb" : "./assets/kia-tasman-quality.glb";
  try{
   showModelStatus("CARGANDO KIA TASMAN 3D");
-  const {mountKiaPlayCanvas}=await import("./kia-playcanvas-renderer.js?v=20261028-studio-v1");
+  const {mountKiaPlayCanvas}=await import("./kia-playcanvas-renderer.js?v=20261028-hdr-v3");
   const viewer=await mountKiaPlayCanvas({
    canvas,host:stage,assetUrl,initialAngle:state.angle,
    onAngleChange:degrees=>{state.angle=degrees;}
@@ -186,6 +186,9 @@ if(new URLSearchParams(location.search).has("debug")){
     ready:state.ready,
     model:!!state.model,
     modelState:window.__kiaViewerStatus?.error||"OK",
+    hdrStatus:window.__kiaPlayCanvasViewer?.hdriStatus??"not initialized",
+    postProcess:window.__kiaPlayCanvasViewer?.postProcess??"not initialized",
+    studioLighting:window.__kiaPlayCanvasViewer?.lighting??null,
     meshes:window.__kiaViewerStatus?.meshCount||0,
     renderer:!!app,
     canvas:{hidden:canvas.hidden,cssDisplay:getComputedStyle(canvas).display,cssVisibility:getComputedStyle(canvas).visibility,width:canvas.width,height:canvas.height,clientWidth:canvas.clientWidth,clientHeight:canvas.clientHeight},
