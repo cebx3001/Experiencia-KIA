@@ -5,8 +5,10 @@ on:
     paths:
       - 'app.js'
       - 'index.html'
+      - 'styles.css'
       - 'kia-three-renderer.js'
-      - 'assets/kia-tasman-quality.glb'
+      - 'kia-annotations.js'
+      - 'kia-carousel.js'
       - '.github/workflows/test-tasman-viewer.yml'
 permissions:
   contents: read
@@ -23,7 +25,7 @@ jobs:
         run: |
           npm install --no-save playwright@1.56.1
           npx playwright install --with-deps chromium
-      - name: Verify integrated Three.js 3D viewer and UI
+      - name: Verify editorial Kia Tasman carousel and vehicle actions
         shell: bash
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/tasman-server.log 2>&1 &
@@ -42,210 +44,90 @@ jobs:
             const pageErrors=[];
             page.on("pageerror",error=>pageErrors.push(error.message));
             page.on("console",m=>{if(m.type()==="error")console.log("CONSOLE:",m.text())});
-            page.on("requestfailed",r=>console.log("REQUEST FAILED:",r.url(),r.failure()?.errorText));
-            await page.goto("http://127.0.0.1:8765/?integration-test=three",{waitUntil:"domcontentloaded",timeout:45000});
-            await page.waitForFunction(
-              ()=>window.__kiaViewerStatus?.loaded===true || !!window.__kiaViewerStatus?.error,
-              null,{timeout:150000,polling:300}
-            );
-            const initial=await page.evaluate(()=>{
-              const status=window.__kiaViewerStatus||{};
-              const debug=window.__kiaThreeViewer||{};
-              const canvas=document.querySelector("#carCanvas");
-              return {
-                loaded:status.loaded,
-                error:status.error||debug.error,
-                engine:status.engine,meshCount:status.meshCount,
-                texturesBound:status.texturesBound,
-                corrected:debug.opaqueCorrected,
-                canvasVisible:!canvas.hidden&&getComputedStyle(canvas).visibility==="visible",
-                camera:status.getCamera?.(),
-                cameraButtons:document.querySelectorAll("#cameraButtons button").length,
-                featureButtons:document.querySelectorAll(".component-button-grid [data-feature]").length,
-                hasOriginalUI:!!document.querySelector(".topbar")&&!!document.querySelector(".right-rail"),
-              };
-            });
-            console.log("THREE INITIAL:",JSON.stringify(initial));
-            const hoodProbe=await page.evaluate(()=>{
-              const grid=[];
-              for(const ny of [.65,.50,.35,.20,.05,-.10,-.25,-.40,-.55]){
-                for(const nx of [-.75,-.55,-.35,-.15,.05,.25,.45,.65,.85]){
-                  const hits=window.__kiaThreeViewer?.probeAtNDC?.(nx,ny);
-                  if(hits?.length)grid.push({nx,ny,h: hits[0]});
-                }
-              }
-              return grid;
-            });
-            console.log("HOOD RAYCAST GRID:",JSON.stringify(hoodProbe));
-
+            await page.goto("http://127.0.0.1:8765/?integration-test=carousel",{waitUntil:"domcontentloaded",timeout:45000});
+            await page.waitForFunction(()=>window.__kiaViewerStatus?.loaded===true||!!window.__kiaViewerStatus?.error,
+              null,{timeout:150000,polling:350});
+            await page.waitForFunction(()=>!!window.__kiaCarousel && !!window.__kiaAnnotations,null,{timeout:20000});
+            const initial=await page.evaluate(()=>({
+              loaded:window.__kiaViewerStatus?.loaded,
+              meshCount:window.__kiaViewerStatus?.meshCount,
+              engine:window.__kiaViewerStatus?.engine,
+              corrected:window.__kiaThreeViewer?.opaqueCorrected,
+              categories:[...document.querySelectorAll(".kia-category")].map(b=>b.dataset.category),
+              selected:window.__kiaCarousel?.selected,
+              carouselVisible:!document.getElementById("kiaFeatureCarousel").hidden,
+              hasOldAccordion:!!document.querySelector(".kia-rail-accordion"),
+              testDriveBottom:!!document.querySelector(".bottom-right .footer-testdrive"),
+              leftPromo:!!document.querySelector(".side-content #primaryButton"),
+              descriptionBelow:!!document.querySelector("#featureDetail.kia-bottom-description")
+            }));
+            console.log("EDITORIAL INIT:",JSON.stringify(initial));
             if(!initial.loaded||initial.engine!=="three"||initial.meshCount<23||
-               initial.texturesBound<1||!initial.corrected?.includes("Car")||
-               !initial.corrected?.includes("Interior")||!initial.canvasVisible||
-               !initial.hasOriginalUI||initial.cameraButtons!==5||initial.featureButtons!==13) {
-              throw Error("THREE INTEGRATION FAILED: "+JSON.stringify(initial));
-            }
-            const menus=await page.evaluate(()=>({
-              open:Array.from(document.querySelectorAll(".micro-toggle")).filter(b=>b.getAttribute("aria-expanded")==="true").length,
-              panelsHidden:Array.from(document.querySelectorAll(".micro-panel")).every(p=>p.hidden),
-              pins:document.querySelectorAll(".kia-annotation-pin").length,
-              colors:Array.from(document.querySelectorAll(".color-chip")).map(b=>b.dataset.color)
+              !initial.corrected?.includes("Car")||!initial.corrected?.includes("Interior")||
+              JSON.stringify(initial.categories)!==JSON.stringify(["cameras","colors","exterior","interior"])||
+              initial.hasOldAccordion||!initial.testDriveBottom||!initial.leftPromo||
+              !initial.descriptionBelow||!initial.carouselVisible)
+              throw Error("Editorial vehicle layout or viewer failed: "+JSON.stringify(initial));
+            const peek=await page.evaluate(()=>({
+              previous:document.getElementById("carouselPeekPrev").textContent,
+              next:document.getElementById("carouselPeekNext").textContent,
+              current:document.getElementById("carouselSelected").textContent,
+              counter:document.getElementById("carouselCounter").textContent
             }));
-            if(!menus.panelsHidden||menus.pins!==0||
-              JSON.stringify(menus.colors)!==JSON.stringify(["arena","gris","negro","verde"]))
-              throw Error("Unexpected default micro-menus or colors: "+JSON.stringify(menus));
-            await page.locator("#toggleCameras").click();
-            await page.locator('#cameraButtons [data-pose="front"]').click();
-            await page.waitForTimeout(1300);
-            const front=await page.evaluate(()=>window.__kiaViewerStatus?.getCamera?.());
-            await page.locator('#cameraButtons [data-pose="top"]').click();
-            await page.waitForFunction(frontY=>
-              (window.__kiaViewerStatus?.getCamera?.()?.[1]||0)>frontY+1.0,
-              front[1],{timeout:18000,polling:150});
-            const top=await page.evaluate(()=>window.__kiaViewerStatus?.getCamera?.());
-            if(!(top?.[1]>front?.[1]+1.0))throw Error("Top camera did not move overhead");
-            await page.locator("#toggleExterior").click();
-            if(!(await page.locator("#panelCameras").isHidden()))throw Error("Cameras menu stayed open");
-            const paintState=await page.evaluate(()=>({
-              count:window.__kiaThreeViewer?.paintMeshCount,
-              mode:window.__kiaThreeViewer?.paintMode,
-              applied:window.__kiaThreeViewer?.paintApplied
+            if(!peek.previous||!peek.next||!peek.current)throw Error("Carousel must show adjacent items");
+            await page.locator(".kia-category[data-category='cameras']").click();
+            await page.locator(".kia-category[data-category='cameras']").click();
+            await page.locator("#carouselNext").click();
+            if(await page.evaluate(()=>window.__kiaCarousel.selected)!=="side")throw Error("Camera carousel did not advance");
+            await page.locator(".kia-category[data-category='colors']").click();
+            await page.locator("#carouselNext").click();
+            await page.waitForFunction(()=>window.__kiaThreeViewer?.paintApplied==="gris",null,{timeout:15000});
+            console.log("CAR BODY PAINT:",await page.evaluate(()=>window.__kiaThreeViewer?.paintApplied));
+            await page.locator(".kia-category[data-category='exterior']").click();
+            await page.waitForFunction(()=>window.__kiaAnnotations?.selected==="front_fascia",null,{timeout:15000});
+            const exterior=await page.evaluate(()=>({
+              selected:window.__kiaCarousel?.selected,
+              desc:document.getElementById("featureDetail").textContent,
+              detailBg:getComputedStyle(document.getElementById("featureDetail")).backgroundColor,
+              carouselLabel:document.getElementById("carouselCategory").textContent,
+              onRight:document.getElementById("featureDetail").getBoundingClientRect().left>window.innerWidth*.70
             }));
-            if(!(paintState.count>0)||paintState.applied!=="arena")
-              throw Error("Selective paint not installed: "+JSON.stringify(paintState));
-            await page.waitForTimeout(450);
-            await page.locator('.color-chip[data-color="gris"]').click();
-            await page.waitForFunction(()=>window.__kiaThreeViewer?.paintApplied==="gris",null,{timeout:10000});
-            await page.locator('.color-chip[data-color="verde"]').click();
-            await page.waitForFunction(()=>window.__kiaThreeViewer?.paintApplied==="verde",null,{timeout:10000});
-            await page.locator('.color-chip[data-color="negro"]').click();
-            await page.waitForFunction(()=>window.__kiaThreeViewer?.paintApplied==="negro",null,{timeout:10000});
-            await page.locator('.color-chip[data-color="arena"]').click();
-            console.log("PAINT UI:",JSON.stringify(paintState));
-            await page.locator('.micro-feature[data-feature="front_fascia"]').click();
-            await page.waitForFunction(()=>window.__kiaAnnotations?.selected==="front_fascia"&&
-              !document.getElementById("featureDetail").hidden,null,{timeout:10000});
-            if(await page.locator("#infoModal").isVisible())throw Error("Legacy info modal opened");
-            if(await page.locator(".kia-annotation-pin").count())throw Error("Hotspots visible over model");
-            const detailOutside=await page.evaluate(()=>!document.getElementById("featureDetail").closest(".micro-panel"));
-            if(!detailOutside)throw Error("Annotation description is still clipped inside scroll submenu");
-            console.log("EXTERIOR NOTE:",await page.locator("#featureDetail").innerText());
-            await page.locator("#toggleInterior").click();
-            if(!(await page.locator("#panelExterior").isHidden()))throw Error("Exterior menu stayed open");
-            // Expanding the menu by itself must open all four doors,
-            // with a single corresponding mechanical opening sound.
+            console.log("EXTERIOR:",JSON.stringify(exterior));
+            if(exterior.selected!=="front_fascia"||exterior.carouselLabel!=="EXTERIOR"||
+              !exterior.desc.includes("DRL")||exterior.detailBg!=="rgba(0, 0, 0, 0)"||
+              !exterior.onRight)throw Error("Lower-right fact presentation failed");
+            await page.locator('#featureDetail button[aria-label="Cerrar anotación"]').click();
+            if(!(await page.locator("#featureDetail").isHidden())||
+               await page.evaluate(()=>window.__kiaCarousel.selected)!=="front_fascia")
+              throw Error("X must hide only descriptive text");
+            await page.locator(".kia-category[data-category='interior']").click();
             await page.waitForFunction(()=>
               Object.keys(window.__kiaThreeViewer?.getAllDoorDegrees?.()||{}).length===4&&
-              Object.values(window.__kiaThreeViewer.getAllDoorDegrees()).every(v=>Math.abs(v)>55),
+              Object.values(window.__kiaThreeViewer.getAllDoorDegrees()).every(a=>Math.abs(a)>55),
+              null,{timeout:25000,polling:200});
+            await page.waitForFunction(()=>window.__kiaThreeViewer?.seatFraming?.sampledVertices>80,
+              null,{timeout:30000,polling:150});
+            const interior=await page.evaluate(()=>({
+              option:window.__kiaCarousel.selected,
+              doors:window.__kiaThreeViewer.getAllDoorDegrees(),
+              seat:window.__kiaThreeViewer.seatFraming,
+              sound:window.__kiaThreeViewer.doorAudio?.openCount
+            }));
+            console.log("INTERIOR:",JSON.stringify(interior));
+            if(interior.option!=="seats"||!interior.sound||!interior.seat.target)
+              throw Error("Interior carousel did not open doors and focus seat");
+            await page.locator(".kia-category[data-category='colors']").click();
+            await page.waitForFunction(()=>
+              Object.values(window.__kiaThreeViewer.getAllDoorDegrees()).every(a=>Math.abs(a)<2),
               null,{timeout:25000,polling:150});
-            const openedOnMenu=await page.evaluate(()=>({
-              degrees:window.__kiaThreeViewer.getAllDoorDegrees(),
-              openSound:window.__kiaThreeViewer?.doorAudio?.openCount,
-              source:window.__kiaThreeViewer?.doorAudio?.source
-            }));
-            console.log("INTERIOR MENU FOUR DOORS AND AUDIO:",JSON.stringify(openedOnMenu));
-            if(!openedOnMenu.openSound||!openedOnMenu.source)throw Error("Door open sound not triggered");
-            await page.locator('.micro-feature[data-feature="seats"]').click();
-            await page.waitForFunction(()=>window.__kiaAnnotations?.selected==="seats",null,{timeout:10000});
-            await page.waitForTimeout(1300);
-            const seatView=await page.evaluate(()=>({
-              framing:window.__kiaThreeViewer?.seatFraming,
-              camera:window.__kiaViewerStatus?.getCamera?.(),
-              centerHits:window.__kiaThreeViewer?.probeAtNDC?.(0,0),
-              doors:window.__kiaThreeViewer?.getAllDoorDegrees?.()
-            }));
-            console.log("SINGLE SEAT VIEW:",JSON.stringify(seatView));
-            if(!seatView.framing||seatView.framing.sampledVertices<80||
-               !seatView.camera||!seatView.framing.target)
-               throw Error("Camera did not target driver's seat geometry");
-            await page.locator('.micro-feature[data-feature="display"]').click();
-            await page.waitForFunction(()=>window.__kiaThreeViewer?.lastCameraDetail==="display",null,{timeout:10000});
-            console.log("FRONTAL DISPLAY VIEW triggered");
-            await page.locator('.micro-feature[data-feature="interior"]').click();
-            // Three.js uses requestAnimationFrame; software Chromium is sometimes
-            // much slower than a real GPU, so wait for the actual hinge angle.
-            await page.waitForFunction(()=>window.__kiaThreeViewer?.isInCabin?.()&&
-              Math.abs(window.__kiaThreeViewer?.getDoorDegrees?.()??0)>=45,
-              null,{timeout:20000,polling:120});
-            const cabin=await page.evaluate(()=>({
-              inside:window.__kiaThreeViewer?.isInCabin?.(),
-              doorExists:window.__kiaThreeViewer?.doorAvailable,
-              angle:window.__kiaThreeViewer?.getDoorDegrees?.(),
-              doors:window.__kiaThreeViewer?.getAllDoorDegrees?.(),
-              camera:window.__kiaViewerStatus?.getCamera?.(),
-              selected:window.__kiaAnnotations?.selected
-            }));
-            console.log("CABIN ENTRY:",JSON.stringify(cabin));
-            if(!cabin.inside||!cabin.doorExists||cabin.selected!=="interior"||
-                Object.keys(cabin.doors||{}).length!==4||
-                Object.values(cabin.doors).some(angle=>Math.abs(angle)<55))
-              throw Error("All four doors must open fully on entering cabin: "+JSON.stringify(cabin));
-            const beforeClose=await page.evaluate(()=>({
-              camera:window.__kiaViewerStatus?.getCamera?.(),
-              opened:window.__kiaThreeViewer?.isInCabin?.(),
-              selected:window.__kiaAnnotations?.selected,
-              openMenu:document.getElementById("toggleInterior").getAttribute("aria-expanded"),
-              rightRail:document.getElementById("featureDetail").closest(".right-rail")!==null,
-              detailBg:getComputedStyle(document.getElementById("featureDetail")).backgroundColor,
-              detailBorder:getComputedStyle(document.getElementById("featureDetail")).borderLeftWidth
-            }));
-            if(!beforeClose.rightRail||beforeClose.detailBg!=="rgba(0, 0, 0, 0)"||beforeClose.detailBorder!=="0px")
-              throw Error("Description must be plain text inside the right rail: "+JSON.stringify(beforeClose));
-            await page.locator('#featureDetail button[aria-label="Cerrar anotación"]').click();
-            await page.waitForTimeout(250);
-            const afterClose=await page.evaluate(()=>({
-              camera:window.__kiaViewerStatus?.getCamera?.(),
-              opened:window.__kiaThreeViewer?.isInCabin?.(),
-              selected:window.__kiaAnnotations?.selected,
-              openMenu:document.getElementById("toggleInterior").getAttribute("aria-expanded"),
-              descriptionHidden:document.getElementById("featureDetail").hidden
-            }));
-            console.log("X HIDES TEXT ONLY:",JSON.stringify({beforeClose,afterClose}));
-            if(!afterClose.descriptionHidden||!afterClose.opened||afterClose.openMenu!=="true"||
-               afterClose.selected!=="interior")
-              throw Error("X incorrectly reset camera/menu/doors");
-            // Switching out of Interior, not X, must close the four doors.
-            await page.locator("#toggleExterior").click();
-            await page.waitForFunction(()=>!window.__kiaThreeViewer?.isInCabin?.()&&
-              Object.keys(window.__kiaThreeViewer?.getAllDoorDegrees?.()||{}).length===4&&
-              Object.values(window.__kiaThreeViewer.getAllDoorDegrees()).every(angle=>Math.abs(angle)<2),
-              null,{timeout:20000,polling:140});
-            const closedSound=await page.evaluate(()=>window.__kiaThreeViewer?.doorAudio?.closeCount);
-            if(!(closedSound>0))throw Error("Door close sound was not triggered");
-            console.log("MICROMENU PASS:",JSON.stringify({menus,front,top,cabin,afterClose}));
-            // Mission backdrops: three distinct real landscapes, while the
-            // SAME live 3D Kia stays in front of every environment.
             await page.locator("#primaryButton").click();
-            const expectedScenes=[
-              ["scene-flood","photo-1754810075322-4cc911cfdfdb"],
-              ["scene-mud","photo-1488197047962-b48492212cda"],
-              ["scene-descent","photo-1640320350390-1865c83b51b3"]
-            ];
-            for(const [cls,photo] of expectedScenes){
-              await page.locator("#nextMission").click();
-              const view=await page.evaluate(()=>({
-                scene:document.querySelector("#experience").className,
-                background:getComputedStyle(document.querySelector(".ambient-image")).backgroundImage,
-                truck:window.__kiaViewerStatus?.loaded,
-                canvasVisible:getComputedStyle(document.querySelector("#carCanvas")).visibility
-              }));
-              console.log("MISSION ENVIRONMENT:",JSON.stringify(view));
-              if(!view.scene.includes(cls)||!view.background.includes(photo)||
-                 !view.truck||view.canvasVisible!=="visible")
-                throw Error("Wrong mission scene or 3D Tasman disappeared: "+JSON.stringify(view));
-            }
+            if(!(await page.locator("#kiaFeatureCarousel").isHidden())||
+               !(await page.locator(".kia-category-rail").isHidden()))throw Error("Mission must hide model controls");
             await page.locator("#secondaryButton").click();
-
             await page.setViewportSize({width:390,height:844});
-            await page.waitForTimeout(300);
-
+            await page.waitForTimeout(350);
             if(pageErrors.length)throw Error("Browser JS errors: "+pageErrors.join("; "));
-            console.log("PASS: mobile Three.js, 5 cameras, 13 useful menu annotations, actual 3D paint changes, hinged cab door, zero 3D markers, creek/dunes/rain scene images");
+            console.log("PASS: 4 categories, partial adjacent labels, carousel camera/color/detail/seat interactions, info below on right, door open/close, mission UI, responsive layout");
             await browser.close();
           })().catch(error=>{console.error(error);process.exit(1)});
           NODE
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: kia-three-mobile-screenshots
-          path: kia-three-mobile-*.png
-          if-no-files-found: ignore
