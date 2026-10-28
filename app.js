@@ -113,7 +113,7 @@ async function initVehicle(){
   ? "./assets/kia-tasman.glb" : "./assets/kia-tasman-quality.glb";
  try{
   showModelStatus("CARGANDO KIA TASMAN 3D");
-  const {mountKiaThree}=await import("./kia-three-renderer.js?v=20261028-geometric-bonnet-v6");
+  const {mountKiaThree}=await import("./kia-three-renderer.js?v=20261028-bonnet-surface-v7");
   const viewer=await mountKiaThree({
    canvas,host:stage,assetUrl,initialAngle:state.angle,
    onAngleChange:degrees=>{
