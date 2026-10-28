@@ -71,6 +71,38 @@ jobs:
               initial.textOnlyPromo!=="rgba(0, 0, 0, 0)"||initial.rightRailBorder!=="0px"||
               !initial.descriptionBelow||!initial.carouselVisible)
               throw Error("Editorial vehicle layout or viewer failed: "+JSON.stringify(initial));
+            await page.evaluate(()=>document.fonts.ready);
+            const typography=await page.evaluate(()=>{
+              const css=el=>getComputedStyle(document.querySelector(el));
+              const h=document.querySelector("#vehicleCopy h1");
+              const range=document.createRange();
+              range.selectNodeContents(h.firstChild);
+              const box=range.getBoundingClientRect();
+              const area=document.querySelector(".side-content").getBoundingClientRect();
+              return {
+                display:css("#vehicleCopy h1").fontFamily,
+                displayWeight:css("#vehicleCopy h1").fontWeight,
+                year:css(".year").fontFamily,
+                yearOutline:css(".year").webkitTextStrokeWidth,
+                menu:css(".kia-category").fontFamily,
+                copy:css(".vehicle-copy p").fontFamily,
+                footer:css(".footer-testdrive").fontFamily,
+                titleWidth:Math.round(box.width),
+                titleAvailable:Math.round(area.width),
+                titleOverflow:Math.round(box.right-area.right),
+                loadedFonts:[...document.fonts].filter(f=>f.status==="loaded").map(f=>f.family)
+              };
+            });
+            console.log("TYPOGRAPHY LANDSCAPE:",JSON.stringify(typography));
+            if(!typography.display.includes("Monument Extended")||
+               !typography.display.includes("Unbounded")||
+               typography.displayWeight!=="900"||
+               !typography.year.includes("Space Grotesk")||
+               !typography.menu.includes("JetBrains Mono")||
+               !typography.copy.includes("Space Grotesk")||
+               !typography.footer.includes("JetBrains Mono")||
+               typography.titleOverflow>12)
+              throw Error("Editorial font system or layout failed: "+JSON.stringify(typography));
             const peek=await page.evaluate(()=>({
               previous:document.getElementById("carouselPeekPrev").textContent,
               next:document.getElementById("carouselPeekNext").textContent,
@@ -151,6 +183,17 @@ jobs:
             await page.locator("#secondaryButton").click();
             await page.setViewportSize({width:390,height:844});
             await page.waitForTimeout(350);
+            const portraitTitle=await page.evaluate(()=>{
+              const h=document.querySelector("#vehicleCopy h1");
+              const range=document.createRange();
+              range.selectNodeContents(h.firstChild);
+              const title=range.getBoundingClientRect();
+              const area=document.querySelector(".side-content").getBoundingClientRect();
+              return {font:getComputedStyle(h).fontFamily,width:Math.round(title.width),
+                      available:Math.round(area.width),overflow:Math.round(title.right-area.right)};
+            });
+            console.log("TYPOGRAPHY PORTRAIT:",JSON.stringify(portraitTitle));
+            if(portraitTitle.overflow>12)throw Error("TASMAN typography clipped in portrait: "+JSON.stringify(portraitTitle));
             if(pageErrors.length)throw Error("Browser JS errors: "+pageErrors.join("; "));
             console.log("PASS: 4 categories, partial adjacent labels, carousel camera/color/detail/seat interactions, info below on right, door open/close, mission UI, responsive layout");
             await browser.close();
