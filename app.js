@@ -84,78 +84,6 @@ document.querySelectorAll("#cameraButtons button").forEach(b=>b.addEventListener
  moveCamera();
 }));
 
-function stabilizeVehicleFaces(root,pc){
- // Correct optimized GLB meshes vanishing from certain viewing angles.
- // Do not change geometry, textures, transparency, reflections or lighting.
- const copies=new Map();
- const diagnostic={meshInstances:0,opaqueDoubleSided:0,frustumDisabled:0,materials:[]};
- for(const component of root.findComponents("render")){
-  for(const instance of component.meshInstances||[]){
-   diagnostic.meshInstances++;
-   // Optimized assets may contain incomplete / inconsistent mesh bounding boxes.
-   // Avoid frustum rejection of otherwise visible vehicle parts.
-   instance.cull=false;
-   diagnostic.frustumDisabled++;
-   const source=instance.material;
-   if(!source||source.blendType!==pc.BLEND_NONE)continue;
-   let corrected=copies.get(source);
-   if(!corrected){
-    corrected=source.clone();
-    corrected.cull=pc.CULLFACE_NONE;
-    if("twoSidedLighting" in corrected)corrected.twoSidedLighting=true;
-    corrected.update();
-    copies.set(source,corrected);
-    diagnostic.materials.push(source.name||"(unnamed)");
-   }
-   instance.material=corrected;
-   diagnostic.opaqueDoubleSided++;
-  }
- }
- window.__kiaGeometryStabilization=diagnostic;
-}
-
-function polishStudioPaint(root){
- // Glossy automotive clearcoat on painted exterior panels; keep the original
- // texture maps and preserve rubber, glass, trim, interior and chrome.
- const originalToPolished=new Map();
- const protectedSurface=/(glass|window|windshield|tire|tyre|rubber|trim|plastic|interior|seat|brake|light|lamp|chrome|grille|matte|rough|fabric|leather|license|plate|mirror)/i;
- const paintedPanel=/^(hood|cabin_body|cargo_bed_sides|tailgate|door_(front|rear)_(left|right))(?:_mesh)?$/i;
- const paintMaterial=/(tan[ _.-]?beige|bodypaint|body[ _.-]?color|painted|paint|car[ _.-]?paint|lacquer)/i;
- let polishedMeshes=0;
- const polishedNames=new Set();
- for(const render of root.findComponents("render")){
-  for(const meshInstance of (render.meshInstances||[])){
-   const source=meshInstance.material;
-   if(!source||!("clearCoat" in source))continue;
-   const materialName=source.name||"";
-   let node=meshInstance.node||render.entity;
-   let exteriorPanel=false,protectedNode=false;
-   for(let i=0;node&&i<6;i++,node=node.parent){
-    if(paintedPanel.test(node.name||""))exteriorPanel=true;
-    if(protectedSurface.test(node.name||""))protectedNode=true;
-   }
-   if(protectedSurface.test(materialName)||protectedNode)continue;
-   if(!exteriorPanel&&!paintMaterial.test(materialName))continue;
-   let polished=originalToPolished.get(source);
-   if(!polished){
-    polished=source.clone();
-    // glTF glossInvert stores roughness instead of glossiness.
-    polished.gloss=polished.glossInvert?Math.min(polished.gloss,.13):Math.max(polished.gloss,.87);
-    polished.clearCoat=.98;
-    polished.clearCoatGloss=polished.clearCoatGlossInvert ? .035 : .965;
-    polished.reflectivity=Math.max(polished.reflectivity||1,1.3);
-    polished.update();
-    originalToPolished.set(source,polished);
-    polishedNames.add(materialName||"(unnamed paint)");
-   }
-   meshInstance.material=polished;
-   polishedMeshes++;
-  }
- }
- window.__kiaStudioPaint={meshes:polishedMeshes,materials:originalToPolished.size,names:[...polishedNames]};
- if(state.app)state.app.renderNextFrame=true;
-}
-
 async function initVehicle(){
  const url=new URLSearchParams(location.search).get("model")==="original" ? "./assets/kia-tasman.glb" : "./assets/kia-tasman-quality.glb";
 
@@ -165,15 +93,17 @@ async function initVehicle(){
  try{
   showModelStatus("INICIANDO VISUALIZADOR 3D");
   pc=await import("https://cdn.jsdelivr.net/npm/playcanvas@2.23.1/build/playcanvas.mjs");
-  pc.WasmModule.setConfig("DracoDecoderModule",{
-    glueUrl:"https://developer.playcanvas.com/assets/modules/draco/draco.wasm.js",
-    wasmUrl:"https://developer.playcanvas.com/assets/modules/draco/draco.wasm.wasm"
-  });
-  showModelStatus("PREPARANDO VEHÍCULO 3D");
-  await Promise.race([
-    new Promise((resolve,reject)=>pc.WasmModule.getInstance("DracoDecoderModule",(mod)=>mod?resolve():reject(new Error("Draco decoder unavailable")))),
-    new Promise((_,reject)=>setTimeout(()=>reject(new Error("Draco decoder timeout")),25000))
-  ]);
+  if(url.includes("quality.glb")){
+    pc.WasmModule.setConfig("DracoDecoderModule",{
+      glueUrl:"https://developer.playcanvas.com/assets/modules/draco/draco.wasm.js",
+      wasmUrl:"https://developer.playcanvas.com/assets/modules/draco/draco.wasm.wasm"
+    });
+    showModelStatus("PREPARANDO VEHÍCULO 3D");
+    await Promise.race([
+      new Promise((resolve,reject)=>pc.WasmModule.getInstance("DracoDecoderModule",(mod)=>mod?resolve():reject(new Error("Draco decoder unavailable")))),
+      new Promise((_,reject)=>setTimeout(()=>reject(new Error("Draco decoder timeout")),25000))
+    ]);
+  }
 }
  catch(e){console.warn("PlayCanvas could not load",e);window.__kiaViewerStatus={error:String(e)};hideModelStatus();return;}
  showModelStatus("CARGANDO KIA TASMAN 3D");
@@ -191,49 +121,14 @@ async function initVehicle(){
    const camera=new pc.Entity("TasmanCamera");
    camera.addComponent("camera",{clearColor:new pc.Color(0,0,0,0),fov:42,nearClip:.05,farClip:500});
    app.root.addChild(camera);state.camera=camera;
-   // STUDIO LIGHT RIG — overhead key and rim lights reveal the silhouette
-   // while a separate reflection atlas supplies the long softbox highlights.
-   // Directional lights add shape; the atlas supplies broad PBR reflections.
-   const studioLight=(name,color,intensity,euler)=>{
-     const light=new pc.Entity(name);
-     light.addComponent("light",{type:"directional",color:new pc.Color(...color),intensity,castShadows:false});
-     light.setEulerAngles(...euler);
-     app.root.addChild(light);
-     return light;
-   };
-   studioLight("StudioOverheadKey",[1,.975,.94],2.25,[76,30,0]);
-   studioLight("StudioFrontSoftbox",[.94,.97,1],.85,[36,130,0]);
-   studioLight("StudioRearRim",[.74,.85,1],1.05,[40,-115,0]);
-   // HDR studio light is material-only: NEVER create or draw a skybox.
-   // The environment must not appear as a panorama or geometry behind the car.
-   app.scene.setSkybox(null);
-   app.scene.envAtlas=null;
-   let studioReflectionAtlas=null;
-   const bindInvisibleStudioEnvironment=()=>{
-     if(!state.model||!studioReflectionAtlas)return;
-     const updated=new Set();
-     state.model.findComponents("render").forEach(component=>
-       (component.meshInstances||[]).forEach(instance=>{
-         const material=instance.material;
-         if(!material||updated.has(material))return;
-         updated.add(material);
-         if("envAtlas" in material){
-           material.envAtlas=studioReflectionAtlas;
-           material.useSkybox=false;
-           material.update();
-         }
-       })
-     );
-     app.renderNextFrame=true;
-   };
-   app.assets.loadFromUrl("./assets/studio-env-atlas.png","texture",(envError,envAsset)=>{
-     if(envError||!envAsset){console.warn("Studio reflection atlas unavailable",envError);return;}
-     studioReflectionAtlas=envAsset.resource;
-     bindInvisibleStudioEnvironment();
-     window.__kiaEnvReady=true;
-   });
-   app.scene.ambientLight=new pc.Color(.27,.3,.34);
-   app.scene.exposure=1.0;
+   // Baseline GLB renderer for mobile diagnosis: no HDRI, no reflection atlas,
+   // no clearcoat, no studio rig and no material/geometry overrides.
+   // A single neutral light provides visibility without changing GLB materials.
+   const neutral=new pc.Entity("NeutralLight");
+   neutral.addComponent("light",{type:"directional",color:new pc.Color(1,1,1),intensity:1.35,castShadows:false});
+   neutral.setEulerAngles(55,25,0);
+   app.root.addChild(neutral);
+   app.scene.ambientLight=new pc.Color(.40,.40,.40);
    camera.camera.gammaCorrection=pc.GAMMA_SRGB;
    camera.camera.toneMapping=pc.TONEMAP_ACES;
    app.assets.loadFromUrl(url,"container",(err,asset)=>{
@@ -254,17 +149,14 @@ async function initVehicle(){
        return;
      }
      state.model=root;
-     stabilizeVehicleFaces(root,pc);
-     polishStudioPaint(root);
-     bindInvisibleStudioEnvironment();
+     // Preserve geometry, source PBR material assignments and GLB alpha modes.
      // Semantic manifest: Y-up, meters, origin below midpoint between axles.
      state.target=new pc.Vec3(0,1.05,0);
      state.radius=6.65;
      doResize();
      moveCamera();
      state.ready=true;
-     // A configurator is static between interactions: stop burning mobile GPU cycles.
-     setTimeout(()=>{if(state.ready){app.autoRender=false;app.renderNextFrame=true;}},1400);
+     // Continuous render while diagnosing rotation-related disappearances on mobile.
      window.__kiaViewerStatus={
        loaded:true,meshCount,
        texturesBound:root.findComponents("render").reduce((n,c)=>n+(c.meshInstances||[]).filter(mi=>!!mi.material?.diffuseMap).length,0),
@@ -307,26 +199,9 @@ function moveCamera(){
  state.camera.lookAt(state.target);
  if(state.app)state.app.renderNextFrame=true;
 }
-function recolorModel(){
- if(!state.model||!state.app)return;
- const pc=state.app;
- // Only recognized paint/body material names are colorized; glazing, tyres and chrome are preserved.
- const rgb=colors[state.color].rgb;
- state.model.findComponents("render").forEach(c=>(c.meshInstances||[]).forEach(mi=>{
-   const mat=mi.material;
-   const names=[];let node=mi.node;
-   for(let i=0;node&&i<3;i++,node=node.parent)names.push(node.name||"");
-   const name=((mat?.name||"")+" "+names.join(" ")).toLowerCase();
-   // Recolor factory paint only, never glass, lighting, rubber, trim or the cabin.
-   if(!/(paint|painted|bodypaint|bodywork|carroceria|carrocería|tan.beige|exterior.color|body.color|cabin_body|hood)/.test(name))return;
-   if(/glass|window|windshield|tire|tyre|rubber|light|lamp|chrome|metal|trim|interior|seat|wheel|brake|grille|plastic|black/.test((mat?.name||"").toLowerCase()))return;
-   if(!state.materials.has(mi)){
-     const clone=mat.clone();mi.material=clone;state.materials.set(mi,clone);
-   }
-   const local=state.materials.get(mi);local.diffuse.set(rgb[0],rgb[1],rgb[2]);local.update();
-   state.app.renderNextFrame=true;
- }));
-}
+// Paint selector remains visible but GLB paint modification is temporarily suspended
+// while diagnosing source materials on Android.
+function recolorModel(){ /* no source-material mutation */ }
 initVehicle();
 
 const featureCopy={
