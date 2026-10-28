@@ -53,7 +53,7 @@ export async function mountKiaPlayCanvas({
   canvas.style.visibility="hidden";
   const mobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   const app=new pc.Application(canvas,{graphicsDeviceOptions:{
-    alpha:false,antialias:true,powerPreference:"high-performance",
+    alpha:true,antialias:true,powerPreference:"high-performance",
     preserveDrawingBuffer:false
   }});
   app.graphicsDevice.maxPixelRatio=Math.min(window.devicePixelRatio||1,mobile?1.35:1.75);
@@ -74,7 +74,7 @@ export async function mountKiaPlayCanvas({
   const camera=new pc.Entity("Kia Studio Camera");
   camera.addComponent("camera",{
     fov:42,nearClip:.06,farClip:300,
-    clearColor:new pc.Color(.065,.078,.089,1),
+    clearColor:new pc.Color(0,0,0,0),
     priority:0
   });
   camera.camera.toneMapping=pc.TONEMAP_ACES;
@@ -86,7 +86,7 @@ export async function mountKiaPlayCanvas({
       type,color:new pc.Color(...color),intensity,castShadows:shadow,
       shadowResolution:mobile?1024:2048,shadowDistance:26,
       shadowBias:.18,normalOffsetBias:.035,
-      shadowType:pc.SHADOW_PCF5
+      shadowType:pc.SHADOW_PCF5_32F
     });
     entity.setEulerAngles(...rotation);
     app.root.addChild(entity);
@@ -149,7 +149,7 @@ export async function mountKiaPlayCanvas({
   window.addEventListener("resize",resize);
   window.addEventListener("orientationchange",resize);
   app.on("update",()=>{resize();applyCamera();});
-  app.on("postrender",()=>{
+  app.scene.on("postrender",()=>{
     for(const fn of frameListeners)fn(camera,lastWidth,lastHeight);
   });
   app.start();
@@ -201,15 +201,13 @@ export async function mountKiaPlayCanvas({
     cancel();cabinOpen=false;azimuth=degrees*Math.PI/180;
   }
   function resetView(degrees=35) {
-    if(cabinOpen)setDoorsOpen(false);
-    setPose(Math.abs(degrees-35)<.1?"threequarter":"custom");
-    if(Math.abs(degrees-35)>.1){
-      const a=degrees*Math.PI/180;
-      animateTo(orbitPoint(a,.18,baseRadius,defaultTarget),defaultTarget,42,820,()=>{
-        target.copy(defaultTarget);azimuth=a;inclination=.18;
-        radius=baseRadius;override=null;
-      });
-    }
+    cabinOpen=false;
+    setDoorsOpen(false);
+    const a=degrees*Math.PI/180;
+    animateTo(orbitPoint(a,.18,baseRadius,defaultTarget),defaultTarget,42,820,()=>{
+      target.copy(defaultTarget);azimuth=a;inclination=.18;
+      radius=baseRadius;override=null;
+    });
   }
   function animateDoors(open,duration=850) {
     if(!doors.length)return false;
@@ -330,7 +328,6 @@ export async function mountKiaPlayCanvas({
       }else{
         const color=palette[key];
         mat.diffuse.set(color[0],color[1],color[2]);
-        mat.diffuseTint=true;
       }
       mat.update();
     }
