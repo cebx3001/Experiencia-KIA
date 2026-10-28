@@ -117,11 +117,12 @@ jobs:
               selectedAnnotation:window.__kiaAnnotations?.selected,
               inCabin:window.__kiaThreeViewer?.isInCabin?.(),
               camera:window.__kiaViewerStatus?.getCamera?.(),
-              doors:window.__kiaThreeViewer?.getAllDoorDegrees?.()
+              doors:window.__kiaThreeViewer?.getAllDoorDegrees?.(),
+              optionLabel:document.getElementById("carouselSelected").textContent
             }));
             console.log("INTERIOR GENERAL VIEW FIRST:",JSON.stringify({macroPos,overview}));
             if(overview.option!=="interior"||overview.selectedAnnotation||overview.inCabin||
-               document.getElementById("carouselSelected").textContent!=="CABINA")
+               overview.optionLabel!=="CABINA")
               throw Error("Interior category must show full truck with doors first, not enter cabin");
             await page.locator("#carouselSelected").click();
             await page.waitForFunction(()=>window.__kiaThreeViewer?.isInCabin?.()&&
