@@ -246,3 +246,7 @@
 .scene-descent .horizon-floor{background:radial-gradient(ellipse at 64% 45%,rgba(90,127,144,.21),transparent 71%)}
 @keyframes kiaRainSweep{from{transform:translate(0,-25px)}to{transform:translate(-40px,70px)}}
 @media(prefers-reduced-motion:reduce){.scene-descent .ambient-backdrop::after{animation:none}}
+
+/* Mission navigation has priority: compact vehicle-config menus belong only
+   to model exploration and must never intercept the mission arrows on mobile. */
+.experience.is-mission-mode .kia-compact-rail{visibility:hidden;pointer-events:none;opacity:0}
