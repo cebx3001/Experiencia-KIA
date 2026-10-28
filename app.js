@@ -94,7 +94,10 @@ async function initVehicle(){
  const canvas=$("carCanvas");
  let app;
  try{
-   app=new pc.Application(canvas,{graphicsDeviceOptions:{alpha:true,antialias:true,preserveDrawingBuffer:false,powerPreference:"high-performance"}});
+   // WebGL initialization must not occur on an element with display:none.
+   canvas.hidden=false;
+   canvas.style.visibility="hidden";
+   app=new pc.Application(canvas,{graphicsDeviceOptions:{alpha:true,antialias:true,powerPreference:"high-performance"}});
    app.start();
    app.setCanvasFillMode(pc.FILLMODE_NONE);
    app.setCanvasResolution(pc.RESOLUTION_AUTO);
@@ -107,30 +110,31 @@ async function initVehicle(){
    const fill=new pc.Entity("FillLight");fill.addComponent("light",{type:"directional",color:new pc.Color(.64,.79,1),intensity:1.4});fill.setEulerAngles(-25,-50,0);app.root.addChild(fill);
    app.scene.ambientLight=new pc.Color(.38,.42,.45);
    app.scene.exposure=1.05;
-   app.scene.gammaCorrection=pc.GAMMA_SRGB;
-   app.scene.toneMapping=pc.TONEMAP_ACES;
+   camera.camera.gammaCorrection=pc.GAMMA_SRGB;
+   camera.camera.toneMapping=pc.TONEMAP_ACES;
    app.assets.loadFromUrl(url,"container",(err,asset)=>{
-     if(err||!asset){console.error("Could not load Kia GLB",err);$("interactionHint").textContent="ERROR AL CARGAR VEHÍCULO 3D";return;}
-     const root=asset.resource.instantiateRenderEntity({castShadows:true});
-     app.root.addChild(root);state.model=root;state.ready=true;
-     const box=new pc.BoundingBox();
-     let has=false;
-     root.findComponents("render").forEach(c=>(c.meshInstances||[]).forEach(mi=>{if(mi.aabb){if(!has){box.copy(mi.aabb);has=true;}else box.add(mi.aabb);}}));
-     if(has){
-        // Orbit around the actual rendered model bounds.
-        state.target=box.center.clone();
-        const extent=box.halfExtents;
-        const maxSize=Math.max(extent.x,extent.y,extent.z)*2;
-        state.radius=Math.max(maxSize*1.15,2.8);
-      }else{
-        state.target=new pc.Vec3(0,1,0);
-        state.radius=9;
-        console.warn("Kia GLB has no measurable render bounds");
-      }
-      canvas.hidden=false;
-      doResize();
-      moveCamera();
-      $("carFallback").hidden=true;
+     if(err||!asset){console.error("Could not load Kia GLB",err);$("interactionHint").textContent="ERROR AL CARGAR VEHÍCULO 3D";window.__kiaViewerStatus={error:String(err||"GLB sin asset")};return;}
+     const root=asset.resource.instantiateRenderEntity({castShadows:false});
+     app.root.addChild(root);
+     const meshCount=root.findComponents("render").reduce((n,c)=>n+(c.meshInstances?.length||0),0);
+     if(meshCount===0){
+       $("interactionHint").textContent="MODELO 3D SIN GEOMETRÍA";
+       window.__kiaViewerStatus={error:"GLB sin mallas"};
+       return;
+     }
+     state.model=root;
+     // Semantic manifest: Y-up, meters, origin below midpoint between axles.
+     state.target=new pc.Vec3(0,1.05,0);
+     state.radius=8.1;
+     doResize();
+     moveCamera();
+     state.ready=true;
+     window.__kiaViewerStatus={loaded:true,meshCount,canvas:()=>[canvas.width,canvas.height],cameraTarget:[0,1.05,0],radius:8.1};
+     requestAnimationFrame(()=>requestAnimationFrame(()=>{
+       doResize();
+       canvas.style.visibility="visible";
+       $("carFallback").hidden=true;
+     }));
      installVehicleAnnotations(pc, app, root, canvas, manifestUrl);
      $("interactionHint").textContent="DESLIZA PARA GIRAR · TOCA + PARA EXPLORAR";
      recolorModel();
@@ -138,7 +142,10 @@ async function initVehicle(){
    const doResize=()=>{
      if(!state.app)return;
      // Use unrotated landscape dimensions, not transformed screen dimensions.
-     app.resizeCanvas(Math.max(16,Math.round(canvas.clientWidth)),Math.max(16,Math.round(canvas.clientHeight)));
+     const stage=$("stage");
+     const w=Math.max(32,Math.round(stage.clientWidth));
+     const h=Math.max(32,Math.round(stage.clientHeight));
+     if(canvas.width!==w||canvas.height!==h)app.resizeCanvas(w,h);
    };
    new ResizeObserver(doResize).observe($("stage"));
    window.addEventListener("resize",doResize);
@@ -146,7 +153,7 @@ async function initVehicle(){
    canvas.addEventListener("pointerdown",e=>{state.dragging=true;state.pointerX=e.clientX;canvas.setPointerCapture(e.pointerId)});
    canvas.addEventListener("pointermove",e=>{if(!state.dragging)return;const dx=e.clientX-state.pointerX;state.pointerX=e.clientX;state.angle+=dx*.4;moveCamera();});
    for(const ev of ["pointerup","pointercancel"])canvas.addEventListener(ev,()=>{state.dragging=false;});
- }catch(e){console.error("PlayCanvas scene init failed",e);canvas.hidden=true;$("interactionHint").textContent="ERROR AL INICIAR VISOR 3D";}
+ }catch(e){console.error("PlayCanvas scene init failed",e);canvas.hidden=true;$("interactionHint").textContent="ERROR AL INICIAR VISOR 3D";window.__kiaViewerStatus={error:String(e)};}
 }
 function moveCamera(){
  if(!state.camera||!state.target)return;
