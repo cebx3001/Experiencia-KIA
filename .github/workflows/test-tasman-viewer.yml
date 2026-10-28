@@ -54,10 +54,22 @@ jobs:
                 modelStatus:document.querySelector("#modelLoading")?.textContent,
                 panel:document.querySelector('[aria-label="KIA 3D technical diagnostic"]')?.textContent};
             });
+            const legacy=await page.evaluate(()=>({
+              obsoleteElement:!!document.querySelector("#carFallback, .car-fallback"),
+              obsoletePhoto:Array.from(document.styleSheets).some(sheet=>{
+                try{return Array.from(sheet.cssRules||[]).some(rule=>rule.cssText.includes("kia-kiev.com.ua"));}catch{return false;}
+              })
+            }));
             console.log("VIEWER_RESULT:",JSON.stringify(state,null,2));
-            await page.screenshot({path:"kia-browser-test.png",timeout:30000});
+            console.log("LEGACY_PHOTO_CHECK:",JSON.stringify(legacy));
+            if(!state.status?.loaded||state.status.meshCount<=0||state.visibility!=="visible"||legacy.obsoleteElement||legacy.obsoletePhoto){
+              await browser.close();
+              process.exit(1);
+            }
+            try{
+              await page.screenshot({path:"kia-browser-test.png",timeout:12000,animations:"disabled"});
+            }catch(e){console.log("OPTIONAL SCREENSHOT FAILED:",e.message)}
             await browser.close();
-            if(!state.status?.loaded||state.status.meshCount<=0||state.visibility!=="visible")process.exit(1);
           })().catch(err=>{console.error(err);process.exit(1)});
           NODE
       - uses: actions/upload-artifact@v4
