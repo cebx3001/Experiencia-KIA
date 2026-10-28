@@ -1,0 +1,68 @@
+name: Build lightweight Kia Tasman web asset
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/build-tasman-web.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install glTF Transform
+        run: npm install -g @gltf-transform/cli@4.5.1
+      - name: Build web-friendly GLB without altering mesh names or animations
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s assets/kia-tasman.glb
+          gltf-transform inspect assets/kia-tasman.glb | head -90
+          gltf-transform resize assets/kia-tasman.glb /tmp/tasman-resized.glb --width 768 --height 768
+          gltf-transform webp /tmp/tasman-resized.glb assets/kia-tasman-web.glb
+          echo "Source bytes: $(stat -c%s assets/kia-tasman.glb)"
+          echo "Web bytes: $(stat -c%s assets/kia-tasman-web.glb)"
+          test -s assets/kia-tasman-web.glb
+          python3 - <<'PY'
+          import struct,json
+          def glb(path):
+            with open(path,'rb') as f:
+              hd=f.read(20)
+              assert hd[:4]==b'glTF'
+              jlen,typ=struct.unpack_from('<I4s',hd,12)
+              assert typ==b'JSON'
+              doc=json.loads(f.read(jlen))
+            return doc
+          a=glb('assets/kia-tasman.glb');b=glb('assets/kia-tasman-web.glb')
+          for key in ['nodes','meshes','animations','scenes']:
+            print(f'{key}: {len(a.get(key,[]))} -> {len(b.get(key,[]))}')
+          original_nodes={n.get('name') for n in a.get('nodes',[]) if n.get('name')}
+          web_nodes={n.get('name') for n in b.get('nodes',[]) if n.get('name')}
+          missing=original_nodes-web_nodes
+          if missing: raise Exception(f'Web GLB lost named nodes: {sorted(missing)[:15]}')
+          if len(a.get('animations',[]))!=len(b.get('animations',[])):
+            raise Exception('Web GLB lost animations')
+          PY
+      - name: Publish optimized asset on main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/kia-tasman-web.glb
+          if git diff --cached --quiet; then
+            echo 'Web GLB already up to date'
+          else
+            git commit -m "Add optimized Kia Tasman GLB for mobile browsers"
+            git push
+          fi
