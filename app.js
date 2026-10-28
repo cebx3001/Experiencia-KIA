@@ -8,7 +8,7 @@ const levels = [
 ];
 // Exterior colors from Kia's official Tasman color catalog; market stock can vary.
 const colors = {
- arena:{label:"TAN BEIGE (TAM)",rgb:[.64,.55,.40]},
+ arena:{label:"ARENA",rgb:[.64,.55,.40]},
  blanco:{label:"SNOW WHITE PEARL (SWP)",rgb:[.93,.92,.90]},
  gris:{label:"INTERSTELLAR GRAY (AGT)",rgb:[.28,.32,.34]},
  negro:{label:"AURORA BLACK PEARL (ABP)",rgb:[.035,.045,.055]}
