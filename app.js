@@ -255,3 +255,44 @@ function installVehicleAnnotations(pc, app, root, canvas, manifestUrl){
    app.on("update",update);update();
  }).catch(e=>console.error("Kia annotations:",e));
 }
+
+/* KIA DIAGNOSTIC VIEW: append ?debug=1 to inspect status without developer tools. */
+if(new URLSearchParams(location.search).has("debug")){
+ const panel=document.createElement("pre");
+ panel.setAttribute("aria-label","KIA 3D technical diagnostic");
+ Object.assign(panel.style,{position:"fixed",bottom:"0",left:"0",zIndex:"9999",background:"rgba(0,0,0,.92)",color:"#9de89d",fontSize:"12px",lineHeight:"1.4",padding:"10px",margin:"0",maxWidth:"70vw",maxHeight:"60vh",whiteSpace:"pre-wrap",overflow:"auto",pointerEvents:"none"});
+ document.body.appendChild(panel);
+ const errors=[];
+ window.addEventListener("error",e=>errors.push(String(e.message||e.error||"error")));
+ window.addEventListener("unhandledrejection",e=>errors.push("rejection: "+String(e.reason||"unknown")));
+ let last=0;
+ const probe=t=>{
+  if(t-last>500){
+   last=t;
+   const canvas=$("carCanvas"),stage=$("stage");
+   const app=state.app;
+   let contextLost=null;
+   try{contextLost=app?.graphicsDevice?.gl?.isContextLost?.()??null;}catch{}
+   const snapshot={
+    time:new Date().toISOString(),
+    status:$("interactionHint")?.textContent,
+    loadText:$("modelLoading")?.textContent,
+    loadHidden:$("modelLoading")?.hidden,
+    ready:state.ready,
+    model:!!state.model,
+    modelState:window.__kiaViewerStatus?.error||"OK",
+    meshes:state.model?.findComponents("render")?.reduce((n,c)=>n+(c.meshInstances?.length||0),0)||0,
+    renderer:!!app,
+    canvas:{hidden:canvas.hidden,cssDisplay:getComputedStyle(canvas).display,cssVisibility:getComputedStyle(canvas).visibility,width:canvas.width,height:canvas.height,clientWidth:canvas.clientWidth,clientHeight:canvas.clientHeight},
+    stage:[stage.clientWidth,stage.clientHeight],
+    camera:state.camera?.getPosition?.().toString?.(),
+    contextLost,
+    drawCalls:app?.stats?.drawCalls?.total??null,
+    errors:errors.slice(-5)
+   };
+   panel.textContent=JSON.stringify(snapshot,null,2);
+  }
+  requestAnimationFrame(probe);
+ };
+ requestAnimationFrame(probe);
+}
