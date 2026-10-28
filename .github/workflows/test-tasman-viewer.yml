@@ -61,7 +61,7 @@ jobs:
                 canvasVisible:!canvas.hidden&&getComputedStyle(canvas).visibility==="visible",
                 camera:status.getCamera?.(),
                 cameraButtons:document.querySelectorAll("#cameraButtons button").length,
-                featureButtons:document.querySelectorAll("[data-feature]").length,
+                featureButtons:document.querySelectorAll(".component-button-grid [data-feature]").length,
                 hasOriginalUI:!!document.querySelector(".topbar")&&!!document.querySelector(".right-rail"),
               };
             });
