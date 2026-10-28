@@ -1027,3 +1027,236 @@ button{font-family:var(--kia-mono)}
 }
 .scene-rocks .ambient-image,.scene-flood .ambient-image,
 .scene-mud .ambient-image,.scene-descent .ambient-image{background-image:none!important}
+
+
+/* MOBILE PORTRAIT — Kia Tasman editorial composition, 2026-10-28.
+   Desktop and landscape styles remain as designed. */
+@media (orientation:portrait) and (max-width:700px) {
+  html,body{width:100%;height:100%;overflow:hidden}
+  .experience{
+    position:relative;top:auto;left:auto;
+    width:100vw;height:100vh;height:100dvh;
+    transform:none;transform-origin:initial;
+    overflow:hidden;background:#0b141c!important;
+  }
+
+  /* Atmospheric photograph is exclusive to the mobile cover.
+     The model remains the live PlayCanvas scene, not a baked image. */
+  .experience .ambient-backdrop{display:block;background:#15232c!important}
+  .experience .ambient-image{
+    display:block!important;inset:0;
+    background-image:url("https://images.unsplash.com/photo-1758407909328-6b46fbfc5f98?auto=format&fit=crop&w=1200&q=78")!important;
+    background-size:cover;background-position:54% 53%;
+    filter:brightness(.71) saturate(.80) contrast(1.08);
+    opacity:1;transform:none;
+  }
+  .experience .ambient-shade{
+    background:
+      linear-gradient(180deg,rgba(4,14,22,.87) 0%,rgba(6,17,25,.70) 18%,rgba(8,20,27,.20) 43%,rgba(7,14,18,.09) 69%,rgba(5,13,19,.72) 83%,#08141d 100%)!important;
+  }
+  .experience .ridgeline,.experience .horizon-floor{display:none!important}
+  .ground-glow{display:none!important}
+
+  /* Brand and chapter, aligned across the top edge. */
+  .topbar{
+    position:absolute;top:env(safe-area-inset-top,0px);left:0;right:0;
+    width:100%;height:76px;z-index:9;
+    padding:0 5.5%;gap:10px;align-items:center;
+    border:0;background:transparent;
+  }
+  .brandmark{width:78px;height:35px;flex:0 0 auto}
+  .topbar-divider{height:28px;border-left-color:rgba(255,255,255,.52);margin:0 3px}
+  .topbar-model{gap:3px}
+  .topbar-model strong{font-size:12px;letter-spacing:.045em}
+  .topbar-model span{display:block;font-size:8px;letter-spacing:.07em;white-space:nowrap;color:#d8e0e5}
+  .topbar-middle,.topbar-cta{display:none!important}
+
+  /* The intro occupies the upper third, not the left desktop rail. */
+  .side-content{
+    position:absolute;z-index:5;
+    top:clamp(116px,17dvh,165px);
+    left:5.5%;right:5.5%;width:89%;max-width:none;
+    pointer-events:none;
+  }
+  .side-content button{pointer-events:auto}
+  .side-content>.eyebrow{
+    position:fixed;
+    top:calc(env(safe-area-inset-top,0px) + 21px);
+    right:5.5%;left:auto;
+    display:flex;flex-direction:column;
+    align-items:flex-start;gap:7px;
+    font-size:9px;letter-spacing:.15em;line-height:1.2;
+    color:#fff;white-space:nowrap;
+  }
+  .side-content>.eyebrow .red-line{width:23px;border-top:3px solid var(--red)}
+  .vehicle-copy .kicker{
+    position:fixed;
+    right:5.5%;top:calc(env(safe-area-inset-top,0px) + 62px);
+    margin:0;font-size:8px;letter-spacing:.19em;color:rgba(237,241,245,.72);
+  }
+  .vehicle-copy h1{
+    width:111%;max-width:none;
+    margin:0 0 18px;
+    font-size:clamp(54px,16.6vw,112px);
+    letter-spacing:-.07em;line-height:.84;
+    font-weight:900;white-space:nowrap;
+    transform:scaleX(.90);transform-origin:left top;
+  }
+  .vehicle-copy .year{
+    font-size:.55em;line-height:1.13;letter-spacing:-.07em;
+    margin-top:7px;font-weight:500;
+    -webkit-text-stroke:1px rgba(245,248,250,.7);
+  }
+  .vehicle-copy p{
+    max-width:100%;margin:0 0 7px;
+    font-size:clamp(17px,4.5vw,21px);font-weight:700;
+    line-height:1.2;color:#fff;
+    text-shadow:0 2px 15px rgba(0,0,0,.28);
+  }
+  .vehicle-copy .subcopy{
+    max-width:min(100%,350px);font-size:clamp(12px,3.2vw,15px);
+    line-height:1.38;font-weight:450;
+    color:rgba(243,247,250,.87);
+  }
+  .primary-actions{margin-top:14px;gap:10px;flex-wrap:nowrap}
+  .primary-actions .start-button{
+    min-height:33px!important;font-size:clamp(11px,2.8vw,13px);
+    letter-spacing:.15em;gap:12px!important;
+  }
+  .primary-actions .start-button .button-arrow{font-size:23px;line-height:1;color:var(--red)}
+  .primary-actions .outline-button{display:none!important}
+
+  /* The 3D stage sits between the editorial copy and mobile controls. */
+  .stage{
+    position:absolute;z-index:2;top:40%;bottom:20%;
+    left:-2%;right:-2%;width:104%;height:auto;
+    overflow:visible;touch-action:none;
+  }
+  .stage canvas{display:block;width:100%;height:100%;touch-action:none}
+  .stage-watermark{display:none!important}
+  .model-loading{max-width:72%;font-size:10px;padding:10px;line-height:1.35}
+
+  /* The four category names form one horizontal type-only navigation row. */
+  .kia-category-rail{
+    position:absolute;z-index:11;
+    top:auto;bottom:calc(17.6dvh + env(safe-area-inset-bottom,0px));
+    left:4.5%;right:4.5%;width:91%;max-width:none;
+    max-height:none;overflow:visible;
+    display:flex;flex-direction:column;
+    gap:0;padding:0!important;border:0!important;
+    background:none!important;
+  }
+  .kia-category-buttons{
+    display:flex;flex-direction:row;
+    align-items:center;justify-content:space-between;gap:5px;
+    width:100%;
+  }
+  .kia-category{
+    position:relative;display:flex;
+    width:auto;min-width:0;min-height:43px;
+    align-items:center;justify-content:center;
+    padding:5px 1px 10px!important;
+    color:rgba(242,246,248,.62);
+    font-size:clamp(9px,2.7vw,13px);
+    font-weight:700;letter-spacing:.055em;
+    white-space:nowrap;line-height:1;
+  }
+  .kia-category span{display:none!important}
+  .kia-category.is-active{color:#fff;font-weight:800}
+  .kia-category.is-active::after{
+    content:"";position:absolute;bottom:0;left:30%;
+    width:40%;height:3px;background:var(--red);
+  }
+  .kia-category-rail .kia-bottom-description{
+    position:absolute;left:1%;right:auto;top:auto;
+    bottom:calc(100% + 9px);
+    width:95%;max-height:19dvh;overflow-y:auto;
+    margin:0;padding:0 24px 0 0;
+    background:none;border:0;
+    text-shadow:0 2px 14px rgba(0,0,0,.8);
+  }
+  .kia-category-rail .kia-bottom-description strong{font-size:12px;margin:0 0 5px}
+  .kia-category-rail .kia-bottom-description p{font-size:11px;line-height:1.34}
+
+  /* Editorial car/mission carousel and bottom navigation. */
+  .kia-feature-carousel,.mission-selector{
+    position:absolute;z-index:10;
+    left:0;right:0;width:100%;
+    top:auto;bottom:calc(9.9dvh + env(safe-area-inset-bottom,0px));
+    display:flex;flex-direction:column;
+    align-items:center;gap:2px;padding:0;
+  }
+  .kia-carousel-meta{
+    justify-content:center;gap:0;width:100%;
+    font-size:10px;line-height:1.15;letter-spacing:.17em;
+    color:rgba(234,240,245,.7);
+  }
+  .kia-carousel-meta #carouselCategory{display:none}
+  .kia-carousel-main{min-height:43px;gap:0;width:100%}
+  .kia-carousel-arrow{
+    flex:0 0 39px;height:44px;
+    font-size:27px;color:#fff;
+  }
+  .kia-carousel-window{
+    flex:1;min-width:0;height:48px;
+    mask-image:linear-gradient(to right,transparent 0%,#000 9%,#000 91%,transparent 100%);
+    -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 9%,#000 91%,transparent 100%);
+  }
+  .kia-carousel-choice{font-size:clamp(9px,2.8vw,12px)}
+  .kia-carousel-prev{left:-6%;width:30%;justify-content:center}
+  .kia-carousel-next{right:-6%;width:30%;justify-content:center}
+  .kia-carousel-selected{
+    left:20%;width:60%;
+    font-size:clamp(12px,3.55vw,16px);
+    font-weight:800;letter-spacing:0;line-height:1;
+    text-align:center;
+  }
+  .kia-carousel-indicator{height:3px;width:36px;background:transparent}
+  .kia-carousel-indicator span{width:100%;background:var(--red);margin:0}
+  .mission-selector .kia-carousel-selected{font-size:clamp(11px,3.1vw,15px)}
+  .mission-selector .kia-carousel-prev,.mission-selector .kia-carousel-next{font-size:10px}
+
+  .bottom-bar{
+    position:absolute;left:0;right:0;bottom:0;
+    z-index:10;height:calc(69px + env(safe-area-inset-bottom,0px));
+    padding:0 5.5% env(safe-area-inset-bottom,0px);
+    display:flex;align-items:center;justify-content:space-between;
+    gap:9px;border-top:1px solid rgba(255,255,255,.34);
+    background:rgba(5,16,24,.56);
+  }
+  .bottom-left{gap:10px;min-width:0;white-space:nowrap}
+  .bottom-left .frame-index{font-size:21px;font-weight:900;letter-spacing:-.055em}
+  .bottom-left #stepName{font-size:8px;letter-spacing:.08em}
+  .bottom-middle{display:none!important}
+  .bottom-bar .bottom-right{display:flex!important;flex:0 0 auto;margin-left:auto}
+  .bottom-bar .footer-testdrive{
+    font-size:8px;letter-spacing:.025em;gap:5px;padding:6px 0;
+  }
+  .bottom-bar .footer-testdrive span{font-size:18px}
+
+  /* Mission mode retains the same vertical grid. */
+  .mission-copy .kicker{position:static;margin:0 0 9px;font-size:10px}
+  .mission-copy .mission-id{font-size:10px}
+  .mission-copy h1{
+    font-size:clamp(37px,10.2vw,70px);line-height:.94;
+    margin:7px 0 16px;letter-spacing:-.06em;
+  }
+  .mission-copy p{font-size:13px;line-height:1.35;max-width:330px}
+  .mission-feature{margin-top:12px}
+  .mission-feature strong{font-size:11px}
+  .modal{width:90%;padding:28px 20px}
+}
+@media (orientation:portrait) and (max-width:700px) and (max-height:730px) {
+  .topbar{height:63px}
+  .side-content{top:clamp(95px,15dvh,122px)}
+  .vehicle-copy h1{font-size:clamp(50px,15vw,80px);margin-bottom:9px}
+  .vehicle-copy .year{margin-top:4px}
+  .vehicle-copy p{font-size:16px}
+  .vehicle-copy .subcopy{font-size:11px;line-height:1.32}
+  .primary-actions{margin-top:7px}
+  .stage{top:40%;bottom:20%}
+  .kia-category-rail{bottom:calc(18.5dvh + env(safe-area-inset-bottom,0px))}
+  .kia-feature-carousel,.mission-selector{bottom:calc(10dvh + env(safe-area-inset-bottom,0px))}
+  .bottom-bar{height:calc(55px + env(safe-area-inset-bottom,0px))}
+  .bottom-left .frame-index{font-size:18px}
+}
