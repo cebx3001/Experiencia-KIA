@@ -225,7 +225,7 @@ function recolorModel(){
 initVehicle();
 
 const featureCopy={
- wheel_front_left:"Neumático delantero izquierdo. Observa el perfil de la rueda y su diseño para terrenos exigentes.",
+ wheel_front_left:"Ruedas de la Tasman. Observa el diseño de las llantas y los neumáticos del vehículo.",
  wheel_front_right:"Neumático delantero derecho. Componente de contacto con la superficie.",
  wheel_rear_left:"Neumático trasero izquierdo. Parte del conjunto de rodamiento y tracción.",
  wheel_rear_right:"Neumático trasero derecho. Parte del conjunto de rodamiento y tracción.",
@@ -242,13 +242,22 @@ const featureCopy={
  rear_bumper_and_lights:"Conjunto posterior, con luces traseras y parachoques."
 };
 const buttonFeatureLabels={
- wheel_front_left:"NEUMÁTICOS",front_fascia:"FAROS Y FRENTE",
- interior:"CABINA",cargo_bed:"PAILA",tailgate:"COMPUERTA",
- windshield:"PARABRISAS"
+ wheel_front_left:"RUEDAS",
+ front_fascia:"FAROS Y FRENTE",
+ interior:"CABINA",
+ cargo_bed:"CAJA DE CARGA"
 };
 document.querySelectorAll("[data-feature]").forEach(button=>{
  button.addEventListener("click",()=>{
   const id=button.dataset.feature;
+  document.querySelectorAll("[data-feature]").forEach(el=>el.classList.toggle("is-active",el===button));
+  // Focus the existing orbit view toward the selected real vehicle part.
+  const angle=Number(button.dataset.angle);
+  if(Number.isFinite(angle)){
+   state.angle=angle;
+   document.querySelectorAll("#cameraButtons button").forEach(el=>el.classList.remove("selected"));
+   moveCamera();
+  }
   openDialog("infoModal",buttonFeatureLabels[id]||"COMPONENTE",featureCopy[id]||"Detalle del vehículo");
  });
 });
