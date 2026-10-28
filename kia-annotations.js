@@ -13,9 +13,7 @@ const DETAILS={
  interior:{title:"Acceso a la cabina",description:"Apertura sincronizada de las cuatro puertas y recorrido de entrada a la cabina.",interior:true},
  display:{title:"Pantalla panorámica",description:"Encuadre del tablero y del conjunto de pantallas panorámicas. Equipamiento según versión.",interior:true},
  infotainment:{title:"Infoentretenimiento",description:"Acercamiento a los controles y la zona central de la consola.",interior:true},
- wireless:{title:"Cargador inalámbrico",description:"Zona de la consola donde se sitúan los cargadores inalámbricos en las versiones equipadas.",interior:true},
  seats:{title:"Asientos eléctricos",description:"Vista de los asientos delanteros; las funciones eléctricas dependen del equipamiento.",interior:true},
- ambient:{title:"Iluminación ambiental",description:"Vista del ambiente de la cabina. El modelo 3D no simula el encendido de las luces.",interior:true},
 };
 
 export function mountKiaAnnotations({viewer,onChange=()=>{}}){
