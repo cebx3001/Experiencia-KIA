@@ -157,7 +157,7 @@ function polishStudioPaint(root){
 }
 
 async function initVehicle(){
- const url="./assets/kia-tasman-quality.glb";
+ const url=new URLSearchParams(location.search).get("model")==="original" ? "./assets/kia-tasman.glb" : "./assets/kia-tasman-quality.glb";
 
  // The HTML already preloads the GLB with GET. A separate HEAD check
  // would add a network roundtrip and defeat the browser's preload reuse.
@@ -269,7 +269,7 @@ async function initVehicle(){
        loaded:true,meshCount,
        texturesBound:root.findComponents("render").reduce((n,c)=>n+(c.meshInstances||[]).filter(mi=>!!mi.material?.diffuseMap).length,0),
        canvas:()=>[canvas.width,canvas.height],cameraTarget:[0,1.05,0],radius:6.65,
-       asset:"kia-tasman-quality.glb"
+       asset:url
      };
      requestAnimationFrame(()=>requestAnimationFrame(()=>{
        doResize();
