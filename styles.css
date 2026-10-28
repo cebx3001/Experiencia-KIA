@@ -13,7 +13,30 @@
 @media(max-width:1090px){.topbar{height:66px}.side-content{top:23%;width:38%}.right-rail{top:22%;right:25px;width:129px;gap:15px}.vehicle-copy h1{font-size:clamp(54px,8vw,100px)}.mission-copy h1{font-size:clamp(48px,6vw,90px)}.mission-selector{bottom:62px;left:37%;right:13%;min-height:60px;padding:9px}.bottom-bar{height:52px}.stage{inset:9% 10% 8% 24%}.topbar-middle{display:none}.primary-actions{margin-top:20px}.rail-note{display:none}}
 @media(max-height:580px){.topbar{height:52px}.brandmark{font-size:26px}.topbar-divider{height:24px}.topbar-model strong{font-size:11px}.topbar-model span{font-size:7px}.side-content{top:19%}.kicker{margin-top:13px}.vehicle-copy h1{font-size:min(9vh,66px);margin:5px 0 12px}.year{font-size:.75em}.vehicle-copy p,.mission-copy p{font-size:11px}.vehicle-copy .subcopy{font-size:10px;line-height:1.4}.mission-copy h1{font-size:min(12vh,76px);margin:3px 0 10px}.mission-feature{margin-top:12px}.primary-actions{margin-top:16px}.start-button,.outline-button{min-height:34px;min-width:0;font-size:9px;padding:0 11px}.right-rail{top:20%;gap:12px;width:125px}.rail-heading{font-size:8px}.camera-buttons button{padding:8px 3px}.bottom-bar{height:40px}.mission-selector{bottom:46px;min-height:46px}.selector-current strong{font-size:10px}.selector-meta{font-size:7px}}
 @media(max-width:750px) and (orientation:landscape){.topbar{padding:0 15px}.topbar-cta{font-size:8px;gap:7px}.topbar-model span{display:none}.side-content{left:18px;width:42%;max-width:42%;top:18%}.kicker{font-size:8px}.eyebrow{font-size:8px}.vehicle-copy h1{font-size:clamp(42px,9vw,70px)}.mission-copy h1{font-size:clamp(41px,8vw,67px)}.right-rail{right:12px;top:20%;width:100px;gap:12px}.rail-label{font-size:7px;padding-bottom:6px}.camera-buttons button{font-size:7px}.rail-heading{font-size:8px}.color-chip{width:20px;height:20px}.bottom-bar{padding:0 16px}.bottom-middle,.bottom-right{display:none}.mission-selector{left:40%;right:15%;bottom:47px}.stage{inset:9% 7% 8% 26%}.primary-actions{gap:6px}.outline-button{display:none}}
-@media(orientation:portrait){.experience{position:absolute;top:0;left:0;width:100dvh;height:100vw;transform-origin:top left;transform:rotate(90deg) translateY(-100%)}}
+/* Landscape-only experience: in portrait the whole canvas is rotated,
+   never reflowed into a portrait design. Only screen dimensions change. */
+@media(orientation:portrait){
+ .experience{position:absolute;top:0;left:0;width:100dvh;height:100vw;transform-origin:top left;transform:rotate(90deg) translateY(-100%)}
+ .topbar{height:52px;padding:0 15px;gap:12px}
+ .topbar-cta{font-size:8px;gap:7px}
+ .topbar-model span{display:none}
+ .side-content{left:18px;width:42%;max-width:42%;top:18%}
+ .kicker{font-size:8px;margin-top:13px}
+ .eyebrow{font-size:8px}
+ .vehicle-copy h1{font-size:clamp(42px,9vh,70px);margin:5px 0 12px}
+ .mission-copy h1{font-size:clamp(41px,8vh,67px);margin:3px 0 10px}
+ .right-rail{right:12px;top:20%;width:100px;gap:12px}
+ .rail-label{font-size:7px;padding-bottom:6px}
+ .camera-buttons button{font-size:7px}
+ .rail-heading{font-size:8px}
+ .color-chip{width:20px;height:20px}
+ .bottom-bar{height:40px;padding:0 16px}
+ .bottom-middle,.bottom-right{display:none}
+ .mission-selector{left:40%;right:15%;bottom:47px;min-height:46px}
+ .stage{inset:9% 7% 8% 26%}
+ .primary-actions{gap:6px}
+ .outline-button{display:none}
+}
 @media(prefers-reduced-motion:reduce){*,*::after,*::before{transition:none!important;animation:none!important}}
 
 /* Markers are positioned from live GLB geometry, not from fixed screen percentages. */
