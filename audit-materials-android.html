@@ -1,0 +1,28 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head><body style="background:#101720;color:white;font:16px monospace;padding:14px"><h2>GLB material audit — read-only</h2><pre id="r">Leyendo GLB…</pre><script>
+(async()=>{
+const p=document.getElementById('r');
+try{
+ const res=await fetch('./assets/kia-tasman-quality.glb?probe=20261028-v2',{cache:'no-store'});
+ if(!res.ok)throw Error('HTTP '+res.status);
+ const buf=await res.arrayBuffer(),v=new DataView(buf),n=v.getUint32(12,true);
+ const g=JSON.parse(new TextDecoder().decode(new Uint8Array(buf,20,n)));
+ const materials=(g.materials||[]).map((m,i)=>({index:i,name:m.name||'(sin nombre)',alphaMode:m.alphaMode||'OPAQUE',doubleSided:!!m.doubleSided,
+ opacity:m.pbrMetallicRoughness?.baseColorFactor?.[3]??1,
+ baseTexture:m.pbrMetallicRoughness?.baseColorTexture?.index??null,
+ roughness:m.pbrMetallicRoughness?.roughnessFactor??null,
+ triangles:0,meshNames:[],nodes:[]}));
+ const uses=new Map();
+ (g.meshes||[]).forEach((m,i)=>(m.primitives||[]).forEach(q=>{
+ const mat=materials[q.material??0];if(!mat)return;
+ const ids=q.indices, vertices=q.attributes?.POSITION;
+ const count=g.accessors?.[ids??vertices]?.count??0;
+ mat.triangles+=Math.floor(count/3);mat.meshNames.push(m.name||String(i));
+ uses.set(i,q.material??0);
+ }));
+ (g.nodes||[]).forEach(n=>{if(n.mesh!=null){const mat=materials[uses.get(n.mesh)??0]; if(mat)mat.nodes.push(n.name||'(sin nombre)')}});
+ const imageInfo=(g.images||[]).map((im,i)=>({index:i,name:im.name||'',mimeType:im.mimeType||'',uri:im.uri||null}));
+ const report={length:buf.byteLength,materials,images:imageInfo,meshes:g.meshes?.length,nodes:g.nodes?.length,hasDraco:(g.extensionsUsed||[]).includes('KHR_draco_mesh_compression')};
+ p.textContent=JSON.stringify(report,null,2);
+}catch(e){p.textContent='ERROR: '+String(e)}
+})();
+</script></body></html>
