@@ -45,3 +45,7 @@
 /* Distinct rock-trail atmosphere in the Rock Challenge landing scene. */
 .scene-rocks .ambient-image{opacity:.92;filter:saturate(.82) contrast(1.15)}
 .scene-rocks .ridgeline{opacity:.06}
+
+/* Honest asynchronous 3D loading state, visible even when the fallback image fails. */
+.model-loading{position:absolute;z-index:5;left:50%;top:50%;transform:translate(-50%,-50%);max-width:65%;padding:14px 20px;border:1px solid rgba(255,255,255,.3);background:rgba(5,20,31,.89);color:#fff;text-align:center;letter-spacing:.14em;font-size:10px;font-weight:700;pointer-events:none;white-space:normal;line-height:1.6}
+.model-loading[hidden]{display:none!important}
