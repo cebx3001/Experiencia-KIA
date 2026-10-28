@@ -29,10 +29,11 @@ jobs:
           test -s assets/kia-tasman.glb
           gltf-transform inspect assets/kia-tasman.glb | head -90
           gltf-transform resize assets/kia-tasman.glb /tmp/tasman-resized.glb --width 768 --height 768
-          gltf-transform webp /tmp/tasman-resized.glb assets/kia-tasman-web.glb
+          gltf-transform webp /tmp/tasman-resized.glb /tmp/tasman-webp.glb
+          gltf-transform draco /tmp/tasman-webp.glb assets/kia-tasman-mobile.glb
           echo "Source bytes: $(stat -c%s assets/kia-tasman.glb)"
-          echo "Web bytes: $(stat -c%s assets/kia-tasman-web.glb)"
-          test -s assets/kia-tasman-web.glb
+          echo "Web bytes: $(stat -c%s assets/kia-tasman-mobile.glb)"
+          test -s assets/kia-tasman-mobile.glb
           python3 - <<'PY'
           import struct,json
           def glb(path):
@@ -43,7 +44,8 @@ jobs:
               assert typ==b'JSON'
               doc=json.loads(f.read(jlen))
             return doc
-          a=glb('assets/kia-tasman.glb');b=glb('assets/kia-tasman-web.glb')
+          a=glb('assets/kia-tasman.glb');b=glb('assets/kia-tasman-mobile.glb')
+          assert 'KHR_draco_mesh_compression' in b.get('extensionsUsed',[]),'Mobile GLB missing Draco compression'
           for key in ['nodes','meshes','animations','scenes']:
             print(f'{key}: {len(a.get(key,[]))} -> {len(b.get(key,[]))}')
           original_nodes={n.get('name') for n in a.get('nodes',[]) if n.get('name')}
@@ -59,10 +61,10 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/kia-tasman-web.glb
+          git add assets/kia-tasman-mobile.glb
           if git diff --cached --quiet; then
             echo 'Web GLB already up to date'
           else
-            git commit -m "Add optimized Kia Tasman GLB for mobile browsers"
+            git commit -m "Publish Draco-compressed Kia Tasman mobile GLB"
             git push
           fi
