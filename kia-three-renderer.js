@@ -130,8 +130,79 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
     tweenCamera({point:defaultTarget,angle:selected.angle,radiusFactor:1,endInclination:selected.inclination,duration:900});
   }
   let doorAnimationToken=0;
+  let doorIntentOpen=false;
+  let doorAudioContext=null;
+  let doorNoise=null;
+  const doorAudioDebug=debug.doorAudio={openCount:0,closeCount:0,source:"original Web Audio vehicle-door foley",status:"idle"};
+  // Self-contained foley: latch, mechanical hinge, and low-frequency closing
+  // thump. No external hotlinks, license or mobile network dependency.
+  function playDoorSound(open,duration){
+    const Context=window.AudioContext||window.webkitAudioContext;
+    if(!Context)return;
+    try{
+      if(!doorAudioContext)doorAudioContext=new Context();
+      if(doorAudioContext.state==="suspended")doorAudioContext.resume().catch(()=>{});
+      const ctx=doorAudioContext,rate=ctx.sampleRate;
+      if(!doorNoise){
+        doorNoise=ctx.createBuffer(1,Math.ceil(rate*1.2),rate);
+        const samples=doorNoise.getChannelData(0);
+        let seed=731453;
+        for(let i=0;i<samples.length;i++){
+          seed=(Math.imul(seed,1664525)+1013904223)|0;
+          samples[i]=((seed>>>0)/2147483648-1)*.82;
+        }
+      }
+      const origin=ctx.currentTime+.012;
+      function noise(at,seconds,frequency,peak,cutoff=1400){
+        const source=ctx.createBufferSource();
+        source.buffer=doorNoise;
+        const band=ctx.createBiquadFilter();
+        band.type="bandpass";
+        band.frequency.value=frequency;
+        band.Q.value=Math.max(.4,frequency/cutoff);
+        const envelope=ctx.createGain();
+        envelope.gain.setValueAtTime(.0001,at);
+        envelope.gain.exponentialRampToValueAtTime(Math.max(.0002,peak),at+.011);
+        envelope.gain.exponentialRampToValueAtTime(.0001,at+seconds);
+        source.connect(band).connect(envelope).connect(ctx.destination);
+        source.start(at);
+        source.stop(at+seconds+.02);
+      }
+      function thump(at,frequency,peak){
+        const source=ctx.createOscillator();
+        source.type="triangle";
+        source.frequency.setValueAtTime(frequency*1.55,at);
+        source.frequency.exponentialRampToValueAtTime(frequency,at+.085);
+        const gain=ctx.createGain();
+        gain.gain.setValueAtTime(peak,at);
+        gain.gain.exponentialRampToValueAtTime(.0001,at+.17);
+        source.connect(gain).connect(ctx.destination);
+        source.start(at);source.stop(at+.18);
+      }
+      if(open){
+        noise(origin,.085,1350,.17);
+        noise(origin+.085,.52,340,.07,650);
+        noise(origin+Math.min(.68,duration/1000*.86),.07,950,.105);
+        doorAudioDebug.openCount++;
+      }else{
+        noise(origin,.30,460,.045);
+        const impact=origin+Math.max(.27,duration/1000*.76);
+        thump(impact,115,.14);
+        noise(impact,.11,1000,.15);
+        noise(impact+.015,.06,1700,.09);
+        doorAudioDebug.closeCount++;
+      }
+      doorAudioDebug.status="playing";
+    }catch(error){
+      doorAudioDebug.status="unavailable";
+      console.warn("Door foley is unavailable",error);
+    }
+  }
   function setDoorOpen(open,duration=850){
     if(!doors.length)return false;
+    if(open===doorIntentOpen)return doors.length===4;
+    doorIntentOpen=open;
+    playDoorSound(open,duration);
     const source=doors.map(door=>door.node.rotation.y);
     const destinations=doors.map(door=>door.closed+(open?door.open:0)*Math.PI/180);
     const start=performance.now(),token=++doorAnimationToken;
