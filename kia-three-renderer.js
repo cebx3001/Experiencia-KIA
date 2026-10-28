@@ -182,13 +182,25 @@ export async function mountKiaThree({canvas,host,assetUrl,initialAngle=35,onAngl
       interior:[-.02,1.48,1.48],
       display:[-.14,1.49,1.33],
       infotainment:[.12,1.34,1.28],
-      wireless:[.08,1.18,1.05],
-      seats:[-.4,1.17,-.42],
-      ambient:[.23,1.43,.95],
-      walkin:[.46,1.18,-.20],
-      xtrek:[.22,1.23,1.10],
-      rock:[.22,1.23,1.10]
+      seats:[-.4,1.17,-.42]
     };
+    // Seat annotation is intentionally viewed FROM OUTSIDE through the open
+    // front door: frame the full seats, not just headrests or the dashboard.
+    if(detail==="seats"){
+      const seatPos=model.localToWorld(new THREE.Vector3(-2.2,1.30,-.16));
+      const seatLook=model.localToWorld(new THREE.Vector3(-.08,1.06,-.12));
+      const from=camera.position.clone(),fromLook=(cameraOverride?.lookAt||target).clone();
+      const token=++animationId,start=performance.now();
+      function seatFrame(now){
+        if(token!==animationId)return;
+        const t=clamp((now-start)/1120,0,1),e=easing(t);
+        cameraOverride={position:from.clone().lerp(seatPos,e),lookAt:fromLook.clone().lerp(seatLook,e)};
+        requestRender();
+        if(t<1)requestAnimationFrame(seatFrame);
+      }
+      requestAnimationFrame(seatFrame);
+      return;
+    }
     const entryLook=model.localToWorld(new THREE.Vector3(...(targets[detail]||targets.interior)));
     const beginning=camera.position.clone();
     const initialLook=(cameraOverride?.lookAt||target).clone();
