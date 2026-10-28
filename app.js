@@ -113,7 +113,7 @@ async function initVehicle(){
   ? "./assets/kia-tasman.glb" : "./assets/kia-tasman-quality.glb";
  try{
   showModelStatus("CARGANDO KIA TASMAN 3D");
-  const {mountKiaThree}=await import("./kia-three-renderer.js?v=20261028-four-doors-v2");
+  const {mountKiaThree}=await import("./kia-three-renderer.js?v=20261028-paint-close-v3");
   const viewer=await mountKiaThree({
    canvas,host:stage,assetUrl,initialAngle:state.angle,
    onAngleChange:degrees=>{
@@ -123,8 +123,9 @@ async function initVehicle(){
    }
   });
   state.viewer=viewer;
+  recolorModel();
   try{
-   const {mountKiaAnnotations}=await import("./kia-annotations.js?v=20261028-four-doors-v2");
+   const {mountKiaAnnotations}=await import("./kia-annotations.js?v=20261028-paint-close-v3");
    state.annotations=mountKiaAnnotations({
     host:stage,viewer,
     onChange:id=>{
@@ -159,9 +160,11 @@ function moveCamera(){
  if(state.annotations?.selected)state.annotations.dismiss({reset:false});
  state.viewer.resetView(state.angle);
 }
-// One shared Car texture atlas includes trim and glass; preserve it exactly.
-// The UI color selection remains independent until body panels are separable.
-function recolorModel(){ /* material-safe: selection only */ }
+// Selective warm-paint shader recolors body panels without tinting
+// cabin glass, tyres, trim or the source PBR reflections.
+function recolorModel(){
+  if(state.viewer)state.viewer.setPaintColor(state.color);
+}
 initVehicle();
 
 const featureCopy={
