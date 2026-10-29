@@ -116,13 +116,21 @@ jobs:
                 stagePointerEvents:css.pointerEvents,
                 has3DCanvas:!!canvas,
                 background:bg.backgroundColor,
-                scenicLayers:document.querySelectorAll(".ambient-backdrop,.ambient-image,.ridgeline,.ground-glow,.stage-watermark").length
+                scenicLayers:document.querySelectorAll(".ambient-backdrop,.ambient-image,.ridgeline,.ground-glow,.stage-watermark").length,
+                uiWatermark:{
+                  text:document.querySelector(".ui-watermark")?.textContent?.trim(),
+                  display:getComputedStyle(document.querySelector(".ui-watermark")).display,
+                  visible:getComputedStyle(document.querySelector(".ui-watermark")).visibility,
+                  opacity:getComputedStyle(document.querySelector(".ui-watermark")).opacity
+                }
               };
             });
             console.log("UI ONLY REVIEW:",JSON.stringify(uiOnly));
             if(!uiOnly.enabled||uiOnly.stageVisibility!=="hidden"||
                uiOnly.stageOpacity!=="0"||uiOnly.stagePointerEvents!=="none"||
                !uiOnly.has3DCanvas||uiOnly.scenicLayers!==0||
+               uiOnly.uiWatermark.text!=="TASMAN"||uiOnly.uiWatermark.display==="none"||
+               uiOnly.uiWatermark.visible!=="visible"||
                uiOnly.background!=="rgb(16, 19, 22)")
               throw Error("UI-only review must hide 3D visuals and scenery without deleting canvas: "+JSON.stringify(uiOnly));
             const peek=await page.evaluate(()=>({
