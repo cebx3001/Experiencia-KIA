@@ -418,7 +418,7 @@ export async function mountKiaPlayCanvas({
         if(!mat)continue;
         if(mat.diffuseMap)texturesBound++;
         // The original GLB incorrectly flags opaque Car and Interior atlases
-        // as alpha-blended; that made doors/bonnet disappear in Three.js.
+        // as alpha-blended; that made doors/bonnet disappear in the former renderer.
         if(mat.name==="Car"||mat.name==="Interior"){
           mat.blendType=pc.BLEND_NONE;
           mat.opacity=1;mat.alphaTest=0;mat.depthWrite=true;
