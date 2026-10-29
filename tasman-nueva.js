@@ -24,7 +24,7 @@ function renderLevel() {
   const item=levels[state.level],n=levels.length;
   $("missionNumber").textContent="MISIÓN "+String(state.level+1).padStart(2,"0")+" / "+String(n).padStart(2,"0");
   $("missionTitle").innerHTML=item.title;
-  $("missionDesc").textContent=item.desc;
+  $("missionDesc").textContent=item.desc.toLocaleLowerCase("es");
   $("missionTech").textContent=item.tech;
   $("selectorName").textContent=item.name;
   $("missionCounter").textContent=String(state.level+1).padStart(2,"0")+" / "+String(n).padStart(2,"0");
