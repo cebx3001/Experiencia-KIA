@@ -85,14 +85,22 @@ jobs:
             });
             console.log("TYPOGRAPHY:",JSON.stringify(fonts));
             if(!fonts.title.family.includes("Monument Extended")||
-               !fonts.year.family.includes("Share Tech Mono")||
-               fonts.year.stroke!=="1.5px"||
+               !fonts.year.family.includes("Space Grotesk")||
+               fonts.year.stroke!=="1.2px"||
                !fonts.nav.family.includes("Share Tech Mono")||
-               fonts.nav.weight!=="700"||
-               !fonts.copy.family.includes("Chakra Petch")||
-               fonts.copy.weight!=="500"||
+               fonts.nav.weight!=="600"||
+               !fonts.copy.family.includes("JetBrains Mono")||
+               fonts.copy.weight!=="400"||
                !fonts.counter.family.includes("Share Tech Mono"))
               throw Error("Kia typography guide not applied: "+JSON.stringify(fonts));
+            const lowercase=await page.evaluate(()=>({
+              description:document.querySelector(".vehicle-copy .subcopy").textContent,
+              transform:getComputedStyle(document.querySelector(".vehicle-copy .subcopy")).textTransform,
+              size:getComputedStyle(document.querySelector(".vehicle-copy .subcopy")).fontSize
+            }));
+            if(lowercase.description!==lowercase.description.toLocaleLowerCase("es")||
+               lowercase.transform!=="none"||lowercase.size!=="13.6px")
+              throw Error("Description lowercase style mismatch: "+JSON.stringify(lowercase));
             if(errors.length)throw Error("Browser errors: "+errors.join("; "));
             console.log("PASS: Only the Kia editorial graphic UI is visible, both orientations, with working selectors and no photo or 3D viewer.");
             await browser.close();
