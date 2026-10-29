@@ -1,0 +1,47 @@
+[
+  {
+    "material": "MI_Tasman_Car",
+    "samples": 10000,
+    "metallic_error_p95_8bit": 0.0,
+    "roughness_affine_error_p95_8bit": 0.439999999999999,
+    "exported_roughness_range": 0.3019607843137254,
+    "exported_roughness_max": 0.6,
+    "exported_metallic_median": 0.0
+  },
+  {
+    "material": "MI_Tasman_Master_Tire_Rubber",
+    "samples": 10000,
+    "metallic_error_p95_8bit": 0.0,
+    "roughness_affine_error_p95_8bit": 0.4599999999999893,
+    "exported_roughness_range": 0.5215686274509803,
+    "exported_roughness_max": 0.6823529411764706,
+    "exported_metallic_median": 0.0
+  },
+  {
+    "material": "MI_Tasman_Master_Wheel_Metal",
+    "samples": 10000,
+    "metallic_error_p95_8bit": 0.0,
+    "roughness_affine_error_p95_8bit": 0.5899999999999971,
+    "exported_roughness_range": 0.08627450980392157,
+    "exported_roughness_max": 0.207843137254902,
+    "exported_metallic_median": 1.0
+  },
+  {
+    "material": "MI_Tasman_Master_Exterior_Metal",
+    "samples": 10000,
+    "metallic_error_p95_8bit": 0.0,
+    "roughness_affine_error_p95_8bit": 0.5600000000000045,
+    "exported_roughness_range": 0.07058823529411765,
+    "exported_roughness_max": 0.3803921568627451,
+    "exported_metallic_median": 1.0
+  },
+  {
+    "material": "MI_Tasman_Master_Interior_Metal",
+    "samples": 10000,
+    "metallic_error_p95_8bit": 0.0,
+    "roughness_affine_error_p95_8bit": 0.45000000000000123,
+    "exported_roughness_range": 0.17254901960784313,
+    "exported_roughness_max": 0.2274509803921569,
+    "exported_metallic_median": 1.0
+  }
+]

@@ -1,0 +1,179 @@
+{
+  "renderer": "Cycles",
+  "samples": 64,
+  "resolution": [
+    4096,
+    2048
+  ],
+  "panels": [
+    {
+      "name": "Upper side key",
+      "position_m": [
+        -4.2,
+        4.8,
+        1
+      ],
+      "aim_m": [
+        0,
+        1,
+        0
+      ],
+      "width_m": 7,
+      "height_m": 1.2,
+      "linear_radiance": 18,
+      "tint": [
+        1,
+        0.985,
+        0.96
+      ],
+      "cast_shadows": true
+    },
+    {
+      "name": "Front fill",
+      "position_m": [
+        -1.5,
+        3,
+        6
+      ],
+      "aim_m": [
+        0,
+        0.8,
+        1.8
+      ],
+      "width_m": 3,
+      "height_m": 1.4,
+      "linear_radiance": 16,
+      "tint": [
+        1,
+        1,
+        1
+      ],
+      "cast_shadows": true
+    },
+    {
+      "name": "Cool rear rim",
+      "position_m": [
+        3.5,
+        4,
+        -3.5
+      ],
+      "aim_m": [
+        0,
+        1,
+        -0.5
+      ],
+      "width_m": 5.5,
+      "height_m": 0.8,
+      "linear_radiance": 24,
+      "tint": [
+        0.94,
+        0.975,
+        1
+      ],
+      "cast_shadows": true
+    },
+    {
+      "name": "Roof strip",
+      "position_m": [
+        0,
+        6.5,
+        0
+      ],
+      "aim_m": [
+        0,
+        1,
+        0
+      ],
+      "width_m": 7,
+      "height_m": 2,
+      "linear_radiance": 5.5,
+      "tint": [
+        1,
+        1,
+        1
+      ],
+      "cast_shadows": true
+    },
+    {
+      "name": "Rear soft fill",
+      "position_m": [
+        -3,
+        5.2,
+        -4
+      ],
+      "aim_m": [
+        0,
+        0.9,
+        -1.5
+      ],
+      "width_m": 2.5,
+      "height_m": 1,
+      "linear_radiance": 3.5,
+      "tint": [
+        1,
+        1,
+        1
+      ],
+      "cast_shadows": false
+    },
+    {
+      "name": "Controlled glass strip",
+      "position_m": [
+        6,
+        4.5,
+        0.4
+      ],
+      "aim_m": [
+        0,
+        1.5,
+        1
+      ],
+      "width_m": 1.25,
+      "height_m": 3,
+      "linear_radiance": 6,
+      "tint": [
+        1,
+        1,
+        1
+      ],
+      "cast_shadows": false
+    },
+    {
+      "name": "Low metal accent",
+      "position_m": [
+        -4.5,
+        0.8,
+        -2
+      ],
+      "aim_m": [
+        0,
+        0.4,
+        0.4
+      ],
+      "width_m": 5,
+      "height_m": 0.35,
+      "linear_radiance": 3,
+      "tint": [
+        1,
+        1,
+        1
+      ],
+      "cast_shadows": false
+    }
+  ],
+  "floor": {
+    "base_color_linear": [
+      0.075,
+      0.075,
+      0.075
+    ],
+    "roughness": 0.42
+  },
+  "vehicle_in_probe": false,
+  "probe_origin_playcanvas_m": [
+    0,
+    1,
+    0
+  ],
+  "purpose": "Capture graded luminaires and actual floor / surround reflections, preserving scene-linear HDR radiance"
+}

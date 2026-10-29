@@ -18,6 +18,12 @@ La pintura conserva `USE_MESH_DATA`, necesario para sus detalles con proyección
 - Normal de base y normal del barniz no se intercambian ni se fusionan. PlayCanvas usa roughness con `glossInvert=True`, incluyendo el barniz.
 - La geometría articulada coincide con los triángulos asignados a cada una de las catorce superficies del maestro Unreal. En el muestreo de correspondencia, el error de posición es inferior a 0,000003 m. El percentil 95 de las diferencias de normales geométricas es inferior a 0,04°. Esta métrica se refiere a geometría, no a un juicio de igualdad visual.
 
+## Resolución y muestreo
+
+Las 22 texturas originales son de 8000 × 8000 y se conservan íntegramente en el archivo de entrega local `Fuentes_Originales_8K.zip`. Los horneados nativos de material entregados son de 4096 × 4096. La versión web comprime geometría con Draco; conserva exactamente los bytes PNG de esos horneados. Esta igualdad entre maestro y web no implica igualdad de resolución con los originales de 8K.
+
+La auditoría adicional de Metallic/Roughness evalúa 10.000 muestras por superficie en Car, Tire Rubber, Wheel Metal, Exterior Metal e Interior Metal. El percentil 95 del error de metalicidad es cero; el de rugosidad queda por debajo de 0,6/255 tras aplicar la función de remapeo de cada instancia. Los metales de ruedas y exterior conservan metalicidad 1. La falta de contraste inicial no justificaba reducir su rugosidad ni alterar sus mapas.
+
 ## Adaptaciones físicas en PlayCanvas 2.23.1
 
 `material-adapter.js` es independiente del renderizador antiguo y conserva los mapas nuevos.
@@ -31,7 +37,11 @@ Los fragmentos personalizados se aplican sólo a los materiales afectados y comp
 
 ## Estudio y comparación
 
-Set nuevo con ciclorama, luminarias rectangulares LTC, HDR diseñado mediante intersecciones de rayos con rectángulos y una banda de reflexión para el parabrisas. La convención de muestreo de cubemaps de PlayCanvas se incluye al proyectar el HDR. No hay paneles de iluminación visibles como mallas.
+Set cinematográfico independiente con siete luminarias LTC, emisores de perfil graduado, entorno HDR 4096 × 2048 horneado mediante Cycles y suelo neutro coherente en los reflejos. El origen de captura es (0, 1, 0) m; se conserva al proyectar localmente el entorno sobre el vehículo. Las normales y los valores ópticos de los materiales no cambian durante esta calibración.
+
+Las pruebas con Studio Small 02, Studio Small 04 y el HDR del ejemplo Porsche sirvieron para evaluar distribución y rango de los reflejos. Se eligió el entorno propio para controlar el parabrisas y las transiciones de carrocería. El HDR Porsche permanece como recurso de investigación y no se redistribuye. El relleno trasero se elevó después de aislar la reflexión ambiental: el velo gris lateral desaparece al retirar esa reflexión sin cambiar la transmisión. Las pruebas con sombras adicionales no lo resolvían.
+
+El set usa sombras VSM32 con filtro gaussiano de 25 texeles y ACES fitted. El rebote indirecto se aproxima con SH de orden 2, excluyendo las direcciones de emisores que ya iluminan mediante LTC. Las reflexiones utilizan el entorno HDR completo con proyección local. Es una aproximación de tiempo real, sin trazado de caminos ni reflexión completa del vehículo sobre sí mismo. No se intenta copiar la iluminación de las referencias Unreal.
 
 El contacto del suelo se horneó mediante oclusión por rayos contra toda la geometría real. Es un recurso del estudio, no un AO del vehículo inventado desde roughness. Es estático con puertas cerradas; las sombras de las luminarias sobre el vehículo y el SSAO son dinámicos. El modelo usa máscaras de luz separadas del suelo para evitar varias sombras duras de focos sobre éste.
 
@@ -43,6 +53,8 @@ La referencia hero usa una focal equivalente de 48 mm, mismo lado y composición
 - `assets/audit/basecolor-mesh-bake-before.json` y `basecolor-plane-bake-after.json`: corrección de la cobertura de horneado.
 - `assets/audit/normal-plane-bake-after.json`: orientación y diferencia angular de mapas frente a las fuentes PNG; las diferencias locales incluyen compresión de importación y filtrado.
 - `assets/audit/geometry-uv-normal-correspondence.json`: correspondencia geométrica y UV.
+- `assets/audit/metallic-roughness-plane-bake-after.json`: canales de metalicidad y rugosidad frente a sus fuentes.
+- `assets/audit/studio-probe-bake.json` y `studio-indirect-sh.json`: horneado del estudio y rebote indirecto.
 - `assets/texture-integrity.json`: dimensiones, CRC PNG comprobado por decodificación y SHA-256.
 - `assets/gltf-validation-master.json`, `gltf-validation-web.json`: validación de los archivos entregados.
 - `render-verification.json`: navegador, GPU real y controles comprobados.

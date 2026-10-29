@@ -1,0 +1,302 @@
+{
+  "resolution": [
+    3840,
+    2160
+  ],
+  "source": "PlayCanvas real-time browser capture, unmodified pixels, master GLB",
+  "report": {
+    "engine": "2.23.1",
+    "view": "hero",
+    "paint": "arena",
+    "exposure": 0.5,
+    "environment": "cinematic",
+    "lighting": {
+      "panels": [
+        {
+          "name": "Upper side key",
+          "position_m": [
+            -4.2,
+            4.8,
+            1
+          ],
+          "aim_m": [
+            0,
+            1,
+            0
+          ],
+          "width_m": 7,
+          "height_m": 1.2,
+          "linear_radiance": 18,
+          "tint": [
+            1,
+            0.985,
+            0.96
+          ],
+          "cast_shadows": true
+        },
+        {
+          "name": "Front fill",
+          "position_m": [
+            -1.5,
+            3,
+            6
+          ],
+          "aim_m": [
+            0,
+            0.8,
+            1.8
+          ],
+          "width_m": 3,
+          "height_m": 1.4,
+          "linear_radiance": 16,
+          "tint": [
+            1,
+            1,
+            1
+          ],
+          "cast_shadows": true
+        },
+        {
+          "name": "Cool rear rim",
+          "position_m": [
+            3.5,
+            4,
+            -3.5
+          ],
+          "aim_m": [
+            0,
+            1,
+            -0.5
+          ],
+          "width_m": 5.5,
+          "height_m": 0.8,
+          "linear_radiance": 24,
+          "tint": [
+            0.94,
+            0.975,
+            1
+          ],
+          "cast_shadows": true
+        },
+        {
+          "name": "Roof strip",
+          "position_m": [
+            0,
+            6.5,
+            0
+          ],
+          "aim_m": [
+            0,
+            1,
+            0
+          ],
+          "width_m": 7,
+          "height_m": 2,
+          "linear_radiance": 5.5,
+          "tint": [
+            1,
+            1,
+            1
+          ],
+          "cast_shadows": true
+        },
+        {
+          "name": "Rear soft fill",
+          "position_m": [
+            -3,
+            5.2,
+            -4
+          ],
+          "aim_m": [
+            0,
+            0.9,
+            -1.5
+          ],
+          "width_m": 2.5,
+          "height_m": 1,
+          "linear_radiance": 3.5,
+          "tint": [
+            1,
+            1,
+            1
+          ],
+          "cast_shadows": false
+        },
+        {
+          "name": "Controlled glass strip",
+          "position_m": [
+            6,
+            4.5,
+            0.4
+          ],
+          "aim_m": [
+            0,
+            1.5,
+            1
+          ],
+          "width_m": 1.25,
+          "height_m": 3,
+          "linear_radiance": 6,
+          "tint": [
+            1,
+            1,
+            1
+          ],
+          "cast_shadows": false
+        },
+        {
+          "name": "Low metal accent",
+          "position_m": [
+            -4.5,
+            0.8,
+            -2
+          ],
+          "aim_m": [
+            0,
+            0.4,
+            0.4
+          ],
+          "width_m": 5,
+          "height_m": 0.35,
+          "linear_radiance": 3,
+          "tint": [
+            1,
+            1,
+            1
+          ],
+          "cast_shadows": false
+        }
+      ],
+      "design": "Independent cinematic studio, controlled highlights, graduated key, neutral low fill and restrained windshield reflection; not matching the reference lighting",
+      "direct_scale": 0.15,
+      "reflection_intensity": 1.5,
+      "probe_origin_m": [
+        0,
+        1,
+        0
+      ],
+      "projection_center_m": [
+        0,
+        3.5,
+        0
+      ],
+      "projection_half_extents_m": [
+        7,
+        3.5,
+        7
+      ],
+      "ambientSH": [
+        [
+          0.044034760824162855,
+          0.044404591851852915,
+          0.04421718379327907
+        ],
+        [
+          -0.004667389610728002,
+          -0.004375963759406533,
+          -0.004021317451826804
+        ],
+        [
+          -0.050867373753930384,
+          -0.051295944408408956,
+          -0.05096779650747607
+        ],
+        [
+          0.002526599921096137,
+          0.002319084159168921,
+          0.0021352398644821136
+        ],
+        [
+          -0.005491484325319711,
+          -0.0056227125587314354,
+          -0.00565729483816819
+        ],
+        [
+          -0.0018637499349276007,
+          -0.0016476334779788264,
+          -0.0014613639416508812
+        ],
+        [
+          0.004766190827916376,
+          0.0044655805174842415,
+          0.0040916273822256925
+        ],
+        [
+          -0.002036348160434206,
+          -0.002046278837497047,
+          -0.002003118986251677
+        ],
+        [
+          -0.00605677696830241,
+          -0.0061177439660998175,
+          -0.006050036825571553
+        ]
+      ]
+    },
+    "coating": [
+      {
+        "material": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master",
+        "imported": 0.25,
+        "declared": 1,
+        "ltcCoatF0": 0.04,
+        "baseNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal-9",
+        "coatNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal-10"
+      },
+      {
+        "material": "MI_Tasman_AGT_SK_KiaTasman_Master",
+        "imported": 0.25,
+        "declared": 1,
+        "ltcCoatF0": 0.04,
+        "baseNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal-9",
+        "coatNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal-10"
+      },
+      {
+        "material": "MI_Tasman_ABP_SK_KiaTasman_Master",
+        "imported": 0.25,
+        "declared": 1,
+        "ltcCoatF0": 0.04,
+        "baseNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal-9",
+        "coatNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal-10"
+      },
+      {
+        "material": "MI_Tasman_CGE_SK_KiaTasman_Master",
+        "imported": 0.25,
+        "declared": 1,
+        "ltcCoatF0": 0.04,
+        "baseNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal-9",
+        "coatNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal-10"
+      }
+    ],
+    "glass": [
+      {
+        "material": "MI_Tasman_Premium_Glass_Front_SK_KiaTasman_Master",
+        "sourceIOR": 1.5199999809265137,
+        "normalIncidenceF0": 0.0425799924818602,
+        "transmission": 1,
+        "mode": "physical tinted transmission; restore dielectric F0 in LTC refraction"
+      },
+      {
+        "material": "MI_Tasman_Premium_Glass_Tint_SK_KiaTasman_Master",
+        "sourceIOR": 1.5199999809265137,
+        "normalIncidenceF0": 0.0425799924818602,
+        "transmission": 1,
+        "mode": "physical tinted transmission; restore dielectric F0 in LTC refraction"
+      },
+      {
+        "material": "MI_Tasman_Master_Lamp_Clear_Lens",
+        "sourceIOR": 1.5199999809265137,
+        "normalIncidenceF0": 0.0425799924818602,
+        "transmission": 1,
+        "mode": "physical tinted transmission; restore dielectric F0 in LTC refraction"
+      },
+      {
+        "material": "MI_Tasman_Master_Tail_Lens_Red_SK_KiaTasman_Master",
+        "sourceIOR": 1.5199999809265137,
+        "normalIncidenceF0": 0.0425799924818602,
+        "transmission": 1,
+        "mode": "physical tinted transmission; restore dielectric F0 in LTC refraction"
+      }
+    ]
+  },
+  "errors": []
+}

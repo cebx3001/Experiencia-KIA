@@ -24,7 +24,11 @@ El GLB maestro está gestionado con Git LFS. Después de clonar, ejecutar `git l
 
 ## Set construido para esta escena
 
-Ciclorama circular continua, suelo de estudio, HDR de luminarias rectangulares diseñado para este set, atlas de iluminación de 1024 píxeles y cuatro luces de área LTC. El HDR incluye una banda de reflexión para el parabrisas. El selector ofrece también un HDRI fotográfico 4K de Poly Haven. El vehículo tiene sombras dinámicas de sus luminarias; el suelo usa contacto suave horneado por rayos desde la geometría real. CameraFrame procesa HDR, TAA, AO de iluminación y bloom moderado. Las luminarias no tienen paneles visibles como mallas.
+Ciclorama circular, siete luminarias rectangulares LTC y un entorno HDR 4K propio. La iluminación se diseñó para dar volumen y separar los acabados, usando Unreal como referencia de calidad de materiales. No reproduce su disposición de luces ni su parabrisas sobreexpuesto.
+
+El HDR se horneó en un estudio vacío con emisores graduados, suelo y entorno neutros. Los reflejos incluyen el suelo real del set: esto recupera definición en los rines y metales que reflejan hacia abajo. La proyección local corrige el paralaje y conserva el origen de captura a un metro del suelo; los armónicos esféricos aíslan el rebote indirecto de las luminarias directas. El relleno trasero alto evita velar las ventanillas laterales.
+
+Sombras VSM32 filtradas sobre el vehículo y contacto suave horneado por rayos sobre el suelo. CameraFrame procesa HDR con ACES fitted, TAA, AO de iluminación y bloom moderado. El selector permite contrastar el set propio con Studio Small 09 de Poly Haven. Las luminarias no tienen paneles visibles como mallas.
 
 ## Materiales y adaptaciones
 
@@ -37,6 +41,8 @@ Los mapas se hornean desde las instancias del proyecto Unreal existente. Se cons
 - Nueve materiales opacos se rehornearon en `SIMPLE` para corregir texeles sin cobertura por UV degeneradas en el horneado sobre malla. La pintura conserva horneado sobre malla por sus detalles proyectados en el espacio.
 - No existe un mapa AO independiente en las fuentes. Se emplea oclusión ambiental en tiempo real; no se fabrica un AO a partir de la rugosidad.
 - Tan Beige conserva la pintura del maestro existente. AGT, ABP y CGE se derivan del mismo grafo usando las muestras digitales oficiales de Kia. ABP habilita la función perlada. Son referencias digitales, no mediciones espectrales del fabricante.
+
+Las 22 texturas originales de 8000 × 8000 se conservan en el archivo de entrega local `Fuentes_Originales_8K.zip`, con manifiesto SHA-256. Las fuentes originales no se publican en este repositorio. Los mapas de material que carga el visor son horneados nativos de Unreal de 4096 × 4096; no conservan todo el detalle de sus fuentes de 8K.
 
 Los mapas horneados y el catálogo de materiales están en `assets/textures/` y `assets/materials.json`. Cada imagen incluye el nombre de procedencia, el archivo PBR y su SHA-256. Fuentes externas, licencias y especificaciones: [ASSET_SOURCES.md](ASSET_SOURCES.md).
 

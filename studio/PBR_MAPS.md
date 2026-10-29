@@ -2,6 +2,8 @@
 
 PNG horneados nativamente desde las instancias finales de Unreal. Color en sRGB; normales y canales de rugosidad/metalicidad en lineal. La rugosidad ocupa G y la metalicidad B en los mapas combinados. Los canales no se interpretan como glossiness.
 
+El archivo de entrega local `Fuentes_Originales_8K.zip` conserva los 22 PNG originales de 8000 × 8000. Los mapas públicos siguientes son los horneados de material de 4096 × 4096 que utiliza el estudio.
+
 | Procedencia | PNG | Resolución | SHA-256 |
 |---|---|---|---|
 | MI_Tasman_Car_BaseColor | [befd08321a5852c3.png](assets/textures/befd08321a5852c3.png) | 4096 × 4096 | `befd08321a5852c3b62f4d45917c2dd56a2ec22551c8d105b8ebaf493e4ad6c6` |
