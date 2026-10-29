@@ -1496,3 +1496,22 @@ html,body{background:#101316!important;background-image:none!important}
   }
   .experience.kia-model-only .ui-watermark{opacity:.75}
 }
+
+/* UI-ONLY HARD OVERRIDE v27: highest specificity, appended after legacy rules. */
+html body main#experience.experience.kia-model-only.ui-only,
+html body main#experience.experience.kia-model-only.ui-only.is-mission-mode{
+ background:#101316!important;background-image:none!important;
+}
+html body main#experience.ui-only #stage,
+html body main#experience.ui-only #stage canvas,
+html body main#experience.ui-only #modelLoading,
+html body main#experience.ui-only .ambient-backdrop,
+html body main#experience.ui-only .ambient-image,
+html body main#experience.ui-only .ambient-shade,
+html body main#experience.ui-only .ridgeline,
+html body main#experience.ui-only .horizon-floor,
+html body main#experience.ui-only .ground-glow{
+ display:none!important;visibility:hidden!important;opacity:0!important;
+}
+html body main#experience.ui-only::before,
+html body main#experience.ui-only::after{background-image:none!important}
