@@ -50,13 +50,13 @@ function setMode(mode){
  $("primaryLabel").textContent=mission?"START / INICIAR PRUEBA":"EXPLORAR PRUEBAS";
  $("secondaryButton").textContent=mission?"VOLVER AL VEHÍCULO":"VER CARACTERÍSTICAS +";
  document.querySelector(".frame-index").innerHTML=mission?'02 <em>/</em> 02':'01 <em>/</em> 02';
- if(mission)renderLevel();else { const root=$("experience"); levels.forEach(l=>root.classList.remove(l.cls)); root.classList.add("scene-rocks"); }
+ if(mission)renderLevel();
+ // Background photographs are retired; mode changes only editorial text and controls.
 }
 function renderLevel(){
  const item=levels[state.level];
- const experience=$("experience");
- for(const l of levels)experience.classList.remove(l.cls);
- experience.classList.add(item.cls);
+ // No environment / scene CSS is applied when selecting a challenge.
+ // The floating 3D Kia remains the sole visual subject.
  $("missionNumber").textContent="MISIÓN "+String(state.level+1).padStart(2,"0")+" / 04";
  $("missionTitle").innerHTML=item.title;
  $("missionDesc").textContent=item.desc;
