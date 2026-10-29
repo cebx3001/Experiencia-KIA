@@ -1409,3 +1409,40 @@ button{font-family:var(--kia-mono)}
 .experience.ui-only-preview .stage-watermark{
   display:none!important;
 }
+
+
+/* UI-ONLY PREVIEW v24: keep the original ghosted TASMAN brand watermark.
+   It belongs to the graphic interface, not to the hidden 3D stage.
+   Position follows the former stage watermark at ~10% from the right and
+   ~17% from the bottom. */
+.ui-watermark{
+  position:absolute;
+  z-index:0;
+  right:10.7%;
+  bottom:17%;
+  font-family:var(--kia-display);
+  font-size:clamp(50px,9vw,180px);
+  font-weight:900;
+  letter-spacing:-.035em;
+  line-height:.9;
+  color:rgba(255,255,255,.055);
+  opacity:.8;
+  white-space:nowrap;
+  user-select:none;
+  pointer-events:none;
+}
+@media(max-height:580px){
+  .ui-watermark{
+    right:8%;
+    bottom:18%;
+    font-size:clamp(45px,10vw,150px);
+  }
+}
+@media(orientation:portrait){
+  .ui-watermark{
+    right:5%;
+    bottom:28%;
+    font-size:clamp(36px,11vw,110px);
+    opacity:.75;
+  }
+}
