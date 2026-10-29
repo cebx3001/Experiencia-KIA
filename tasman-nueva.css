@@ -1,0 +1,1445 @@
+:root{--black:#05141f;--white:#fff;--red:#ea0029;--muted:#b3bec4;--hair:rgba(255,255,255,.21);--sand:#c8b69c}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--black);color:var(--white);font-family:var(--kia-body);-webkit-font-smoothing:antialiased}body{overscroll-behavior:none}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:2px solid white;outline-offset:3px}button:disabled{cursor:default}button[hidden],section[hidden],div[hidden],canvas[hidden]{display:none!important}
+.experience{position:relative;isolation:isolate;width:100vw;height:100vh;height:100dvh;min-width:0;overflow:hidden;background:var(--black);touch-action:pan-y}
+/* Neutral graphics-only presentation; photographic and environmental layers are disabled. */
+.experience .ambient-backdrop,.experience .ambient-image,.experience .ambient-shade,.experience .ridgeline,.experience .ridgeline-near,.experience .horizon-floor{display:none!important}
+.topbar{position:absolute;z-index:6;top:0;left:0;right:0;display:flex;align-items:center;height:84px;padding:0 clamp(26px,4.1vw,78px);gap:24px;border-bottom:1px solid rgba(255,255,255,.14)}.brandmark{display:block;width:100px;height:40px;object-fit:contain;object-position:center;padding:0;flex:none}.topbar-divider{height:34px;border-left:1px solid rgba(255,255,255,.28)}.topbar-model{display:flex;flex-direction:column;gap:4px}.topbar-model strong{font-size:13px;letter-spacing:.13em}.topbar-model span{font-size:9px;letter-spacing:.18em;color:#a7b6c2}.topbar-middle{margin:auto;font-size:10px;font-weight:600;letter-spacing:.15em;color:#d7e1e7;white-space:nowrap}.signal-dot{display:inline-block;width:5px;height:5px;background:var(--red);border-radius:50%;vertical-align:middle;margin-right:9px}.topbar-cta{display:flex;align-items:center;gap:26px;text-decoration:none;font-size:10px;font-weight:800;letter-spacing:.12em;color:#fff;white-space:nowrap}.topbar-cta span{color:var(--red);font-size:20px;font-weight:400}
+.side-content{position:absolute;z-index:5;left:clamp(26px,4.1vw,78px);top:27%;width:min(33vw,510px);max-width:43%;pointer-events:none}.side-content button{pointer-events:auto}.eyebrow{font-size:10px;letter-spacing:.25em;font-weight:700;display:flex;gap:14px;align-items:center;color:#dbe1e4}.red-line{width:22px;border-top:2px solid var(--red);display:inline-block}.kicker{font-size:11px;font-weight:600;letter-spacing:.27em;color:#d2b99c;margin-top:25px}.vehicle-copy h1,.mission-copy h1{font-size:clamp(57px,8.6vw,164px);line-height:.91;letter-spacing:-.092em;font-weight:800;margin:9px 0 23px;white-space:nowrap}.year{display:block;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.5);letter-spacing:-.075em;font-size:.62em;font-weight:500;margin-top:8px}.vehicle-copy p,.mission-copy p{font-size:clamp(13px,1.16vw,18px);line-height:1.5;font-weight:600;margin:0 0 9px;max-width:320px}.vehicle-copy .subcopy{font-size:clamp(10px,.77vw,12px);line-height:1.8;font-weight:400;color:#b5c0c7;max-width:285px}.primary-actions{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}.start-button{border:0;background:var(--white);color:var(--black);font-size:10px;letter-spacing:.11em;font-weight:800;min-height:50px;min-width:185px;padding:0 19px;display:flex;align-items:center;justify-content:space-between;gap:25px;transition:background .2s}.start-button:hover{background:#ebedef}.button-arrow{font-size:20px;line-height:1}.outline-button{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.42);padding:0 18px;min-height:50px;font-size:10px;letter-spacing:.1em;font-weight:700;display:flex;align-items:center;gap:21px}.outline-button span{font-size:20px;font-weight:400}.outline-button:hover{background:rgba(255,255,255,.08)}.mission-copy h1{font-size:clamp(51px,6.5vw,124px);line-height:.94;white-space:normal;letter-spacing:-.075em;margin-bottom:22px}.mission-id{font-size:13px;margin-top:17px;letter-spacing:.13em;color:#d4b89a}.mission-copy p{font-size:13px;font-weight:400;color:#d0d9dd;max-width:345px}.mission-feature{margin-top:23px;display:flex;flex-direction:column;gap:7px;border-left:2px solid var(--red);padding-left:12px}.feature-label{font-size:9px;letter-spacing:.18em;color:#a9b4bc}.mission-feature strong{font-size:11px;letter-spacing:.08em;line-height:1.4}
+.stage{position:absolute;z-index:1;inset:10% 10% 9% 24%;overflow:visible;touch-action:none}.stage canvas{width:100%;height:100%;display:block;touch-action:none}.ground-glow{pointer-events:none;position:absolute;bottom:1%;left:30%;width:60%;height:17%;background:radial-gradient(ellipse,rgba(243,207,152,.11),transparent 70%)}.stage-watermark{position:absolute;bottom:10%;right:1%;font-size:clamp(50px,9vw,180px);font-weight:800;letter-spacing:-.08em;color:rgba(255,255,255,.055);line-height:1;z-index:-1;pointer-events:none}.hotspot{position:absolute;border:1px solid rgba(255,255,255,.75);background:rgba(5,20,31,.76);color:#fff;width:29px;height:29px;border-radius:50%;font-size:19px;line-height:1}.hotspot::after{content:'';position:absolute;inset:-9px;border:1px solid rgba(255,255,255,.3);border-radius:50%}.hotspot-a{top:35%;left:52%}.hotspot-b{top:48%;left:64%}.hotspot-c{top:71%;left:48%}
+.right-rail{position:absolute;z-index:5;top:28%;right:clamp(24px,3vw,66px);width:150px;display:flex;flex-direction:column;align-items:flex-start;gap:28px}.rail-label{font-size:9px;color:#d7dee2;letter-spacing:.2em;border-bottom:1px solid var(--hair);width:100%;padding-bottom:15px}.rail-block{display:flex;flex-direction:column;gap:12px;width:100%}.rail-heading{font-size:9px;font-weight:700;letter-spacing:.2em;color:#c2cbd0}.camera-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}.camera-buttons button{border:1px solid var(--hair);background:rgba(5,20,31,.5);color:#c8d2d7;padding:11px 4px;font-size:8px;font-weight:700;letter-spacing:.03em}.camera-buttons button.selected,.camera-buttons button:hover{border-color:#fff;color:#fff;background:rgba(255,255,255,.13)}.color-list{display:flex;gap:9px;flex-wrap:wrap}.color-chip{height:24px;width:24px;border-radius:50%;background:var(--swatch);border:2px solid rgba(255,255,255,.14);position:relative}.color-chip.active::after{content:'';position:absolute;inset:-6px;border:1px solid white;border-radius:50%}.color-name{font-size:9px;letter-spacing:.13em;color:#d9dddf}.rail-note{border-top:1px solid var(--hair);padding-top:19px}.rail-note span:last-child{color:#bac7ce;font-size:10px;line-height:1.65}
+.mission-selector{position:absolute;z-index:6;bottom:78px;left:37%;right:15%;display:flex;align-items:center;gap:16px;padding:13px 18px;background:rgba(5,20,31,.84);border:1px solid rgba(255,255,255,.21);backdrop-filter:blur(14px);min-height:74px}.selector-arrow{height:38px;min-width:38px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:22px}.selector-arrow:hover{background:rgba(255,255,255,.22)}.selector-current{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}.selector-meta{font-size:9px;color:#bac6ca;letter-spacing:.2em}.selector-current strong{font-size:13px;letter-spacing:.12em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.selector-progress{display:flex;gap:5px}.selector-dot{width:6px;height:6px;border:0;padding:0;background:rgba(255,255,255,.4);border-radius:50%}.selector-dot.is-active{background:var(--red)}
+.bottom-bar{position:absolute;z-index:6;bottom:0;left:0;right:0;height:61px;border-top:1px solid rgba(255,255,255,.22);padding:0 clamp(26px,4.1vw,78px);display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(5,20,31,.4)}.bottom-left,.bottom-right{font-size:9px;letter-spacing:.15em;font-weight:700;display:flex;align-items:center;gap:20px;white-space:nowrap}.frame-index{font-size:20px;letter-spacing:-.04em}.frame-index em{font-style:normal;color:#6f828d;padding:0 5px}.bottom-middle{font-size:9px;letter-spacing:.24em;font-weight:500;color:#cad5d9}.bottom-right{color:#b6c4cb}.small-cross{font-size:14px;color:var(--red)}
+.modal-backdrop{position:absolute;z-index:15;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(3,11,16,.83);backdrop-filter:blur(12px)}.modal{width:min(500px,74%);background:#0c1d28;border:1px solid rgba(255,255,255,.25);padding:35px;position:relative;box-shadow:0 35px 90px rgba(0,0,0,.4)}.modal h2{font-size:clamp(24px,3vw,47px);letter-spacing:-.05em;line-height:1.1;margin:22px 0 18px}.modal p{font-size:14px;line-height:1.75;color:#cad4d9;margin:0 0 27px}.modal-close{position:absolute;right:15px;top:12px;background:transparent;border:0;color:white;font-size:30px}.modal-link{display:inline-block;color:#fff;text-decoration:none;font-size:10px;font-weight:800;letter-spacing:.1em;border-bottom:1px solid var(--red);padding-bottom:7px}.mission-placeholder{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:18px;background:rgba(255,255,255,.045);border:1px solid var(--hair);margin-bottom:24px;font-size:10px;letter-spacing:.1em;color:#b2c1c9}
+@media(max-width:1090px){.topbar{height:66px}.side-content{top:23%;width:38%}.right-rail{top:22%;right:25px;width:129px;gap:15px}.vehicle-copy h1{font-size:clamp(54px,8vw,100px)}.mission-copy h1{font-size:clamp(48px,6vw,90px)}.mission-selector{bottom:62px;left:37%;right:13%;min-height:60px;padding:9px}.bottom-bar{height:52px}.stage{inset:9% 10% 8% 24%}.topbar-middle{display:none}.primary-actions{margin-top:20px}.rail-note{display:none}}
+@media(max-height:580px){.topbar{height:52px}.brandmark{width:80px;height:30px}.topbar-divider{height:24px}.topbar-model strong{font-size:11px}.topbar-model span{font-size:7px}.side-content{top:19%}.kicker{margin-top:13px}.vehicle-copy h1{font-size:min(9vh,66px);margin:5px 0 12px}.year{font-size:.75em}.vehicle-copy p,.mission-copy p{font-size:11px}.vehicle-copy .subcopy{font-size:10px;line-height:1.4}.mission-copy h1{font-size:min(12vh,76px);margin:3px 0 10px}.mission-feature{margin-top:12px}.primary-actions{margin-top:16px}.start-button,.outline-button{min-height:34px;min-width:0;font-size:9px;padding:0 11px}.right-rail{top:20%;gap:12px;width:125px}.rail-heading{font-size:8px}.camera-buttons button{padding:8px 3px}.bottom-bar{height:40px}.mission-selector{bottom:46px;min-height:46px}.selector-current strong{font-size:10px}.selector-meta{font-size:7px}}
+@media(max-width:750px) and (orientation:landscape){.topbar{padding:0 15px}.topbar-cta{font-size:8px;gap:7px}.topbar-model span{display:none}.side-content{left:18px;width:42%;max-width:42%;top:18%}.kicker{font-size:8px}.eyebrow{font-size:8px}.vehicle-copy h1{font-size:clamp(42px,9vw,70px)}.mission-copy h1{font-size:clamp(41px,8vw,67px)}.right-rail{right:12px;top:20%;width:100px;gap:12px}.rail-label{font-size:7px;padding-bottom:6px}.camera-buttons button{font-size:7px}.rail-heading{font-size:8px}.color-chip{width:20px;height:20px}.bottom-bar{padding:0 16px}.bottom-middle,.bottom-right{display:none}.mission-selector{left:40%;right:15%;bottom:47px}.stage{inset:9% 7% 8% 26%}.primary-actions{gap:6px}.outline-button{display:none}}
+/* Landscape-only experience: in portrait the whole canvas is rotated,
+   never reflowed into a portrait design. Only screen dimensions change. */
+@media(orientation:portrait){
+ .experience{position:absolute;top:0;left:0;width:100dvh;height:100vw;transform-origin:top left;transform:rotate(90deg) translateY(-100%)}
+ .topbar{height:52px;padding:0 15px;gap:12px}
+ .topbar-cta{font-size:8px;gap:7px}
+ .topbar-model span{display:none}
+ .side-content{left:18px;width:42%;max-width:42%;top:18%}
+ .kicker{font-size:8px;margin-top:13px}
+ .eyebrow{font-size:8px}
+ .vehicle-copy h1{font-size:clamp(42px,9vh,70px);margin:5px 0 12px}
+ .mission-copy h1{font-size:clamp(41px,8vh,67px);margin:3px 0 10px}
+ .right-rail{right:12px;top:20%;width:100px;gap:12px}
+ .rail-label{font-size:7px;padding-bottom:6px}
+ .camera-buttons button{font-size:7px}
+ .rail-heading{font-size:8px}
+ .color-chip{width:20px;height:20px}
+ .bottom-bar{height:40px;padding:0 16px}
+ .bottom-middle,.bottom-right{display:none}
+ .mission-selector{left:40%;right:15%;bottom:47px;min-height:46px}
+ .stage{inset:9% 7% 8% 26%}
+ .primary-actions{gap:6px}
+ .outline-button{display:none}
+}
+@media(prefers-reduced-motion:reduce){*,*::after,*::before{transition:none!important;animation:none!important}}
+
+/* Markers are positioned from live GLB geometry, not from fixed screen percentages. */
+.hotspots{position:absolute;inset:0;pointer-events:none;z-index:4}.hotspot{pointer-events:auto;transform:translate(-50%,-50%);z-index:2}.hotspot[hidden]{display:none!important}.hotspot:hover,.hotspot:focus-visible{border-color:#fff;background:#ea0029}.hotspot-a,.hotspot-b,.hotspot-c{top:auto;left:auto}
+
+/* Challenge names are UI labels, never triggers for a photographic scene. */
+
+/* Honest asynchronous 3D loading state, visible even when the fallback image fails. */
+.model-loading{position:absolute;z-index:5;left:50%;top:50%;transform:translate(-50%,-50%);max-width:65%;padding:14px 20px;border:1px solid rgba(255,255,255,.3);background:rgba(5,20,31,.89);color:#fff;text-align:center;letter-spacing:.14em;font-size:10px;font-weight:700;pointer-events:none;white-space:normal;line-height:1.6}
+.model-loading[hidden]{display:none!important}
+
+/* Editorial detail navigation: one clear list outside the vehicle.
+   No decorative circles, tooltip badges or pin clusters cover the 3D model. */
+.hotspots,.hotspot,.hotspot-a,.hotspot-b,.hotspot-c{display:none!important}
+.components-rail{gap:8px}
+.component-button-grid{display:flex;flex-direction:column;gap:0;width:100%;border-bottom:1px solid rgba(255,255,255,.22)}
+.component-button-grid button{
+  display:grid;grid-template-columns:22px minmax(0,1fr) 13px;align-items:center;gap:6px;
+  border:0;border-top:1px solid rgba(255,255,255,.22);
+  border-radius:0;background:transparent;color:#f2f4f6;
+  min-height:36px;padding:8px 1px;
+  text-align:left;font-size:10px;font-weight:650;letter-spacing:.075em;
+  line-height:1.3;transition:color .2s,background-color .2s
+}
+.component-button-grid button:hover,.component-button-grid button:focus-visible,.component-button-grid button.is-active{
+  background:rgba(255,255,255,.065);color:white
+}
+.component-number{font-size:9px;font-weight:500;letter-spacing:0;color:#a0b0bc;font-variant-numeric:tabular-nums}
+.component-button-grid button.is-active .component-number{color:var(--red)}
+.component-name{min-width:0}
+.component-arrow{justify-self:end;font-size:13px;font-weight:400;color:#a0b0bc}
+.component-button-grid button:hover .component-arrow,.component-button-grid button.is-active .component-arrow{color:#fff}
+@media(max-height:580px){
+ .right-rail{top:15%;gap:8px}
+ .rail-block{gap:7px}
+ .components-rail{gap:5px}
+ .component-button-grid button{min-height:27px;padding:5px 1px;font-size:8px;grid-template-columns:16px minmax(0,1fr) 11px;gap:3px}
+ .component-number{font-size:7px}
+ .component-arrow{font-size:11px}
+ .rail-note{display:none}
+}
+@media(orientation:portrait){
+ .right-rail{top:15%;gap:8px}
+ .rail-block{gap:7px}
+ .components-rail{gap:5px}
+ .component-button-grid button{min-height:27px;padding:5px 1px;font-size:8px;grid-template-columns:16px minmax(0,1fr) 11px;gap:3px}
+ .component-number{font-size:7px}
+ .component-arrow{font-size:11px}
+}
+
+
+/* KIA TASMAN — refined editorial instrument panel / studio edition */
+.right-rail{width:190px;gap:20px;top:24%;padding:18px 0 12px 19px;border-left:1px solid rgba(255,255,255,.21);align-items:stretch}
+.rail-label{padding-bottom:12px;font-size:9px;letter-spacing:.28em;color:#fff;border-bottom:1px solid rgba(255,255,255,.32)}
+.rail-block{gap:9px}
+.rail-heading{font-size:9px;letter-spacing:.18em;font-weight:500;color:rgba(255,255,255,.63)}
+.camera-buttons{display:flex;gap:12px;justify-content:flex-start;border-bottom:1px solid rgba(255,255,255,.24)}
+.camera-buttons button{border:0;border-bottom:2px solid transparent;margin-bottom:-1px;background:transparent;color:rgba(255,255,255,.58);font-size:10px;letter-spacing:.04em;font-weight:600;padding:9px 0 11px;transition:color .2s,border-color .2s}
+.camera-buttons button.selected,.camera-buttons button:hover{background:transparent;border-color:#fff;color:#fff}
+.color-list{gap:12px;padding:7px 0 2px}
+.color-chip{height:19px;width:19px;border:1px solid rgba(255,255,255,.4);box-shadow:0 1px 6px rgba(0,0,0,.25)}
+.color-chip.active::after{inset:-5px;border-color:rgba(255,255,255,.9)}
+.color-name{font-size:9px;letter-spacing:.11em;color:rgba(255,255,255,.87);line-height:1.45}
+.components-rail{gap:8px}
+.component-button-grid{border-bottom:1px solid rgba(255,255,255,.18)}
+.component-button-grid button{min-height:34px;grid-template-columns:18px minmax(0,1fr) 10px;gap:8px;padding:7px 0;border-top:1px solid rgba(255,255,255,.17);font-size:10px;font-weight:500;letter-spacing:.12em}
+.component-button-grid button:hover,.component-button-grid button:focus-visible,.component-button-grid button.is-active{background:transparent;color:#fff}
+.component-number{font-size:8px;color:rgba(255,255,255,.42)}
+.component-arrow{font-size:12px;color:rgba(255,255,255,.5)}
+.start-button{background:#fff;color:#05141f;min-height:46px;letter-spacing:.13em;padding:0 20px;transition:background .2s,transform .2s}
+.start-button:hover{background:#e8edf0;transform:translateY(-1px)}
+.outline-button{min-height:46px;border:0;border-bottom:1px solid rgba(255,255,255,.65);padding:0 3px;background:transparent;font-size:10px;letter-spacing:.12em}
+.outline-button:hover{background:transparent;border-bottom-color:white}
+@media(max-width:1090px){.right-rail{width:153px;right:20px;top:18%;gap:10px;padding-left:12px}.camera-buttons{gap:7px}.camera-buttons button{font-size:9px;padding:7px 0}}
+@media(max-height:580px){.right-rail{width:132px;right:12px;top:14%;gap:7px;padding-left:9px}.rail-block{gap:5px}.component-button-grid button{min-height:25px;padding:4px 0;font-size:8px;grid-template-columns:14px minmax(0,1fr) 9px;gap:3px}.camera-buttons{gap:5px}.camera-buttons button{font-size:7px;padding:6px 0}.color-list{gap:8px;padding:2px 0}.color-chip{height:17px;width:17px}}
+@media(max-width:750px) and (orientation:landscape){.right-rail{width:118px;right:10px;top:17%;gap:7px;padding-left:8px}.camera-buttons{gap:4px}.camera-buttons button{font-size:7px}.component-button-grid button{font-size:8px}}
+@media(orientation:portrait){.right-rail{width:118px;right:10px;top:17%;gap:7px;padding-left:8px}.rail-block{gap:5px}.camera-buttons{gap:4px}.camera-buttons button{font-size:7px;padding:6px 0}.component-button-grid button{min-height:25px;padding:4px 0;font-size:8px;grid-template-columns:14px minmax(0,1fr) 9px;gap:3px}.color-chip{height:17px;width:17px}}
+
+
+/* Vehicle-first composition: large hero, subordinate interface. */
+.stage{inset:7% 7% 7% 19%}
+.side-content{width:min(28vw,410px);max-width:33%;top:26%}
+.vehicle-copy h1{font-size:clamp(54px,7.2vw,130px)}
+.stage-watermark{opacity:.48}
+@media(max-width:1090px){.stage{inset:7% 5% 7% 20%}.side-content{width:34%;max-width:36%}}
+@media(max-height:580px){.stage{inset:8% 5% 6% 19%}.side-content{width:34%;max-width:34%}.vehicle-copy h1{font-size:min(8vh,58px)}}
+@media(max-width:750px) and (orientation:landscape){.stage{inset:8% 4% 6% 19%}.side-content{width:35%;max-width:35%}}
+@media(orientation:portrait){.stage{inset:8% 4% 6% 19%}.side-content{width:35%;max-width:35%}.vehicle-copy h1{font-size:clamp(37px,7.6vh,61px)}}
+
+
+/* KIA 3D ANNOTATIONS — world-anchored, camera-following, not modals. */
+.kia-annotations{position:absolute;inset:0;z-index:8;pointer-events:none;overflow:visible;font-family:var(--kia-body)}
+.kia-annotation-pin{position:absolute;z-index:2;width:28px;height:28px;padding:0;border:1px solid rgba(255,255,255,.9);border-radius:50%;background:rgba(5,20,31,.56);color:#fff;pointer-events:auto;display:grid;place-items:center;transform:translate(-50%,-50%);transition:opacity .22s,background .22s,box-shadow .22s;box-shadow:0 0 0 4px rgba(255,255,255,.11),0 3px 20px rgba(0,0,0,.23);font:400 20px/1 var(--kia-mono);cursor:pointer}
+.kia-annotation-pin::before{content:"";position:absolute;inset:-8px;border:1px solid rgba(255,255,255,.24);border-radius:50%;animation:kiaAnnotationPulse 3s ease-out infinite;pointer-events:none}
+.kia-annotation-pin span{display:block;line-height:1;transform:translateY(-1px)}
+.kia-annotation-pin:hover,.kia-annotation-pin:focus-visible,.kia-annotation-pin.is-selected{background:#ea0029;box-shadow:0 0 0 4px rgba(234,0,41,.18),0 2px 15px rgba(0,0,0,.35)}
+.kia-annotation-pin.is-offscreen{opacity:0;pointer-events:none}
+.kia-annotations.has-selection .kia-annotation-pin:not(.is-selected){opacity:.22}
+.kia-annotation-leader{position:absolute;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.84),rgba(255,255,255,.4));transform-origin:0 50%;opacity:0;transition:opacity .3s;pointer-events:none;z-index:1}
+.kia-annotation-leader.is-open{opacity:1}
+.kia-annotation-leader.is-offscreen{opacity:0}
+.kia-annotation-detail{position:absolute;top:var(--annotation-y,20%);left:var(--annotation-x,40%);width:var(--annotation-width,206px);min-height:100px;padding:13px 25px 14px 14px;background:rgba(5,20,31,.89);border-left:2px solid #ea0029;box-shadow:0 16px 45px rgba(0,0,0,.22);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;pointer-events:none;opacity:0;transform:translateY(8px) scale(.97);transform-origin:left top;transition:opacity .35s ease,transform .45s cubic-bezier(.2,.8,.2,1);z-index:3}
+.kia-annotation-detail.is-open{pointer-events:auto;opacity:1;transform:translateY(0) scale(1)}
+.kia-annotation-eyebrow{font-size:8px;letter-spacing:.18em;font-weight:600;color:#c0cbd3;text-transform:uppercase;margin-bottom:8px}
+.kia-annotation-heading{font-size:clamp(14px,1.65vw,20px);letter-spacing:-.04em;line-height:1.03;font-weight:800;margin:0 0 8px}
+.kia-annotation-description{font-size:10px;line-height:1.46;color:#d2dade;font-weight:400;margin:0;max-width:185px}
+.kia-annotation-close{position:absolute;top:6px;right:6px;width:22px;height:22px;border:0;background:transparent;color:#e4e9ec;font-size:20px;line-height:22px;padding:0;pointer-events:auto}
+.kia-annotation-mode-hidden .kia-annotations{opacity:0;pointer-events:none}
+@keyframes kiaAnnotationPulse{0%{opacity:.6;transform:scale(.8)}65%,100%{opacity:0;transform:scale(1.45)}}
+@media(max-height:580px){.kia-annotation-pin{width:24px;height:24px;font-size:18px}.kia-annotation-detail{padding:10px 23px 10px 11px;min-height:90px}.kia-annotation-eyebrow{margin-bottom:5px;font-size:7px}.kia-annotation-heading{font-size:15px;margin-bottom:6px}.kia-annotation-description{font-size:9px;line-height:1.36}}
+@media(prefers-reduced-motion:reduce){.kia-annotation-pin::before{animation:none}.kia-annotation-detail,.kia-annotation-leader{transition:none}}
+
+
+/* Kia expandable micro-menus: one open section, nothing on the 3D mesh. */
+.kia-annotations{display:none!important}
+.kia-compact-rail{width:clamp(152px,17vw,230px);right:clamp(12px,2.5vw,38px);top:20%;padding:10px 0 10px 13px;gap:10px;z-index:10;border-left:1px solid rgba(255,255,255,.26);max-height:65%;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.26) transparent}
+.kia-compact-rail .rail-label{font-size:8px;letter-spacing:.2em;margin-bottom:2px;color:rgba(255,255,255,.6)}
+.kia-compact-rail .rail-note{display:none}
+.kia-rail-accordion{display:flex;flex-direction:column;gap:4px}
+.kia-compact-rail .micro-group{border-bottom:1px solid rgba(255,255,255,.15)}
+.kia-compact-rail .micro-toggle{width:100%;padding:10px 1px 10px 0;display:flex;align-items:center;justify-content:space-between;text-align:left;border:0;background:transparent;color:#fff;font-size:10px;letter-spacing:.07em;font-weight:600;gap:10px}
+.kia-compact-rail .micro-toggle-main{display:flex;gap:9px;align-items:center}
+.kia-compact-rail .micro-chevron{color:rgba(255,255,255,.66);font-size:16px;font-weight:300;transition:transform .22s}
+.kia-compact-rail .micro-toggle[aria-expanded="true"] .micro-chevron{transform:rotate(45deg);color:#ea0029}
+.kia-compact-rail .mini-camera{height:15px;width:15px;flex-shrink:0;display:block}
+.kia-compact-rail .micro-menu-glyph{font-size:17px;line-height:15px;width:15px;color:#ccd4d8;text-align:center}
+.kia-compact-rail .micro-panel{padding:5px 0 12px;animation:kiaMenuReveal .25s ease both}
+.kia-compact-rail .micro-panel[hidden]{display:none!important}
+.kia-compact-rail .camera-pose-list{display:flex;flex-direction:column;gap:1px}
+.kia-compact-rail .camera-pose-list .camera-pose{width:100%;min-height:30px;text-align:left;padding:5px 5px 5px 7px;background:transparent;border:0;color:rgba(255,255,255,.67);font-size:9px;font-weight:500;letter-spacing:.04em;display:flex;align-items:center;gap:9px;transition:background .2s,color .2s}
+.kia-compact-rail .camera-pose-list .camera-pose.selected,.kia-compact-rail .camera-pose-list .camera-pose:hover{background:rgba(255,255,255,.095);color:#fff}
+.kia-compact-rail .camera-pose-list .camera-pose.selected{border-left:2px solid #ea0029;padding-left:5px}
+.kia-compact-rail .camera-pose-list .camera-pose .mini-camera{width:14px;height:14px}
+.kia-compact-rail .micro-group-caption{font-size:8px;font-weight:500;letter-spacing:.14em;color:#b6c2c8;margin:6px 0 8px}
+.kia-compact-rail .color-list{display:flex;flex-wrap:nowrap;gap:10px;align-items:center;padding:0 0 5px}
+.kia-compact-rail .color-chip{width:21px;height:21px;min-width:21px;border-radius:50%;background:var(--swatch);box-shadow:0 0 0 1px rgba(255,255,255,.24)}
+.kia-compact-rail .color-chip.active{outline:1px solid white;outline-offset:3px}
+.kia-compact-rail .color-name{font-size:8px;line-height:1.4;letter-spacing:.08em;color:#eee;display:block;min-height:18px;margin-bottom:12px}
+.kia-compact-rail .component-button-grid{display:flex;flex-direction:column;gap:0;padding:0;margin:0}
+.kia-compact-rail .micro-feature{width:100%;display:grid;grid-template-columns:17px minmax(0,1fr) 12px;align-items:center;gap:5px;min-height:30px;padding:6px 3px 6px 0;text-align:left;border:0;border-bottom:1px solid rgba(255,255,255,.11);background:transparent;color:rgba(255,255,255,.78);font-size:9px;letter-spacing:.015em;font-weight:500;line-height:1.25;transition:color .2s,background .2s}
+.kia-compact-rail .micro-feature:hover,.kia-compact-rail .micro-feature.is-active{color:#fff;background:rgba(255,255,255,.08)}
+.kia-compact-rail .micro-index{font-size:8px;color:rgba(255,255,255,.48);font-weight:400;font-variant-numeric:tabular-nums}
+.kia-compact-rail .micro-arrow{justify-self:end;font-size:13px;color:rgba(255,255,255,.5)}
+.kia-compact-rail .micro-detail{border-left:2px solid #ea0029;background:rgba(5,20,31,.86);padding:10px 22px 10px 9px;margin:8px 0 0;position:relative;animation:kiaMenuReveal .3s ease}
+.kia-compact-rail .micro-detail[hidden]{display:none!important}
+.kia-compact-rail .micro-detail strong{display:block;font-size:11px;letter-spacing:.01em;line-height:1.3;margin-bottom:5px}
+.kia-compact-rail .micro-detail p{margin:0;font-size:9px;color:#d3dce0;line-height:1.45}
+.kia-compact-rail .micro-detail button{position:absolute;top:4px;right:2px;border:0;color:#fff;background:transparent;font-size:18px;padding:2px 5px}
+@keyframes kiaMenuReveal{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-height:580px){.kia-compact-rail{top:15%;max-height:68%;width:clamp(145px,18vw,190px);right:12px;padding-left:9px;gap:6px}.kia-compact-rail .micro-toggle{font-size:9px;padding:6px 1px}.kia-compact-rail .micro-panel{padding:4px 0 8px}.kia-compact-rail .micro-feature{font-size:8px;min-height:25px;padding:4px 2px}.kia-compact-rail .camera-pose-list .camera-pose{min-height:25px;font-size:8px}.kia-compact-rail .color-chip{width:18px;height:18px;min-width:18px}.kia-compact-rail .micro-detail p{font-size:8px}}
+@media(orientation:portrait){.kia-compact-rail{width:153px;right:9px;top:15%;max-height:68%;padding-left:9px}}
+@media(prefers-reduced-motion:reduce){.kia-compact-rail .micro-panel,.kia-compact-rail .micro-detail{animation:none}}
+
+/* KIA CHALLENGES: Rock, Water, Sand and Storm remain selectable without photographic backgrounds or weather effects. */
+
+/* Mission navigation has priority: compact vehicle-config menus belong only
+   to model exploration and must never intercept the mission arrows on mobile. */
+.experience.is-mission-mode .kia-compact-rail{visibility:hidden;pointer-events:none;opacity:0}
+
+
+/* A persistent, readable technical description OUTSIDE the scrollable micro-menu. */
+.kia-feature-floating{
+ position:absolute;z-index:11;
+ right:calc(clamp(152px,17vw,230px) + clamp(12px,2.5vw,38px) + 18px);
+ bottom:14%;top:auto;
+ width:clamp(185px,20vw,255px);
+ max-height:35%;overflow:auto;
+ border-left:3px solid #ea0029;
+ background:rgba(5,20,31,.94);color:#fff;
+ padding:18px 30px 18px 17px;
+ box-shadow:0 16px 40px rgba(0,0,0,.3);
+ backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+ animation:kiaMenuReveal .3s ease both;
+}
+.kia-feature-floating strong{font-size:clamp(13px,1.5vw,19px);line-height:1.12;font-weight:800;letter-spacing:-.02em;display:block;margin-bottom:10px}
+.kia-feature-floating p{margin:0;font-size:clamp(11px,1vw,13px);line-height:1.48;color:#e1e7ed}
+.kia-feature-floating button{position:absolute;right:5px;top:4px;width:27px;height:27px;padding:0;border:0;background:transparent;color:#fff;font:20px/1 var(--kia-mono)}
+.kia-feature-floating[hidden]{display:none!important}
+@media(max-height:580px){
+ .kia-feature-floating{right:calc(clamp(145px,18vw,190px) + 22px);bottom:16%;max-height:39%;padding:12px 24px 12px 12px;width:clamp(160px,22vw,210px)}
+ .kia-feature-floating strong{font-size:14px;margin-bottom:6px}
+ .kia-feature-floating p{font-size:10px;line-height:1.39}
+}
+@media(orientation:portrait){
+ .kia-feature-floating{right:176px;bottom:15%;width:200px;padding:11px 24px 11px 11px}
+ .kia-feature-floating strong{font-size:14px}
+ .kia-feature-floating p{font-size:10px}
+}
+
+
+/* Raise the entire left editorial block as one unit, including its CTAs. */
+.side-content{top:20%}
+@media(max-width:1090px){.side-content{top:18%}}
+@media(max-height:580px){.side-content{top:14.5%}}
+@media(max-width:750px) and (orientation:landscape){.side-content{top:14.5%}}
+@media(orientation:portrait){.side-content{top:14.5%}}
+
+
+/* Right-side feature descriptions are typography, never floating cards.
+   The menu scrolls independently, while the selected description remains
+   legible in its own right rail without ever covering the vehicle. */
+.kia-compact-rail{
+  max-height:72%;
+  overflow:visible;
+  align-items:stretch;
+  padding-right:2px;
+}
+.kia-compact-rail .rail-label{flex:0 0 auto}
+.kia-compact-rail .kia-rail-accordion{
+  min-height:0;
+  flex:1 1 auto;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,255,255,.3) transparent;
+}
+.kia-compact-rail .kia-rail-description{
+  width:100%;
+  box-sizing:border-box;
+  position:relative;
+  flex:0 0 auto;
+  max-height:36%;
+  overflow-y:auto;
+  margin-top:14px;
+  padding:5px 24px 1px 0;
+  background:transparent;
+  box-shadow:none;
+  border:0;
+  border-radius:0;
+  backdrop-filter:none;
+  color:#fff;
+  animation:kiaMenuReveal .25s ease both;
+}
+.kia-compact-rail .kia-rail-description[hidden]{display:none!important}
+.kia-compact-rail .kia-rail-description strong{
+  display:block;
+  font-size:clamp(12px,1.2vw,16px);
+  font-weight:750;
+  letter-spacing:-.025em;
+  line-height:1.12;
+  margin:0 0 8px;
+  color:#fff;
+}
+.kia-compact-rail .kia-rail-description p{
+  font-size:clamp(10px,.92vw,12px);
+  line-height:1.47;
+  font-weight:400;
+  color:rgba(244,248,251,.91);
+  letter-spacing:0;
+  margin:0;
+  text-wrap:pretty;
+}
+.kia-compact-rail .kia-rail-description button{
+  position:absolute;
+  right:0;
+  top:0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  color:#dce3e7;
+  padding:0;
+  width:22px;height:22px;
+  line-height:22px;
+  font-size:18px;
+  cursor:pointer;
+}
+@media(max-height:580px){
+  .kia-compact-rail{max-height:73%;overflow:visible}
+  .kia-compact-rail .kia-rail-description{max-height:38%;margin-top:8px}
+  .kia-compact-rail .kia-rail-description strong{font-size:12px;margin-bottom:5px}
+  .kia-compact-rail .kia-rail-description p{font-size:10px;line-height:1.37}
+}
+@media(orientation:portrait){
+  .kia-compact-rail{max-height:70%;overflow:visible}
+  .kia-compact-rail .kia-rail-description{max-height:37%;margin-top:9px}
+  .kia-compact-rail .kia-rail-description strong{font-size:12px}
+  .kia-compact-rail .kia-rail-description p{font-size:10px;line-height:1.43}
+}
+
+
+/* Test drive CTA belongs to the bottom-right footer, not the top bar.
+   Plain text link, preserving the site's editorial treatment. */
+.bottom-bar .bottom-right{
+  display:flex;
+  margin-left:auto;
+  justify-content:flex-end;
+  align-items:center;
+  flex:0 0 auto;
+}
+.bottom-bar .footer-testdrive{
+  display:inline-flex;
+  align-items:center;
+  gap:14px;
+  color:#fff;
+  text-decoration:none;
+  font-family:inherit;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.1em;
+  white-space:nowrap;
+  padding:8px 0;
+}
+.bottom-bar .footer-testdrive span{
+  font-size:20px;
+  line-height:1;
+  color:var(--red);
+  font-weight:400;
+}
+.bottom-bar .footer-testdrive:hover,
+.bottom-bar .footer-testdrive:focus-visible{color:#fff;text-decoration:underline;text-underline-offset:5px}
+@media(max-width:1090px){
+  .bottom-bar .bottom-right{display:flex!important}
+  .bottom-bar .footer-testdrive{font-size:9px;gap:8px}
+}
+@media(max-height:580px){
+  .bottom-bar .bottom-right{display:flex!important}
+  .bottom-bar .footer-testdrive{font-size:8px;gap:6px}
+  .bottom-bar .footer-testdrive span{font-size:17px}
+}
+@media(orientation:portrait){
+  .bottom-bar .bottom-right{display:flex!important}
+  .bottom-bar .footer-testdrive{font-size:8px;gap:6px;padding:5px 0}
+}
+
+
+/* KIA EDITORIAL GAME CAROUSEL v13: four navigation categories only.
+   All options live in an unboxed, horizontally swipable selector underneath
+   the truck, while true vehicle facts stay lower-right above the CTA. */
+.kia-category-rail{
+  position:absolute;
+  top:19%;
+  right:clamp(19px,3.1vw,60px);
+  width:clamp(137px,16.2vw,218px);
+  padding-left:13px;
+  border-left:1px solid rgba(255,255,255,.32);
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  z-index:10;
+  max-height:none;
+}
+.kia-category-rail .rail-label{
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:.17em;
+  padding-bottom:9px;
+  color:rgba(243,247,250,.54);
+  border-bottom:0;
+}
+.kia-category-buttons{display:flex;flex-direction:column;gap:2px;width:100%}
+.kia-category{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  width:100%;
+  min-height:36px;
+  padding:7px 1px 7px 0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  font-family:inherit;
+  font-size:clamp(11px,1.12vw,15px);
+  font-weight:650;
+  letter-spacing:.045em;
+  color:rgba(238,244,247,.63);
+  text-align:left;
+  transition:color .2s ease;
+}
+.kia-category span{font-size:16px;font-weight:400;color:rgba(244,248,250,.30);transition:color .2s}
+.kia-category.is-active,.kia-category:hover,.kia-category:focus-visible{color:#fff}
+.kia-category.is-active span{color:var(--red)}
+.kia-category[aria-pressed="true"]{font-weight:850}
+.kia-feature-carousel{
+  position:absolute;
+  z-index:8;
+  left:27%;
+  width:min(47%,680px);
+  bottom:calc(61px + 16px);
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  pointer-events:auto;
+  user-select:none;
+}
+.kia-feature-carousel[hidden],.kia-feature-carousel.is-disabled{display:none!important}
+.kia-carousel-meta{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:18px;
+  width:100%;
+  font-size:9px;
+  letter-spacing:.16em;
+  color:rgba(242,247,250,.59);
+  font-weight:600;
+}
+.kia-carousel-main{display:flex;align-items:center;width:100%;gap:5px;min-height:52px}
+.kia-carousel-arrow{
+  display:flex;align-items:center;justify-content:center;
+  flex:0 0 32px;min-width:0;height:38px;
+  border:0;background:transparent;color:rgba(255,255,255,.78);
+  font-size:24px;font-weight:300;cursor:pointer;
+}
+.kia-carousel-arrow:focus-visible,.kia-carousel-arrow:hover{color:#fff}
+.kia-carousel-window{height:56px;position:relative;min-width:0;flex:1;overflow:hidden;touch-action:pan-y;mask-image:linear-gradient(to right,transparent 0%,#000 10%,#000 90%,transparent 100%);-webkit-mask-image:linear-gradient(to right,transparent 0%,#000 10%,#000 90%,transparent 100%)}
+.kia-carousel-choice{position:absolute;height:100%;top:0;display:flex;align-items:center;justify-content:center;background:none;box-shadow:none;border:0;color:rgba(255,255,255,.35);font-family:inherit;font-size:clamp(12px,1.4vw,19px);letter-spacing:.02em;font-weight:520;white-space:nowrap;cursor:pointer;padding:0;overflow:visible}
+.kia-carousel-selected{left:22%;width:56%;font-size:clamp(18px,2.1vw,32px);font-weight:850;letter-spacing:-.045em;color:#fff;z-index:1;text-shadow:0 2px 17px rgba(0,0,0,.35)}
+.kia-carousel-prev{left:-29%;width:45%;justify-content:flex-end}
+.kia-carousel-next{right:-29%;width:45%;justify-content:flex-start}
+.kia-carousel-prev:hover,.kia-carousel-next:hover{color:rgba(255,255,255,.75)}
+.kia-carousel-indicator{height:2px;width:44px;background:rgba(255,255,255,.26)}
+.kia-carousel-indicator span{display:block;height:100%;width:54%;background:var(--red);margin:auto}
+.kia-carousel-window.carousel-updated .kia-carousel-selected{animation:kiaCarouselTitle .28s ease both}
+.kia-carousel-window.carousel-updated .kia-carousel-next,.kia-carousel-window.carousel-updated .kia-carousel-prev{animation:kiaCarouselPeek .25s ease both}
+@keyframes kiaCarouselTitle{from{opacity:.35;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@keyframes kiaCarouselPeek{from{opacity:.1}to{opacity:1}}
+/* Lower-right metadata is strictly typographic: no cards, lines, backing
+   or motion on X. It lives directly above AGENDAR TEST DRIVE. */
+.kia-bottom-description{
+  position:absolute;
+  z-index:9;
+  right:clamp(25px,4.1vw,78px);
+  bottom:calc(61px + 22px);
+  width:clamp(145px,18vw,242px);
+  max-height:27%;
+  overflow-y:auto;
+  background:transparent;
+  box-shadow:none;
+  border:0;
+  border-radius:0;
+  padding:0 20px 0 0;
+  color:#fff;
+  text-align:left;
+}
+.kia-bottom-description[hidden]{display:none!important}
+.kia-bottom-description strong{font-size:clamp(12px,1.2vw,16px);font-weight:850;line-height:1.1;letter-spacing:-.01em;display:block;margin:0 0 7px}
+.kia-bottom-description p{color:#edf1f3;font-size:clamp(10px,.92vw,12px);font-weight:450;line-height:1.46;margin:0;text-wrap:pretty}
+.kia-bottom-description button{position:absolute;top:0;right:0;border:0;background:transparent;padding:0;font-size:18px;line-height:20px;color:#dee4e7;cursor:pointer}
+@media(max-width:1090px){
+  .kia-category-rail{top:16%;width:150px;right:20px}
+  .kia-category{min-height:29px;font-size:11px}
+  .kia-feature-carousel{bottom:calc(52px + 8px);left:26%;width:49%}
+  .kia-carousel-choice{font-size:12px}.kia-carousel-selected{font-size:clamp(15px,2.1vw,25px)}
+  .kia-bottom-description{bottom:calc(52px + 18px);width:162px;right:22px;max-height:28%}
+}
+@media(max-height:580px){
+  .kia-category-rail{top:14%;right:12px;width:clamp(124px,16.5vw,172px);gap:4px;padding-left:9px}
+  .kia-category-rail .rail-label{font-size:7px;padding-bottom:3px}
+  .kia-category{min-height:25px;font-size:10px;padding:3px 0}
+  .kia-category span{font-size:12px}
+  .kia-feature-carousel{bottom:43px;left:25%;width:50%;gap:0}
+  .kia-carousel-meta{font-size:7px;gap:10px}
+  .kia-carousel-main{min-height:34px}
+  .kia-carousel-window{height:36px}
+  .kia-carousel-choice{font-size:10px}
+  .kia-carousel-selected{font-size:clamp(13px,2.4vw,20px)}
+  .kia-carousel-arrow{flex-basis:24px;height:30px;font-size:20px}
+  .kia-bottom-description{bottom:46px;right:14px;width:clamp(118px,16vw,170px);max-height:35%;padding-right:15px}
+  .kia-bottom-description strong{font-size:11px;margin-bottom:4px}
+  .kia-bottom-description p{font-size:9px;line-height:1.35}
+  .kia-bottom-description button{font-size:17px}
+}
+@media(max-width:750px) and (orientation:landscape){
+  .kia-feature-carousel{left:29%;width:45%}
+  .kia-carousel-selected{font-size:clamp(12px,2.1vw,18px)}
+  .kia-bottom-description{right:12px;width:128px}
+}
+@media(orientation:portrait){
+  .kia-category-rail{top:14%;right:10px;width:145px;gap:5px;padding-left:10px}
+  .kia-category{min-height:27px;font-size:10px}
+  .kia-feature-carousel{bottom:43px;left:27%;width:48%}
+  .kia-carousel-selected{font-size:clamp(14px,2.2vw,21px)}
+  .kia-bottom-description{bottom:47px;right:12px;width:145px;max-height:34%}
+  .kia-bottom-description strong{font-size:11px}
+  .kia-bottom-description p{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){
+  .kia-carousel-window.carousel-updated .kia-carousel-choice{animation:none!important}
+}
+
+/* Missions take precedence over the vehicle's editorial selectors. */
+.experience.is-mission-mode .kia-category-rail,
+.experience.is-mission-mode .kia-feature-carousel,
+.experience.is-mission-mode .kia-bottom-description{display:none!important}
+
+
+/* EDITORIAL TEXT-ONLY CONTROLS v16.
+   Neither the category rail nor the left promotional CTAs draw boxes. */
+.kia-category-rail{border:0!important;padding-left:0!important;box-shadow:none!important;background:transparent!important}
+.kia-category-buttons{background:transparent!important;border:0!important;box-shadow:none!important}
+.kia-category{
+  border:0!important;border-radius:0!important;
+  background:transparent!important;box-shadow:none!important;
+  padding-left:0!important;padding-right:0!important;
+}
+.kia-category:hover,.kia-category:active{background:transparent!important;box-shadow:none!important}
+.primary-actions{gap:clamp(13px,2.2vw,32px);align-items:center;margin-top:27px}
+.primary-actions .start-button,
+.primary-actions .outline-button{
+  appearance:none;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  outline-offset:4px;
+  color:#fff!important;
+  min-width:0!important;
+  min-height:27px!important;
+  width:auto!important;
+  border-radius:0!important;
+  padding:0!important;
+  gap:9px!important;
+  justify-content:flex-start!important;
+  font-size:clamp(9px,.83vw,12px);
+  letter-spacing:.1em;
+  font-weight:800;
+  text-decoration:none;
+  white-space:nowrap;
+}
+.primary-actions .start-button:hover,
+.primary-actions .outline-button:hover{
+  background:transparent!important;
+  text-decoration:underline;
+  text-underline-offset:5px;
+}
+.primary-actions .start-button .button-arrow,
+.primary-actions .outline-button span{color:var(--red);font-size:17px}
+.kia-carousel-choice,.kia-carousel-arrow{
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+@media(max-height:580px){
+  .primary-actions{gap:15px;margin-top:12px}
+  .primary-actions .start-button,
+  .primary-actions .outline-button{font-size:9px;min-height:23px!important}
+}
+@media(orientation:portrait){
+  .primary-actions{gap:14px}
+}
+
+
+/* KIA TASMAN — TYPOGRAPHIC SYSTEM / editorial v18
+   Monument Extended is commercially licensed and can be supplied by the
+   rights holder. Until a licensed font is installed, Unbounded Black 900
+   provides an openly licensed extended fallback without a generic humanist default. */
+:root{
+  --kia-display:'Monument Extended','Unbounded',sans-serif;
+  --kia-body:'Space Grotesk',sans-serif;
+  --kia-mono:'JetBrains Mono',monospace;
+  --kia-numeral:'Space Grotesk',sans-serif;
+}
+html,body,button,input,select,textarea{
+  font-family:var(--kia-body);
+}
+html,body{
+  font-weight:500;
+  letter-spacing:-.01em;
+}
+button{font-family:var(--kia-mono)}
+
+/* Solid, extended, low and exceptionally heavy title.
+   Keep the complete word within the LEFT editorial column. */
+.vehicle-copy h1,
+.mission-copy h1{
+  font-family:var(--kia-display);
+  font-weight:900;
+  font-style:normal;
+  font-kerning:normal;
+  letter-spacing:-.02em;
+  text-transform:uppercase;
+  line-height:.90;
+  font-synthesis:weight;
+}
+.vehicle-copy h1{
+  font-size:clamp(39px,5.45vw,88px);
+  margin:11px 0 22px;
+  max-width:100%;
+}
+.mission-copy h1{
+  font-size:clamp(35px,3.8vw,62px);
+  line-height:.96;
+  letter-spacing:-.025em;
+  white-space:normal;
+  margin:10px 0 19px;
+}
+.stage-watermark{
+  font-family:var(--kia-display);
+  font-weight:900;
+  letter-spacing:-.035em;
+  line-height:.9;
+}
+.modal h2{
+  font-family:var(--kia-display);
+  font-weight:900;
+  letter-spacing:-.02em;
+  line-height:1;
+}
+.topbar-model strong{
+  font-family:var(--kia-display);
+  font-weight:900;
+  letter-spacing:-.02em;
+}
+.vehicle-copy .year{
+  display:block;
+  font-family:var(--kia-numeral);
+  font-weight:700;
+  font-size:.72em;
+  font-variant-numeric:tabular-nums;
+  color:transparent;
+  -webkit-text-stroke:1.5px #fff;
+  paint-order:stroke fill;
+  letter-spacing:-.045em;
+  line-height:1;
+  margin-top:4px;
+}
+.frame-index,
+.mission-id,
+#missionNumber{
+  font-family:var(--kia-numeral);
+  font-variant-numeric:tabular-nums;
+  font-weight:700;
+  letter-spacing:-.045em;
+  line-height:1;
+}
+.frame-index{
+  color:transparent;
+  -webkit-text-stroke:.8px #fff;
+  font-size:21px;
+}
+.frame-index em{
+  -webkit-text-stroke:0;
+  color:var(--muted);
+  font-weight:500;
+}
+/* Small, technical mono vocabulary across the controls and UI chrome. */
+.eyebrow,
+.kicker,
+.topbar-model span,
+.topbar-middle,
+.rail-label,
+.rail-heading,
+.feature-label,
+.bottom-left #stepName,
+.bottom-middle,
+.footer-testdrive,
+.kia-category,
+.kia-carousel-meta,
+.kia-carousel-choice,
+.kia-carousel-arrow,
+.kia-bottom-description button,
+.primary-actions button,
+.selector-meta,
+.selector-current strong,
+.selector-arrow,
+.model-loading,
+.modal-link,
+.modal-close,
+.mission-placeholder,
+.component-number,
+.component-arrow{
+  font-family:var(--kia-mono);
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.kia-category{
+  letter-spacing:.12em;
+  font-weight:600;
+}
+.kia-category[aria-pressed="true"]{
+  font-weight:700;
+}
+.kia-carousel-selected{
+  font-family:var(--kia-mono);
+  font-weight:700;
+  letter-spacing:.015em;
+}
+.kia-carousel-prev,
+.kia-carousel-next{
+  font-family:var(--kia-mono);
+  font-weight:600;
+  letter-spacing:.08em;
+}
+.kia-bottom-description strong,
+.mission-feature strong{
+  font-family:var(--kia-body);
+  font-weight:700;
+  letter-spacing:-.01em;
+  line-height:1.16;
+}
+.vehicle-copy p,
+.mission-copy p,
+.kia-bottom-description p,
+.modal p,
+.kia-rail-description p{
+  font-family:var(--kia-body);
+  font-weight:500;
+  letter-spacing:-.01em;
+  line-height:1.2;
+}
+.vehicle-copy .subcopy{
+  font-family:var(--kia-body);
+  font-weight:500;
+  letter-spacing:-.01em;
+  line-height:1.35;
+}
+.mission-copy p{line-height:1.28}
+.kia-bottom-description p{line-height:1.3}
+.kia-carousel-meta,
+.eyebrow,
+.footer-testdrive,
+.primary-actions button{
+  letter-spacing:.12em;
+}
+.kicker{letter-spacing:.16em}
+.bottom-right .footer-testdrive{
+  font-family:var(--kia-mono);
+  font-weight:600;
+  letter-spacing:.12em;
+}
+
+/* Monument Extended-style proportions need adaptive type widths.
+   These are typography-only limits: no moves to the model or controls. */
+@media(max-width:1090px){
+  .vehicle-copy h1{font-size:clamp(34px,5.35vw,59px);margin:6px 0 15px}
+  .mission-copy h1{font-size:clamp(29px,4.35vw,54px);margin:5px 0 12px}
+  .vehicle-copy .year{font-size:.74em}
+  .kia-carousel-selected{letter-spacing:0}
+}
+@media(max-height:580px){
+  .vehicle-copy h1{font-size:clamp(28px,5.35vw,55px);margin:4px 0 11px}
+  .mission-copy h1{font-size:clamp(25px,4.5vw,50px);margin:4px 0 10px}
+  .vehicle-copy .year{font-size:.73em;-webkit-text-stroke:1.2px}
+  .vehicle-copy p,.mission-copy p{font-size:11px;line-height:1.2}
+  .vehicle-copy .subcopy{font-size:9.5px;line-height:1.3}
+  .kia-carousel-selected{font-size:clamp(12px,1.9vw,18px)}
+  .kia-carousel-prev,.kia-carousel-next{font-size:9px}
+  .primary-actions button{letter-spacing:.06em;font-size:8.5px}
+  .footer-testdrive{font-size:8px;letter-spacing:.07em}
+}
+@media(max-width:750px) and (orientation:landscape){
+  .vehicle-copy h1{font-size:clamp(25px,5vw,37px)}
+  .mission-copy h1{font-size:clamp(23px,4.2vw,35px)}
+  .vehicle-copy .year{-webkit-text-stroke:1px}
+  .kia-category{font-size:9px;letter-spacing:.06em}
+  .kia-carousel-selected{font-size:11px}
+  .kia-bottom-description p{font-size:9px;line-height:1.24}
+}
+@media(orientation:portrait){
+  .vehicle-copy h1{font-size:clamp(21px,5.05vw,38px);margin:5px 0 11px}
+  .mission-copy h1{font-size:clamp(17px,3.85vw,34px);margin:5px 0 11px}
+  .vehicle-copy .year{font-size:.78em;-webkit-text-stroke:1px;margin-top:3px}
+  .vehicle-copy p,.mission-copy p{font-size:10px;line-height:1.2}
+  .vehicle-copy .subcopy{font-size:9px;line-height:1.3}
+  .kia-category{font-size:9px;letter-spacing:.07em}
+  .kia-carousel-selected{font-size:clamp(10px,2.9vw,15px);letter-spacing:-.015em}
+  .kia-carousel-prev,.kia-carousel-next{font-size:9px;letter-spacing:0}
+  .bottom-right .footer-testdrive{font-size:8px;letter-spacing:.055em}
+}
+
+
+/* EDITORIAL SCALE / UNBOXED CHALLENGES v20
+   Only the large vehicle hero grows; the topbar TASMAN remains unchanged. */
+.vehicle-copy h1{
+  font-size:clamp(47px,6.45vw,104px);
+  letter-spacing:-.027em;
+  line-height:.87;
+  margin:8px 0 20px;
+}
+.side-content{
+  width:min(38vw,575px);
+  max-width:38%;
+}
+@media(max-width:1090px){
+  .side-content{width:38%;max-width:38%}
+  .vehicle-copy h1{
+    font-size:clamp(42px,6.30vw,73px);
+    margin:6px 0 14px;
+  }
+}
+@media(max-height:580px){
+  .side-content{width:37%;max-width:37%}
+  .vehicle-copy h1{
+    font-size:clamp(34px,6.05vw,70px);
+    margin:4px 0 9px;
+  }
+}
+@media(max-width:750px) and (orientation:landscape){
+  .side-content{width:38%;max-width:38%}
+  .vehicle-copy h1{font-size:clamp(28px,6.05vw,50px)}
+}
+@media(orientation:portrait){
+  .side-content{width:38%;max-width:38%}
+  .vehicle-copy h1{
+    font-size:clamp(23px,6.0vw,46px);
+    margin:4px 0 10px;
+  }
+}
+
+/* Category choices and corresponding facts are one unified right rail.
+   Facts begin below the controls, slightly higher and comfortably away
+   from the test-drive CTA. No floating panel, background or border. */
+.kia-category-rail{
+  align-items:stretch;
+  max-height:calc(100dvh - 110px);
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:none;
+}
+.kia-category-rail::-webkit-scrollbar{display:none}
+.kia-category-rail .kia-bottom-description{
+  position:relative;
+  flex:0 0 auto;
+  inset:auto;
+  top:auto;
+  bottom:auto;
+  left:auto;
+  right:auto;
+  margin:clamp(14px,2.7vh,26px) 0 0;
+  width:100%;
+  max-height:none;
+  overflow-y:visible;
+  padding:0 22px 3px 0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  backdrop-filter:none;
+}
+.kia-category-rail .kia-bottom-description strong{font-size:clamp(12px,1.1vw,15px);line-height:1.13}
+.kia-category-rail .kia-bottom-description p{font-size:clamp(10px,.87vw,12px);line-height:1.36}
+@media(max-height:580px){
+  .kia-category-rail{max-height:calc(100dvh - 89px)}
+  .kia-category-rail .kia-bottom-description{margin-top:12px}
+  .kia-category-rail .kia-bottom-description strong{font-size:11px}
+  .kia-category-rail .kia-bottom-description p{font-size:9px;line-height:1.34}
+}
+@media(orientation:portrait){
+  .kia-category-rail{max-height:calc(100dvh - 90px)}
+  .kia-category-rail .kia-bottom-description{margin-top:14px}
+  .kia-category-rail .kia-bottom-description strong{font-size:11px}
+  .kia-category-rail .kia-bottom-description p{font-size:9px;line-height:1.34}
+}
+
+/* Mission picker is visually identical to the text-only vehicle carousel.
+   Override the previous rectangular selector on all screen sizes. */
+.mission-selector{
+  position:absolute;
+  left:27%;
+  right:auto;
+  width:min(47%,680px);
+  bottom:calc(61px + 16px);
+  z-index:8;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:initial;
+  gap:5px;
+  padding:0;
+  min-height:0;
+  height:auto;
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  backdrop-filter:none;
+  color:#fff;
+  pointer-events:auto;
+  user-select:none;
+}
+.mission-selector[hidden]{display:none!important}
+.mission-selector .kia-carousel-main{flex:0 0 auto;width:100%}
+.mission-selector .kia-carousel-choice,
+.mission-selector .kia-carousel-arrow{
+  appearance:none;
+  background:transparent!important;
+  box-shadow:none!important;
+  border:0!important;
+  border-radius:0!important;
+  padding:0;
+}
+.mission-selector .kia-carousel-selected{
+  font-family:var(--kia-mono);
+  font-weight:700;
+  font-size:clamp(16px,1.7vw,25px);
+  letter-spacing:-.035em;
+}
+.mission-selector .kia-carousel-prev,
+.mission-selector .kia-carousel-next{
+  font-family:var(--kia-mono);
+  font-size:clamp(10px,1.2vw,16px);
+  font-weight:500;
+  color:rgba(255,255,255,.38);
+}
+@media(max-width:1090px){
+  .mission-selector{left:26%;width:49%;bottom:calc(52px + 8px)}
+  .mission-selector .kia-carousel-selected{font-size:clamp(13px,1.85vw,20px)}
+}
+@media(max-height:580px){
+  .mission-selector{left:25%;width:50%;bottom:43px;gap:0;min-height:0;padding:0}
+  .mission-selector .kia-carousel-selected{font-size:clamp(11px,1.8vw,18px)}
+  .mission-selector .kia-carousel-prev,.mission-selector .kia-carousel-next{font-size:9px}
+}
+@media(max-width:750px) and (orientation:landscape){
+  .mission-selector{left:29%;width:45%;bottom:43px}
+  .mission-selector .kia-carousel-selected{font-size:clamp(10px,1.65vw,15px)}
+}
+@media(orientation:portrait){
+  .mission-selector{left:27%;width:48%;bottom:43px}
+  .mission-selector .kia-carousel-selected{font-size:clamp(10px,2.5vw,14px)}
+  .mission-selector .kia-carousel-prev,.mission-selector .kia-carousel-next{font-size:9px}
+}
+
+
+/* MOBILE PORTRAIT — Kia Tasman editorial composition, 2026-10-28.
+   Desktop and landscape styles remain as designed. */
+@media (orientation:portrait) and (max-width:700px) {
+  html,body{width:100%;height:100%;overflow:hidden}
+  .experience{
+    position:relative;top:auto;left:auto;
+    width:100vw;height:100vh;height:100dvh;
+    transform:none;transform-origin:initial;
+    overflow:hidden;background:#0b141c!important;
+  }
+
+  /* Mobile uses the same solid neutral background; no mobile-only photographic cover. */
+  .experience{background:#101316!important;background-image:none!important}
+  .experience .ambient-backdrop,.experience .ambient-image,.experience .ambient-shade,.experience .ridgeline,.experience .horizon-floor{display:none!important}
+  .ground-glow{display:none!important}
+
+  /* Brand and chapter, aligned across the top edge. */
+  .topbar{
+    position:absolute;top:env(safe-area-inset-top,0px);left:0;right:0;
+    width:100%;height:76px;z-index:9;
+    padding:0 5.5%;gap:10px;align-items:center;
+    border:0;background:transparent;
+  }
+  .brandmark{width:78px;height:35px;flex:0 0 auto}
+  .topbar-divider{height:28px;border-left-color:rgba(255,255,255,.52);margin:0 3px}
+  .topbar-model{gap:3px}
+  .topbar-model strong{font-size:12px;letter-spacing:.045em}
+  .topbar-model span{display:block;font-size:8px;letter-spacing:.07em;white-space:nowrap;color:#d8e0e5}
+  .topbar-middle,.topbar-cta{display:none!important}
+
+  /* The intro occupies the upper third, not the left desktop rail. */
+  .side-content{
+    position:absolute;z-index:5;
+    top:clamp(116px,17dvh,165px);
+    left:5.5%;right:5.5%;width:89%;max-width:none;
+    pointer-events:none;
+  }
+  .side-content button{pointer-events:auto}
+  .side-content>.eyebrow{
+    position:fixed;
+    top:calc(env(safe-area-inset-top,0px) + 21px);
+    right:5.5%;left:auto;
+    display:flex;flex-direction:column;
+    align-items:flex-start;gap:7px;
+    font-size:9px;letter-spacing:.15em;line-height:1.2;
+    color:#fff;white-space:nowrap;
+  }
+  .side-content>.eyebrow .red-line{width:23px;border-top:3px solid var(--red)}
+  .vehicle-copy .kicker{
+    position:fixed;
+    right:5.5%;top:calc(env(safe-area-inset-top,0px) + 62px);
+    margin:0;font-size:8px;letter-spacing:.19em;color:rgba(237,241,245,.72);
+  }
+  .vehicle-copy h1{
+    width:111%;max-width:none;
+    margin:0 0 18px;
+    font-size:clamp(54px,16.6vw,112px);
+    letter-spacing:-.07em;line-height:.84;
+    font-weight:900;white-space:nowrap;
+    transform:scaleX(.90);transform-origin:left top;
+  }
+  .vehicle-copy .year{
+    font-size:.55em;line-height:1.13;letter-spacing:-.07em;
+    margin-top:7px;font-weight:500;
+    -webkit-text-stroke:1px rgba(245,248,250,.7);
+  }
+  .vehicle-copy p{
+    max-width:100%;margin:0 0 7px;
+    font-size:clamp(17px,4.5vw,21px);font-weight:700;
+    line-height:1.2;color:#fff;
+    text-shadow:0 2px 15px rgba(0,0,0,.28);
+  }
+  .vehicle-copy .subcopy{
+    max-width:min(100%,350px);font-size:clamp(12px,3.2vw,15px);
+    line-height:1.38;font-weight:450;
+    color:rgba(243,247,250,.87);
+  }
+  .primary-actions{margin-top:14px;gap:10px;flex-wrap:nowrap}
+  .primary-actions .start-button{
+    min-height:33px!important;font-size:clamp(11px,2.8vw,13px);
+    letter-spacing:.15em;gap:12px!important;
+  }
+  .primary-actions .start-button .button-arrow{font-size:23px;line-height:1;color:var(--red)}
+  .primary-actions .outline-button{display:none!important}
+
+  /* The 3D stage sits between the editorial copy and mobile controls. */
+  .stage{
+    position:absolute;z-index:2;top:40%;bottom:20%;
+    left:-2%;right:-2%;width:104%;height:auto;
+    overflow:visible;touch-action:none;
+  }
+  .stage canvas{display:block;width:100%;height:100%;touch-action:none}
+  .stage-watermark{display:none!important}
+  .model-loading{max-width:72%;font-size:10px;padding:10px;line-height:1.35}
+
+  /* The four category names form one horizontal type-only navigation row. */
+  .kia-category-rail{
+    position:absolute;z-index:11;
+    top:auto;bottom:calc(17.6dvh + env(safe-area-inset-bottom,0px));
+    left:4.5%;right:4.5%;width:91%;max-width:none;
+    max-height:none;overflow:visible;
+    display:flex;flex-direction:column;
+    gap:0;padding:0!important;border:0!important;
+    background:none!important;
+  }
+  .kia-category-buttons{
+    display:flex;flex-direction:row;
+    align-items:center;justify-content:space-between;gap:5px;
+    width:100%;
+  }
+  .kia-category{
+    position:relative;display:flex;
+    width:auto;min-width:0;min-height:43px;
+    align-items:center;justify-content:center;
+    padding:5px 1px 10px!important;
+    color:rgba(242,246,248,.62);
+    font-size:clamp(9px,2.7vw,13px);
+    font-weight:700;letter-spacing:.055em;
+    white-space:nowrap;line-height:1;
+  }
+  .kia-category span{display:none!important}
+  .kia-category.is-active{color:#fff;font-weight:800}
+  .kia-category.is-active::after{
+    content:"";position:absolute;bottom:0;left:30%;
+    width:40%;height:3px;background:var(--red);
+  }
+  .kia-category-rail .kia-bottom-description{
+    position:absolute;left:1%;right:auto;top:auto;
+    bottom:calc(100% + 9px);
+    width:95%;max-height:19dvh;overflow-y:auto;
+    margin:0;padding:0 24px 0 0;
+    background:none;border:0;
+    text-shadow:0 2px 14px rgba(0,0,0,.8);
+  }
+  .kia-category-rail .kia-bottom-description strong{font-size:12px;margin:0 0 5px}
+  .kia-category-rail .kia-bottom-description p{font-size:11px;line-height:1.34}
+
+  /* Editorial car/mission carousel and bottom navigation. */
+  .kia-feature-carousel,.mission-selector{
+    position:absolute;z-index:10;
+    left:0;right:0;width:100%;
+    top:auto;bottom:calc(9.9dvh + env(safe-area-inset-bottom,0px));
+    display:flex;flex-direction:column;
+    align-items:center;gap:2px;padding:0;
+  }
+  .kia-carousel-meta{
+    justify-content:center;gap:0;width:100%;
+    font-size:10px;line-height:1.15;letter-spacing:.17em;
+    color:rgba(234,240,245,.7);
+  }
+  .kia-carousel-meta #carouselCategory{display:none}
+  .kia-carousel-main{min-height:43px;gap:0;width:100%}
+  .kia-carousel-arrow{
+    flex:0 0 39px;height:44px;
+    font-size:27px;color:#fff;
+  }
+  .kia-carousel-window{
+    flex:1;min-width:0;height:48px;
+    mask-image:linear-gradient(to right,transparent 0%,#000 9%,#000 91%,transparent 100%);
+    -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 9%,#000 91%,transparent 100%);
+  }
+  .kia-carousel-choice{font-size:clamp(9px,2.8vw,12px)}
+  .kia-carousel-prev{left:-6%;width:30%;justify-content:center}
+  .kia-carousel-next{right:-6%;width:30%;justify-content:center}
+  .kia-carousel-selected{
+    left:20%;width:60%;
+    font-size:clamp(12px,3.55vw,16px);
+    font-weight:800;letter-spacing:0;line-height:1;
+    text-align:center;
+  }
+  .kia-carousel-indicator{height:3px;width:36px;background:transparent}
+  .kia-carousel-indicator span{width:100%;background:var(--red);margin:0}
+  .mission-selector .kia-carousel-selected{font-size:clamp(11px,3.1vw,15px)}
+  .mission-selector .kia-carousel-prev,.mission-selector .kia-carousel-next{font-size:10px}
+
+  .bottom-bar{
+    position:absolute;left:0;right:0;bottom:0;
+    z-index:10;height:calc(69px + env(safe-area-inset-bottom,0px));
+    padding:0 5.5% env(safe-area-inset-bottom,0px);
+    display:flex;align-items:center;justify-content:space-between;
+    gap:9px;border-top:1px solid rgba(255,255,255,.34);
+    background:rgba(5,16,24,.56);
+  }
+  .bottom-left{gap:10px;min-width:0;white-space:nowrap}
+  .bottom-left .frame-index{font-size:21px;font-weight:900;letter-spacing:-.055em}
+  .bottom-left #stepName{font-size:8px;letter-spacing:.08em}
+  .bottom-middle{display:none!important}
+  .bottom-bar .bottom-right{display:flex!important;flex:0 0 auto;margin-left:auto}
+  .bottom-bar .footer-testdrive{
+    font-size:8px;letter-spacing:.025em;gap:5px;padding:6px 0;
+  }
+  .bottom-bar .footer-testdrive span{font-size:18px}
+
+  /* Mission mode retains the same vertical grid. */
+  .mission-copy .kicker{position:static;margin:0 0 9px;font-size:10px}
+  .mission-copy .mission-id{font-size:10px}
+  .mission-copy h1{
+    font-size:clamp(37px,10.2vw,70px);line-height:.94;
+    margin:7px 0 16px;letter-spacing:-.06em;
+  }
+  .mission-copy p{font-size:13px;line-height:1.35;max-width:330px}
+  .mission-feature{margin-top:12px}
+  .mission-feature strong{font-size:11px}
+  .modal{width:90%;padding:28px 20px}
+}
+@media (orientation:portrait) and (max-width:700px) and (max-height:730px) {
+  .topbar{height:63px}
+  .side-content{top:clamp(95px,15dvh,122px)}
+  .vehicle-copy h1{font-size:clamp(50px,15vw,80px);margin-bottom:9px}
+  .vehicle-copy .year{margin-top:4px}
+  .vehicle-copy p{font-size:16px}
+  .vehicle-copy .subcopy{font-size:11px;line-height:1.32}
+  .primary-actions{margin-top:7px}
+  .stage{top:40%;bottom:20%}
+  .kia-category-rail{bottom:calc(18.5dvh + env(safe-area-inset-bottom,0px))}
+  .kia-feature-carousel,.mission-selector{bottom:calc(10dvh + env(safe-area-inset-bottom,0px))}
+  .bottom-bar{height:calc(55px + env(safe-area-inset-bottom,0px))}
+  .bottom-left .frame-index{font-size:18px}
+}
+
+
+/* Optional transparent vehicle renderer, retained without any landscape.
+   The PlayCanvas alpha channel provides true per-pixel transparency.
+   Never clip or fade the canvas: that creates a visible ellipse/rectangle. */
+.stage,.stage canvas{
+  background:transparent!important;
+  box-shadow:none!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+  -webkit-mask:none!important;
+  mask:none!important;
+  opacity:1;
+}
+/* TYPOGRAPHY LOCK v21 — LANDSCAPE + PORTRAIT.
+   Do NOT touch .vehicle-copy h1 or .topbar-model strong:
+   both TASMAN wordmarks keep their existing Unbounded display treatment.
+   All other copy is either geometric Space Grotesk or JetBrains Mono. */
+:root{
+  --kia-reading:'Space Grotesk',sans-serif;
+  --kia-tech:'JetBrains Mono',monospace;
+}
+.vehicle-copy .year,
+.frame-index,
+.frame-index em,
+.mission-id,
+#missionNumber,
+.modal .mission-id{
+  font-family:var(--kia-reading);
+  font-weight:700;
+  font-variant-numeric:tabular-nums;
+}
+.vehicle-copy .year{
+  color:transparent;
+  -webkit-text-stroke:1.5px #fff;
+  letter-spacing:-.045em;
+}
+.mission-copy h1,
+.modal h2{
+  font-family:var(--kia-reading);
+  font-weight:700;
+  letter-spacing:-.045em;
+  line-height:.97;
+}
+.vehicle-copy p,
+.vehicle-copy p.subcopy,
+.mission-copy p,
+.kia-bottom-description p,
+.kia-bottom-description strong,
+.modal p,
+.mission-feature strong{
+  font-family:var(--kia-reading);
+  font-weight:500;
+  letter-spacing:-.01em;
+  line-height:1.2;
+}
+.kia-bottom-description strong,.mission-feature strong{font-weight:700}
+.eyebrow,
+.eyebrow span,
+.kicker,
+.topbar-model span,
+.topbar-middle,
+.kia-category,
+.kia-carousel-meta,
+.kia-carousel-choice,
+.kia-carousel-arrow,
+.primary-actions button,
+.primary-actions button span,
+.footer-testdrive,
+.footer-testdrive span,
+.bottom-middle,
+.bottom-left #stepName,
+.feature-label,
+.rail-label,
+.rail-heading,
+.model-loading,
+.modal-link,
+.modal-close,
+.mission-placeholder,
+.selector-meta,
+.selector-current strong,
+.selector-arrow,
+.kia-bottom-description button{
+  font-family:var(--kia-tech);
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.kia-carousel-selected,
+.kia-category.is-active{font-weight:700}
+.kia-carousel-arrow,
+.primary-actions .button-arrow,
+.footer-testdrive span,
+.modal-close{letter-spacing:0}
+@media(orientation:landscape){
+  .vehicle-copy p,
+  .vehicle-copy p.subcopy,
+  .mission-copy p,
+  .kia-bottom-description p{line-height:1.2}
+  .kia-category,
+  .kia-carousel-choice,
+  .primary-actions button,
+  .bottom-left #stepName,
+  .footer-testdrive{letter-spacing:.10em}
+  .vehicle-copy .year{-webkit-text-stroke:1.5px #fff;font-weight:700}
+  .frame-index,.mission-id,#missionNumber{font-weight:700}
+}
+@media(orientation:portrait){
+  .vehicle-copy .year{
+    font-family:var(--kia-reading);
+    font-weight:700;
+    -webkit-text-stroke:1.5px #fff;
+    color:transparent;
+  }
+  .frame-index,.mission-id,#missionNumber{
+    font-family:var(--kia-reading);
+    font-weight:700;
+  }
+  .vehicle-copy p,
+  .vehicle-copy p.subcopy,
+  .mission-copy p,
+  .kia-bottom-description p{font-weight:500;letter-spacing:-.01em;line-height:1.2}
+  .kia-category,
+  .kia-carousel-choice,
+  .primary-actions button,
+  .bottom-left #stepName,
+  .footer-testdrive{font-family:var(--kia-tech);font-weight:600;letter-spacing:.07em}
+  .kia-category.is-active,.kia-carousel-selected{font-weight:700}
+  .eyebrow,.kicker,.topbar-model span,.kia-carousel-meta{letter-spacing:.09em}
+}
+@media(orientation:portrait) and (max-width:700px){
+  .kia-category{letter-spacing:.04em}
+  .kia-carousel-selected{letter-spacing:0}
+  .primary-actions button,.footer-testdrive{letter-spacing:.05em}
+  .vehicle-copy .year{-webkit-text-stroke:1.2px #fff}
+}
+
+
+/* UI-ONLY PREVIEW v24: keep the original ghosted TASMAN brand watermark.
+   It belongs to the graphic interface, not to the hidden 3D stage.
+   Position follows the former stage watermark at ~10% from the right and
+   ~17% from the bottom. */
+.ui-watermark{
+  position:absolute;
+  z-index:0;
+  right:10.7%;
+  bottom:17%;
+  font-family:var(--kia-display);
+  font-size:clamp(50px,9vw,180px);
+  font-weight:900;
+  letter-spacing:-.035em;
+  line-height:.9;
+  color:rgba(255,255,255,.055);
+  opacity:.8;
+  white-space:nowrap;
+  user-select:none;
+  pointer-events:none;
+}
+@media(max-height:580px){
+  .ui-watermark{
+    right:8%;
+    bottom:18%;
+    font-size:clamp(45px,10vw,150px);
+  }
+}
+@media(orientation:portrait){
+  .ui-watermark{
+    right:5%;
+    bottom:28%;
+    font-size:clamp(36px,11vw,110px);
+    opacity:.75;
+  }
+}
+
+
+/* KIA TASMAN / MODEL-ONLY HUD v25
+   The PlayCanvas canvas clears to RGBA(0,0,0,0); only truck pixels are
+   rendered over a flat neutral HUD background. Absolutely no forest,
+   photographic backdrop, studio, floor, gradients or weather artwork.
+   Preserve every editorial/text UI layer and the giant TASMAN watermark. */
+html,body{background:#101316!important;background-image:none!important}
+.experience.kia-model-only,
+.experience.kia-model-only.scene-rocks,
+.experience.kia-model-only.scene-flood,
+.experience.kia-model-only.scene-mud,
+.experience.kia-model-only.scene-descent,
+.experience.kia-model-only.is-mission-mode{
+  background:#101316!important;
+  background-image:none!important;
+  filter:none!important;
+}
+.experience.kia-model-only .stage,
+.experience.kia-model-only .stage canvas{
+  visibility:visible!important;
+  opacity:1!important;
+  display:block!important;
+  background:transparent!important;
+  background-image:none!important;
+  filter:none!important;
+  box-shadow:none!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+}
+.experience.kia-model-only .stage{pointer-events:auto!important}
+.experience.kia-model-only .ambient-backdrop,
+.experience.kia-model-only .ambient-image,
+.experience.kia-model-only .ambient-shade,
+.experience.kia-model-only .ridgeline,
+.experience.kia-model-only .ridgeline-near,
+.experience.kia-model-only .horizon-floor,
+.experience.kia-model-only .ground-glow,
+.experience.kia-model-only .stage-watermark{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  background:none!important;
+  background-image:none!important;
+}
+.experience.kia-model-only .ambient-backdrop::before,
+.experience.kia-model-only .ambient-backdrop::after,
+.experience.kia-model-only .ambient-image::before,
+.experience.kia-model-only .ambient-image::after,
+.experience.kia-model-only .stage::before,
+.experience.kia-model-only .stage::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+}
+.experience.kia-model-only .ui-watermark{
+  display:block!important;
+  visibility:visible!important;
+  opacity:.8;
+  background:transparent!important;
+  pointer-events:none;
+}
+.experience.kia-model-only .bottom-bar{
+  background:transparent!important;
+  background-image:none!important;
+}
+@media(orientation:portrait){
+  .experience.kia-model-only .stage,
+  .experience.kia-model-only .stage canvas{
+    visibility:visible!important;
+    opacity:1!important;
+    background:transparent!important;
+  }
+  .experience.kia-model-only .ui-watermark{opacity:.75}
+}
+
+/* UI-ONLY HARD OVERRIDE v27: highest specificity, appended after legacy rules. */
+html body main#experience.experience.kia-model-only.ui-only,
+html body main#experience.experience.kia-model-only.ui-only.is-mission-mode{
+ background:#101316!important;background-image:none!important;
+}
+html body main#experience.ui-only #stage,
+html body main#experience.ui-only #stage canvas,
+html body main#experience.ui-only #modelLoading,
+html body main#experience.ui-only .ambient-backdrop,
+html body main#experience.ui-only .ambient-image,
+html body main#experience.ui-only .ambient-shade,
+html body main#experience.ui-only .ridgeline,
+html body main#experience.ui-only .horizon-floor,
+html body main#experience.ui-only .ground-glow{
+ display:none!important;visibility:hidden!important;opacity:0!important;
+}
+html body main#experience.ui-only::before,
+html body main#experience.ui-only::after{background-image:none!important}
+
+/* STANDALONE GRAPHIC EDITION: no environments, photographs, renderers or canvases. */
+html,body,#experience.experience.ui-only{background:#101316!important;background-image:none!important;}
+#experience .ambient-backdrop,#experience .ambient-image,#experience .ambient-shade,#experience .ridgeline,#experience .horizon-floor,#experience .ground-glow,#experience .stage,#experience canvas{display:none!important;}

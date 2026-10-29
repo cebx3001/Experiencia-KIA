@@ -1,0 +1,65 @@
+[
+  {
+    "slot": "Car",
+    "slot_index": 0,
+    "material": "/Game/Tasman_Master/Materials/Instances/MI_Tasman_Car.MI_Tasman_Car",
+    "messages": "<Struct 'GLTFExportMessages' (0x00000273309B4290) {suggestions: , warnings: , errors: }>",
+    "time": 1793238764.5539176
+  },
+  {
+    "slot": "Interior",
+    "slot_index": 1,
+    "material": "/Game/Tasman_Master/Materials/Instances/MI_Tasman_Interior.MI_Tasman_Interior",
+    "messages": "<Struct 'GLTFExportMessages' (0x00000273309B6DB0) {suggestions: , warnings: , errors: }>",
+    "time": 1793238768.3087997
+  },
+  {
+    "slot": "Licence Plate",
+    "slot_index": 2,
+    "material": "/Game/Tasman_Master/Materials/Instances/MI_Tasman_Licence_Plate.MI_Tasman_Licence_Plate",
+    "messages": "<Struct 'GLTFExportMessages' (0x00000273309BB5B0) {suggestions: , warnings: , errors: }>",
+    "time": 1793238771.1373398
+  },
+  {
+    "slot": "Master_Tire_Rubber",
+    "slot_index": 6,
+    "material": "/Game/Tasman_Master/Materials/Instances/MI_Tasman_Master_Tire_Rubber.MI_Tasman_Master_Tire_Rubber",
+    "messages": "<Struct 'GLTFExportMessages' (0x00000273309B8250) {suggestions: , warnings: , errors: }>",
+    "time": 1793238775.1283789
+  },
+  {
+    "slot": "Master_Wheel_Metal",
+    "slot_index": 7,
+    "material": "/Game/Tasman_Master/Materials/Instances/MI_Tasman_Master_Wheel_Metal.MI_Tasman_Master_Wheel_Metal",
+    "messages": "<Struct 'GLTFExportMessages' (0x00000273309B2FA0) {suggestions: , warnings: , errors: }>",
+    "time": 1793238779.0533853
+  },
+  {
+    "slot": "Master_Exterior_Metal",
+    "slot_index": 9,
+    "material": "/Game/Tasman_Master/Materials/Instances/MI_Tasman_Master_Exterior_Metal.MI_Tasman_Master_Exterior_Metal",
+    "messages": "<Struct 'GLTFExportMessages' (0x00000273309B3900) {suggestions: , warnings: , errors: }>",
+    "time": 1793238782.94196
+  },
+  {
+    "slot": "Master_Interior_Metal",
+    "slot_index": 11,
+    "material": "/Game/Tasman_Master/Materials/Instances/MI_Tasman_Master_Interior_Metal.MI_Tasman_Master_Interior_Metal",
+    "messages": "<Struct 'GLTFExportMessages' (0x00000273309BE9A0) {suggestions: , warnings: , errors: }>",
+    "time": 1793238786.1932251
+  },
+  {
+    "slot": "Master_Interior_Textile",
+    "slot_index": 12,
+    "material": "/Game/Tasman_Master/Materials/Instances/MI_Tasman_Master_Interior_Textile.MI_Tasman_Master_Interior_Textile",
+    "messages": "<Struct 'GLTFExportMessages' (0x00000273309B0B70) {suggestions: , warnings: , errors: }>",
+    "time": 1793238789.9433973
+  },
+  {
+    "slot": "Master_Seat_Leather",
+    "slot_index": 13,
+    "material": "/Game/Tasman_Master/Materials/Instances/MI_Tasman_Master_Seat_Leather.MI_Tasman_Master_Seat_Leather",
+    "messages": "<Struct 'GLTFExportMessages' (0x00000273309B7500) {suggestions: , warnings: , errors: }>",
+    "time": 1793238793.912401
+  }
+]

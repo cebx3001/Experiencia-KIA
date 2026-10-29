@@ -1,0 +1,1013 @@
+{
+  "materials": [
+    {
+      "name": "MI_Tasman_Car_SK_KiaTasman_Master",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      },
+      "normalTexture": {
+        "index": 2
+      },
+      "alphaMode": "MASK",
+      "alphaCutoff": 0.333000004,
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0.996078492
+        }
+      }
+    },
+    {
+      "name": "MI_Tasman_Interior",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicRoughnessTexture": {
+          "index": 4
+        }
+      },
+      "normalTexture": {
+        "index": 5
+      },
+      "alphaMode": "MASK",
+      "alphaCutoff": 0.333000004,
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0.996078492
+        }
+      }
+    },
+    {
+      "name": "MI_Tasman_Licence_Plate_SK_KiaTasman_Master",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 6
+        },
+        "metallicRoughnessTexture": {
+          "index": 7
+        }
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0.996078492
+        }
+      }
+    },
+    {
+      "name": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 8,
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                -0.797453701,
+                -0.201212883
+              ],
+              "scale": [
+                1.80822825,
+                2.1662786
+              ]
+            }
+          }
+        },
+        "metallicFactor": 0.600000024,
+        "roughnessFactor": 0.34117648
+      },
+      "normalTexture": {
+        "index": 9,
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              -0.797453701,
+              -0.201212883
+            ],
+            "scale": [
+              1.80822825,
+              2.1662786
+            ]
+          }
+        }
+      },
+      "extensions": {
+        "KHR_materials_clearcoat": {
+          "clearcoatFactor": 1,
+          "clearcoatRoughnessFactor": 0.0235294141,
+          "clearcoatNormalTexture": {
+            "index": 10,
+            "extensions": {
+              "KHR_texture_transform": {
+                "offset": [
+                  -0.797453701,
+                  -0.201212883
+                ],
+                "scale": [
+                  1.80822825,
+                  2.1662786
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "MI_Tasman_Premium_Glass_Front_SK_KiaTasman_Master",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.800000011920929,
+          0.8399999737739563,
+          0.8500000238418579,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.0235294141
+      },
+      "alphaMode": "OPAQUE",
+      "doubleSided": true,
+      "extensions": {
+        "KHR_materials_ior": {
+          "ior": 1.5199999809265137
+        },
+        "KHR_materials_transmission": {
+          "transmissionFactor": 1
+        }
+      }
+    },
+    {
+      "name": "MI_Tasman_Premium_Glass_Tint_SK_KiaTasman_Master",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.5400000214576721,
+          0.5899999737739563,
+          0.6100000143051147,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.0235294141
+      },
+      "alphaMode": "OPAQUE",
+      "doubleSided": true,
+      "extensions": {
+        "KHR_materials_ior": {
+          "ior": 1.5199999809265137
+        },
+        "KHR_materials_transmission": {
+          "transmissionFactor": 1
+        }
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Tire_Rubber_SK_KiaTasman_Master",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 12
+        },
+        "metallicRoughnessTexture": {
+          "index": 13
+        }
+      },
+      "normalTexture": {
+        "index": 14
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0.996078492
+        }
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Wheel_Metal_SK_KiaTasman_Master",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 15
+        },
+        "metallicRoughnessTexture": {
+          "index": 16
+        }
+      },
+      "normalTexture": {
+        "index": 17
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0.996078492
+        }
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Lamp_Clear_Lens",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.9700000286102295,
+          0.9800000190734863,
+          0.9900000095367432,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.0196078438
+      },
+      "alphaMode": "OPAQUE",
+      "doubleSided": true,
+      "extensions": {
+        "KHR_materials_ior": {
+          "ior": 1.5199999809265137
+        },
+        "KHR_materials_transmission": {
+          "transmissionFactor": 1
+        }
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Exterior_Metal_SK_KiaTasman_Master",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 18
+        },
+        "metallicRoughnessTexture": {
+          "index": 19
+        }
+      },
+      "normalTexture": {
+        "index": 20
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0.996078492
+        }
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Tail_Lens_Red_SK_KiaTasman_Master",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.6499999761581421,
+          0.008999999612569809,
+          0.004000000189989805,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.0352941193
+      },
+      "alphaMode": "OPAQUE",
+      "doubleSided": true,
+      "extensions": {
+        "KHR_materials_ior": {
+          "ior": 1.5199999809265137
+        },
+        "KHR_materials_transmission": {
+          "transmissionFactor": 1
+        }
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Metal_SK_KiaTasman_Master",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 22
+        },
+        "metallicRoughnessTexture": {
+          "index": 23
+        }
+      },
+      "normalTexture": {
+        "index": 24
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0.996078492
+        }
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Textile",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 25
+        },
+        "metallicRoughnessTexture": {
+          "index": 26
+        }
+      },
+      "normalTexture": {
+        "index": 27
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0.996078492
+        },
+        "KHR_materials_sheen": {
+          "sheenColorFactor": [
+            0.0423114114,
+            0.0423114114,
+            0.0423114114
+          ],
+          "sheenRoughnessFactor": 1
+        }
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Seat_Leather_SK_KiaTasman_Master",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 28
+        },
+        "metallicRoughnessTexture": {
+          "index": 29
+        }
+      },
+      "normalTexture": {
+        "index": 30
+      },
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0.996078492
+        },
+        "KHR_materials_sheen": {
+          "sheenRoughnessFactor": 1
+        }
+      }
+    },
+    {
+      "name": "MI_Tasman_AGT_SK_KiaTasman_Master",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 31,
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                -0.797453701,
+                -0.201212883
+              ],
+              "scale": [
+                1.80822825,
+                2.1662786
+              ]
+            }
+          }
+        },
+        "metallicFactor": 0.600000024,
+        "roughnessFactor": 0.34117648
+      },
+      "normalTexture": {
+        "index": 32,
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              -0.797453701,
+              -0.201212883
+            ],
+            "scale": [
+              1.80822825,
+              2.1662786
+            ]
+          }
+        }
+      },
+      "extensions": {
+        "KHR_materials_clearcoat": {
+          "clearcoatFactor": 1,
+          "clearcoatRoughnessFactor": 0.0235294141,
+          "clearcoatNormalTexture": {
+            "index": 33,
+            "extensions": {
+              "KHR_texture_transform": {
+                "offset": [
+                  -0.797453701,
+                  -0.201212883
+                ],
+                "scale": [
+                  1.80822825,
+                  2.1662786
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "MI_Tasman_ABP_SK_KiaTasman_Master",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 34,
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                -0.797453701,
+                -0.201212883
+              ],
+              "scale": [
+                1.80822825,
+                2.1662786
+              ]
+            }
+          }
+        },
+        "metallicFactor": 0.600000024,
+        "roughnessFactor": 0.34117648
+      },
+      "normalTexture": {
+        "index": 35,
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              -0.797453701,
+              -0.201212883
+            ],
+            "scale": [
+              1.80822825,
+              2.1662786
+            ]
+          }
+        }
+      },
+      "extensions": {
+        "KHR_materials_clearcoat": {
+          "clearcoatFactor": 1,
+          "clearcoatRoughnessFactor": 0.0235294141,
+          "clearcoatNormalTexture": {
+            "index": 36,
+            "extensions": {
+              "KHR_texture_transform": {
+                "offset": [
+                  -0.797453701,
+                  -0.201212883
+                ],
+                "scale": [
+                  1.80822825,
+                  2.1662786
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "MI_Tasman_CGE_SK_KiaTasman_Master",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 37,
+          "extensions": {
+            "KHR_texture_transform": {
+              "offset": [
+                -0.797453701,
+                -0.201212883
+              ],
+              "scale": [
+                1.80822825,
+                2.1662786
+              ]
+            }
+          }
+        },
+        "metallicFactor": 0.600000024,
+        "roughnessFactor": 0.34117648
+      },
+      "normalTexture": {
+        "index": 38,
+        "extensions": {
+          "KHR_texture_transform": {
+            "offset": [
+              -0.797453701,
+              -0.201212883
+            ],
+            "scale": [
+              1.80822825,
+              2.1662786
+            ]
+          }
+        }
+      },
+      "extensions": {
+        "KHR_materials_clearcoat": {
+          "clearcoatFactor": 1,
+          "clearcoatRoughnessFactor": 0.0235294141,
+          "clearcoatNormalTexture": {
+            "index": 39,
+            "extensions": {
+              "KHR_texture_transform": {
+                "offset": [
+                  -0.797453701,
+                  -0.201212883
+                ],
+                "scale": [
+                  1.80822825,
+                  2.1662786
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "textures": [
+    {
+      "name": "MI_Tasman_Car_BaseColor",
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "name": "MI_Tasman_Car_MetallicRoughness",
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "name": "MI_Tasman_Car_Normal",
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "name": "MI_Tasman_Interior_BaseColor",
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "name": "MI_Tasman_Interior_MetallicRoughness",
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "name": "MI_Tasman_Interior_Normal",
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "name": "MI_Tasman_Licence_Plate_BaseColor",
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "name": "MI_Tasman_Licence_Plate_MetallicRoughness",
+      "sampler": 0,
+      "source": 7
+    },
+    {
+      "name": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_BaseColor",
+      "sampler": 0,
+      "source": 8
+    },
+    {
+      "name": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal",
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "name": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal",
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "name": "MI_Tasman_Premium_Glass_Tint_SK_KiaTasman_Master_Normal",
+      "sampler": 0,
+      "source": 11
+    },
+    {
+      "name": "MI_Tasman_Master_Tire_Rubber_BaseColor",
+      "sampler": 0,
+      "source": 12
+    },
+    {
+      "name": "MI_Tasman_Master_Tire_Rubber_MetallicRoughness",
+      "sampler": 0,
+      "source": 13
+    },
+    {
+      "name": "MI_Tasman_Master_Tire_Rubber_Normal",
+      "sampler": 0,
+      "source": 14
+    },
+    {
+      "name": "MI_Tasman_Master_Wheel_Metal_BaseColor",
+      "sampler": 0,
+      "source": 12
+    },
+    {
+      "name": "MI_Tasman_Master_Wheel_Metal_MetallicRoughness",
+      "sampler": 0,
+      "source": 15
+    },
+    {
+      "name": "MI_Tasman_Master_Wheel_Metal_Normal",
+      "sampler": 0,
+      "source": 14
+    },
+    {
+      "name": "MI_Tasman_Master_Exterior_Metal_BaseColor",
+      "sampler": 0,
+      "source": 16
+    },
+    {
+      "name": "MI_Tasman_Master_Exterior_Metal_MetallicRoughness",
+      "sampler": 0,
+      "source": 17
+    },
+    {
+      "name": "MI_Tasman_Master_Exterior_Metal_Normal",
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "name": "MI_Tasman_Master_Tail_Lens_Red_SK_KiaTasman_Master_Normal",
+      "sampler": 0,
+      "source": 18
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Metal_BaseColor",
+      "sampler": 0,
+      "source": 19
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Metal_MetallicRoughness",
+      "sampler": 0,
+      "source": 20
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Metal_Normal",
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Textile_BaseColor",
+      "sampler": 0,
+      "source": 21
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Textile_MetallicRoughness",
+      "sampler": 0,
+      "source": 22
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Textile_Normal",
+      "sampler": 0,
+      "source": 23
+    },
+    {
+      "name": "MI_Tasman_Master_Seat_Leather_BaseColor",
+      "sampler": 0,
+      "source": 24
+    },
+    {
+      "name": "MI_Tasman_Master_Seat_Leather_MetallicRoughness",
+      "sampler": 0,
+      "source": 25
+    },
+    {
+      "name": "MI_Tasman_Master_Seat_Leather_Normal",
+      "sampler": 0,
+      "source": 23
+    },
+    {
+      "name": "MI_Tasman_AGT_SK_KiaTasman_Master_BaseColor",
+      "sampler": 0,
+      "source": 26
+    },
+    {
+      "name": "MI_Tasman_AGT_SK_KiaTasman_Master_Normal",
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "name": "MI_Tasman_AGT_SK_KiaTasman_Master_ClearCoatNormal",
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "name": "MI_Tasman_ABP_SK_KiaTasman_Master_BaseColor",
+      "sampler": 0,
+      "source": 27
+    },
+    {
+      "name": "MI_Tasman_ABP_SK_KiaTasman_Master_Normal",
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "name": "MI_Tasman_ABP_SK_KiaTasman_Master_ClearCoatNormal",
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "name": "MI_Tasman_CGE_SK_KiaTasman_Master_BaseColor",
+      "sampler": 0,
+      "source": 28
+    },
+    {
+      "name": "MI_Tasman_CGE_SK_KiaTasman_Master_Normal",
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "name": "MI_Tasman_CGE_SK_KiaTasman_Master_ClearCoatNormal",
+      "sampler": 0,
+      "source": 10
+    }
+  ],
+  "images": [
+    {
+      "name": "MI_Tasman_Car_BaseColor",
+      "mimeType": "image/png",
+      "bufferView": 7024,
+      "extras": {
+        "pbrFile": "befd08321a5852c3.png",
+        "sha256": "befd08321a5852c3b62f4d45917c2dd56a2ec22551c8d105b8ebaf493e4ad6c6"
+      }
+    },
+    {
+      "name": "MI_Tasman_Car_MetallicRoughness",
+      "mimeType": "image/png",
+      "bufferView": 7025,
+      "extras": {
+        "pbrFile": "3a4e0e95c7e30c23.png",
+        "sha256": "3a4e0e95c7e30c23f2248fe72db13d1c9548bfe8fff82c63a1a046cb4b410d31"
+      }
+    },
+    {
+      "name": "MI_Tasman_Car_Normal",
+      "mimeType": "image/png",
+      "bufferView": 7026,
+      "extras": {
+        "pbrFile": "d65a52231c4451b3.png",
+        "sha256": "d65a52231c4451b305bddfb58af67bcda31f50d353498f505951d341baea41d3"
+      }
+    },
+    {
+      "name": "MI_Tasman_Interior_BaseColor",
+      "mimeType": "image/png",
+      "bufferView": 7027,
+      "extras": {
+        "pbrFile": "69f8d9451d4ade8f.png",
+        "sha256": "69f8d9451d4ade8f519b0247b6a0b03cc12335cb8df79039986941901ada721b"
+      }
+    },
+    {
+      "name": "MI_Tasman_Interior_MetallicRoughness",
+      "mimeType": "image/png",
+      "bufferView": 7028,
+      "extras": {
+        "pbrFile": "9c8ef165f9e877a8.png",
+        "sha256": "9c8ef165f9e877a856e8dee11caea993c72ff4a2c57447c9e65c437781261201"
+      }
+    },
+    {
+      "name": "MI_Tasman_Interior_Normal",
+      "mimeType": "image/png",
+      "bufferView": 7029,
+      "extras": {
+        "pbrFile": "7e156d4243002da8.png",
+        "sha256": "7e156d4243002da89dd4a0665caa8ea47fc021db6f1f80d0bff6fef3530a9c7e"
+      }
+    },
+    {
+      "name": "MI_Tasman_Licence_Plate_BaseColor",
+      "mimeType": "image/png",
+      "bufferView": 7030,
+      "extras": {
+        "pbrFile": "ef98f3bf360276cc.png",
+        "sha256": "ef98f3bf360276cc6dc0444beb11f2e0f2a1a27745783081dca13abf02c2a019"
+      }
+    },
+    {
+      "name": "MI_Tasman_Licence_Plate_MetallicRoughness",
+      "mimeType": "image/png",
+      "bufferView": 7031,
+      "extras": {
+        "pbrFile": "d485bbf0342da9fa.png",
+        "sha256": "d485bbf0342da9fa1919eaa063cf2fe1029872f155b13132f59619576f75a308"
+      }
+    },
+    {
+      "name": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_BaseColor",
+      "mimeType": "image/png",
+      "bufferView": 7032,
+      "extras": {
+        "pbrFile": "2458e4ab2672ea2c.png",
+        "sha256": "2458e4ab2672ea2cecea4e308b3019444e708c7c5a7cce69300069241d433756"
+      }
+    },
+    {
+      "name": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal",
+      "mimeType": "image/png",
+      "bufferView": 7033,
+      "extras": {
+        "pbrFile": "cc941db9db258c48.png",
+        "sha256": "cc941db9db258c4811b698470769aa8241fcea4f2ec4e90d893b594b34217126"
+      }
+    },
+    {
+      "name": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal",
+      "mimeType": "image/png",
+      "bufferView": 7034,
+      "extras": {
+        "pbrFile": "fa1e11f21e926054.png",
+        "sha256": "fa1e11f21e926054d49dddd39293c3399bbd7f55aa0179357d638d238cbcd893"
+      }
+    },
+    {
+      "name": "MI_Tasman_Premium_Glass_Tint_SK_KiaTasman_Master_Normal",
+      "mimeType": "image/png",
+      "bufferView": 7035,
+      "extras": {
+        "pbrFile": "d5b3d091d316ce13.png",
+        "sha256": "d5b3d091d316ce13ea93bdcea7a50d9c43f870d370f177f18b57eb0faf6ff15f"
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Tire_Rubber_BaseColor",
+      "mimeType": "image/png",
+      "bufferView": 7036,
+      "extras": {
+        "pbrFile": "65a3a6a3135265f9.png",
+        "sha256": "65a3a6a3135265f9a9f863e458919652a62917f63eb6338c163909c5adbbc913"
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Tire_Rubber_MetallicRoughness",
+      "mimeType": "image/png",
+      "bufferView": 7037,
+      "extras": {
+        "pbrFile": "677943838e07b053.png",
+        "sha256": "677943838e07b053335a4b0f10c9dc60929828b91c5d55fc2de38fe2e81e8c93"
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Tire_Rubber_Normal",
+      "mimeType": "image/png",
+      "bufferView": 7038,
+      "extras": {
+        "pbrFile": "6ef57081e6b32c15.png",
+        "sha256": "6ef57081e6b32c15fec57723a786f6cda436a2d734b3ab07e979ed5b834d6acf"
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Wheel_Metal_MetallicRoughness",
+      "mimeType": "image/png",
+      "bufferView": 7039,
+      "extras": {
+        "pbrFile": "ebdecfa5f9563812.png",
+        "sha256": "ebdecfa5f956381201f66b7f97c01de5148b69991286990c75278669fe5eaa4b"
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Exterior_Metal_BaseColor",
+      "mimeType": "image/png",
+      "bufferView": 7040,
+      "extras": {
+        "pbrFile": "1c35f3334b8d9731.png",
+        "sha256": "1c35f3334b8d97318f6321ff4a18c85c79085d553ad791adba5fea0b9cd5ffe6"
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Exterior_Metal_MetallicRoughness",
+      "mimeType": "image/png",
+      "bufferView": 7041,
+      "extras": {
+        "pbrFile": "4c39ddb1d1a6ab61.png",
+        "sha256": "4c39ddb1d1a6ab61e30dfafd4b6270b4b4c68035d50ff7516a06821dd0097f7f"
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Tail_Lens_Red_SK_KiaTasman_Master_Normal",
+      "mimeType": "image/png",
+      "bufferView": 7042,
+      "extras": {
+        "pbrFile": "8359fddaf1730fa7.png",
+        "sha256": "8359fddaf1730fa788fbcc2af9b6c9884dc5d7db1ce59e172a2f00c3a9772c46"
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Metal_BaseColor",
+      "mimeType": "image/png",
+      "bufferView": 7043,
+      "extras": {
+        "pbrFile": "ccecbdd366b9325d.png",
+        "sha256": "ccecbdd366b9325dd40103c83c549a08782c734ef5ff152efd15af854e7da133"
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Metal_MetallicRoughness",
+      "mimeType": "image/png",
+      "bufferView": 7044,
+      "extras": {
+        "pbrFile": "6d98a294f83f3b3b.png",
+        "sha256": "6d98a294f83f3b3bf600ba76cd159fd4455ed4aad7921949159fbfaf18ddec03"
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Textile_BaseColor",
+      "mimeType": "image/png",
+      "bufferView": 7045,
+      "extras": {
+        "pbrFile": "b41bb0e2f7d9b8ee.png",
+        "sha256": "b41bb0e2f7d9b8ee56bcdec5baadd7b2b98970da0a3ba1a76b41c0711fee5511"
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Textile_MetallicRoughness",
+      "mimeType": "image/png",
+      "bufferView": 7046,
+      "extras": {
+        "pbrFile": "df2deeb2db02c1c7.png",
+        "sha256": "df2deeb2db02c1c7d4574e9eebe550a79e8682d5941797e7fefe7ad16ecd85ae"
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Textile_Normal",
+      "mimeType": "image/png",
+      "bufferView": 7047,
+      "extras": {
+        "pbrFile": "9cc06fc3426ed15f.png",
+        "sha256": "9cc06fc3426ed15f7b63e6ddf9517b43b4e9fcfcd41d791b8aa8332de894adb7"
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Seat_Leather_BaseColor",
+      "mimeType": "image/png",
+      "bufferView": 7048,
+      "extras": {
+        "pbrFile": "905d1f22becfcbeb.png",
+        "sha256": "905d1f22becfcbeb24a1ddb93011ab242b891850d7fbf498a99fa3abdbed9b17"
+      }
+    },
+    {
+      "name": "MI_Tasman_Master_Seat_Leather_MetallicRoughness",
+      "mimeType": "image/png",
+      "bufferView": 7049,
+      "extras": {
+        "pbrFile": "e6904fd443c9c1ed.png",
+        "sha256": "e6904fd443c9c1edbaacf6c36e0f601febce7a29dce8d14d799d76f3cc976e0c"
+      }
+    },
+    {
+      "name": "MI_Tasman_AGT_SK_KiaTasman_Master_BaseColor",
+      "mimeType": "image/png",
+      "bufferView": 7050,
+      "extras": {
+        "pbrFile": "e98151a88d87d20c.png",
+        "sha256": "e98151a88d87d20c19d79da0f58998ffca03ba990d9d596033266c1d0638b4d5"
+      }
+    },
+    {
+      "name": "MI_Tasman_ABP_SK_KiaTasman_Master_BaseColor",
+      "mimeType": "image/png",
+      "bufferView": 7051,
+      "extras": {
+        "pbrFile": "76ea3151fceb0930.png",
+        "sha256": "76ea3151fceb093084551f637a80024894aa8a3415d47979c283e8a214b3c641"
+      }
+    },
+    {
+      "name": "MI_Tasman_CGE_SK_KiaTasman_Master_BaseColor",
+      "mimeType": "image/png",
+      "bufferView": 7052,
+      "extras": {
+        "pbrFile": "f98ab4c7e387abf0.png",
+        "sha256": "f98ab4c7e387abf02512f2247328170ead983e262fc75376225b2f79ac8afcf1"
+      }
+    }
+  ],
+  "samplers": [
+    {
+      "minFilter": 9987,
+      "magFilter": 9729
+    }
+  ],
+  "image_sha256_to_file": {
+    "befd08321a5852c3b62f4d45917c2dd56a2ec22551c8d105b8ebaf493e4ad6c6": "befd08321a5852c3.png",
+    "3a4e0e95c7e30c23f2248fe72db13d1c9548bfe8fff82c63a1a046cb4b410d31": "3a4e0e95c7e30c23.png",
+    "d65a52231c4451b305bddfb58af67bcda31f50d353498f505951d341baea41d3": "d65a52231c4451b3.png",
+    "69f8d9451d4ade8f519b0247b6a0b03cc12335cb8df79039986941901ada721b": "69f8d9451d4ade8f.png",
+    "9c8ef165f9e877a856e8dee11caea993c72ff4a2c57447c9e65c437781261201": "9c8ef165f9e877a8.png",
+    "7e156d4243002da89dd4a0665caa8ea47fc021db6f1f80d0bff6fef3530a9c7e": "7e156d4243002da8.png",
+    "ef98f3bf360276cc6dc0444beb11f2e0f2a1a27745783081dca13abf02c2a019": "ef98f3bf360276cc.png",
+    "d485bbf0342da9fa1919eaa063cf2fe1029872f155b13132f59619576f75a308": "d485bbf0342da9fa.png",
+    "2458e4ab2672ea2cecea4e308b3019444e708c7c5a7cce69300069241d433756": "2458e4ab2672ea2c.png",
+    "cc941db9db258c4811b698470769aa8241fcea4f2ec4e90d893b594b34217126": "cc941db9db258c48.png",
+    "fa1e11f21e926054d49dddd39293c3399bbd7f55aa0179357d638d238cbcd893": "fa1e11f21e926054.png",
+    "d5b3d091d316ce13ea93bdcea7a50d9c43f870d370f177f18b57eb0faf6ff15f": "d5b3d091d316ce13.png",
+    "65a3a6a3135265f9a9f863e458919652a62917f63eb6338c163909c5adbbc913": "65a3a6a3135265f9.png",
+    "677943838e07b053335a4b0f10c9dc60929828b91c5d55fc2de38fe2e81e8c93": "677943838e07b053.png",
+    "6ef57081e6b32c15fec57723a786f6cda436a2d734b3ab07e979ed5b834d6acf": "6ef57081e6b32c15.png",
+    "ebdecfa5f956381201f66b7f97c01de5148b69991286990c75278669fe5eaa4b": "ebdecfa5f9563812.png",
+    "1c35f3334b8d97318f6321ff4a18c85c79085d553ad791adba5fea0b9cd5ffe6": "1c35f3334b8d9731.png",
+    "4c39ddb1d1a6ab61e30dfafd4b6270b4b4c68035d50ff7516a06821dd0097f7f": "4c39ddb1d1a6ab61.png",
+    "8359fddaf1730fa788fbcc2af9b6c9884dc5d7db1ce59e172a2f00c3a9772c46": "8359fddaf1730fa7.png",
+    "ccecbdd366b9325dd40103c83c549a08782c734ef5ff152efd15af854e7da133": "ccecbdd366b9325d.png",
+    "6d98a294f83f3b3bf600ba76cd159fd4455ed4aad7921949159fbfaf18ddec03": "6d98a294f83f3b3b.png",
+    "b41bb0e2f7d9b8ee56bcdec5baadd7b2b98970da0a3ba1a76b41c0711fee5511": "b41bb0e2f7d9b8ee.png",
+    "df2deeb2db02c1c7d4574e9eebe550a79e8682d5941797e7fefe7ad16ecd85ae": "df2deeb2db02c1c7.png",
+    "9cc06fc3426ed15f7b63e6ddf9517b43b4e9fcfcd41d791b8aa8332de894adb7": "9cc06fc3426ed15f.png",
+    "905d1f22becfcbeb24a1ddb93011ab242b891850d7fbf498a99fa3abdbed9b17": "905d1f22becfcbeb.png",
+    "e6904fd443c9c1edbaacf6c36e0f601febce7a29dce8d14d799d76f3cc976e0c": "e6904fd443c9c1ed.png",
+    "e98151a88d87d20c19d79da0f58998ffca03ba990d9d596033266c1d0638b4d5": "e98151a88d87d20c.png",
+    "76ea3151fceb093084551f637a80024894aa8a3415d47979c283e8a214b3c641": "76ea3151fceb0930.png",
+    "f98ab4c7e387abf02512f2247328170ead983e262fc75376225b2f79ac8afcf1": "f98ab4c7e387abf0.png"
+  }
+}

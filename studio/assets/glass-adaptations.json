@@ -1,0 +1,50 @@
+[
+  {
+    "material": "MI_Tasman_Premium_Glass_Front_SK_KiaTasman_Master",
+    "reason": "native thin-translucent exporter omits Transmission Color custom output; partial transmission introduces a diffuse lobe absent from clear automotive glass",
+    "transmissionColor": [
+      0.800000011920929,
+      0.8399999737739563,
+      0.8500000238418579
+    ],
+    "ior": 1.5199999809265137,
+    "transmissionFactor": 1,
+    "original_opacity": 0.1599999964237213
+  },
+  {
+    "material": "MI_Tasman_Premium_Glass_Tint_SK_KiaTasman_Master",
+    "reason": "native thin-translucent exporter omits Transmission Color custom output; partial transmission introduces a diffuse lobe absent from clear automotive glass",
+    "transmissionColor": [
+      0.5400000214576721,
+      0.5899999737739563,
+      0.6100000143051147
+    ],
+    "ior": 1.5199999809265137,
+    "transmissionFactor": 1,
+    "original_opacity": 0.30000001192092896
+  },
+  {
+    "material": "MI_Tasman_Master_Lamp_Clear_Lens",
+    "reason": "native thin-translucent exporter omits Transmission Color custom output; partial transmission introduces a diffuse lobe absent from clear automotive glass",
+    "transmissionColor": [
+      0.9700000286102295,
+      0.9800000190734863,
+      0.9900000095367432
+    ],
+    "ior": 1.5199999809265137,
+    "transmissionFactor": 1,
+    "original_opacity": 0.10000000149011612
+  },
+  {
+    "material": "MI_Tasman_Master_Tail_Lens_Red_SK_KiaTasman_Master",
+    "reason": "native thin-translucent exporter omits Transmission Color custom output; partial transmission introduces a diffuse lobe absent from clear automotive glass",
+    "transmissionColor": [
+      0.6499999761581421,
+      0.008999999612569809,
+      0.004000000189989805
+    ],
+    "ior": 1.5199999809265137,
+    "transmissionFactor": 1,
+    "original_opacity": 0.20000000298023224
+  }
+]

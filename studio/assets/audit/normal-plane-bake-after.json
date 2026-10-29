@@ -1,0 +1,58 @@
+[
+  {
+    "material": "MI_Tasman_Car",
+    "samples": 10000,
+    "normal_angle_median_deg": 0.0,
+    "normal_angle_p95_deg": 0.0,
+    "normal_angle_p99_deg": 0.0
+  },
+  {
+    "material": "MI_Tasman_Interior",
+    "samples": 10000,
+    "normal_angle_median_deg": 0.0,
+    "normal_angle_p95_deg": 0.0,
+    "normal_angle_p99_deg": 0.0
+  },
+  {
+    "material": "MI_Tasman_Master_Tire_Rubber",
+    "samples": 10000,
+    "normal_angle_median_deg": 0.03045665834338603,
+    "normal_angle_p95_deg": 0.20430091043044224,
+    "normal_angle_p99_deg": 1.3088532870775291
+  },
+  {
+    "material": "MI_Tasman_Master_Wheel_Metal",
+    "samples": 10000,
+    "normal_angle_median_deg": 0.0,
+    "normal_angle_p95_deg": 0.09187183311151474,
+    "normal_angle_p99_deg": 0.23321123402837163
+  },
+  {
+    "material": "MI_Tasman_Master_Exterior_Metal",
+    "samples": 10000,
+    "normal_angle_median_deg": 0.0,
+    "normal_angle_p95_deg": 4.033986615350828,
+    "normal_angle_p99_deg": 16.755767131076773
+  },
+  {
+    "material": "MI_Tasman_Master_Interior_Metal",
+    "samples": 10000,
+    "normal_angle_median_deg": 0.0,
+    "normal_angle_p95_deg": 0.0,
+    "normal_angle_p99_deg": 6.141420119397388
+  },
+  {
+    "material": "MI_Tasman_Master_Interior_Textile",
+    "samples": 2096,
+    "normal_angle_median_deg": 0.0,
+    "normal_angle_p95_deg": 0.0,
+    "normal_angle_p99_deg": 0.0
+  },
+  {
+    "material": "MI_Tasman_Master_Seat_Leather",
+    "samples": 10000,
+    "normal_angle_median_deg": 0.0,
+    "normal_angle_p95_deg": 0.0,
+    "normal_angle_p99_deg": 0.0
+  }
+]

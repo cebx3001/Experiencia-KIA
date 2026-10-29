@@ -1,0 +1,321 @@
+[
+  {
+    "source_name": "MI_Tasman_Car_BaseColor",
+    "file": "befd08321a5852c3.png",
+    "sha256": "befd08321a5852c3b62f4d45917c2dd56a2ec22551c8d105b8ebaf493e4ad6c6",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 851023
+  },
+  {
+    "source_name": "MI_Tasman_Car_MetallicRoughness",
+    "file": "3a4e0e95c7e30c23.png",
+    "sha256": "3a4e0e95c7e30c23f2248fe72db13d1c9548bfe8fff82c63a1a046cb4b410d31",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 3158979
+  },
+  {
+    "source_name": "MI_Tasman_Car_Normal",
+    "file": "d65a52231c4451b3.png",
+    "sha256": "d65a52231c4451b305bddfb58af67bcda31f50d353498f505951d341baea41d3",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 15192226
+  },
+  {
+    "source_name": "MI_Tasman_Interior_BaseColor",
+    "file": "69f8d9451d4ade8f.png",
+    "sha256": "69f8d9451d4ade8f519b0247b6a0b03cc12335cb8df79039986941901ada721b",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 2003219
+  },
+  {
+    "source_name": "MI_Tasman_Interior_MetallicRoughness",
+    "file": "9c8ef165f9e877a8.png",
+    "sha256": "9c8ef165f9e877a856e8dee11caea993c72ff4a2c57447c9e65c437781261201",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 438909
+  },
+  {
+    "source_name": "MI_Tasman_Interior_Normal",
+    "file": "7e156d4243002da8.png",
+    "sha256": "7e156d4243002da89dd4a0665caa8ea47fc021db6f1f80d0bff6fef3530a9c7e",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 2613880
+  },
+  {
+    "source_name": "MI_Tasman_Licence_Plate_BaseColor",
+    "file": "ef98f3bf360276cc.png",
+    "sha256": "ef98f3bf360276cc6dc0444beb11f2e0f2a1a27745783081dca13abf02c2a019",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 367705
+  },
+  {
+    "source_name": "MI_Tasman_Licence_Plate_MetallicRoughness",
+    "file": "d485bbf0342da9fa.png",
+    "sha256": "d485bbf0342da9fa1919eaa063cf2fe1029872f155b13132f59619576f75a308",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 327011
+  },
+  {
+    "source_name": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_BaseColor",
+    "file": "2458e4ab2672ea2c.png",
+    "sha256": "2458e4ab2672ea2cecea4e308b3019444e708c7c5a7cce69300069241d433756",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 666847
+  },
+  {
+    "source_name": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal",
+    "file": "cc941db9db258c48.png",
+    "sha256": "cc941db9db258c4811b698470769aa8241fcea4f2ec4e90d893b594b34217126",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 1192801
+  },
+  {
+    "source_name": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal",
+    "file": "fa1e11f21e926054.png",
+    "sha256": "fa1e11f21e926054d49dddd39293c3399bbd7f55aa0179357d638d238cbcd893",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 826181
+  },
+  {
+    "source_name": "MI_Tasman_Premium_Glass_Tint_SK_KiaTasman_Master_Normal",
+    "file": "d5b3d091d316ce13.png",
+    "sha256": "d5b3d091d316ce13ea93bdcea7a50d9c43f870d370f177f18b57eb0faf6ff15f",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 427277
+  },
+  {
+    "source_name": "MI_Tasman_Master_Tire_Rubber_BaseColor",
+    "file": "65a3a6a3135265f9.png",
+    "sha256": "65a3a6a3135265f9a9f863e458919652a62917f63eb6338c163909c5adbbc913",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 904129
+  },
+  {
+    "source_name": "MI_Tasman_Master_Tire_Rubber_MetallicRoughness",
+    "file": "677943838e07b053.png",
+    "sha256": "677943838e07b053335a4b0f10c9dc60929828b91c5d55fc2de38fe2e81e8c93",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 1940661
+  },
+  {
+    "source_name": "MI_Tasman_Master_Tire_Rubber_Normal",
+    "file": "6ef57081e6b32c15.png",
+    "sha256": "6ef57081e6b32c15fec57723a786f6cda436a2d734b3ab07e979ed5b834d6acf",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 11201109
+  },
+  {
+    "source_name": "MI_Tasman_Master_Wheel_Metal_MetallicRoughness",
+    "file": "ebdecfa5f9563812.png",
+    "sha256": "ebdecfa5f956381201f66b7f97c01de5148b69991286990c75278669fe5eaa4b",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 1795840
+  },
+  {
+    "source_name": "MI_Tasman_Master_Exterior_Metal_BaseColor",
+    "file": "1c35f3334b8d9731.png",
+    "sha256": "1c35f3334b8d97318f6321ff4a18c85c79085d553ad791adba5fea0b9cd5ffe6",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 649927
+  },
+  {
+    "source_name": "MI_Tasman_Master_Exterior_Metal_MetallicRoughness",
+    "file": "4c39ddb1d1a6ab61.png",
+    "sha256": "4c39ddb1d1a6ab61e30dfafd4b6270b4b4c68035d50ff7516a06821dd0097f7f",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 2995419
+  },
+  {
+    "source_name": "MI_Tasman_Master_Tail_Lens_Red_SK_KiaTasman_Master_Normal",
+    "file": "8359fddaf1730fa7.png",
+    "sha256": "8359fddaf1730fa788fbcc2af9b6c9884dc5d7db1ce59e172a2f00c3a9772c46",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 469474
+  },
+  {
+    "source_name": "MI_Tasman_Master_Interior_Metal_BaseColor",
+    "file": "ccecbdd366b9325d.png",
+    "sha256": "ccecbdd366b9325dd40103c83c549a08782c734ef5ff152efd15af854e7da133",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 1459462
+  },
+  {
+    "source_name": "MI_Tasman_Master_Interior_Metal_MetallicRoughness",
+    "file": "6d98a294f83f3b3b.png",
+    "sha256": "6d98a294f83f3b3bf600ba76cd159fd4455ed4aad7921949159fbfaf18ddec03",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 441102
+  },
+  {
+    "source_name": "MI_Tasman_Master_Interior_Textile_BaseColor",
+    "file": "b41bb0e2f7d9b8ee.png",
+    "sha256": "b41bb0e2f7d9b8ee56bcdec5baadd7b2b98970da0a3ba1a76b41c0711fee5511",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 1643040
+  },
+  {
+    "source_name": "MI_Tasman_Master_Interior_Textile_MetallicRoughness",
+    "file": "df2deeb2db02c1c7.png",
+    "sha256": "df2deeb2db02c1c7d4574e9eebe550a79e8682d5941797e7fefe7ad16ecd85ae",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 411054
+  },
+  {
+    "source_name": "MI_Tasman_Master_Interior_Textile_Normal",
+    "file": "9cc06fc3426ed15f.png",
+    "sha256": "9cc06fc3426ed15f7b63e6ddf9517b43b4e9fcfcd41d791b8aa8332de894adb7",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 2538172
+  },
+  {
+    "source_name": "MI_Tasman_Master_Seat_Leather_BaseColor",
+    "file": "905d1f22becfcbeb.png",
+    "sha256": "905d1f22becfcbeb24a1ddb93011ab242b891850d7fbf498a99fa3abdbed9b17",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 1441620
+  },
+  {
+    "source_name": "MI_Tasman_Master_Seat_Leather_MetallicRoughness",
+    "file": "e6904fd443c9c1ed.png",
+    "sha256": "e6904fd443c9c1edbaacf6c36e0f601febce7a29dce8d14d799d76f3cc976e0c",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 423981
+  },
+  {
+    "source_name": "MI_Tasman_AGT_SK_KiaTasman_Master_BaseColor",
+    "file": "e98151a88d87d20c.png",
+    "sha256": "e98151a88d87d20c19d79da0f58998ffca03ba990d9d596033266c1d0638b4d5",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 834796
+  },
+  {
+    "source_name": "MI_Tasman_ABP_SK_KiaTasman_Master_BaseColor",
+    "file": "76ea3151fceb0930.png",
+    "sha256": "76ea3151fceb093084551f637a80024894aa8a3415d47979c283e8a214b3c641",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 876038
+  },
+  {
+    "source_name": "MI_Tasman_CGE_SK_KiaTasman_Master_BaseColor",
+    "file": "f98ab4c7e387abf0.png",
+    "sha256": "f98ab4c7e387abf02512f2247328170ead983e262fc75376225b2f79ac8afcf1",
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGBA",
+    "bytes": 793905
+  }
+]

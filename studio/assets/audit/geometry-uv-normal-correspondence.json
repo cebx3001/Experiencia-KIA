@@ -1,0 +1,128 @@
+[
+  {
+    "slot": "Car",
+    "sampled_vertices": 10000,
+    "position_error_max_m": 9.401254776508874e-07,
+    "uv_error_max": 0.00011038780212402344,
+    "normal_angle_median": 0.0026855226450398163,
+    "normal_angle_p95": 0.014653751090046215,
+    "normal_angle_max": 0.27066238510367496
+  },
+  {
+    "slot": "Master_Exterior_Metal",
+    "sampled_vertices": 10000,
+    "position_error_max_m": 9.068445330964306e-07,
+    "uv_error_max": 0.00029399991035461426,
+    "normal_angle_median": 0.0032458628092218913,
+    "normal_angle_p95": 0.025944482462955713,
+    "normal_angle_max": 0.2160286510433235
+  },
+  {
+    "slot": "Premium_Glass_Tint",
+    "sampled_vertices": 3563,
+    "position_error_max_m": 7.575822265019358e-07,
+    "uv_error_max": 0.00016200542449951172,
+    "normal_angle_median": 0.0025529248279154916,
+    "normal_angle_p95": 0.01174241604055524,
+    "normal_angle_max": 0.03348793454814147
+  },
+  {
+    "slot": "Premium_Paint",
+    "sampled_vertices": 10000,
+    "position_error_max_m": 9.406263280549991e-07,
+    "uv_error_max": 9.5367431640625e-07,
+    "normal_angle_median": 0.0026883247182968766,
+    "normal_angle_p95": 0.021240775911260983,
+    "normal_angle_max": 0.25382736797018396
+  },
+  {
+    "slot": "Premium_Glass_Front",
+    "sampled_vertices": 3345,
+    "position_error_max_m": 5.710455842939448e-07,
+    "uv_error_max": 0.0,
+    "normal_angle_median": 0.002245581317700752,
+    "normal_angle_p95": 0.004598850379684557,
+    "normal_angle_max": 0.022307291836373054
+  },
+  {
+    "slot": "Master_Lamp_Clear_Lens",
+    "sampled_vertices": 8686,
+    "position_error_max_m": 7.974255600395222e-07,
+    "uv_error_max": 0.0,
+    "normal_angle_median": 0.002993070123101322,
+    "normal_angle_p95": 0.017162045622716046,
+    "normal_angle_max": 0.41157861191267997
+  },
+  {
+    "slot": "Master_Seat_Leather",
+    "sampled_vertices": 10000,
+    "position_error_max_m": 3.555979272869887e-07,
+    "uv_error_max": 0.0001188516616821289,
+    "normal_angle_median": 0.0027298199742305518,
+    "normal_angle_p95": 0.02425511816656593,
+    "normal_angle_max": 0.3766489858878427
+  },
+  {
+    "slot": "Master_Interior_Metal",
+    "sampled_vertices": 10000,
+    "position_error_max_m": 3.780267589831507e-07,
+    "uv_error_max": 0.00013965368270874023,
+    "normal_angle_median": 0.0035883355452342586,
+    "normal_angle_p95": 0.025957335954301684,
+    "normal_angle_max": 3.0231735913430797
+  },
+  {
+    "slot": "Master_Interior_Textile",
+    "sampled_vertices": 1318,
+    "position_error_max_m": 3.743077062079751e-07,
+    "uv_error_max": 0.0,
+    "normal_angle_median": 0.0021264261865355585,
+    "normal_angle_p95": 0.010491490566333691,
+    "normal_angle_max": 0.04014482438811252
+  },
+  {
+    "slot": "Interior",
+    "sampled_vertices": 10000,
+    "position_error_max_m": 3.7317138460812295e-07,
+    "uv_error_max": 0.0,
+    "normal_angle_median": 0.0025507919330276193,
+    "normal_angle_p95": 0.01091047021843003,
+    "normal_angle_max": 0.09855028464441441
+  },
+  {
+    "slot": "Master_Wheel_Metal",
+    "sampled_vertices": 10000,
+    "position_error_max_m": 9.853666579548081e-07,
+    "uv_error_max": 7.331371307373047e-05,
+    "normal_angle_median": 0.003521839030151212,
+    "normal_angle_p95": 0.02286088047486576,
+    "normal_angle_max": 0.2271348025940398
+  },
+  {
+    "slot": "Master_Tire_Rubber",
+    "sampled_vertices": 10000,
+    "position_error_max_m": 9.06102885735476e-07,
+    "uv_error_max": 0.0,
+    "normal_angle_median": 0.0028002837086761817,
+    "normal_angle_p95": 0.020091077561167334,
+    "normal_angle_max": 0.1140093702270937
+  },
+  {
+    "slot": "Licence Plate",
+    "sampled_vertices": 1434,
+    "position_error_max_m": 2.2224801904653733e-06,
+    "uv_error_max": 0.0,
+    "normal_angle_median": 0.0030548454154310186,
+    "normal_angle_p95": 0.030711509264265663,
+    "normal_angle_max": 0.07206170009067493
+  },
+  {
+    "slot": "Master_Tail_Lens_Red",
+    "sampled_vertices": 4094,
+    "position_error_max_m": 7.969067773680861e-07,
+    "uv_error_max": 0.0,
+    "normal_angle_median": 0.0040683406315505585,
+    "normal_angle_p95": 0.03622935071236254,
+    "normal_angle_max": 0.3115563034293929
+  }
+]

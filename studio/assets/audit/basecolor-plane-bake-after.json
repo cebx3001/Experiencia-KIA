@@ -1,0 +1,114 @@
+[
+  {
+    "material": "MI_Tasman_Car",
+    "samples": 10000,
+    "color_error_median_8bit": [
+      0.04342789074361794,
+      0.04342789074361794,
+      0.04342789074361794
+    ],
+    "color_error_p95_8bit": [
+      0.04342789074361794,
+      0.04342789074361794,
+      0.9999999999999964
+    ]
+  },
+  {
+    "material": "MI_Tasman_Interior",
+    "samples": 10000,
+    "color_error_median_8bit": [
+      0.04342789074361794,
+      0.04342789074361794,
+      0.04342789074361794
+    ],
+    "color_error_p95_8bit": [
+      0.04342789074361794,
+      0.04342789074361794,
+      0.04342789074361794
+    ]
+  },
+  {
+    "material": "MI_Tasman_Master_Tire_Rubber",
+    "samples": 10000,
+    "color_error_median_8bit": [
+      0.04342789074361794,
+      0.04342789074361794,
+      0.04342789074361794
+    ],
+    "color_error_p95_8bit": [
+      0.04342789074361794,
+      0.04342789074361794,
+      0.04342789074361794
+    ]
+  },
+  {
+    "material": "MI_Tasman_Master_Wheel_Metal",
+    "samples": 10000,
+    "color_error_median_8bit": [
+      0.9999999999999964,
+      0.0,
+      0.9999999999999964
+    ],
+    "color_error_p95_8bit": [
+      1.0000000000000107,
+      0.0,
+      1.0000000000000107
+    ]
+  },
+  {
+    "material": "MI_Tasman_Master_Exterior_Metal",
+    "samples": 10000,
+    "color_error_median_8bit": [
+      1.0000000000000107,
+      0.0,
+      1.0000000000000107
+    ],
+    "color_error_p95_8bit": [
+      1.0000000000000249,
+      2.8310687127941492e-14,
+      1.0000000000000249
+    ]
+  },
+  {
+    "material": "MI_Tasman_Master_Interior_Metal",
+    "samples": 10000,
+    "color_error_median_8bit": [
+      1.0000000000000249,
+      0.0,
+      1.0000000000000249
+    ],
+    "color_error_p95_8bit": [
+      1.0000000000000249,
+      0.0,
+      1.0000000000000249
+    ]
+  },
+  {
+    "material": "MI_Tasman_Master_Interior_Textile",
+    "samples": 2096,
+    "color_error_median_8bit": [
+      0.42089046463523455,
+      0.42089046463523455,
+      0.42089046463523455
+    ],
+    "color_error_p95_8bit": [
+      0.42089046463523805,
+      0.42089046463523805,
+      0.42089046463523805
+    ]
+  },
+  {
+    "material": "MI_Tasman_Master_Seat_Leather",
+    "samples": 10000,
+    "color_error_median_8bit": [
+      0.42089046463523455,
+      0.42089046463523455,
+      0.42089046463523455
+    ],
+    "color_error_p95_8bit": [
+      0.42089046463523805,
+      0.42089046463523805,
+      0.9999999999999964
+    ]
+  }
+]

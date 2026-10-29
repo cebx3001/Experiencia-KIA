@@ -1,0 +1,242 @@
+{
+  "status": {
+    "status": "ready",
+    "errors": [],
+    "materials": [
+      {
+        "name": "MI_Tasman_Car_SK_KiaTasman_Master",
+        "normal": true,
+        "clearcoatNormal": false,
+        "clearcoat": 0,
+        "transmission": 0,
+        "roughness": 1
+      },
+      {
+        "name": "MI_Tasman_Master_Exterior_Metal_SK_KiaTasman_Master",
+        "normal": true,
+        "clearcoatNormal": false,
+        "clearcoat": 0,
+        "transmission": 0,
+        "roughness": 1
+      },
+      {
+        "name": "MI_Tasman_Premium_Glass_Tint_SK_KiaTasman_Master",
+        "normal": false,
+        "clearcoatNormal": false,
+        "clearcoat": 0,
+        "transmission": 1,
+        "roughness": 0.0235294141
+      },
+      {
+        "name": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master",
+        "normal": true,
+        "clearcoatNormal": true,
+        "clearcoat": 1,
+        "transmission": 0,
+        "roughness": 0.34117648
+      },
+      {
+        "name": "MI_Tasman_Premium_Glass_Front_SK_KiaTasman_Master",
+        "normal": false,
+        "clearcoatNormal": false,
+        "clearcoat": 0,
+        "transmission": 1,
+        "roughness": 0.0235294141
+      },
+      {
+        "name": "MI_Tasman_Master_Lamp_Clear_Lens",
+        "normal": false,
+        "clearcoatNormal": false,
+        "clearcoat": 0,
+        "transmission": 1,
+        "roughness": 0.0196078438
+      },
+      {
+        "name": "MI_Tasman_Master_Seat_Leather_SK_KiaTasman_Master",
+        "normal": true,
+        "clearcoatNormal": false,
+        "clearcoat": 0,
+        "transmission": 0,
+        "roughness": 1
+      },
+      {
+        "name": "MI_Tasman_Master_Interior_Metal_SK_KiaTasman_Master",
+        "normal": true,
+        "clearcoatNormal": false,
+        "clearcoat": 0,
+        "transmission": 0,
+        "roughness": 1
+      },
+      {
+        "name": "MI_Tasman_Master_Interior_Textile",
+        "normal": true,
+        "clearcoatNormal": false,
+        "clearcoat": 0,
+        "transmission": 0,
+        "roughness": 1
+      },
+      {
+        "name": "MI_Tasman_Interior",
+        "normal": true,
+        "clearcoatNormal": false,
+        "clearcoat": 0,
+        "transmission": 0,
+        "roughness": 1
+      },
+      {
+        "name": "MI_Tasman_Master_Wheel_Metal_SK_KiaTasman_Master",
+        "normal": true,
+        "clearcoatNormal": false,
+        "clearcoat": 0,
+        "transmission": 0,
+        "roughness": 1
+      },
+      {
+        "name": "MI_Tasman_Master_Tire_Rubber_SK_KiaTasman_Master",
+        "normal": true,
+        "clearcoatNormal": false,
+        "clearcoat": 0,
+        "transmission": 0,
+        "roughness": 1
+      },
+      {
+        "name": "MI_Tasman_Licence_Plate_SK_KiaTasman_Master",
+        "normal": false,
+        "clearcoatNormal": false,
+        "clearcoat": 0,
+        "transmission": 0,
+        "roughness": 1
+      },
+      {
+        "name": "MI_Tasman_Master_Tail_Lens_Red_SK_KiaTasman_Master",
+        "normal": false,
+        "clearcoatNormal": false,
+        "clearcoat": 0,
+        "transmission": 1,
+        "roughness": 0.0352941193
+      }
+    ],
+    "variants": [
+      "TAM",
+      "AGT",
+      "ABP",
+      "CGE"
+    ],
+    "doors": {
+      "front_left": false,
+      "front_right": false,
+      "rear_left": false,
+      "rear_right": false
+    },
+    "coatingAdaptations": [
+      {
+        "material": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master",
+        "imported": 0.25,
+        "declared": 1,
+        "ltcCoatF0": 0.04,
+        "baseNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal-9",
+        "coatNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal-10"
+      },
+      {
+        "material": "MI_Tasman_AGT_SK_KiaTasman_Master",
+        "imported": 0.25,
+        "declared": 1,
+        "ltcCoatF0": 0.04,
+        "baseNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal-9",
+        "coatNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal-10"
+      },
+      {
+        "material": "MI_Tasman_ABP_SK_KiaTasman_Master",
+        "imported": 0.25,
+        "declared": 1,
+        "ltcCoatF0": 0.04,
+        "baseNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal-9",
+        "coatNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal-10"
+      },
+      {
+        "material": "MI_Tasman_CGE_SK_KiaTasman_Master",
+        "imported": 0.25,
+        "declared": 1,
+        "ltcCoatF0": 0.04,
+        "baseNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal-9",
+        "coatNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal-10"
+      }
+    ],
+    "renderer": "ANGLE (Intel, Intel(R) UHD Graphics (0x00009A60) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+  },
+  "errors": [],
+  "warnings": [],
+  "paintTests": {
+    "arena": {
+      "selected": "arena",
+      "material": {
+        "name": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master",
+        "diffuse": "#ffffff",
+        "map": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_BaseColor-8",
+        "normal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal-9",
+        "coatNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal-10",
+        "coat": 1
+      }
+    },
+    "gris": {
+      "selected": "gris",
+      "material": {
+        "name": "MI_Tasman_AGT_SK_KiaTasman_Master",
+        "diffuse": "#ffffff",
+        "map": "MI_Tasman_AGT_SK_KiaTasman_Master_BaseColor-24",
+        "normal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal-9",
+        "coatNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal-10",
+        "coat": 1
+      }
+    },
+    "negro": {
+      "selected": "negro",
+      "material": {
+        "name": "MI_Tasman_ABP_SK_KiaTasman_Master",
+        "diffuse": "#ffffff",
+        "map": "MI_Tasman_ABP_SK_KiaTasman_Master_BaseColor-25",
+        "normal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal-9",
+        "coatNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal-10",
+        "coat": 1
+      }
+    },
+    "verde": {
+      "selected": "verde",
+      "material": {
+        "name": "MI_Tasman_CGE_SK_KiaTasman_Master",
+        "diffuse": "#ffffff",
+        "map": "MI_Tasman_CGE_SK_KiaTasman_Master_BaseColor-26",
+        "normal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal-9",
+        "coatNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal-10",
+        "coat": 1
+      }
+    }
+  },
+  "openAngles": {
+    "front_left": 65.00000000000001,
+    "front_right": -65.00000000000001,
+    "rear_left": 65.00000000000001,
+    "rear_right": -65.00000000000001
+  },
+  "closedAngles": {
+    "front_left": 0,
+    "front_right": 0,
+    "rear_left": 0,
+    "rear_right": 0
+  },
+  "independentDoor": {
+    "front_left": 65.00000000000001,
+    "front_right": 0,
+    "rear_left": 0,
+    "rear_right": 0
+  },
+  "cameraInteraction": {
+    "cameraBefore": "[-7.144290447235107, 2.4931113719940186, 7.824304103851318]",
+    "orbitAfter": "[-10.197632789611816, 4.1620659828186035, -0.7068423628807068]",
+    "zoomAfter": "[-7.941924095153809, 3.4626195430755615, -0.5504894256591797]"
+  },
+  "lightingModesTested": [
+    "cinematic",
+    "photo"
+  ]
+}

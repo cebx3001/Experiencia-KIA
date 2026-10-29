@@ -1,0 +1,10 @@
+Studio Small 09 — Sergej Majboroda / Poly Haven
+Source: https://polyhaven.com/a/studio_small_09
+License: CC0 1.0 Universal (public domain dedication)
+License information: https://polyhaven.com/license
+Downloaded from the official asset manifest: https://api.polyhaven.com/files/studio_small_09
+4K Radiance HDR, 24,670,900 bytes
+Official MD5: fa4b6cd37878ff887d1bdad57bbeca92
+
+The procedural studio.hdr is an original analytic lighting environment generated for this work.
+It provides the default cinematic lighting; the photographic HDRI above is selectable as an alternative.
