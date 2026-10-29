@@ -1,8 +1,8 @@
 :root{--black:#05141f;--white:#fff;--red:#ea0029;--muted:#b3bec4;--hair:rgba(255,255,255,.21);--sand:#c8b69c}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--black);color:var(--white);font-family:var(--kia-body);-webkit-font-smoothing:antialiased}body{overscroll-behavior:none}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:2px solid white;outline-offset:3px}button:disabled{cursor:default}button[hidden],section[hidden],div[hidden],canvas[hidden]{display:none!important}
 .experience{position:relative;isolation:isolate;width:100vw;height:100vh;height:100dvh;min-width:0;overflow:hidden;background:var(--black);touch-action:pan-y}
-.ambient-backdrop,.ambient-image,.ambient-shade{position:absolute;inset:0;pointer-events:none}.ambient-backdrop{z-index:-2;background:#23353b}.ambient-image{background-size:cover;background-position:center center;filter:saturate(.72) contrast(1.08);opacity:.7;transform:scale(1.015);transition:background-image .35s,filter .7s}.scene-rocks .ambient-image{background-position:center 60%;background-image:linear-gradient(90deg,rgba(5,20,31,.5),rgba(5,20,31,.03)),none}.scene-flood .ambient-image{background-image:linear-gradient(90deg,rgba(5,20,31,.75),rgba(5,20,31,.08)),none}.scene-mud .ambient-image{background-image:linear-gradient(90deg,rgba(5,20,31,.78),rgba(5,20,31,.08)),none}.scene-descent .ambient-image{background-image:linear-gradient(90deg,rgba(5,20,31,.79),rgba(5,20,31,.08)),none}
-.ambient-shade{background:linear-gradient(90deg,rgba(5,20,31,.99) 0%,rgba(5,20,31,.94) 18%,rgba(5,20,31,.56) 41%,rgba(5,20,31,.15) 70%,rgba(5,20,31,.75) 100%),linear-gradient(180deg,rgba(5,20,31,.66),transparent 30%,transparent 60%,rgba(5,20,31,.97))}.ridgeline{position:absolute;bottom:11%;left:36%;width:85%;height:27%;opacity:.25;background:linear-gradient(0deg,rgba(5,20,31,.8),transparent);clip-path:polygon(0% 100%,0% 66%,11% 46%,23% 69%,35% 21%,42% 34%,53% 12%,67% 52%,81% 19%,100% 63%,100% 100%);pointer-events:none}.ridgeline-near{opacity:.3;bottom:6%;height:18%;left:12%;transform:scaleX(-1)}.horizon-floor{position:absolute;bottom:-12%;left:10%;right:0;height:23%;background:radial-gradient(ellipse,rgba(11,17,17,.78),transparent 65%);pointer-events:none}
+/* Neutral graphics-only presentation; photographic and environmental layers are disabled. */
+.experience .ambient-backdrop,.experience .ambient-image,.experience .ambient-shade,.experience .ridgeline,.experience .ridgeline-near,.experience .horizon-floor{display:none!important}
 .topbar{position:absolute;z-index:6;top:0;left:0;right:0;display:flex;align-items:center;height:84px;padding:0 clamp(26px,4.1vw,78px);gap:24px;border-bottom:1px solid rgba(255,255,255,.14)}.brandmark{display:block;width:100px;height:40px;object-fit:contain;object-position:center;padding:0;flex:none}.topbar-divider{height:34px;border-left:1px solid rgba(255,255,255,.28)}.topbar-model{display:flex;flex-direction:column;gap:4px}.topbar-model strong{font-size:13px;letter-spacing:.13em}.topbar-model span{font-size:9px;letter-spacing:.18em;color:#a7b6c2}.topbar-middle{margin:auto;font-size:10px;font-weight:600;letter-spacing:.15em;color:#d7e1e7;white-space:nowrap}.signal-dot{display:inline-block;width:5px;height:5px;background:var(--red);border-radius:50%;vertical-align:middle;margin-right:9px}.topbar-cta{display:flex;align-items:center;gap:26px;text-decoration:none;font-size:10px;font-weight:800;letter-spacing:.12em;color:#fff;white-space:nowrap}.topbar-cta span{color:var(--red);font-size:20px;font-weight:400}
 .side-content{position:absolute;z-index:5;left:clamp(26px,4.1vw,78px);top:27%;width:min(33vw,510px);max-width:43%;pointer-events:none}.side-content button{pointer-events:auto}.eyebrow{font-size:10px;letter-spacing:.25em;font-weight:700;display:flex;gap:14px;align-items:center;color:#dbe1e4}.red-line{width:22px;border-top:2px solid var(--red);display:inline-block}.kicker{font-size:11px;font-weight:600;letter-spacing:.27em;color:#d2b99c;margin-top:25px}.vehicle-copy h1,.mission-copy h1{font-size:clamp(57px,8.6vw,164px);line-height:.91;letter-spacing:-.092em;font-weight:800;margin:9px 0 23px;white-space:nowrap}.year{display:block;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.5);letter-spacing:-.075em;font-size:.62em;font-weight:500;margin-top:8px}.vehicle-copy p,.mission-copy p{font-size:clamp(13px,1.16vw,18px);line-height:1.5;font-weight:600;margin:0 0 9px;max-width:320px}.vehicle-copy .subcopy{font-size:clamp(10px,.77vw,12px);line-height:1.8;font-weight:400;color:#b5c0c7;max-width:285px}.primary-actions{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}.start-button{border:0;background:var(--white);color:var(--black);font-size:10px;letter-spacing:.11em;font-weight:800;min-height:50px;min-width:185px;padding:0 19px;display:flex;align-items:center;justify-content:space-between;gap:25px;transition:background .2s}.start-button:hover{background:#ebedef}.button-arrow{font-size:20px;line-height:1}.outline-button{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.42);padding:0 18px;min-height:50px;font-size:10px;letter-spacing:.1em;font-weight:700;display:flex;align-items:center;gap:21px}.outline-button span{font-size:20px;font-weight:400}.outline-button:hover{background:rgba(255,255,255,.08)}.mission-copy h1{font-size:clamp(51px,6.5vw,124px);line-height:.94;white-space:normal;letter-spacing:-.075em;margin-bottom:22px}.mission-id{font-size:13px;margin-top:17px;letter-spacing:.13em;color:#d4b89a}.mission-copy p{font-size:13px;font-weight:400;color:#d0d9dd;max-width:345px}.mission-feature{margin-top:23px;display:flex;flex-direction:column;gap:7px;border-left:2px solid var(--red);padding-left:12px}.feature-label{font-size:9px;letter-spacing:.18em;color:#a9b4bc}.mission-feature strong{font-size:11px;letter-spacing:.08em;line-height:1.4}
 .stage{position:absolute;z-index:1;inset:10% 10% 9% 24%;overflow:visible;touch-action:none}.stage canvas{width:100%;height:100%;display:block;touch-action:none}.ground-glow{pointer-events:none;position:absolute;bottom:1%;left:30%;width:60%;height:17%;background:radial-gradient(ellipse,rgba(243,207,152,.11),transparent 70%)}.stage-watermark{position:absolute;bottom:10%;right:1%;font-size:clamp(50px,9vw,180px);font-weight:800;letter-spacing:-.08em;color:rgba(255,255,255,.055);line-height:1;z-index:-1;pointer-events:none}.hotspot{position:absolute;border:1px solid rgba(255,255,255,.75);background:rgba(5,20,31,.76);color:#fff;width:29px;height:29px;border-radius:50%;font-size:19px;line-height:1}.hotspot::after{content:'';position:absolute;inset:-9px;border:1px solid rgba(255,255,255,.3);border-radius:50%}.hotspot-a{top:35%;left:52%}.hotspot-b{top:48%;left:64%}.hotspot-c{top:71%;left:48%}
@@ -42,9 +42,7 @@
 /* Markers are positioned from live GLB geometry, not from fixed screen percentages. */
 .hotspots{position:absolute;inset:0;pointer-events:none;z-index:4}.hotspot{pointer-events:auto;transform:translate(-50%,-50%);z-index:2}.hotspot[hidden]{display:none!important}.hotspot:hover,.hotspot:focus-visible{border-color:#fff;background:#ea0029}.hotspot-a,.hotspot-b,.hotspot-c{top:auto;left:auto}
 
-/* Distinct rock-trail atmosphere in the Rock Challenge landing scene. */
-.scene-rocks .ambient-image{opacity:.92;filter:saturate(.82) contrast(1.15)}
-.scene-rocks .ridgeline{opacity:.06}
+/* Challenge names are UI labels, never triggers for a photographic scene. */
 
 /* Honest asynchronous 3D loading state, visible even when the fallback image fails. */
 .model-loading{position:absolute;z-index:5;left:50%;top:50%;transform:translate(-50%,-50%);max-width:65%;padding:14px 20px;border:1px solid rgba(255,255,255,.3);background:rgba(5,20,31,.89);color:#fff;text-align:center;letter-spacing:.14em;font-size:10px;font-weight:700;pointer-events:none;white-space:normal;line-height:1.6}
@@ -192,60 +190,7 @@
 @media(orientation:portrait){.kia-compact-rail{width:153px;right:9px;top:15%;max-height:68%;padding-left:9px}}
 @media(prefers-reduced-motion:reduce){.kia-compact-rail .micro-panel,.kia-compact-rail .micro-detail{animation:none}}
 
-/* KIA CHALLENGES — three environment-specific photographic backdrops.
-   ROCK CHALLENGE intentionally remains untouched. The live PlayCanvas Tasman
-   stays foreground in every scene, avoiding a second truck baked into a photo. */
-
-/* WATER CROSSING: a shallow natural woodland ford, never open sea/lake. */
-.scene-flood .ambient-image{
-  background-image:
-    linear-gradient(90deg,rgba(5,20,31,.76) 0%,rgba(5,20,31,.30) 51%,rgba(5,20,31,.08) 75%,rgba(5,20,31,.32) 100%),
-    none;
-  background-position:center 55%;
-  filter:saturate(.95) contrast(1.12);
-  opacity:.96;
-}
-.scene-flood .horizon-floor{
-  background:radial-gradient(ellipse at 65% 34%,rgba(57,121,121,.32) 0%,rgba(20,53,57,.19) 42%,transparent 72%);
-}
-.scene-flood .ridgeline{opacity:.02}
-
-/* SAND CHALLENGE: layered sand dunes rather than tropical vegetation. */
-.scene-mud .ambient-image{
-  background-image:
-    linear-gradient(90deg,rgba(5,20,31,.80) 0%,rgba(29,26,25,.25) 44%,rgba(26,23,20,.04) 73%,rgba(12,17,18,.20) 100%),
-    none;
-  background-position:center 58%;
-  filter:saturate(.97) contrast(1.12);
-  opacity:.97;
-}
-.scene-mud .ridgeline{opacity:0}
-.scene-mud .horizon-floor{background:radial-gradient(ellipse at 66% 38%,rgba(107,68,40,.23),transparent 69%)}
-
-/* STORM CHALLENGE: a wet forest road, low clouds, visible rainfall. */
-.scene-descent .ambient-image{
-  background-image:
-    linear-gradient(90deg,rgba(5,20,31,.82) 0%,rgba(5,20,31,.34) 48%,rgba(5,20,31,.04) 74%,rgba(5,20,31,.35) 100%),
-    none;
-  background-position:center 60%;
-  filter:saturate(.58) brightness(.75) contrast(1.25);
-  opacity:.96;
-}
-.scene-descent .ambient-backdrop::after{
-  content:"";position:absolute;inset:-30%;pointer-events:none;
-  background:repeating-linear-gradient(103deg,
-    transparent 0px,transparent 18px,
-    rgba(219,236,246,.0) 19px,
-    rgba(219,236,246,.24) 20px,
-    transparent 21px,transparent 30px);
-  background-size:260px 230px;
-  opacity:.35;
-  animation:kiaRainSweep 1.1s linear infinite;
-}
-.scene-descent .ridgeline{opacity:.045}
-.scene-descent .horizon-floor{background:radial-gradient(ellipse at 64% 45%,rgba(90,127,144,.21),transparent 71%)}
-@keyframes kiaRainSweep{from{transform:translate(0,-25px)}to{transform:translate(-40px,70px)}}
-@media(prefers-reduced-motion:reduce){.scene-descent .ambient-backdrop::after{animation:none}}
+/* KIA CHALLENGES: Rock, Water, Sand and Storm remain selectable without photographic backgrounds or weather effects. */
 
 /* Mission navigation has priority: compact vehicle-config menus belong only
    to model exploration and must never intercept the mission arrows on mobile. */
@@ -1019,21 +964,9 @@ button{font-family:var(--kia-mono)}
     overflow:hidden;background:#0b141c!important;
   }
 
-  /* Atmospheric photograph is exclusive to the mobile cover.
-     The model remains the live PlayCanvas scene, not a baked image. */
-  .experience .ambient-backdrop{display:block;background:#15232c!important}
-  .experience .ambient-image{
-    display:block!important;inset:0;
-    background-size:cover;background-position:54% 58%;
-    filter:brightness(.71) saturate(.80) contrast(1.08);
-    opacity:1;transform:none;
-  }
-  .experience .ambient-shade{
-    background:
-      linear-gradient(180deg,rgba(5,20,31,.93) 0%,rgba(5,20,31,.74) 20%,rgba(5,20,31,.23) 43%,rgba(5,20,31,.08) 62%,rgba(5,20,31,.58) 82%,#05141f 100%),
-      linear-gradient(90deg,rgba(5,20,31,.42) 0%,rgba(5,20,31,.04) 76%)!important;
-  }
-  .experience .ridgeline,.experience .horizon-floor{display:none!important}
+  /* Mobile uses the same solid neutral background; no mobile-only photographic cover. */
+  .experience{background:#101316!important;background-image:none!important}
+  .experience .ambient-backdrop,.experience .ambient-image,.experience .ambient-shade,.experience .ridgeline,.experience .horizon-floor{display:none!important}
   .ground-glow{display:none!important}
 
   /* Brand and chapter, aligned across the top edge. */
@@ -1241,7 +1174,7 @@ button{font-family:var(--kia-mono)}
 }
 
 
-/* ONLY THE VEHICLE ON THE LANDSCAPE.
+/* Optional transparent vehicle renderer, retained without any landscape.
    The PlayCanvas alpha channel provides true per-pixel transparency.
    Never clip or fade the canvas: that creates a visible ellipse/rectangle. */
 .stage,.stage canvas{
@@ -1253,16 +1186,7 @@ button{font-family:var(--kia-mono)}
   mask:none!important;
   opacity:1;
 }
-@media (orientation:portrait) and (max-width:700px){
-  .experience .ambient-image{
-    background-position:55% 56%;
-    filter:saturate(.82) contrast(1.10) brightness(.86);
-    opacity:.95;
-  }
-}
-
-
-/* TYPOGRAPHY LOCK v21 — LANDSCAPE + PORTRAIT.
+/* TYPOGRAPHY LOCK v21/* TYPOGRAPHY LOCK v21 — LANDSCAPE + PORTRAIT.
    Do NOT touch .vehicle-copy h1 or .topbar-model strong:
    both TASMAN wordmarks keep their existing Unbounded display treatment.
    All other copy is either geometric Space Grotesk or JetBrains Mono. */
