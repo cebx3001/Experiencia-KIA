@@ -1260,3 +1260,127 @@ button{font-family:var(--kia-mono)}
     opacity:.95;
   }
 }
+
+
+/* TYPOGRAPHY LOCK v21 — LANDSCAPE + PORTRAIT.
+   Do NOT touch .vehicle-copy h1 or .topbar-model strong:
+   both TASMAN wordmarks keep their existing Unbounded display treatment.
+   All other copy is either geometric Space Grotesk or JetBrains Mono. */
+:root{
+  --kia-reading:'Space Grotesk',sans-serif;
+  --kia-tech:'JetBrains Mono',monospace;
+}
+.vehicle-copy .year,
+.frame-index,
+.frame-index em,
+.mission-id,
+#missionNumber,
+.modal .mission-id{
+  font-family:var(--kia-reading);
+  font-weight:700;
+  font-variant-numeric:tabular-nums;
+}
+.vehicle-copy .year{
+  color:transparent;
+  -webkit-text-stroke:1.5px #fff;
+  letter-spacing:-.045em;
+}
+.mission-copy h1,
+.modal h2{
+  font-family:var(--kia-reading);
+  font-weight:700;
+  letter-spacing:-.045em;
+  line-height:.97;
+}
+.vehicle-copy p,
+.vehicle-copy p.subcopy,
+.mission-copy p,
+.kia-bottom-description p,
+.kia-bottom-description strong,
+.modal p,
+.mission-feature strong{
+  font-family:var(--kia-reading);
+  font-weight:500;
+  letter-spacing:-.01em;
+  line-height:1.2;
+}
+.kia-bottom-description strong,.mission-feature strong{font-weight:700}
+.eyebrow,
+.eyebrow span,
+.kicker,
+.topbar-model span,
+.topbar-middle,
+.kia-category,
+.kia-carousel-meta,
+.kia-carousel-choice,
+.kia-carousel-arrow,
+.primary-actions button,
+.primary-actions button span,
+.footer-testdrive,
+.footer-testdrive span,
+.bottom-middle,
+.bottom-left #stepName,
+.feature-label,
+.rail-label,
+.rail-heading,
+.model-loading,
+.modal-link,
+.modal-close,
+.mission-placeholder,
+.selector-meta,
+.selector-current strong,
+.selector-arrow,
+.kia-bottom-description button{
+  font-family:var(--kia-tech);
+  font-weight:600;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.kia-carousel-selected,
+.kia-category.is-active{font-weight:700}
+.kia-carousel-arrow,
+.primary-actions .button-arrow,
+.footer-testdrive span,
+.modal-close{letter-spacing:0}
+@media(orientation:landscape){
+  .vehicle-copy p,
+  .vehicle-copy p.subcopy,
+  .mission-copy p,
+  .kia-bottom-description p{line-height:1.2}
+  .kia-category,
+  .kia-carousel-choice,
+  .primary-actions button,
+  .bottom-left #stepName,
+  .footer-testdrive{letter-spacing:.10em}
+  .vehicle-copy .year{-webkit-text-stroke:1.5px #fff;font-weight:700}
+  .frame-index,.mission-id,#missionNumber{font-weight:700}
+}
+@media(orientation:portrait){
+  .vehicle-copy .year{
+    font-family:var(--kia-reading);
+    font-weight:700;
+    -webkit-text-stroke:1.5px #fff;
+    color:transparent;
+  }
+  .frame-index,.mission-id,#missionNumber{
+    font-family:var(--kia-reading);
+    font-weight:700;
+  }
+  .vehicle-copy p,
+  .vehicle-copy p.subcopy,
+  .mission-copy p,
+  .kia-bottom-description p{font-weight:500;letter-spacing:-.01em;line-height:1.2}
+  .kia-category,
+  .kia-carousel-choice,
+  .primary-actions button,
+  .bottom-left #stepName,
+  .footer-testdrive{font-family:var(--kia-tech);font-weight:600;letter-spacing:.07em}
+  .kia-category.is-active,.kia-carousel-selected{font-weight:700}
+  .eyebrow,.kicker,.topbar-model span,.kia-carousel-meta{letter-spacing:.09em}
+}
+@media(orientation:portrait) and (max-width:700px){
+  .kia-category{letter-spacing:.04em}
+  .kia-carousel-selected{letter-spacing:0}
+  .primary-actions button,.footer-testdrive{letter-spacing:.05em}
+  .vehicle-copy .year{-webkit-text-stroke:1.2px #fff}
+}
