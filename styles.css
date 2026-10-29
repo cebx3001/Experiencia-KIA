@@ -1384,3 +1384,28 @@ button{font-family:var(--kia-mono)}
   .primary-actions button,.footer-testdrive{letter-spacing:.05em}
   .vehicle-copy .year{-webkit-text-stroke:1.2px #fff}
 }
+
+
+/* UI-ONLY CREATIVE REVIEW v23
+   No photographed environment, gradients, floors, watermark or truck on
+   screen. All GLB assets, Three.js camera poses, door animations and paint
+   selectors remain in the project, ready to re-enable by removing the
+   ui-only-preview class from #experience. */
+.experience.ui-only-preview{
+  background:#101316!important;
+  background-image:none!important;
+}
+.experience.ui-only-preview .stage{
+  visibility:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+.experience.ui-only-preview .ambient-backdrop,
+.experience.ui-only-preview .ambient-image,
+.experience.ui-only-preview .ambient-shade,
+.experience.ui-only-preview .ridgeline,
+.experience.ui-only-preview .horizon-floor,
+.experience.ui-only-preview .ground-glow,
+.experience.ui-only-preview .stage-watermark{
+  display:none!important;
+}
