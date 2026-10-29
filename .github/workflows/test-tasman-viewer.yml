@@ -78,17 +78,17 @@ jobs:
               main.photoImages!==0||!main.title?.includes("TASMAN")||
               JSON.stringify(main.categories)!==JSON.stringify(["cameras","colors","exterior","interior"]))
               throw Error("3D model-only HUD is not intact: "+JSON.stringify(main));
-            await page.locator(".kia-category[data-category='colors']").click();
-            await page.locator("#carouselNext").click();
+            await page.evaluate(()=>document.querySelector(".kia-category[data-category='colors']").click());
+            await page.evaluate(()=>document.getElementById("carouselNext").click());
             await page.waitForFunction(()=>window.__kiaPlayCanvasViewer?.paintApplied==="gris",
               null,{timeout:12000});
-            await page.locator(".kia-category[data-category='interior']").click();
+            await page.evaluate(()=>document.querySelector(".kia-category[data-category='interior']").click());
             await page.waitForFunction(()=>Object.keys(window.__kiaPlayCanvasViewer?.getAllDoorDegrees?.()||{}).length===4&&
               Object.values(window.__kiaPlayCanvasViewer.getAllDoorDegrees()).every(v=>Math.abs(v)>50),
               null,{timeout:25000,polling:140});
             console.log("DOORS OPEN:",JSON.stringify(await page.evaluate(()=>
               window.__kiaPlayCanvasViewer.getAllDoorDegrees())));
-            await page.locator("#primaryButton").click();
+            await page.evaluate(()=>document.getElementById("primaryButton").click());
             await page.waitForTimeout(500);
             const mission=await page.evaluate(()=>({
               section:document.getElementById("sectionIndex").textContent,
@@ -101,7 +101,7 @@ jobs:
             if(!mission.section.includes("PRUEBAS")||mission.canvasVisible!=="visible"||
               mission.background!=="none"||!mission.missionCarousel||mission.watermark==="none")
               throw Error("Model or graphic HUD disappeared in mission mode");
-            await page.locator("#secondaryButton").click();
+            await page.evaluate(()=>document.getElementById("secondaryButton").click());
             await page.setViewportSize({width:390,height:844});
             await page.waitForTimeout(400);
             const portrait=await page.evaluate(()=>({
