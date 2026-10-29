@@ -3,24 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
-  <meta name="theme-color" content="#05141f">
+  <meta name="theme-color" content="#101316">
   <meta name="description" content="Kia Tasman 2026. Explora el vehículo y descubre sus cuatro desafíos.">
   <title>Kia Tasman 2026 | Experience</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Unbounded:wght@700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=20261028-alpha-only-v7">
+  <link rel="stylesheet" href="./styles.css?v=20261029-blank-studio-v22">
   <script type="importmap">{"imports":{"playcanvas":"https://cdn.jsdelivr.net/npm/playcanvas@2.23.1/build/playcanvas.mjs"}}</script>
   <script type="module" src="./app.js?v=20261028-alpha-only-v7"></script>
 </head>
 <body>
-  <main id="experience" class="experience scene-rocks" aria-label="Experiencia Kia Tasman 2026">
-    <div class="ambient-backdrop" aria-hidden="true">
-      <div class="ambient-image"></div><div class="ambient-shade"></div>
-      <div class="ridgeline ridgeline-far"></div><div class="ridgeline ridgeline-near"></div>
-      <div class="horizon-floor"></div>
-    </div>
-
+  <main id="experience" class="experience" aria-label="Experiencia Kia Tasman 2026">
     <header class="topbar">
       <img class="brandmark" src="./assets/kia-logo.svg?v=20261028-rock-v3" alt="Kia" width="100" height="40">
       <div class="topbar-divider"></div>
@@ -31,8 +25,6 @@
     <div class="stage" id="stage">
       <canvas id="carCanvas" aria-label="Visualizador tridimensional de Kia Tasman" hidden></canvas>
       <div class="model-loading" id="modelLoading" role="status">CARGANDO MODELO TRIDIMENSIONAL</div>
-      <div class="ground-glow" aria-hidden="true"></div>
-      <div class="stage-watermark" aria-hidden="true">TASMAN</div>
     </div>
 
     <section class="side-content" aria-label="Información del vehículo o prueba">
