@@ -1186,7 +1186,7 @@ button{font-family:var(--kia-mono)}
   mask:none!important;
   opacity:1;
 }
-/* TYPOGRAPHY LOCK v21/* TYPOGRAPHY LOCK v21 — LANDSCAPE + PORTRAIT.
+/* TYPOGRAPHY LOCK v21 — LANDSCAPE + PORTRAIT.
    Do NOT touch .vehicle-copy h1 or .topbar-model strong:
    both TASMAN wordmarks keep their existing Unbounded display treatment.
    All other copy is either geometric Space Grotesk or JetBrains Mono. */
