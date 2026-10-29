@@ -9,9 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Unbounded:wght@700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=20261029-ui-only-v26">
-  <script type="importmap">{"imports":{"playcanvas":"https://cdn.jsdelivr.net/npm/playcanvas@2.23.1/build/playcanvas.mjs"}}</script>
-  <script type="module" src="./app.js?v=20261029-ui-only-v26"></script>
+  <link rel="stylesheet" href="./styles.css?v=20261029-static-ui-v28">
 <style>
 /* UI-only presentation: no vehicle, loader, scene or 3D overlays. */
 .ui-only .stage,.ui-only .model-loading,.ui-only .hotspot,.ui-only .ground-glow{display:none!important}
@@ -19,6 +17,15 @@
 .ui-only .vehicle-copy h1,.ui-only .mission-copy h1,.ui-only .ui-watermark{font-family:"Unbounded","Arial Black",sans-serif!important;font-weight:900!important;letter-spacing:-.055em!important}
 .ui-only .year,.ui-only .frame-index,.ui-only .mission-id,.ui-only .kia-carousel-meta{font-family:"Space Grotesk",sans-serif!important}
 .ui-only .start-button,.ui-only .outline-button{background:transparent!important;color:#fff!important;border:0!important;border-bottom:1px solid rgba(255,255,255,.45)!important;padding-left:0!important;padding-right:0!important;min-width:0!important}
+
+/* Static graphic interface. No 3D engine, no photo, no canvas. */
+html,body,body main#experience.experience.ui-only{background:#101316!important;background-image:none!important}
+body main#experience.ui-only .stage,body main#experience.ui-only .ambient-backdrop,
+body main#experience.ui-only .ambient-image,body main#experience.ui-only .ambient-shade,
+body main#experience.ui-only .model-loading{display:none!important}
+body main#experience.ui-only .topbar,body main#experience.ui-only .side-content,
+body main#experience.ui-only .right-rail,body main#experience.ui-only .kia-feature-carousel,
+body main#experience.ui-only .bottom-bar{filter:none!important}
 </style>
 </head>
 <body>
@@ -30,10 +37,6 @@
       <div class="topbar-middle"><span class="signal-dot"></span> UNA EXPERIENCIA KIA</div>
     </header>
 
-    <div class="stage" id="stage" aria-hidden="true">
-      <canvas id="carCanvas" aria-label="Visualizador tridimensional de Kia Tasman" hidden></canvas>
-      <div class="model-loading" id="modelLoading" role="status">CARGANDO MODELO TRIDIMENSIONAL</div>
-    </div>
     <div class="ui-watermark" aria-hidden="true">TASMAN</div>
 
     <section class="side-content" aria-label="Información del vehículo o prueba">
