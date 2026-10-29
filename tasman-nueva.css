@@ -1445,21 +1445,37 @@ html,body,#experience.experience.ui-only{background:#101316!important;background
 #experience .ambient-backdrop,#experience .ambient-image,#experience .ambient-shade,#experience .ridgeline,#experience .horizon-floor,#experience .ground-glow,#experience .stage,#experience canvas{display:none!important;}
 
 
-/* KIA TASMAN — TYPE SYSTEM v5: Chakra Petch / Monument Extended / Share Tech Mono.
-   This edition replaces the previous editorial font hierarchy.
-   Monument Extended is a licensed font and requires a separately supplied file. */
+/* KIA TASMAN — TYPE SYSTEM v6 — requested type styles.
+   Monument Extended is not bundled; Unbounded remains the fallback until licensed font is supplied. */
 :root{
-  --tasman-content: 'Chakra Petch', sans-serif;
   --tasman-headline: 'Monument Extended', 'Unbounded', sans-serif;
+  --tasman-content: 'JetBrains Mono', monospace;
+  --tasman-year: 'Space Grotesk', sans-serif;
   --tasman-ui: 'Share Tech Mono', monospace;
 }
 
-/* Preserve structural sizing and section layout, change the type only. */
-html,body,#experience{
-  font-family:var(--tasman-content);
+/* 01. Monumental TITLES. */
+#experience .vehicle-copy h1,
+#experience .topbar-model strong,
+#experience .ui-watermark,
+#experience .mission-copy h1,
+#experience .modal h2{
+  font-family:var(--tasman-headline)!important;
+  font-weight:900!important;
+  text-transform:uppercase!important;
+  letter-spacing:-.02em!important;
 }
 
-/* 1 — Content, subtitles, descriptive copy and technical explanations. */
+/* 02. 2026 — preserve hollow outlined lettering with the requested thin stroke. */
+#experience .vehicle-copy .year{
+  font-family:var(--tasman-year)!important;
+  font-weight:700!important;
+  color:transparent!important;
+  -webkit-text-stroke:1.2px #fff!important;
+  text-transform:none!important;
+}
+
+/* 03. All prose stays in its original casing; actual descriptions are stored lowercase. */
 #experience .vehicle-copy p,
 #experience .vehicle-copy .subcopy,
 #experience .mission-copy p,
@@ -1468,27 +1484,15 @@ html,body,#experience{
 #experience .modal p,
 #experience .mission-feature strong{
   font-family:var(--tasman-content)!important;
-  font-weight:500!important;
-  letter-spacing:-.01em!important;
-  text-transform:uppercase!important;
-  line-height:1.2!important;
+  font-weight:400!important;
+  text-transform:none!important;
+  font-size:.85rem!important;
+  letter-spacing:.02em!important;
+  line-height:1.35!important;
+  color:#c0c0c0!important;
 }
 
-/* 2 — Main wordmark and monumental headlines. */
-#experience .vehicle-copy h1,
-#experience .topbar-model strong,
-#experience .ui-watermark,
-#experience .mission-copy h1,
-#experience .modal h2{
-  font-family:var(--tasman-headline)!important;
-  font-weight:900!important;
-  letter-spacing:-.03em!important;
-  text-transform:uppercase!important;
-  line-height:.9!important;
-}
-
-/* 3 — Precise control typography for all counters, menus and micro-labels. */
-#experience .vehicle-copy .year,
+/* 04. Microcopy, menus and numeric HUD labels. */
 #experience .frame-index,
 #experience .frame-index em,
 #experience .mission-id,
@@ -1516,15 +1520,9 @@ html,body,#experience{
 #experience .mission-placeholder,
 #experience .kia-bottom-description button{
   font-family:var(--tasman-ui)!important;
-  font-weight:700!important;
-  letter-spacing:.1em!important;
+  font-weight:600!important;
   text-transform:uppercase!important;
-}
-
-/* Maintain the existing outlined 2026 appearance. */
-#experience .vehicle-copy .year{
-  color:transparent!important;
-  -webkit-text-stroke:1.5px #fff!important;
+  letter-spacing:.1em!important;
 }
 #experience .kia-carousel-arrow,
 #experience .primary-actions .button-arrow,
