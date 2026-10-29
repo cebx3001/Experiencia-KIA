@@ -8,47 +8,48 @@
     "engine": "2.23.1",
     "view": "hero",
     "paint": "arena",
-    "exposure": 0.5,
+    "exposure": 0.75,
     "environment": "cinematic",
     "lighting": {
+      "name": "advertising-final",
       "panels": [
         {
-          "name": "Upper side key",
+          "name": "Hood shaping scrim",
           "position_m": [
-            -4.2,
-            4.8,
-            1
+            5.5,
+            2.5,
+            -1.7
           ],
           "aim_m": [
             0,
-            1,
-            0
+            1.2,
+            1.5
           ],
-          "width_m": 7,
-          "height_m": 1.2,
-          "linear_radiance": 18,
+          "width_m": 4,
+          "height_m": 1.8,
+          "linear_radiance": 0.55,
           "tint": [
             1,
-            0.985,
-            0.96
+            1,
+            1
           ],
-          "cast_shadows": true
+          "cast_shadows": false
         },
         {
-          "name": "Front fill",
+          "name": "Shoulder key",
           "position_m": [
-            -1.5,
-            3,
-            6
-          ],
-          "aim_m": [
-            0,
-            0.8,
+            -3.8,
+            3.8,
             1.8
           ],
-          "width_m": 3,
-          "height_m": 1.4,
-          "linear_radiance": 16,
+          "aim_m": [
+            0,
+            1.2,
+            0
+          ],
+          "width_m": 6.5,
+          "height_m": 0.8,
+          "linear_radiance": 14,
           "tint": [
             1,
             1,
@@ -57,23 +58,45 @@
           "cast_shadows": true
         },
         {
-          "name": "Cool rear rim",
+          "name": "Low graduated bounce board",
           "position_m": [
-            3.5,
-            4,
+            -4.3,
+            1.15,
+            -1.6
+          ],
+          "aim_m": [
+            0,
+            0.95,
+            0
+          ],
+          "width_m": 6,
+          "height_m": 1.3,
+          "linear_radiance": 0.8,
+          "tint": [
+            1,
+            1,
+            1
+          ],
+          "cast_shadows": false
+        },
+        {
+          "name": "Rear edge",
+          "position_m": [
+            3,
+            3.6,
             -3.5
           ],
           "aim_m": [
             0,
             1,
-            -0.5
+            -1
           ],
-          "width_m": 5.5,
-          "height_m": 0.8,
-          "linear_radiance": 24,
+          "width_m": 4,
+          "height_m": 1,
+          "linear_radiance": 8,
           "tint": [
-            0.94,
-            0.975,
+            1,
+            1,
             1
           ],
           "cast_shadows": true
@@ -82,7 +105,7 @@
           "name": "Roof strip",
           "position_m": [
             0,
-            6.5,
+            6,
             0
           ],
           "aim_m": [
@@ -90,9 +113,9 @@
             1,
             0
           ],
-          "width_m": 7,
+          "width_m": 8,
           "height_m": 2,
-          "linear_radiance": 5.5,
+          "linear_radiance": 4,
           "tint": [
             1,
             1,
@@ -101,64 +124,64 @@
           "cast_shadows": true
         },
         {
-          "name": "Rear soft fill",
+          "name": "Front soft fill",
           "position_m": [
-            -3,
-            5.2,
-            -4
+            -1,
+            2.5,
+            5
           ],
           "aim_m": [
             0,
-            0.9,
-            -1.5
-          ],
-          "width_m": 2.5,
-          "height_m": 1,
-          "linear_radiance": 3.5,
-          "tint": [
-            1,
-            1,
-            1
-          ],
-          "cast_shadows": false
-        },
-        {
-          "name": "Controlled glass strip",
-          "position_m": [
-            6,
-            4.5,
-            0.4
-          ],
-          "aim_m": [
-            0,
-            1.5,
-            1
-          ],
-          "width_m": 1.25,
-          "height_m": 3,
-          "linear_radiance": 6,
-          "tint": [
-            1,
-            1,
-            1
-          ],
-          "cast_shadows": false
-        },
-        {
-          "name": "Low metal accent",
-          "position_m": [
-            -4.5,
             0.8,
-            -2
+            1.5
+          ],
+          "width_m": 4,
+          "height_m": 2,
+          "linear_radiance": 5,
+          "tint": [
+            1,
+            1,
+            1
+          ],
+          "cast_shadows": true
+        },
+        {
+          "name": "Rear low bounce board",
+          "position_m": [
+            -5,
+            0.6,
+            -4.2
           ],
           "aim_m": [
             0,
-            0.4,
-            0.4
+            0.65,
+            0
           ],
-          "width_m": 5,
-          "height_m": 0.35,
-          "linear_radiance": 3,
+          "width_m": 4,
+          "height_m": 1.2,
+          "linear_radiance": 0.4,
+          "tint": [
+            1,
+            1,
+            1
+          ],
+          "cast_shadows": false
+        },
+        {
+          "name": "Glass reflection ribbon",
+          "position_m": [
+            4.031105989866124,
+            5.223779590320483,
+            1.381980633314952
+          ],
+          "aim_m": [
+            -1.4646683690488373e-7,
+            1.522121425324129,
+            0.939871857584033
+          ],
+          "width_m": 1.15,
+          "height_m": 2.4,
+          "linear_radiance": 1.6,
           "tint": [
             1,
             1,
@@ -167,7 +190,24 @@
           "cast_shadows": false
         }
       ],
-      "design": "Independent cinematic studio, controlled highlights, graduated key, neutral low fill and restrained windshield reflection; not matching the reference lighting",
+      "floor_base_color_linear": [
+        0.065,
+        0.065,
+        0.065
+      ],
+      "floor_roughness": 0.32,
+      "camera": {
+        "yaw": -0.74,
+        "pitch": 0.14,
+        "distance_m": 10.7,
+        "horizontal_fov_deg": 37,
+        "target_m": [
+          0,
+          1,
+          0
+        ]
+      },
+      "exposure": 0.75,
       "direct_scale": 0.15,
       "reflection_intensity": 1.5,
       "probe_origin_m": [
@@ -187,51 +227,70 @@
       ],
       "ambientSH": [
         [
-          0.044034760824162855,
-          0.044404591851852915,
-          0.04421718379327907
+          0.02620206893418745,
+          0.02632916025623593,
+          0.026268812688995533
         ],
         [
-          -0.004667389610728002,
-          -0.004375963759406533,
-          -0.004021317451826804
+          -0.005463926034566022,
+          -0.005481565946734755,
+          -0.005455552530950836
         ],
         [
-          -0.050867373753930384,
-          -0.051295944408408956,
-          -0.05096779650747607
+          -0.029425614653266055,
+          -0.029581006200068906,
+          -0.029467451933525346
         ],
         [
-          0.002526599921096137,
-          0.002319084159168921,
-          0.0021352398644821136
+          0.004507620102394696,
+          0.004522548986787429,
+          0.004508711628285481
         ],
         [
-          -0.005491484325319711,
-          -0.0056227125587314354,
-          -0.00565729483816819
+          -0.0033909946585884425,
+          -0.003408953920652888,
+          -0.0033904099125750785
         ],
         [
-          -0.0018637499349276007,
-          -0.0016476334779788264,
-          -0.0014613639416508812
+          -0.004641664939969619,
+          -0.004662497350459044,
+          -0.0046535958152584544
         ],
         [
-          0.004766190827916376,
-          0.0044655805174842415,
-          0.0040916273822256925
+          0.005280113093386231,
+          0.005304911993943496,
+          0.005281712807289712
         ],
         [
-          -0.002036348160434206,
-          -0.002046278837497047,
-          -0.002003118986251677
+          -0.0011799229612660077,
+          -0.0011896188876322064,
+          -0.0011778747753338613
         ],
         [
-          -0.00605677696830241,
-          -0.0061177439660998175,
-          -0.006050036825571553
+          -0.004073642270515253,
+          -0.004103131367686635,
+          -0.004073667283415046
         ]
-      ]
+      ],
+      "stage": {
+        "floor_color_srgb": [
+          0.2825,
+          0.2825,
+          0.2825
+        ],
+        "floor_roughness": 0.32,
+        "background_base_radiance": 0.028,
+        "background_top_radiance": 0.009,
+        "reflection": {
+          "resolution_scale": 0.35,
+          "intensity": 0.08,
+          "blur_amount": 1.3,
+          "fade_strength": 0.8,
+          "angle_fade": 0.5,
+          "height_range_m": 1
+        }
+      },
+      "creative_direction": "Professional automotive advertising photography. Vehicle materials locked during lighting studies; Unreal is material provenance, not a visual target."
     },
     "coating": [
       {

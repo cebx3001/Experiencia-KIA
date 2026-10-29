@@ -1,4 +1,4 @@
-# Kia Tasman — nuevo estudio cinematográfico PlayCanvas
+# Kia Tasman — estudio publicitario PlayCanvas
 
 Escena independiente en `studio/index.html`. Conserva intactas la página principal y las escenas anteriores del repositorio.
 
@@ -24,11 +24,15 @@ El GLB maestro está gestionado con Git LFS. Después de clonar, ejecutar `git l
 
 ## Set construido para esta escena
 
-Ciclorama circular, siete luminarias rectangulares LTC y un entorno HDR 4K propio. La iluminación se diseñó para dar volumen y separar los acabados, usando Unreal como referencia de calidad de materiales. No reproduce su disposición de luces ni su parabrisas sobreexpuesto.
+Ciclorama circular, ocho luminarias rectangulares LTC y un entorno HDR 4K propio. La iluminación se diseñó para dar volumen y separar los acabados, usando Unreal como referencia de calidad de materiales. No reproduce su disposición de luces ni su parabrisas sobreexpuesto.
 
-El HDR se horneó en un estudio vacío con emisores graduados, suelo y entorno neutros. Los reflejos incluyen el suelo real del set: esto recupera definición en los rines y metales que reflejan hacia abajo. La proyección local corrige el paralaje y conserva el origen de captura a un metro del suelo; los armónicos esféricos aíslan el rebote indirecto de las luminarias directas. El relleno trasero alto evita velar las ventanillas laterales.
+La dirección actual es fotografía publicitaria automotriz independiente. Se evaluaron grandes difusores, tiras y tarjetas graduadas manteniendo bloqueados los materiales del vehículo. El set elegido combina una luz lateral principal, separación de techo y trasera, relleno frontal, tarjetas de rebote y un reflejo estrecho calculado para el parabrisas. El capó recibe una transición amplia sin convertir el cristal en una superficie blanca.
 
-Sombras VSM32 filtradas sobre el vehículo y contacto suave horneado por rayos sobre el suelo. CameraFrame procesa HDR con ACES fitted, TAA, AO de iluminación y bloom moderado. El selector permite contrastar el set propio con Studio Small 09 de Poly Haven. Las luminarias no tienen paneles visibles como mallas.
+El HDR propio de 4096 × 2048 se horneó a 64 muestras en un estudio vacío. La proyección local conserva el origen de captura y los armónicos esféricos separan el rebote de las luces directas. Cámara frontal de tres cuartos con campo horizontal de 37°, exposición 0,75 y ACES fitted.
+
+El suelo combina iluminación PBR, sombra horneada como cociente de irradiancia con/sin vehículo y un reflejo planar suave. La sombra horneada corresponde a puertas cerradas; las sombras del vehículo y la oclusión en pantalla siguen siendo dinámicas. El reflejo planar usa una captura de resolución reducida y formato RGBA8, por lo que es una aproximación visual, no trazado de rayos. CameraFrame aporta HDR, TAA, AO y bloom moderado.
+
+La auditoría `assets/audit/advertising-material-preservation.json` verifica que los GLB, mapas, catálogo y adaptador de materiales no cambiaron durante esta etapa. Véase [LIGHTING_STUDY.md](LIGHTING_STUDY.md).
 
 ## Materiales y adaptaciones
 

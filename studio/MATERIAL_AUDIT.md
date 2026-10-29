@@ -37,15 +37,15 @@ Los fragmentos personalizados se aplican sólo a los materiales afectados y comp
 
 ## Estudio y comparación
 
-Set cinematográfico independiente con siete luminarias LTC, emisores de perfil graduado, entorno HDR 4096 × 2048 horneado mediante Cycles y suelo neutro coherente en los reflejos. El origen de captura es (0, 1, 0) m; se conserva al proyectar localmente el entorno sobre el vehículo. Las normales y los valores ópticos de los materiales no cambian durante esta calibración.
+Set publicitario independiente con ocho luminarias LTC, emisores de perfil graduado, entorno HDR 4096 × 2048 horneado mediante Cycles y suelo neutro coherente en los reflejos. El origen de captura es (0, 1, 0) m; se conserva al proyectar localmente el entorno sobre el vehículo. Las normales y los valores ópticos de los materiales no cambian durante esta calibración.
 
 Las pruebas con Studio Small 02, Studio Small 04 y el HDR del ejemplo Porsche sirvieron para evaluar distribución y rango de los reflejos. Se eligió el entorno propio para controlar el parabrisas y las transiciones de carrocería. El HDR Porsche permanece como recurso de investigación y no se redistribuye. El relleno trasero se elevó después de aislar la reflexión ambiental: el velo gris lateral desaparece al retirar esa reflexión sin cambiar la transmisión. Las pruebas con sombras adicionales no lo resolvían.
 
 El set usa sombras VSM32 con filtro gaussiano de 25 texeles y ACES fitted. El rebote indirecto se aproxima con SH de orden 2, excluyendo las direcciones de emisores que ya iluminan mediante LTC. Las reflexiones utilizan el entorno HDR completo con proyección local. Es una aproximación de tiempo real, sin trazado de caminos ni reflexión completa del vehículo sobre sí mismo. No se intenta copiar la iluminación de las referencias Unreal.
 
-El contacto del suelo se horneó mediante oclusión por rayos contra toda la geometría real. Es un recurso del estudio, no un AO del vehículo inventado desde roughness. Es estático con puertas cerradas; las sombras de las luminarias sobre el vehículo y el SSAO son dinámicos. El modelo usa máscaras de luz separadas del suelo para evitar varias sombras duras de focos sobre éste.
+El contacto del suelo se horneó como cociente de irradiancia directa con y sin la geometría real, usando las luces del estudio. Es un recurso del estudio, no un AO del vehículo inventado desde roughness. Es estático con puertas cerradas; las sombras de las luminarias sobre el vehículo y el SSAO son dinámicos. El modelo usa máscaras de luz separadas del suelo para evitar varias sombras duras de focos sobre éste.
 
-La referencia hero usa una focal equivalente de 48 mm, mismo lado y composición aproximada de la referencia proporcionada. Las capturas son renders reales del navegador, sin corrección de color posterior. No son una medición espectral ni una declaración de igualdad píxel a píxel entre motores. Los efectos procedurales dependientes de vista, incluida la perla de ABP, se representan mediante el horneado y la respuesta especular; el grafo completo de Unreal no se ejecuta en el navegador.
+La vista hero usa un campo horizontal de 37°, equivalente aproximadamente a 54 mm en formato de 36 mm. La composición es independiente de Unreal; véase LIGHTING_STUDY.md. Las capturas son renders reales del navegador, sin corrección de color posterior. No son una medición espectral ni una declaración de igualdad píxel a píxel entre motores. Los efectos procedurales dependientes de vista, incluida la perla de ABP, se representan mediante el horneado y la respuesta especular; el grafo completo de Unreal no se ejecuta en el navegador.
 
 ## Evidencia
 

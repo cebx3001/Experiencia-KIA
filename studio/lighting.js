@@ -9,11 +9,11 @@ export function createStudioLighting(app, config, load){
   const e=new pc.Entity(panel.name);
   e.addComponent('light',{
    type:'spot',shape:pc.LIGHTSHAPE_RECT,color:new pc.Color(...panel.tint),
-   intensity:panel.linear_radiance*config.direct_scale,range:22,
-   innerConeAngle:35,outerConeAngle:55,mask:1,castShadows:panel.cast_shadows,
+   intensity:panel.linear_radiance*config.direct_scale,range:28,
+   innerConeAngle:40,outerConeAngle:70,mask:1,castShadows:panel.cast_shadows,
    shadowResolution:1024,shadowType:pc.SHADOW_VSM_32F,
    vsmBlurSize:25,vsmBlurMode:pc.BLUR_GAUSSIAN,vsmBias:.0025,
-   shadowBias:.08,normalOffsetBias:.03,shadowUpdateMode:pc.SHADOWUPDATE_THISFRAME,
+   shadowBias:.06,normalOffsetBias:.015,shadowUpdateMode:pc.SHADOWUPDATE_THISFRAME,
    falloffMode:pc.LIGHTFALLOFF_INVERSESQUARED
   });
   e.setPosition(...panel.position_m);e.lookAt(new pc.Vec3(...panel.aim_m));
