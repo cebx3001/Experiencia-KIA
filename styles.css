@@ -1446,3 +1446,78 @@ button{font-family:var(--kia-mono)}
     opacity:.75;
   }
 }
+
+
+/* KIA TASMAN / MODEL-ONLY HUD v25
+   The PlayCanvas canvas clears to RGBA(0,0,0,0); only truck pixels are
+   rendered over a flat neutral HUD background. Absolutely no forest,
+   photographic backdrop, studio, floor, gradients or weather artwork.
+   Preserve every editorial/text UI layer and the giant TASMAN watermark. */
+html,body{background:#101316!important;background-image:none!important}
+.experience.kia-model-only,
+.experience.kia-model-only.scene-rocks,
+.experience.kia-model-only.scene-flood,
+.experience.kia-model-only.scene-mud,
+.experience.kia-model-only.scene-descent,
+.experience.kia-model-only.is-mission-mode{
+  background:#101316!important;
+  background-image:none!important;
+  filter:none!important;
+}
+.experience.kia-model-only .stage,
+.experience.kia-model-only .stage canvas{
+  visibility:visible!important;
+  opacity:1!important;
+  display:block!important;
+  background:transparent!important;
+  background-image:none!important;
+  filter:none!important;
+  box-shadow:none!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+}
+.experience.kia-model-only .stage{pointer-events:auto!important}
+.experience.kia-model-only .ambient-backdrop,
+.experience.kia-model-only .ambient-image,
+.experience.kia-model-only .ambient-shade,
+.experience.kia-model-only .ridgeline,
+.experience.kia-model-only .ridgeline-near,
+.experience.kia-model-only .horizon-floor,
+.experience.kia-model-only .ground-glow,
+.experience.kia-model-only .stage-watermark{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  background:none!important;
+  background-image:none!important;
+}
+.experience.kia-model-only .ambient-backdrop::before,
+.experience.kia-model-only .ambient-backdrop::after,
+.experience.kia-model-only .ambient-image::before,
+.experience.kia-model-only .ambient-image::after,
+.experience.kia-model-only .stage::before,
+.experience.kia-model-only .stage::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+}
+.experience.kia-model-only .ui-watermark{
+  display:block!important;
+  visibility:visible!important;
+  opacity:.8;
+  background:transparent!important;
+  pointer-events:none;
+}
+.experience.kia-model-only .bottom-bar{
+  background:transparent!important;
+  background-image:none!important;
+}
+@media(orientation:portrait){
+  .experience.kia-model-only .stage,
+  .experience.kia-model-only .stage canvas{
+    visibility:visible!important;
+    opacity:1!important;
+    background:transparent!important;
+  }
+  .experience.kia-model-only .ui-watermark{opacity:.75}
+}
