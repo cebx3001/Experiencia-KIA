@@ -73,7 +73,6 @@ jobs:
             if(portrait.image!=="none"||portrait.bg!=="rgb(16, 19, 22)"||
               !portrait.photosHidden||!portrait.noCanvas||portrait.watermark==="none")
               throw Error("Portrait HUD: "+JSON.stringify(portrait));
-            await page.locator("#secondaryButton").click();
             const fonts=await page.evaluate(()=>{
               const read=selector=>{const style=getComputedStyle(document.querySelector(selector));return {family:style.fontFamily,weight:style.fontWeight,spacing:style.letterSpacing,stroke:style.webkitTextStrokeWidth};};
               return {
