@@ -1451,9 +1451,17 @@ html,body,#experience.experience.ui-only{background:#101316!important;background
   --tasman-display:'Monument Extended','Druk Wide Bold','Unbounded',sans-serif;
 }
 /* Preserve the approved TASMAN wordmark and its original font without alteration. */
-#experience .vehicle-copy h1,
-#experience .topbar-model strong,
+#experience .vehicle-copy h1{
+  font-family:'Unbounded',sans-serif!important;
+  font-weight:900!important;
+  letter-spacing:-.055em!important;
+  line-height:.9!important;
+}
 #experience .ui-watermark{
+  font-family:'Unbounded',sans-serif!important;
+  font-weight:900!important;
+}
+#experience .topbar-model strong{
   font-family:var(--kia-display)!important;
 }
 /* Other monumental section titles use the intended architectural display family. */
