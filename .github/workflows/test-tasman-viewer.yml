@@ -85,7 +85,7 @@ jobs:
               };
             });
             console.log("TYPOGRAPHY:",JSON.stringify(fonts));
-            if(!fonts.title.family.includes("Monument Extended")||
+            if(!fonts.title.family.includes("Unbounded")||
                !fonts.year.family.includes("Space Grotesk")||
                fonts.year.stroke!=="1.5px"||
                !fonts.nav.family.includes("JetBrains Mono")||
