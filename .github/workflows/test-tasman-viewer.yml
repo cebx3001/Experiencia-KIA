@@ -1,4 +1,4 @@
-name: Verify Kia Tasman PlayCanvas model-only HUD
+name: Verify Kia Tasman graphics-only interface
 on:
   workflow_dispatch:
   push:
@@ -6,8 +6,6 @@ on:
       - 'app.js'
       - 'index.html'
       - 'styles.css'
-      - 'kia-playcanvas-renderer.js'
-      - 'kia-annotations.js'
       - 'kia-carousel.js'
       - '.github/workflows/test-tasman-viewer.yml'
 permissions:
@@ -21,103 +19,64 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install mobile Chromium
+      - name: Install Chromium test browser
         run: |
           npm install --no-save playwright@1.56.1
           npx playwright install --with-deps chromium
-      - name: Verify transparent 3D model and existing interactive HUD
+      - name: Verify no scenes or 3D and working Kia selectors
         shell: bash
         run: |
+          test ! -f kia-three-renderer.js
+          test ! -f kia-modelo-3d.html
+          test ! -f kia-modelo-3d-sin-transparencia.html
           python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/kia-server.log 2>&1 &
           node --input-type=commonjs <<'NODE'
           const {chromium}=require("playwright");
           (async()=>{
-            const browser=await chromium.launch({headless:true,args:[
-              "--use-gl=angle","--use-angle=swiftshader",
-              "--enable-webgl","--enable-unsafe-swiftshader",
-              "--no-sandbox","--disable-dev-shm-usage"
-            ]});
-            const page=await browser.newPage({
-              viewport:{width:915,height:412},
-              deviceScaleFactor:1,isMobile:true,hasTouch:true
-            });
-            const exceptions=[];
-            page.on("pageerror",e=>exceptions.push(e.message));
-            page.on("console",m=>{if(m.type()==="error")console.log("CONSOLE:",m.text())});
-            await page.goto("http://127.0.0.1:8765/?qa=model-only",{waitUntil:"domcontentloaded",timeout:45000});
-            await page.waitForFunction(()=>window.__kiaViewerStatus?.loaded===true||
-              !!window.__kiaViewerStatus?.error,null,{timeout:150000,polling:250});
-            await page.waitForFunction(()=>!!window.__kiaCarousel&&!!window.__kiaAnnotations,
-              null,{timeout:25000});
-            await page.waitForTimeout(650);
-            const main=await page.evaluate(()=>{
-              const exp=document.getElementById("experience");
-              const canvas=document.getElementById("carCanvas");
-              const app=window.__kiaPlayCanvasViewer;
-              const canvasStyle=getComputedStyle(canvas);
+            const browser=await chromium.launch({headless:true,args:["--no-sandbox","--disable-dev-shm-usage"]});
+            const page=await browser.newPage({viewport:{width:1280,height:720}});
+            const errors=[];
+            page.on("pageerror",e=>errors.push(e.message));
+            await page.goto("http://127.0.0.1:8765/",{waitUntil:"networkidle",timeout:45000});
+            await page.waitForFunction(()=>!!window.__kiaCarousel&&!!window.__kiaUI,null,{timeout:15000});
+            const probe=()=>page.evaluate(()=>{
+              const root=document.getElementById("experience");
+              const cs=getComputedStyle(root);
+              const absent=[...document.querySelectorAll(".ambient-backdrop,.ambient-image,.ambient-shade,.ridgeline,.horizon-floor,.ground-glow")].every(el=>getComputedStyle(el).display==="none");
               return {
-                loaded:window.__kiaViewerStatus?.loaded,
-                engine:window.__kiaViewerStatus?.engine,
-                meshes:window.__kiaViewerStatus?.meshCount,
-                alpha:canvas.getContext("webgl2")?.getContextAttributes()?.alpha??null,
-                visible:!canvas.hidden&&canvasStyle.display!=="none"&&canvasStyle.visibility==="visible",
-                stageVisible:getComputedStyle(document.getElementById("stage")).visibility==="visible",
-                solidBackground:getComputedStyle(exp).backgroundImage==="none",
-                bgColor:getComputedStyle(exp).backgroundColor,
-                watermark:getComputedStyle(document.querySelector(".ui-watermark")).display!=="none",
-                photoImages:[...document.querySelectorAll(".ambient-backdrop,.ambient-image,.ambient-shade,.ridgeline,.horizon-floor,.ground-glow")]
-                  .filter(el=>getComputedStyle(el).display!=="none").length,
-                categories:[...document.querySelectorAll(".kia-category")].map(e=>e.dataset.category),
-                skybox:window.__kiaPlayCanvasViewer?.sceneCleanup,
-                title:document.querySelector(".vehicle-copy h1")?.innerText
+                mode:window.__kiaUI.mode,category:window.__kiaUI.category,
+                bg:cs.backgroundColor,image:cs.backgroundImage,photosHidden:absent,
+                noCanvas:!document.querySelector("canvas,#carCanvas,#stage"),
+                title:document.querySelector(".vehicle-copy h1")?.textContent,
+                watermark:getComputedStyle(document.querySelector(".ui-watermark")).display
               };
             });
-            console.log("MODEL ONLY INITIAL:",JSON.stringify(main));
-            if(!main.loaded||main.engine!=="playcanvas"||main.meshes<23||
-              !main.visible||!main.stageVisible||!main.solidBackground||!main.watermark||
-              main.photoImages!==0||!main.title?.includes("TASMAN")||
-              JSON.stringify(main.categories)!==JSON.stringify(["cameras","colors","exterior","interior"]))
-              throw Error("3D model-only HUD is not intact: "+JSON.stringify(main));
-            await page.evaluate(()=>document.querySelector(".kia-category[data-category='colors']").click());
-            await page.evaluate(()=>document.getElementById("carouselNext").click());
-            await page.waitForFunction(()=>window.__kiaPlayCanvasViewer?.paintApplied==="gris",
-              null,{timeout:12000});
-            await page.evaluate(()=>document.querySelector(".kia-category[data-category='interior']").click());
-            await page.waitForFunction(()=>Object.keys(window.__kiaPlayCanvasViewer?.getAllDoorDegrees?.()||{}).length===4&&
-              Object.values(window.__kiaPlayCanvasViewer.getAllDoorDegrees()).every(v=>Math.abs(v)>50),
-              null,{timeout:25000,polling:140});
-            console.log("DOORS OPEN:",JSON.stringify(await page.evaluate(()=>
-              window.__kiaPlayCanvasViewer.getAllDoorDegrees())));
-            await page.evaluate(()=>document.getElementById("primaryButton").click());
-            await page.waitForTimeout(500);
-            const mission=await page.evaluate(()=>({
-              section:document.getElementById("sectionIndex").textContent,
-              canvasVisible:getComputedStyle(document.getElementById("carCanvas")).visibility,
-              background:getComputedStyle(document.getElementById("experience")).backgroundImage,
-              missionCarousel:!document.getElementById("missionSelector").hidden,
-              watermark:getComputedStyle(document.querySelector(".ui-watermark")).display
-            }));
-            console.log("MISSION MODE WITHOUT SCENE:",JSON.stringify(mission));
-            if(!mission.section.includes("PRUEBAS")||mission.canvasVisible!=="visible"||
-              mission.background!=="none"||!mission.missionCarousel||mission.watermark==="none")
-              throw Error("Model or graphic HUD disappeared in mission mode");
-            await page.evaluate(()=>document.getElementById("secondaryButton").click());
+            const initial=await probe();
+            if(initial.image!=="none"||initial.bg!=="rgb(16, 19, 22)"||
+              !initial.photosHidden||!initial.noCanvas||initial.watermark==="none"||
+              !initial.title?.includes("TASMAN"))throw Error("Initial HUD: "+JSON.stringify(initial));
+            await page.locator(".kia-category[data-category='colors']").click();
+            await page.locator("#carouselNext").click();
+            if((await page.locator("#carouselSelected").textContent()).trim()!=="INTERSTELLAR GRAY")
+              throw Error("Colors carousel unavailable");
+            await page.locator(".kia-category[data-category='interior']").click();
+            await page.locator("#primaryButton").click();
+            await page.locator("#nextMission").click();
+            let mission=await probe();
+            if(mission.mode!=="mission"||mission.image!=="none"||!mission.photosHidden||
+              !mission.noCanvas||!(await page.locator("#missionSelector").isVisible()))
+              throw Error("Mission HUD: "+JSON.stringify(mission));
+            if((await page.locator("#selectorName").textContent()).trim()!=="WATER CROSSING")
+              throw Error("Mission navigation broken");
+            await page.locator("#secondaryButton").click();
             await page.setViewportSize({width:390,height:844});
-            await page.waitForTimeout(400);
-            const portrait=await page.evaluate(()=>({
-              stage:getComputedStyle(document.getElementById("stage")).visibility,
-              canvas:getComputedStyle(document.getElementById("carCanvas")).visibility,
-              watermark:getComputedStyle(document.querySelector(".ui-watermark")).display,
-              image:getComputedStyle(document.getElementById("experience")).backgroundImage,
-              font:getComputedStyle(document.querySelector(".vehicle-copy h1")).fontFamily
-            }));
-            console.log("PORTRAIT MODEL ONLY:",JSON.stringify(portrait));
-            if(portrait.stage!=="visible"||portrait.canvas!=="visible"||
-              portrait.watermark==="none"||portrait.image!=="none"||
-              !portrait.font.includes("Unbounded"))
-              throw Error("Portrait model-only composition failed");
-            if(exceptions.length)throw Error("Browser exceptions: "+exceptions.join("; "));
-            console.log("PASS: PlayCanvas real 23-mesh truck, transparent canvas, no background photographs/studio, watermark, fonts, HUD, colors, four doors, mission mode and portrait");
+            await page.waitForTimeout(200);
+            const portrait=await probe();
+            if(portrait.image!=="none"||portrait.bg!=="rgb(16, 19, 22)"||
+              !portrait.photosHidden||!portrait.noCanvas||portrait.watermark==="none")
+              throw Error("Portrait HUD: "+JSON.stringify(portrait));
+            if(errors.length)throw Error("Browser errors: "+errors.join("; "));
+            console.log("PASS: Only the Kia editorial graphic UI is visible, both orientations, with working selectors and no photo or 3D viewer.");
             await browser.close();
           })().catch(err=>{console.error(err);process.exit(1)});
           NODE
