@@ -1443,3 +1443,91 @@ html body main#experience.ui-only::after{background-image:none!important}
 /* STANDALONE GRAPHIC EDITION: no environments, photographs, renderers or canvases. */
 html,body,#experience.experience.ui-only{background:#101316!important;background-image:none!important;}
 #experience .ambient-backdrop,#experience .ambient-image,#experience .ambient-shade,#experience .ridgeline,#experience .horizon-floor,#experience .ground-glow,#experience .stage,#experience canvas{display:none!important;}
+
+/* TYPOGRAPHY / KIA TASMAN — approved hierarchy 2026-10-29. */
+:root{
+  --tasman-technical:'JetBrains Mono',monospace;
+  --tasman-reading:'Space Grotesk',sans-serif;
+  --tasman-display:'Monument Extended','Druk Wide Bold','Unbounded',sans-serif;
+}
+/* Preserve the approved TASMAN wordmark and its original font without alteration. */
+#experience .vehicle-copy h1,
+#experience .topbar-model strong,
+#experience .ui-watermark{
+  font-family:var(--kia-display)!important;
+}
+/* Other monumental section titles use the intended architectural display family. */
+#experience .mission-copy h1,
+#experience .modal h2{
+  font-family:var(--tasman-display)!important;
+  font-weight:900!important;
+  letter-spacing:-.02em!important;
+  line-height:.9!important;
+  text-transform:uppercase;
+}
+/* Technical numbers; 2026 stays outlined. */
+#experience .vehicle-copy .year{
+  font-family:var(--tasman-reading)!important;
+  font-weight:700!important;
+  -webkit-text-stroke:1.5px #fff!important;
+  color:transparent!important;
+  font-variant-numeric:tabular-nums;
+}
+#experience .frame-index,
+#experience .frame-index em,
+#experience .mission-id,
+#experience #missionNumber,
+#experience #missionCounter,
+#experience #carouselCounter{
+  font-family:var(--tasman-reading)!important;
+  font-weight:700!important;
+  font-variant-numeric:tabular-nums;
+}
+/* All microcopy, labels, controls and navigation use precision monospace. */
+#experience .eyebrow,
+#experience .eyebrow span:not(.red-line),
+#experience .kicker,
+#experience .topbar-model span,
+#experience .topbar-middle,
+#experience .kia-category,
+#experience .kia-carousel-meta,
+#experience .kia-carousel-choice,
+#experience .kia-carousel-arrow,
+#experience .primary-actions button,
+#experience .primary-actions button span,
+#experience .footer-testdrive,
+#experience .footer-testdrive span,
+#experience .bottom-middle,
+#experience #stepName,
+#experience .feature-label,
+#experience .modal-link,
+#experience .modal-close,
+#experience .mission-placeholder,
+#experience .kia-bottom-description button{
+  font-family:var(--tasman-technical)!important;
+  font-weight:600!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase;
+}
+#experience .kia-category.is-active,
+#experience .kia-carousel-selected{font-weight:700!important}
+/* Keep icons/arrows unspaced. */
+#experience .kia-carousel-arrow,
+#experience .primary-actions .button-arrow,
+#experience .footer-testdrive span,
+#experience .modal-close{letter-spacing:0!important}
+/* Reading text is strictly geometric, compact and legible. */
+#experience .vehicle-copy p,
+#experience .vehicle-copy .subcopy,
+#experience .mission-copy p,
+#experience .kia-bottom-description p,
+#experience .kia-bottom-description strong,
+#experience .modal p,
+#experience .mission-feature strong{
+  font-family:var(--tasman-reading)!important;
+  font-weight:500!important;
+  letter-spacing:-.01em!important;
+  line-height:1.2!important;
+}
+#experience .kia-bottom-description strong,
+#experience .mission-feature strong{font-weight:700!important}
