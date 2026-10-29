@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#101316">
+  <meta name="description" content="Kia Tasman 2026. Explora el vehículo y descubre sus cuatro desafíos.">
+  <title>Kia Tasman 2026 | Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@700&family=Share+Tech+Mono&family=Unbounded:wght@900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./tasman-nueva.css?v=20261029-typography-v6">
+</head>
+<body>
+  <main id="experience" class="experience kia-model-only ui-only" data-build="tasman-nueva-20261029" aria-label="Experiencia Kia Tasman 2026">
+    <header class="topbar">
+      <img class="brandmark" src="./assets/kia-logo.svg?v=20261028-rock-v3" alt="Kia" width="100" height="40">
+      <div class="topbar-divider"></div>
+      <div class="topbar-model"><strong>TASMAN</strong><span>EXPERIENCE / 2026</span></div>
+      <div class="topbar-middle"><span class="signal-dot"></span> UNA EXPERIENCIA KIA</div>
+    </header>
+
+    <div class="ui-watermark" aria-hidden="true">TASMAN</div>
+
+    <section class="side-content" aria-label="Información del vehículo o prueba">
+      <div class="eyebrow"><span class="red-line"></span><span id="sectionIndex">01 / VEHÍCULO</span></div>
+      <div class="vehicle-copy" id="vehicleCopy">
+        <div class="kicker">BUILT FOR MORE</div>
+        <h1>TASMAN<span class="year">2026</span></h1>
+        <p>domina cualquier terreno.</p>
+        <p class="subcopy">explora el vehículo, descubre sus características y prepárate para cuatro desafíos.</p>
+      </div>
+      <div class="mission-copy" id="missionCopy" hidden>
+        <div class="kicker">SELECCIÓN DE PRUEBA</div>
+        <div class="mission-id" id="missionNumber">MISIÓN 01 / 04</div>
+        <h1 id="missionTitle">ROCK<br>CHALLENGE</h1>
+        <p id="missionDesc">supera una ruta de obstáculos rocosos y descubre el control todoterreno de la tasman.</p>
+        <div class="mission-feature"><span class="feature-label">TECNOLOGÍA</span><strong id="missionTech">ROCK MODE + GROUND VIEW MONITOR</strong></div>
+      </div>
+      <div class="primary-actions">
+        <button id="primaryButton" class="start-button" type="button"><span id="primaryLabel">EXPLORAR PRUEBAS</span><span class="button-arrow">↗</span></button>
+        <button id="secondaryButton" class="outline-button" type="button">VER CARACTERÍSTICAS <span>+</span></button>
+      </div>
+    </section>
+
+    <nav class="right-rail kia-category-rail" aria-label="Explorar Kia Tasman">
+      <div class="kia-category-buttons" role="group" aria-label="Categorías del vehículo">
+        <button type="button" class="kia-category is-active" data-category="cameras" aria-pressed="true">CÁMARAS <span aria-hidden="true">↗</span></button>
+        <button type="button" class="kia-category" data-category="colors" aria-pressed="false">COLORES <span aria-hidden="true">↗</span></button>
+        <button type="button" class="kia-category" data-category="exterior" aria-pressed="false">EXTERIOR <span aria-hidden="true">↗</span></button>
+        <button type="button" class="kia-category" data-category="interior" aria-pressed="false">INTERIOR <span aria-hidden="true">↗</span></button>
+      </div>
+      <section id="featureDetail" class="kia-bottom-description" hidden role="region" aria-live="polite" aria-label="Información del vehículo"></section>
+    </nav>
+
+    <nav class="kia-feature-carousel" id="kiaFeatureCarousel" aria-label="Carrusel de características">
+      <div class="kia-carousel-meta"><span id="carouselCategory">CÁMARAS</span><span id="carouselCounter">01 / 05</span></div>
+      <div class="kia-carousel-main">
+        <button class="kia-carousel-arrow" id="carouselPrev" type="button" aria-label="Opción anterior">←</button>
+        <div class="kia-carousel-window" id="carouselWindow">
+          <button type="button" class="kia-carousel-choice kia-carousel-prev" id="carouselPeekPrev" aria-label="Ver opción anterior"></button>
+          <button type="button" class="kia-carousel-choice kia-carousel-selected" id="carouselSelected" aria-current="true"></button>
+          <button type="button" class="kia-carousel-choice kia-carousel-next" id="carouselPeekNext" aria-label="Ver opción siguiente"></button>
+        </div>
+        <button class="kia-carousel-arrow" id="carouselNext" type="button" aria-label="Opción siguiente">→</button>
+      </div>
+      <div class="kia-carousel-indicator" aria-hidden="true"><span></span></div>
+    </nav>
+
+    <nav class="mission-selector" id="missionSelector" hidden aria-label="Explorar pruebas de conducción">
+      <div class="kia-carousel-meta"><span>DESAFÍOS</span><span id="missionCounter">01 / 04</span></div>
+      <div class="kia-carousel-main">
+        <button type="button" class="kia-carousel-arrow" id="prevMission" aria-label="Prueba anterior">←</button>
+        <div class="kia-carousel-window" id="missionCarouselWindow">
+          <button type="button" class="kia-carousel-choice kia-carousel-prev" id="missionPeekPrev" aria-label="Prueba anterior"></button>
+          <button type="button" class="kia-carousel-choice kia-carousel-selected" id="selectorName" aria-label="Prueba seleccionada">ROCK CHALLENGE</button>
+          <button type="button" class="kia-carousel-choice kia-carousel-next" id="missionPeekNext" aria-label="Prueba siguiente"></button>
+        </div>
+        <button type="button" class="kia-carousel-arrow" id="nextMission" aria-label="Prueba siguiente">→</button>
+      </div>
+      <div class="kia-carousel-indicator" aria-hidden="true"><span></span></div>
+    </nav>
+
+    <footer class="bottom-bar">
+      <div class="bottom-left"><span class="frame-index">01 <em>/</em> 02</span><span id="stepName">EXPLORA EL VEHÍCULO</span></div>
+      <div class="bottom-middle">MOVEMENT THAT INSPIRES.</div>
+      <div class="bottom-right"><a class="footer-testdrive" href="https://www.kia.com/ec/shopping-tools/request-a-test-drive.html" target="_blank" rel="noopener noreferrer">AGENDAR TEST DRIVE <span aria-hidden="true">↗</span></a></div>
+    </footer>
+
+    <div class="modal-backdrop" id="infoModal" hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button type="button" class="modal-close" id="modalClose" aria-label="Cerrar">×</button>
+        <div class="eyebrow"><span class="red-line"></span> KIA TASMAN</div>
+        <h2 id="modalTitle">TECNOLOGÍA TODOTERRENO</h2>
+        <p id="modalBody"></p>
+        <a class="modal-link" href="https://www.kia.com/ec/showroom/Tasman0/features.html" target="_blank" rel="noopener noreferrer">VER EN KIA ECUADOR ↗</a>
+      </div>
+    </div>
+
+    <div class="modal-backdrop" id="missionModal" hidden>
+      <div class="modal mission-modal" role="dialog" aria-modal="true" aria-labelledby="missionModalTitle">
+        <button type="button" class="modal-close" id="missionModalClose" aria-label="Cerrar">×</button>
+        <div class="eyebrow"><span class="red-line"></span> EXPERIENCIA CINEMATOGRÁFICA</div>
+        <h2 id="missionModalTitle">ROCK CHALLENGE</h2>
+        <p>aquí se integrará el video cinematográfico de esta prueba. el menú de selección ya está preparado.</p>
+        <div class="mission-placeholder"><span>VIDEO DE PRUEBA PENDIENTE</span><span>16:9 · VIDEO CINEMATOGRÁFICO</span></div>
+        <a class="modal-link" href="https://www.kia.com/ec/shopping-tools/request-a-test-drive.html" target="_blank" rel="noopener noreferrer">AGENDAR TEST DRIVE ↗</a>
+      </div>
+    </div>
+  </main>
+  <script src="./tasman-nueva.js?v=20261029-lowercase-v2" defer></script>
+</body>
+</html>

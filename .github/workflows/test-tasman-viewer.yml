@@ -1,14 +1,13 @@
-name: Verify Kia Tasman Three.js on mobile-sized Chromium
+name: Verify Kia Tasman standalone graphic interface
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'app.js'
       - 'index.html'
-      - 'styles.css'
-      - 'kia-three-renderer.js'
-      - 'kia-annotations.js'
-      - 'kia-carousel.js'
+      - 'tasman-nueva.html'
+      - 'tasman-nueva.css'
+      - 'tasman-nueva.js'
+      - 'tasman-nueva-carousel.js'
       - '.github/workflows/test-tasman-viewer.yml'
 permissions:
   contents: read
@@ -21,208 +20,89 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install Chromium automation
+      - name: Install Chromium test browser
         run: |
           npm install --no-save playwright@1.56.1
           npx playwright install --with-deps chromium
-      - name: Verify editorial Kia Tasman carousel and vehicle actions
+      - name: Verify no scenes or 3D and working Kia selectors
         shell: bash
         run: |
-          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/tasman-server.log 2>&1 &
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/kia-server.log 2>&1 &
           node --input-type=commonjs <<'NODE'
           const {chromium}=require("playwright");
           (async()=>{
-            const browser=await chromium.launch({headless:true,args:[
-              "--use-gl=angle","--use-angle=swiftshader",
-              "--enable-webgl","--enable-unsafe-swiftshader",
-              "--no-sandbox","--disable-dev-shm-usage"
-            ]});
-            const page=await browser.newPage({
-              viewport:{width:915,height:412},
-              deviceScaleFactor:1,isMobile:true,hasTouch:true
-            });
-            const pageErrors=[];
-            page.on("pageerror",error=>pageErrors.push(error.message));
-            page.on("console",m=>{if(m.type()==="error")console.log("CONSOLE:",m.text())});
-            await page.goto("http://127.0.0.1:8765/?integration-test=carousel",{waitUntil:"domcontentloaded",timeout:45000});
-            await page.waitForFunction(()=>window.__kiaViewerStatus?.loaded===true||!!window.__kiaViewerStatus?.error,
-              null,{timeout:150000,polling:350});
-            await page.waitForFunction(()=>!!window.__kiaCarousel && !!window.__kiaAnnotations,null,{timeout:20000});
-            const initial=await page.evaluate(()=>({
-              loaded:window.__kiaViewerStatus?.loaded,
-              meshCount:window.__kiaViewerStatus?.meshCount,
-              engine:window.__kiaViewerStatus?.engine,
-              corrected:window.__kiaThreeViewer?.opaqueCorrected,
-              categories:[...document.querySelectorAll(".kia-category")].map(b=>b.dataset.category),
-              selected:window.__kiaCarousel?.selected,
-              carouselVisible:!document.getElementById("kiaFeatureCarousel").hidden,
-              hasOldAccordion:!!document.querySelector(".kia-rail-accordion"),
-              testDriveBottom:!!document.querySelector(".bottom-right .footer-testdrive"),
-              leftPromo:!!document.querySelector(".side-content #primaryButton"),
-              textOnlyPromo:getComputedStyle(document.querySelector(".side-content #primaryButton")).backgroundColor,
-              rightRailBorder:getComputedStyle(document.querySelector(".kia-category-rail")).borderLeftWidth,
-              descriptionBelow:!!document.querySelector("#featureDetail.kia-bottom-description")
-            }));
-            console.log("EDITORIAL INIT:",JSON.stringify(initial));
-            if(!initial.loaded||initial.engine!=="three"||initial.meshCount<23||
-              !initial.corrected?.includes("Car")||!initial.corrected?.includes("Interior")||
-              JSON.stringify(initial.categories)!==JSON.stringify(["cameras","colors","exterior","interior"])||
-              initial.hasOldAccordion||!initial.testDriveBottom||!initial.leftPromo||
-              initial.textOnlyPromo!=="rgba(0, 0, 0, 0)"||initial.rightRailBorder!=="0px"||
-              !initial.descriptionBelow||!initial.carouselVisible)
-              throw Error("Editorial vehicle layout or viewer failed: "+JSON.stringify(initial));
-            await page.evaluate(()=>document.fonts.ready);
-            const typography=await page.evaluate(()=>{
-              const css=el=>getComputedStyle(document.querySelector(el));
-              const h=document.querySelector("#vehicleCopy h1");
-              const range=document.createRange();
-              range.selectNodeContents(h.firstChild);
-              const box=range.getBoundingClientRect();
-              const area=document.querySelector(".side-content").getBoundingClientRect();
+            const browser=await chromium.launch({headless:true,args:["--no-sandbox","--disable-dev-shm-usage"]});
+            const page=await browser.newPage({viewport:{width:1280,height:720}});
+            const errors=[];
+            page.on("pageerror",e=>errors.push(e.message));
+            await page.goto("http://127.0.0.1:8765/",{waitUntil:"networkidle",timeout:45000});
+            await page.waitForFunction(()=>!!window.__kiaCarousel&&!!window.__kiaUI,null,{timeout:15000});
+            const probe=()=>page.evaluate(()=>{
+              const root=document.getElementById("experience");
+              const cs=getComputedStyle(root);
+              const absent=[...document.querySelectorAll(".ambient-backdrop,.ambient-image,.ambient-shade,.ridgeline,.horizon-floor,.ground-glow")].every(el=>getComputedStyle(el).display==="none");
               return {
-                display:css("#vehicleCopy h1").fontFamily,
-                displayWeight:css("#vehicleCopy h1").fontWeight,
-                year:css(".year").fontFamily,
-                yearOutline:css(".year").webkitTextStrokeWidth,
-                menu:css(".kia-category").fontFamily,
-                copy:css(".vehicle-copy p").fontFamily,
-                footer:css(".footer-testdrive").fontFamily,
-                titleWidth:Math.round(box.width),
-                titleAvailable:Math.round(area.width),
-                titleOverflow:Math.round(box.right-area.right),
-                loadedFonts:[...document.fonts].filter(f=>f.status==="loaded").map(f=>f.family)
+                mode:window.__kiaUI.mode,category:window.__kiaUI.category,
+                bg:cs.backgroundColor,image:cs.backgroundImage,photosHidden:absent,
+                noCanvas:!document.querySelector("canvas,#carCanvas,#stage"),
+                title:document.querySelector(".vehicle-copy h1")?.textContent,
+                watermark:getComputedStyle(document.querySelector(".ui-watermark")).display
               };
             });
-            console.log("TYPOGRAPHY LANDSCAPE:",JSON.stringify(typography));
-            if(!typography.display.includes("Monument Extended")||
-               !typography.display.includes("Unbounded")||
-               typography.displayWeight!=="900"||
-               !typography.year.includes("Space Grotesk")||
-               !typography.menu.includes("JetBrains Mono")||
-               !typography.copy.includes("Space Grotesk")||
-               !typography.footer.includes("JetBrains Mono")||
-               typography.titleOverflow>12)
-              throw Error("Editorial font system or layout failed: "+JSON.stringify(typography));
-            const peek=await page.evaluate(()=>({
-              previous:document.getElementById("carouselPeekPrev").textContent,
-              next:document.getElementById("carouselPeekNext").textContent,
-              current:document.getElementById("carouselSelected").textContent,
-              counter:document.getElementById("carouselCounter").textContent
-            }));
-            if(!peek.previous||!peek.next||!peek.current)throw Error("Carousel must show adjacent items");
-            await page.locator(".kia-category[data-category='cameras']").click();
-            await page.locator(".kia-category[data-category='cameras']").click();
-            await page.locator("#carouselNext").click();
-            if(await page.evaluate(()=>window.__kiaCarousel.selected)!=="side")throw Error("Camera carousel did not advance");
+            const initial=await probe();
+            if(initial.image!=="none"||initial.bg!=="rgb(16, 19, 22)"||
+              !initial.photosHidden||!initial.noCanvas||initial.watermark==="none"||
+              !initial.title?.includes("TASMAN"))throw Error("Initial HUD: "+JSON.stringify(initial));
             await page.locator(".kia-category[data-category='colors']").click();
             await page.locator("#carouselNext").click();
-            await page.waitForFunction(()=>window.__kiaThreeViewer?.paintApplied==="gris",null,{timeout:15000});
-            console.log("CAR BODY PAINT:",await page.evaluate(()=>window.__kiaThreeViewer?.paintApplied));
-            await page.locator(".kia-category[data-category='exterior']").click();
-            await page.waitForFunction(()=>window.__kiaAnnotations?.selected==="front_fascia",null,{timeout:15000});
-            const exterior=await page.evaluate(()=>({
-              selected:window.__kiaCarousel?.selected,
-              desc:document.getElementById("featureDetail").textContent,
-              detailBg:getComputedStyle(document.getElementById("featureDetail")).backgroundColor,
-              carouselLabel:document.getElementById("carouselCategory").textContent,
-              onRight:document.getElementById("featureDetail").getBoundingClientRect().left>window.innerWidth*.70
-            }));
-            console.log("EXTERIOR:",JSON.stringify(exterior));
-            if(exterior.selected!=="front_fascia"||exterior.carouselLabel!=="EXTERIOR"||
-              !exterior.desc.includes("DRL")||exterior.detailBg!=="rgba(0, 0, 0, 0)"||
-              !exterior.onRight)throw Error("Lower-right fact presentation failed");
-            await page.locator('#featureDetail button[aria-label="Cerrar anotación"]').click();
-            if(!(await page.locator("#featureDetail").isHidden())||
-               await page.evaluate(()=>window.__kiaCarousel.selected)!=="front_fascia")
-              throw Error("X must hide only descriptive text");
-            const macroPos=await page.evaluate(()=>window.__kiaViewerStatus?.getCamera?.());
+            if((await page.locator("#carouselSelected").textContent()).trim()!=="INTERSTELLAR GRAY")
+              throw Error("Colors carousel unavailable");
             await page.locator(".kia-category[data-category='interior']").click();
-            // Category itself returns to a full-car camera AND opens 4 doors.
-            // It must NOT enter the cabin until the explicit CABINA choice.
-            await page.waitForFunction(()=>
-              Object.keys(window.__kiaThreeViewer?.getAllDoorDegrees?.()||{}).length===4&&
-              Object.values(window.__kiaThreeViewer.getAllDoorDegrees()).every(a=>Math.abs(a)>55),
-              null,{timeout:25000,polling:200});
-            await page.waitForTimeout(1200);
-            const overview=await page.evaluate(()=>({
-              option:window.__kiaCarousel?.selected,
-              selectedAnnotation:window.__kiaAnnotations?.selected,
-              inCabin:window.__kiaThreeViewer?.isInCabin?.(),
-              camera:window.__kiaViewerStatus?.getCamera?.(),
-              doors:window.__kiaThreeViewer?.getAllDoorDegrees?.(),
-              optionLabel:document.getElementById("carouselSelected").textContent
-            }));
-            console.log("INTERIOR GENERAL VIEW FIRST:",JSON.stringify({macroPos,overview}));
-            if(overview.option!=="interior"||overview.selectedAnnotation||overview.inCabin||
-               overview.optionLabel!=="CABINA")
-              throw Error("Interior category must show full truck with doors first, not enter cabin");
-            await page.locator("#carouselSelected").click();
-            await page.waitForFunction(()=>window.__kiaThreeViewer?.isInCabin?.()&&
-              window.__kiaAnnotations?.selected==="interior",null,{timeout:22000});
-            console.log("CABINA EXPLICIT ENTRY OK");
-            await page.locator("#carouselNext").click();
-            await page.waitForFunction(()=>window.__kiaAnnotations?.selected==="seats"&&
-              !!window.__kiaThreeViewer?.seatFraming?.target,
-              null,{timeout:20000,polling:150});
-            const interior=await page.evaluate(()=>({
-              option:window.__kiaCarousel.selected,
-              doors:window.__kiaThreeViewer.getAllDoorDegrees(),
-              seat:window.__kiaThreeViewer.seatFraming,
-              sound:window.__kiaThreeViewer.doorAudio?.openCount
-            }));
-            console.log("SEAT AFTER CABINA:",JSON.stringify(interior));
-            if(interior.option!=="seats"||!interior.sound||!interior.seat?.target)
-              throw Error("Interior carousel did not open doors and focus seat");
-            await page.locator(".kia-category[data-category='colors']").click();
-            await page.waitForFunction(()=>
-              Object.values(window.__kiaThreeViewer.getAllDoorDegrees()).every(a=>Math.abs(a)<2),
-              null,{timeout:25000,polling:150});
             await page.locator("#primaryButton").click();
-            if(!(await page.locator("#kiaFeatureCarousel").isHidden())||
-               !(await page.locator(".kia-category-rail").isHidden()))throw Error("Mission must hide model controls");
-            const missionNav=await page.evaluate(()=>{
-              const root=document.getElementById("missionSelector");
-              const box=getComputedStyle(root);
-              const title=document.getElementById("selectorName");
-              return {
-                visible:!root.hidden,
-                background:box.backgroundColor,
-                borderLeft:box.borderLeftWidth,
-                borderTop:box.borderTopWidth,
-                label:title.textContent,
-                previous:document.getElementById("missionPeekPrev").textContent,
-                next:document.getElementById("missionPeekNext").textContent,
-                number:document.getElementById("missionCounter").textContent,
-                bounds:root.getBoundingClientRect().toJSON()
-              };
-            });
-            console.log("MISSION EDITORIAL CAROUSEL:",JSON.stringify(missionNav));
-            if(!missionNav.visible||missionNav.background!=="rgba(0, 0, 0, 0)"||
-               missionNav.borderLeft!=="0px"||missionNav.borderTop!=="0px"||
-               !missionNav.previous||!missionNav.next||missionNav.label!=="ROCK CHALLENGE")
-               throw Error("Driving challenge selector is still boxed or missing peek words");
             await page.locator("#nextMission").click();
-            if(await page.locator("#selectorName").innerText()!=="WATER CROSSING")
-               throw Error("Mission carousel did not advance");
-            await page.locator("#missionPeekNext").click();
-            if(await page.locator("#selectorName").innerText()!=="SAND CHALLENGE")
-               throw Error("Mission side option did not navigate");
+            let mission=await probe();
+            if(mission.mode!=="mission"||mission.image!=="none"||!mission.photosHidden||
+              !mission.noCanvas||!(await page.locator("#missionSelector").isVisible()))
+              throw Error("Mission HUD: "+JSON.stringify(mission));
+            if((await page.locator("#selectorName").textContent()).trim()!=="WATER CROSSING")
+              throw Error("Mission navigation broken");
             await page.locator("#secondaryButton").click();
             await page.setViewportSize({width:390,height:844});
-            await page.waitForTimeout(350);
-            const portraitTitle=await page.evaluate(()=>{
-              const h=document.querySelector("#vehicleCopy h1");
-              const range=document.createRange();
-              range.selectNodeContents(h.firstChild);
-              const title=range.getBoundingClientRect();
-              const area=document.querySelector(".side-content").getBoundingClientRect();
-              return {font:getComputedStyle(h).fontFamily,width:Math.round(title.width),
-                      available:Math.round(area.width),overflow:Math.round(title.right-area.right)};
+            await page.waitForTimeout(200);
+            const portrait=await probe();
+            if(portrait.image!=="none"||portrait.bg!=="rgb(16, 19, 22)"||
+              !portrait.photosHidden||!portrait.noCanvas||portrait.watermark==="none")
+              throw Error("Portrait HUD: "+JSON.stringify(portrait));
+            const fonts=await page.evaluate(()=>{
+              const read=selector=>{const style=getComputedStyle(document.querySelector(selector));return {family:style.fontFamily,weight:style.fontWeight,spacing:style.letterSpacing,stroke:style.webkitTextStrokeWidth};};
+              return {
+                title:read(".vehicle-copy h1"),
+                year:read(".vehicle-copy .year"),
+                nav:read(".kia-category"),
+                copy:read(".vehicle-copy .subcopy"),
+                counter:read(".frame-index")
+              };
             });
-            console.log("TYPOGRAPHY PORTRAIT:",JSON.stringify(portraitTitle));
-            if(portraitTitle.overflow>12)throw Error("TASMAN typography clipped in portrait: "+JSON.stringify(portraitTitle));
-            if(pageErrors.length)throw Error("Browser JS errors: "+pageErrors.join("; "));
-            console.log("PASS: 4 categories, partial adjacent labels, carousel camera/color/detail/seat interactions, info below on right, door open/close, mission UI, responsive layout");
+            console.log("TYPOGRAPHY:",JSON.stringify(fonts));
+            if(!fonts.title.family.includes("Monument Extended")||
+               !fonts.year.family.includes("Space Grotesk")||
+               fonts.year.stroke!=="1.2px"||
+               !fonts.nav.family.includes("Share Tech Mono")||
+               fonts.nav.weight!=="600"||
+               !fonts.copy.family.includes("JetBrains Mono")||
+               fonts.copy.weight!=="400"||
+               !fonts.counter.family.includes("Share Tech Mono"))
+              throw Error("Kia typography guide not applied: "+JSON.stringify(fonts));
+            const lowercase=await page.evaluate(()=>({
+              description:document.querySelector(".vehicle-copy .subcopy").textContent,
+              transform:getComputedStyle(document.querySelector(".vehicle-copy .subcopy")).textTransform,
+              size:getComputedStyle(document.querySelector(".vehicle-copy .subcopy")).fontSize
+            }));
+            if(lowercase.description!==lowercase.description.toLocaleLowerCase("es")||
+               lowercase.transform!=="none"||lowercase.size!=="13.6px")
+              throw Error("Description lowercase style mismatch: "+JSON.stringify(lowercase));
+            if(errors.length)throw Error("Browser errors: "+errors.join("; "));
+            console.log("PASS: Only the Kia editorial graphic UI is visible, both orientations, with working selectors and no photo or 3D viewer.");
             await browser.close();
-          })().catch(error=>{console.error(error);process.exit(1)});
+          })().catch(err=>{console.error(err);process.exit(1)});
           NODE
