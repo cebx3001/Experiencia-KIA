@@ -1,0 +1,10 @@
+{
+  "byteLength": 4194304,
+  "differingBytes": 0,
+  "cacheUsed": true,
+  "engine": "2.23.1",
+  "atlas_sha256": "30ade4eb443bf5e766c1d7c92f8faf1f7754e5d28ab08eb82273eb2100099da4",
+  "source_sha256": "ddd4967e88bff6c8b3d6f6469b57bb1f7da34dd68172e0c968a207a498bd37ce",
+  "method": "GPU texture readback compared with reuploaded raw RGBP levels, flipY false, no image conversion.",
+  "scope": "Native environment atlas bytes only; does not measure artistic quality or cross-GPU performance."
+}

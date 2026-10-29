@@ -1,0 +1,149 @@
+{
+  "base_commit": "9f4f05e6df0feda88e658d6a08c4d20c943159c8",
+  "unchanged_files": 34,
+  "files": [
+    {
+      "file": "studio/material-adapter.js",
+      "sha256": "331ccb09be657df66d6303f3a5e17ef17cc223460966c6fef45d2a2cc11d44ab"
+    },
+    {
+      "file": "studio/assets/materials.json",
+      "sha256": "6bf5e602f906d967547e7a5dba58c39972dd1f285b54ab8543737634b85c158a"
+    },
+    {
+      "file": "studio/assets/glass-adaptations.json",
+      "sha256": "a1576a48d29984692a2a9a6f8dbb3e9633df562f6f0e25997df60b69d6a21808"
+    },
+    {
+      "file": "studio/assets/kia-tasman-master.glb",
+      "sha256": "4c2c9512bde9f293a07ff47e1b2fe83af1f3a411b644394eb3cb12106f07a4a1"
+    },
+    {
+      "file": "studio/assets/kia-tasman-web.glb",
+      "sha256": "6fa55359fdd84760d17dd1c6f0e3dcf470216359030a6e82c65ea854516a893e"
+    },
+    {
+      "file": "studio/assets/textures/9c8ef165f9e877a8.png",
+      "sha256": "9c8ef165f9e877a856e8dee11caea993c72ff4a2c57447c9e65c437781261201"
+    },
+    {
+      "file": "studio/assets/textures/65a3a6a3135265f9.png",
+      "sha256": "65a3a6a3135265f9a9f863e458919652a62917f63eb6338c163909c5adbbc913"
+    },
+    {
+      "file": "studio/assets/textures/7e156d4243002da8.png",
+      "sha256": "7e156d4243002da89dd4a0665caa8ea47fc021db6f1f80d0bff6fef3530a9c7e"
+    },
+    {
+      "file": "studio/assets/textures/69f8d9451d4ade8f.png",
+      "sha256": "69f8d9451d4ade8f519b0247b6a0b03cc12335cb8df79039986941901ada721b"
+    },
+    {
+      "file": "studio/assets/textures/6ef57081e6b32c15.png",
+      "sha256": "6ef57081e6b32c15fec57723a786f6cda436a2d734b3ab07e979ed5b834d6acf"
+    },
+    {
+      "file": "studio/assets/textures/76ea3151fceb0930.png",
+      "sha256": "76ea3151fceb093084551f637a80024894aa8a3415d47979c283e8a214b3c641"
+    },
+    {
+      "file": "studio/assets/textures/e98151a88d87d20c.png",
+      "sha256": "e98151a88d87d20c19d79da0f58998ffca03ba990d9d596033266c1d0638b4d5"
+    },
+    {
+      "file": "studio/assets/textures/e6904fd443c9c1ed.png",
+      "sha256": "e6904fd443c9c1edbaacf6c36e0f601febce7a29dce8d14d799d76f3cc976e0c"
+    },
+    {
+      "file": "studio/assets/textures/9cc06fc3426ed15f.png",
+      "sha256": "9cc06fc3426ed15f7b63e6ddf9517b43b4e9fcfcd41d791b8aa8332de894adb7"
+    },
+    {
+      "file": "studio/assets/textures/ef98f3bf360276cc.png",
+      "sha256": "ef98f3bf360276cc6dc0444beb11f2e0f2a1a27745783081dca13abf02c2a019"
+    },
+    {
+      "file": "studio/assets/textures/3a4e0e95c7e30c23.png",
+      "sha256": "3a4e0e95c7e30c23f2248fe72db13d1c9548bfe8fff82c63a1a046cb4b410d31"
+    },
+    {
+      "file": "studio/assets/textures/d485bbf0342da9fa.png",
+      "sha256": "d485bbf0342da9fa1919eaa063cf2fe1029872f155b13132f59619576f75a308"
+    },
+    {
+      "file": "studio/assets/textures/6d98a294f83f3b3b.png",
+      "sha256": "6d98a294f83f3b3bf600ba76cd159fd4455ed4aad7921949159fbfaf18ddec03"
+    },
+    {
+      "file": "studio/assets/textures/ccecbdd366b9325d.png",
+      "sha256": "ccecbdd366b9325dd40103c83c549a08782c734ef5ff152efd15af854e7da133"
+    },
+    {
+      "file": "studio/assets/textures/cc941db9db258c48.png",
+      "sha256": "cc941db9db258c4811b698470769aa8241fcea4f2ec4e90d893b594b34217126"
+    },
+    {
+      "file": "studio/assets/textures/d65a52231c4451b3.png",
+      "sha256": "d65a52231c4451b305bddfb58af67bcda31f50d353498f505951d341baea41d3"
+    },
+    {
+      "file": "studio/assets/textures/ebdecfa5f9563812.png",
+      "sha256": "ebdecfa5f956381201f66b7f97c01de5148b69991286990c75278669fe5eaa4b"
+    },
+    {
+      "file": "studio/assets/textures/905d1f22becfcbeb.png",
+      "sha256": "905d1f22becfcbeb24a1ddb93011ab242b891850d7fbf498a99fa3abdbed9b17"
+    },
+    {
+      "file": "studio/assets/textures/4c39ddb1d1a6ab61.png",
+      "sha256": "4c39ddb1d1a6ab61e30dfafd4b6270b4b4c68035d50ff7516a06821dd0097f7f"
+    },
+    {
+      "file": "studio/assets/textures/f98ab4c7e387abf0.png",
+      "sha256": "f98ab4c7e387abf02512f2247328170ead983e262fc75376225b2f79ac8afcf1"
+    },
+    {
+      "file": "studio/assets/textures/df2deeb2db02c1c7.png",
+      "sha256": "df2deeb2db02c1c7d4574e9eebe550a79e8682d5941797e7fefe7ad16ecd85ae"
+    },
+    {
+      "file": "studio/assets/textures/fa1e11f21e926054.png",
+      "sha256": "fa1e11f21e926054d49dddd39293c3399bbd7f55aa0179357d638d238cbcd893"
+    },
+    {
+      "file": "studio/assets/textures/2458e4ab2672ea2c.png",
+      "sha256": "2458e4ab2672ea2cecea4e308b3019444e708c7c5a7cce69300069241d433756"
+    },
+    {
+      "file": "studio/assets/textures/befd08321a5852c3.png",
+      "sha256": "befd08321a5852c3b62f4d45917c2dd56a2ec22551c8d105b8ebaf493e4ad6c6"
+    },
+    {
+      "file": "studio/assets/textures/677943838e07b053.png",
+      "sha256": "677943838e07b053335a4b0f10c9dc60929828b91c5d55fc2de38fe2e81e8c93"
+    },
+    {
+      "file": "studio/assets/textures/8359fddaf1730fa7.png",
+      "sha256": "8359fddaf1730fa788fbcc2af9b6c9884dc5d7db1ce59e172a2f00c3a9772c46"
+    },
+    {
+      "file": "studio/assets/textures/1c35f3334b8d9731.png",
+      "sha256": "1c35f3334b8d97318f6321ff4a18c85c79085d553ad791adba5fea0b9cd5ffe6"
+    },
+    {
+      "file": "studio/assets/textures/d5b3d091d316ce13.png",
+      "sha256": "d5b3d091d316ce13ea93bdcea7a50d9c43f870d370f177f18b57eb0faf6ff15f"
+    },
+    {
+      "file": "studio/assets/textures/b41bb0e2f7d9b8ee.png",
+      "sha256": "b41bb0e2f7d9b8ee56bcdec5baadd7b2b98970da0a3ba1a76b41c0711fee5511"
+    }
+  ],
+  "scope": "Vehicle GLBs, texture maps, material declarations and both optical adapters unchanged. Does not imply existing UV/variant defects are fixed.",
+  "resolved_lfs_master": true,
+  "runtime_light_linking": {
+    "wheel_metal_mesh_mask": 5,
+    "other_vehicle_mesh_mask": 1,
+    "material_parameters_changed": false
+  }
+}

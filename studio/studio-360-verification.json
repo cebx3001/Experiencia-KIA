@@ -1,0 +1,488 @@
+{
+  "started": "2026-10-29T20:30:15.973Z",
+  "views": [
+    {
+      "angle": 0,
+      "elevation": 0.16,
+      "file": "orbit-000.png",
+      "distance": 10.7
+    },
+    {
+      "angle": 30,
+      "elevation": 0.16,
+      "file": "orbit-030.png",
+      "distance": 10.7
+    },
+    {
+      "angle": 60,
+      "elevation": 0.16,
+      "file": "orbit-060.png",
+      "distance": 10.7
+    },
+    {
+      "angle": 90,
+      "elevation": 0.16,
+      "file": "orbit-090.png",
+      "distance": 10.7
+    },
+    {
+      "angle": 120,
+      "elevation": 0.16,
+      "file": "orbit-120.png",
+      "distance": 10.7
+    },
+    {
+      "angle": 150,
+      "elevation": 0.16,
+      "file": "orbit-150.png",
+      "distance": 10.7
+    },
+    {
+      "angle": 180,
+      "elevation": 0.16,
+      "file": "orbit-180.png",
+      "distance": 10.7
+    },
+    {
+      "angle": 210,
+      "elevation": 0.16,
+      "file": "orbit-210.png",
+      "distance": 10.7
+    },
+    {
+      "angle": 240,
+      "elevation": 0.16,
+      "file": "orbit-240.png",
+      "distance": 10.7
+    },
+    {
+      "angle": 270,
+      "elevation": 0.16,
+      "file": "orbit-270.png",
+      "distance": 10.7
+    },
+    {
+      "angle": 300,
+      "elevation": 0.16,
+      "file": "orbit-300.png",
+      "distance": 10.7
+    },
+    {
+      "angle": 330,
+      "elevation": 0.16,
+      "file": "orbit-330.png",
+      "distance": 10.7
+    },
+    {
+      "angle": 0,
+      "elevation": 0.55,
+      "distance": 14,
+      "file": "elevated-000.png",
+      "bounds": {
+        "minX": 445.689154621772,
+        "maxX": 834.3111411133009,
+        "minY": 120.35063490659167,
+        "maxY": 733.7417300827076,
+        "depth": 11.324071169774463
+      }
+    },
+    {
+      "angle": 90,
+      "elevation": 0.55,
+      "distance": 14,
+      "file": "elevated-090.png",
+      "bounds": {
+        "minX": 257.37733105928504,
+        "maxX": 1086.8345093393787,
+        "minY": 213.3462296650981,
+        "maxY": 605.7370148002351,
+        "depth": 12.474985268054592
+      }
+    },
+    {
+      "angle": 180,
+      "elevation": 0.55,
+      "distance": 14,
+      "file": "elevated-180.png",
+      "bounds": {
+        "minX": 439.365786495623,
+        "maxX": 840.6339081457991,
+        "minY": 140.8114247001004,
+        "maxY": 778.609386147639,
+        "depth": 10.96561207451107
+      }
+    },
+    {
+      "angle": 270,
+      "elevation": 0.55,
+      "distance": 14,
+      "file": "elevated-270.png",
+      "bounds": {
+        "minX": 193.16554414599773,
+        "maxX": 1022.622623141393,
+        "minY": 213.34612767652078,
+        "maxY": 605.7368622249211,
+        "depth": 12.474986767277066
+      }
+    }
+  ],
+  "checks": [
+    "Every source aims at its declared target, including vertical ceiling sources",
+    "16 views; model world matrix identical throughout camera orbit",
+    "Four doors open/close independently",
+    "Interior and restored exterior cameras",
+    "Paint selector handlers preserved (known incomplete variant coverage remains)",
+    "Photo environment disables analytic rig; studio restores inherited sources and new reflection sources",
+    "Four elevated views reframed at 14m; full model AABB projects inside the viewport and model world matrix remains unchanged"
+  ],
+  "errors": [],
+  "limitations": [
+    "Software WebGL on Chromium; not a physical mobile/GPU performance test.",
+    "Existing web GLB variant coverage and subtexel UV defects remain; no assertion of their repair.",
+    "The closed-door floor bake matches the inherited floor lighting; linked new reflectors do not light the floor. Open-door ground contact remains approximate."
+  ],
+  "sourceDirections": [
+    {
+      "name": "Hood shaping scrim",
+      "cosine": 0.9999999999999998
+    },
+    {
+      "name": "Shoulder key",
+      "cosine": 0.9999999999999998
+    },
+    {
+      "name": "Low graduated bounce board",
+      "cosine": 0.9999999999999997
+    },
+    {
+      "name": "Rear edge",
+      "cosine": 0.9999999999999981
+    },
+    {
+      "name": "Roof strip",
+      "cosine": 1
+    },
+    {
+      "name": "Front soft fill",
+      "cosine": 0.9999999999999998
+    },
+    {
+      "name": "Rear low bounce board",
+      "cosine": 0.9999999999999991
+    },
+    {
+      "name": "Glass reflection ribbon",
+      "cosine": 1.0000000000000002
+    },
+    {
+      "name": "Left body reflection",
+      "cosine": 1
+    },
+    {
+      "name": "Right body reflection",
+      "cosine": 1
+    },
+    {
+      "name": "Left wheel bank",
+      "cosine": 1
+    },
+    {
+      "name": "Right wheel bank",
+      "cosine": 1
+    },
+    {
+      "name": "Tailgate reflection",
+      "cosine": 1
+    },
+    {
+      "name": "Front continuity strip",
+      "cosine": 1
+    },
+    {
+      "name": "Ceiling sweep",
+      "cosine": 1
+    }
+  ],
+  "materials": [
+    {
+      "name": "MI_Tasman_Car_SK_KiaTasman_Master",
+      "normal": true,
+      "clearcoatNormal": false,
+      "clearcoat": 0,
+      "transmission": 0,
+      "roughness": 1
+    },
+    {
+      "name": "MI_Tasman_Master_Exterior_Metal_SK_KiaTasman_Master",
+      "normal": true,
+      "clearcoatNormal": false,
+      "clearcoat": 0,
+      "transmission": 0,
+      "roughness": 1
+    },
+    {
+      "name": "MI_Tasman_Premium_Glass_Tint_SK_KiaTasman_Master",
+      "normal": false,
+      "clearcoatNormal": false,
+      "clearcoat": 0,
+      "transmission": 1,
+      "roughness": 0.0235294141
+    },
+    {
+      "name": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master",
+      "normal": true,
+      "clearcoatNormal": true,
+      "clearcoat": 1,
+      "transmission": 0,
+      "roughness": 0.34117648
+    },
+    {
+      "name": "MI_Tasman_Premium_Glass_Front_SK_KiaTasman_Master",
+      "normal": false,
+      "clearcoatNormal": false,
+      "clearcoat": 0,
+      "transmission": 1,
+      "roughness": 0.0235294141
+    },
+    {
+      "name": "MI_Tasman_Master_Lamp_Clear_Lens",
+      "normal": false,
+      "clearcoatNormal": false,
+      "clearcoat": 0,
+      "transmission": 1,
+      "roughness": 0.0196078438
+    },
+    {
+      "name": "MI_Tasman_Master_Seat_Leather_SK_KiaTasman_Master",
+      "normal": true,
+      "clearcoatNormal": false,
+      "clearcoat": 0,
+      "transmission": 0,
+      "roughness": 1
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Metal_SK_KiaTasman_Master",
+      "normal": true,
+      "clearcoatNormal": false,
+      "clearcoat": 0,
+      "transmission": 0,
+      "roughness": 1
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Textile",
+      "normal": true,
+      "clearcoatNormal": false,
+      "clearcoat": 0,
+      "transmission": 0,
+      "roughness": 1
+    },
+    {
+      "name": "MI_Tasman_Interior",
+      "normal": true,
+      "clearcoatNormal": false,
+      "clearcoat": 0,
+      "transmission": 0,
+      "roughness": 1
+    },
+    {
+      "name": "MI_Tasman_Master_Wheel_Metal_SK_KiaTasman_Master",
+      "normal": true,
+      "clearcoatNormal": false,
+      "clearcoat": 0,
+      "transmission": 0,
+      "roughness": 1
+    },
+    {
+      "name": "MI_Tasman_Master_Tire_Rubber_SK_KiaTasman_Master",
+      "normal": true,
+      "clearcoatNormal": false,
+      "clearcoat": 0,
+      "transmission": 0,
+      "roughness": 1
+    },
+    {
+      "name": "MI_Tasman_Licence_Plate_SK_KiaTasman_Master",
+      "normal": false,
+      "clearcoatNormal": false,
+      "clearcoat": 0,
+      "transmission": 0,
+      "roughness": 1
+    },
+    {
+      "name": "MI_Tasman_Master_Tail_Lens_Red_SK_KiaTasman_Master",
+      "normal": false,
+      "clearcoatNormal": false,
+      "clearcoat": 0,
+      "transmission": 1,
+      "roughness": 0.0352941193
+    }
+  ],
+  "opticalAdapters": {
+    "coating": [
+      {
+        "material": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master",
+        "imported": 0.25,
+        "declared": 1,
+        "ltcCoatF0": 0.04,
+        "baseNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal-9",
+        "coatNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal-10"
+      },
+      {
+        "material": "MI_Tasman_AGT_SK_KiaTasman_Master",
+        "imported": 0.25,
+        "declared": 1,
+        "ltcCoatF0": 0.04,
+        "baseNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal-9",
+        "coatNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal-10"
+      },
+      {
+        "material": "MI_Tasman_ABP_SK_KiaTasman_Master",
+        "imported": 0.25,
+        "declared": 1,
+        "ltcCoatF0": 0.04,
+        "baseNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal-9",
+        "coatNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal-10"
+      },
+      {
+        "material": "MI_Tasman_CGE_SK_KiaTasman_Master",
+        "imported": 0.25,
+        "declared": 1,
+        "ltcCoatF0": 0.04,
+        "baseNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal-9",
+        "coatNormal": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal-10"
+      }
+    ],
+    "glass": [
+      {
+        "material": "MI_Tasman_Premium_Glass_Front_SK_KiaTasman_Master",
+        "sourceIOR": 1.5199999809265137,
+        "normalIncidenceF0": 0.0425799924818602,
+        "transmission": 1,
+        "mode": "physical tinted transmission; restore dielectric F0 in LTC refraction"
+      },
+      {
+        "material": "MI_Tasman_Premium_Glass_Tint_SK_KiaTasman_Master",
+        "sourceIOR": 1.5199999809265137,
+        "normalIncidenceF0": 0.0425799924818602,
+        "transmission": 1,
+        "mode": "physical tinted transmission; restore dielectric F0 in LTC refraction"
+      },
+      {
+        "material": "MI_Tasman_Master_Lamp_Clear_Lens",
+        "sourceIOR": 1.5199999809265137,
+        "normalIncidenceF0": 0.0425799924818602,
+        "transmission": 1,
+        "mode": "physical tinted transmission; restore dielectric F0 in LTC refraction"
+      },
+      {
+        "material": "MI_Tasman_Master_Tail_Lens_Red_SK_KiaTasman_Master",
+        "sourceIOR": 1.5199999809265137,
+        "normalIncidenceF0": 0.0425799924818602,
+        "transmission": 1,
+        "mode": "physical tinted transmission; restore dielectric F0 in LTC refraction"
+      }
+    ]
+  },
+  "passed": true,
+  "finished": "2026-10-29T20:55:57.732104+00:00",
+  "validation_runs": {
+    "functional": {
+      "started": "2026-10-29T20:30:15.973Z",
+      "finished": "2026-10-29T20:51:30.477Z",
+      "passed": true
+    },
+    "elevated_framing": {
+      "passed": true,
+      "views": [
+        {
+          "angle": 0,
+          "elevation": 0.55,
+          "distance": 14,
+          "file": "elevated-000.png",
+          "bounds": {
+            "minX": 445.689154621772,
+            "maxX": 834.3111411133009,
+            "minY": 120.35063490659167,
+            "maxY": 733.7417300827076,
+            "depth": 11.324071169774463
+          }
+        },
+        {
+          "angle": 90,
+          "elevation": 0.55,
+          "distance": 14,
+          "file": "elevated-090.png",
+          "bounds": {
+            "minX": 257.37733105928504,
+            "maxX": 1086.8345093393787,
+            "minY": 213.3462296650981,
+            "maxY": 605.7370148002351,
+            "depth": 12.474985268054592
+          }
+        },
+        {
+          "angle": 180,
+          "elevation": 0.55,
+          "distance": 14,
+          "file": "elevated-180.png",
+          "bounds": {
+            "minX": 439.365786495623,
+            "maxX": 840.6339081457991,
+            "minY": 140.8114247001004,
+            "maxY": 778.609386147639,
+            "depth": 10.96561207451107
+          }
+        },
+        {
+          "angle": 270,
+          "elevation": 0.55,
+          "distance": 14,
+          "file": "elevated-270.png",
+          "bounds": {
+            "minX": 193.16554414599773,
+            "maxX": 1022.622623141393,
+            "minY": 213.34612767652078,
+            "maxY": 605.7368622249211,
+            "depth": 12.474986767277066
+          }
+        }
+      ]
+    }
+  },
+  "provenance": {
+    "base_commit": "9f4f05e6df0feda88e658d6a08c4d20c943159c8",
+    "source_sha256": {
+      "studio/lighting.js": "9533895af71563634e2a65efe5fb28c4dd148b1a677423d18d9c601bc516b340",
+      "studio/studio.js": "336cffd16636d242b4a5d1a8eca53bf6bd407430b2f679e943efe5ddbaaa5272",
+      "studio/assets/studio-lighting.json": "6a31993687771c7a13e39d73663c4cc317c5f1c38f19569e41641aed92423e77",
+      "studio/assets/studio.hdr": "ddd4967e88bff6c8b3d6f6469b57bb1f7da34dd68172e0c968a207a498bd37ce",
+      "studio/assets/studio-sh.json": "84d6f292ddeedd68274e63c4915dd1f6f7ef1d7cafe682302533f9f3610917dc",
+      "studio/assets/studio-env-atlas-rgbp.bin": "30ade4eb443bf5e766c1d7c92f8faf1f7754e5d28ab08eb82273eb2100099da4"
+    },
+    "capture_sha256": {
+      "captures/premium-360/elevated-000.png": "65a534cd15f7302e261908c35ef08b5284259f74fdb69593ef745d5f053afb64",
+      "captures/premium-360/elevated-090.png": "817a23a09d920652f54359aa021e3e5b54baddbc7c0f470b7ba5501927998ec7",
+      "captures/premium-360/elevated-180.png": "fca0b9f9e8e0b16cbeaabab5cfd675c3f15e1875f563c504a6949f7552817f6f",
+      "captures/premium-360/elevated-270.png": "31047f59aa13210889e9df248408f57c3a3f63dee9a95d9560a26c66ba21fa72",
+      "captures/premium-360/hero-2k.png": "c2f5e0686b216fa47a41eea2d7c5cfbdd91756b3f7064f5d5c29457e245ac71c",
+      "captures/premium-360/hero.png": "7f7aa50704d323b6924965619d240b6c33e248ec63be3ec80b603d4d23697ba8",
+      "captures/premium-360/interior.png": "faae5a133c05b07b8a2065da37ed5a58f394c6211b3a648218b2464db59767ed",
+      "captures/premium-360/orbit-000.png": "4be8d344cb03c5ccb541854bb0b4753eb4d295dc08759fe08ff6c1ad4066125a",
+      "captures/premium-360/orbit-030.png": "2fdefbd2b9e0136a6898cf0e11358713e476c7014ecdc0d91002b5a70a363318",
+      "captures/premium-360/orbit-060.png": "ba83ca84f003b6dacdca95c1ac193edc03bee509683ad1340c05ecf1beec2256",
+      "captures/premium-360/orbit-090.png": "7b5f4f771ff7924ea648c0b5ef7901a49de07648e8f25a44f39a4e59abd6f744",
+      "captures/premium-360/orbit-120.png": "ad791f5a2117a7184ef939512bb02ffb40a0f57af59a9a33fc5637dc2b701a72",
+      "captures/premium-360/orbit-150.png": "780b7c28d5e347253bdcd1eb80d4f546b1fc15af8571edae43b6dbd07b0cc6ca",
+      "captures/premium-360/orbit-180.png": "ebbe444ff309b380db261c2e78ff03062d435de6c6f3c855d8168c413ef23daf",
+      "captures/premium-360/orbit-210.png": "239be1e5d14a33b9e1c238997887b0f0b69ea3068a02b98d00fa7374d9f2872c",
+      "captures/premium-360/orbit-240.png": "4fc5f52674d3754dc37d8d0ec7706ea97e1dd7b9578b67eadb5e8fc8cd1ee42f",
+      "captures/premium-360/orbit-270.png": "9c0ab1ce96658b046847f536291ef4cd907ff73819d1a218f35e43eff890c670",
+      "captures/premium-360/orbit-300.png": "06d7d6166bcb897d17fe533001b74f357ab71d3c7592aae9c2650664bd0eb9c9",
+      "captures/premium-360/orbit-330.png": "d97d0523173aa010b57a6a64b7040263dd9d5bee5c7c86f51a28b2c823434eea",
+      "captures/premium-360/photo-environment.png": "c5e8cca1c2226cccf6bbaa80beaf2b9068655c47aafac12662bc23bf0cf305f1"
+    },
+    "comparison": "A/B comparison: same web GLB; 1280x800; 37 degree horizontal FOV; distance 10.7m; elevation .14; exposure .75; eight full rendered frames. Orbit distance 10.7m/elevation .16; elevated distance 14m/elevation .55. Original master 4K captures retained separately."
+  },
+  "publication_cache_version": "refined360-20261029",
+  "publication_cache_note": "Only module/config URL cache keys changed after rendering validation; lighting and material behavior unchanged."
+}

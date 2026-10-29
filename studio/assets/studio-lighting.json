@@ -1,5 +1,5 @@
 {
-  "name": "advertising-final",
+  "name": "advertising-refined-360",
   "panels": [
     {
       "name": "Hood shaping scrim",
@@ -163,7 +163,7 @@
         1.381980633314952
       ],
       "aim_m": [
-        -1.4646683690488373E-07,
+        -1.4646683690488373e-07,
         1.522121425324129,
         0.939871857584033
       ],
@@ -278,5 +278,138 @@
       "height_range_m": 1
     }
   },
-  "creative_direction": "Professional automotive advertising photography. Vehicle materials locked during lighting studies; Unreal is material provenance, not a visual target."
+  "creative_direction": "World-fixed specular studio. Thin continuous reflection strips reveal door and fender curvature; a cropped overhead source shapes hood reflections. Preserve the inherited HDR and optical adapters, correct vertical source aiming, and link wheel bounce to wheel metal without washing body color.",
+  "accents": [
+    {
+      "name": "Left body reflection",
+      "position_m": [
+        -3.8,
+        0.65,
+        0
+      ],
+      "aim_m": [
+        0,
+        0.65,
+        0
+      ],
+      "width_m": 14,
+      "height_m": 0.1,
+      "intensity": 6,
+      "mask": 1,
+      "range_m": 16
+    },
+    {
+      "name": "Right body reflection",
+      "position_m": [
+        3.8,
+        0.65,
+        0
+      ],
+      "aim_m": [
+        0,
+        0.65,
+        0
+      ],
+      "width_m": 14,
+      "height_m": 0.1,
+      "intensity": 6,
+      "mask": 1,
+      "range_m": 16
+    },
+    {
+      "name": "Left wheel bank",
+      "position_m": [
+        -3.2,
+        0.6,
+        0
+      ],
+      "aim_m": [
+        0,
+        0.5,
+        0
+      ],
+      "width_m": 6,
+      "height_m": 1.1,
+      "intensity": 1.6,
+      "mask": 4,
+      "range_m": 16
+    },
+    {
+      "name": "Right wheel bank",
+      "position_m": [
+        3.2,
+        0.6,
+        0
+      ],
+      "aim_m": [
+        0,
+        0.5,
+        0
+      ],
+      "width_m": 6,
+      "height_m": 1.1,
+      "intensity": 1.6,
+      "mask": 4,
+      "range_m": 16
+    },
+    {
+      "name": "Tailgate reflection",
+      "position_m": [
+        0,
+        0.65,
+        -4.5
+      ],
+      "aim_m": [
+        0,
+        0.65,
+        -1.5
+      ],
+      "width_m": 9,
+      "height_m": 0.16,
+      "intensity": 3.5,
+      "mask": 1,
+      "range_m": 16
+    },
+    {
+      "name": "Front continuity strip",
+      "position_m": [
+        0,
+        0.65,
+        5.5
+      ],
+      "aim_m": [
+        0,
+        0.65,
+        0
+      ],
+      "width_m": 9,
+      "height_m": 0.16,
+      "intensity": 2.5,
+      "mask": 1,
+      "range_m": 28
+    },
+    {
+      "name": "Ceiling sweep",
+      "position_m": [
+        0,
+        4,
+        -1.5
+      ],
+      "aim_m": [
+        0,
+        0,
+        -1.5
+      ],
+      "width_m": 1.2,
+      "height_m": 3,
+      "intensity": 1.2,
+      "mask": 1,
+      "range_m": 28
+    }
+  ],
+  "accent_strength": 1,
+  "environment_cache": {
+    "metadata": "studio-env-atlas.json",
+    "data": "studio-env-atlas-rgbp.bin"
+  }
 }

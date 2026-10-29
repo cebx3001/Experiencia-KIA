@@ -5,10 +5,13 @@ import argparse,sys
 parser=argparse.ArgumentParser()
 parser.add_argument('--config',type=Path,required=True)
 parser.add_argument('--output',type=Path,required=True)
+parser.add_argument('--threads',type=int,default=4)
+parser.add_argument('--samples',type=int,default=64)
+parser.add_argument('--width',type=int,default=4096)
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:])
 args.output=args.output.resolve();args.output.parent.mkdir(parents=True,exist_ok=True)
 config=json.loads(args.config.read_text());panels=config['panels']
-bpy.ops.wm.read_factory_settings(use_empty=True);scene=bpy.context.scene;scene.render.engine='CYCLES';scene.cycles.samples=64;scene.cycles.use_denoising=True;scene.cycles.max_bounces=5;scene.render.threads_mode='FIXED';scene.render.threads=10
+bpy.ops.wm.read_factory_settings(use_empty=True);scene=bpy.context.scene;scene.render.engine='CYCLES';scene.cycles.samples=args.samples;scene.cycles.use_denoising=False;scene.cycles.max_bounces=5;scene.render.threads_mode='FIXED';scene.render.threads=args.threads
 scene.world=bpy.data.worlds.new('Dark neutral studio');scene.world.use_nodes=True;scene.world.node_tree.nodes['Background'].inputs['Color'].default_value=(.004,.004,.004,1);scene.world.node_tree.nodes['Background'].inputs['Strength'].default_value=1
 
 def convert(v):return Vector((v[0],-v[2],v[1]))
@@ -33,6 +36,6 @@ bpy.ops.mesh.primitive_plane_add(size=200);floor=bpy.context.object;floor.name='
 # Neutral surrounding wall; large radius keeps it out of the hero framing.
 bpy.ops.mesh.primitive_cylinder_add(vertices=128,end_fill_type='NOTHING',radius=24,depth=16,location=(0,0,8));wall=bpy.context.object;wall.name='Studio surround';mat=bpy.data.materials.new('Neutral surround PBR');mat.use_nodes=True;bs=mat.node_tree.nodes.get('Principled BSDF');bs.inputs['Base Color'].default_value=(.025,.029,.035,1);bs.inputs['Roughness'].default_value=.75;wall.data.materials.append(mat)
 bpy.ops.object.camera_add(location=(0,0,1),rotation=(math.pi/2,0,math.pi));camera=bpy.context.object;camera.data.type='PANO';camera.data.panorama_type='EQUIRECTANGULAR';scene.camera=camera
-scene.render.resolution_x=4096;scene.render.resolution_y=2048;scene.render.resolution_percentage=100;scene.render.image_settings.file_format='HDR';scene.render.image_settings.color_mode='RGB';scene.view_settings.view_transform='Standard';scene.view_settings.look='None';scene.view_settings.exposure=0;scene.view_settings.gamma=1
+scene.render.resolution_x=args.width;scene.render.resolution_y=args.width//2;scene.render.resolution_percentage=100;scene.render.image_settings.file_format='HDR';scene.render.image_settings.color_mode='RGB';scene.view_settings.view_transform='Standard';scene.view_settings.look='None';scene.view_settings.exposure=0;scene.view_settings.gamma=1
 scene.render.filepath=str(args.output);bpy.ops.render.render(write_still=True)
-args.output.with_suffix('.bake.json').write_text(json.dumps({'renderer':'Cycles','samples':64,'resolution':[4096,2048],'panels':panels,'floor':{'base_color_linear':config.get('floor_base_color_linear',[.075]*3),'roughness':config.get('floor_roughness',.42)},'vehicle_in_probe':False,'probe_origin_playcanvas_m':[0,1,0],'purpose':'Capture graded luminaires and actual floor / surround reflections, preserving scene-linear HDR radiance'},indent=2));print('STUDIO_HDR_COMPLETE',flush=True)
+args.output.with_suffix('.bake.json').write_text(json.dumps({'renderer':'Cycles','samples':args.samples,'denoising':False,'resolution':[args.width,args.width//2],'panels':panels,'floor':{'base_color_linear':config.get('floor_base_color_linear',[.075]*3),'roughness':config.get('floor_roughness',.42)},'vehicle_in_probe':False,'probe_origin_playcanvas_m':[0,1,0],'purpose':'Capture graded luminaires and actual floor / surround reflections, preserving scene-linear HDR radiance'},indent=2));print('STUDIO_HDR_COMPLETE',flush=True)

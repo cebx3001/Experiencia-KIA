@@ -1,0 +1,12 @@
+{
+  "engine": "2.23.1",
+  "source": "studio.hdr",
+  "source_sha256": "ddd4967e88bff6c8b3d6f6469b57bb1f7da34dd68172e0c968a207a498bd37ce",
+  "width": 1024,
+  "height": 1024,
+  "type": "rgbp",
+  "format": 7,
+  "byte_length": 4194304,
+  "sha256": "30ade4eb443bf5e766c1d7c92f8faf1f7754e5d28ab08eb82273eb2100099da4",
+  "method": "Exact GPU readback of the original EnvLighting.generateLightingSource 1024 / generateAtlas 1024 pipeline; native RGBP bytes, no image conversion, gamma change or reduced resolution."
+}
