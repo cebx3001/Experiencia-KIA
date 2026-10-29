@@ -103,6 +103,28 @@ jobs:
                !typography.footer.includes("JetBrains Mono")||
                typography.titleOverflow>12)
               throw Error("Editorial font system or layout failed: "+JSON.stringify(typography));
+            const uiOnly=await page.evaluate(()=>{
+              const root=document.getElementById("experience");
+              const stage=document.getElementById("stage");
+              const canvas=document.getElementById("carCanvas");
+              const css=getComputedStyle(stage);
+              const bg=getComputedStyle(root);
+              return{
+                enabled:root.classList.contains("ui-only-preview"),
+                stageVisibility:css.visibility,
+                stageOpacity:css.opacity,
+                stagePointerEvents:css.pointerEvents,
+                has3DCanvas:!!canvas,
+                background:bg.backgroundColor,
+                scenicLayers:document.querySelectorAll(".ambient-backdrop,.ambient-image,.ridgeline,.ground-glow,.stage-watermark").length
+              };
+            });
+            console.log("UI ONLY REVIEW:",JSON.stringify(uiOnly));
+            if(!uiOnly.enabled||uiOnly.stageVisibility!=="hidden"||
+               uiOnly.stageOpacity!=="0"||uiOnly.stagePointerEvents!=="none"||
+               !uiOnly.has3DCanvas||uiOnly.scenicLayers!==0||
+               uiOnly.background!=="rgb(16, 19, 22)")
+              throw Error("UI-only review must hide 3D visuals and scenery without deleting canvas: "+JSON.stringify(uiOnly));
             const peek=await page.evaluate(()=>({
               previous:document.getElementById("carouselPeekPrev").textContent,
               next:document.getElementById("carouselPeekNext").textContent,
