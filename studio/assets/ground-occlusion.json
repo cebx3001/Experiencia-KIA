@@ -1,0 +1,13 @@
+{
+  "method": "Cycles Ambient Occlusion shader baked through emission; actual complete articulated vehicle geometry",
+  "resolution": [
+    2048,
+    2048
+  ],
+  "ground_width_m": 16,
+  "occlusion_distance_m": 2.5,
+  "samples": 48,
+  "static_pose": "doors closed",
+  "ground_height_m": -0.002,
+  "note": "Ground only; no fabricated vehicle AO from roughness."
+}

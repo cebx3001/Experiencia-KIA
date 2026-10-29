@@ -1,0 +1,114 @@
+[
+  {
+    "material": "MI_Tasman_Car_SK_KiaTasman_Master",
+    "samples": 10000,
+    "color_error_median_8bit": [
+      0.04342789074361794,
+      0.04342789074361794,
+      0.04342789074361794
+    ],
+    "color_error_p95_8bit": [
+      85.00000000000001,
+      81.99999999999999,
+      89.0
+    ]
+  },
+  {
+    "material": "MI_Tasman_Interior",
+    "samples": 10000,
+    "color_error_median_8bit": [
+      0.04342789074361794,
+      0.04342789074361794,
+      0.04342789074361794
+    ],
+    "color_error_p95_8bit": [
+      0.04342789074361794,
+      0.04342789074361794,
+      0.04342789074361794
+    ]
+  },
+  {
+    "material": "MI_Tasman_Master_Tire_Rubber_SK_KiaTasman_Master",
+    "samples": 10000,
+    "color_error_median_8bit": [
+      0.04342789074361794,
+      0.04342789074361794,
+      0.04342789074361794
+    ],
+    "color_error_p95_8bit": [
+      0.04342789074361794,
+      0.04342789074361794,
+      0.04342789074361794
+    ]
+  },
+  {
+    "material": "MI_Tasman_Master_Wheel_Metal_SK_KiaTasman_Master",
+    "samples": 10000,
+    "color_error_median_8bit": [
+      0.9999999999999964,
+      0.0,
+      0.9999999999999964
+    ],
+    "color_error_p95_8bit": [
+      109.00000000000001,
+      109.00000000000001,
+      109.00000000000001
+    ]
+  },
+  {
+    "material": "MI_Tasman_Master_Exterior_Metal_SK_KiaTasman_Master",
+    "samples": 10000,
+    "color_error_median_8bit": [
+      91.00000000000001,
+      89.0,
+      91.00000000000001
+    ],
+    "color_error_p95_8bit": [
+      91.00000000000001,
+      89.00000000000003,
+      91.00000000000001
+    ]
+  },
+  {
+    "material": "MI_Tasman_Master_Interior_Metal_SK_KiaTasman_Master",
+    "samples": 10000,
+    "color_error_median_8bit": [
+      1.0000000000000249,
+      0.0,
+      1.0000000000000249
+    ],
+    "color_error_p95_8bit": [
+      91.00000000000001,
+      89.99999999999999,
+      91.00000000000001
+    ]
+  },
+  {
+    "material": "MI_Tasman_Master_Interior_Textile",
+    "samples": 2096,
+    "color_error_median_8bit": [
+      0.42089046463523455,
+      0.42089046463523455,
+      0.42089046463523455
+    ],
+    "color_error_p95_8bit": [
+      0.42089046463523805,
+      0.42089046463523805,
+      0.42089046463523805
+    ]
+  },
+  {
+    "material": "MI_Tasman_Master_Seat_Leather_SK_KiaTasman_Master",
+    "samples": 10000,
+    "color_error_median_8bit": [
+      0.42089046463523455,
+      0.42089046463523455,
+      0.42089046463523455
+    ],
+    "color_error_p95_8bit": [
+      66.0,
+      48.99999999999999,
+      4.0
+    ]
+  }
+]

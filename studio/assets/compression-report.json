@@ -1,0 +1,14 @@
+{
+  "sourceBytes": 204165752,
+  "webBytes": 83633164,
+  "texturesIdentical": true,
+  "nodes": 1458,
+  "materials": 17,
+  "geometryQuantization": {
+    "position": 20,
+    "normal": 16,
+    "uv": 20,
+    "generic": 16
+  },
+  "animations": 10
+}

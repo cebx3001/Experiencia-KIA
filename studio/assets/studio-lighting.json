@@ -1,0 +1,91 @@
+{
+  "environment_origin_m": [
+    0,
+    1,
+    0
+  ],
+  "panels": [
+    {
+      "name": "Front softbox",
+      "position_m": [
+        -2,
+        3,
+        6.5
+      ],
+      "width_m": 4,
+      "height_m": 1.5,
+      "linear_radiance": 18,
+      "tint": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Long side strip",
+      "position_m": [
+        -6,
+        1.9,
+        -3.5
+      ],
+      "width_m": 10,
+      "height_m": 1.6,
+      "linear_radiance": 14,
+      "tint": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "Overhead strip",
+      "position_m": [
+        0,
+        5,
+        0
+      ],
+      "width_m": 8,
+      "height_m": 2,
+      "linear_radiance": 10,
+      "tint": [
+        1,
+        0.98,
+        0.95
+      ]
+    },
+    {
+      "name": "Rear separation",
+      "position_m": [
+        3,
+        2,
+        -4
+      ],
+      "width_m": 2,
+      "height_m": 3,
+      "linear_radiance": 6,
+      "tint": [
+        0.95,
+        0.98,
+        1
+      ]
+    },
+    {
+      "name": "Windshield reflection card",
+      "position_m": [
+        5,
+        4.6,
+        0.3
+      ],
+      "width_m": 3,
+      "height_m": 2,
+      "linear_radiance": 28,
+      "tint": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "projection": "Ray / rectangular plane intersection, PlayCanvas equirectangular convention, including reflected cubemap X reversal",
+  "reference": "Front and long-side placement derived from Unreal studio; radiance calibrated for PlayCanvas exposure."
+}

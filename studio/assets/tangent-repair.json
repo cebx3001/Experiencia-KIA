@@ -1,0 +1,6 @@
+{
+  "generatedMissingTangentPrimitives": 17,
+  "repairedZeroLengthTangents": 46,
+  "algorithm": "MikkTSpace for missing tangent space; orthogonal fallback only for undefined zero vectors",
+  "sourcePositionsNormalsUVsPreserved": true
+}

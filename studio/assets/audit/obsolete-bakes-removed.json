@@ -1,0 +1,25 @@
+{
+  "reason": "Generated PBR atlas images superseded by verified native SIMPLE bakes; current manifest is the authoritative catalog",
+  "removed": [
+    "0dddd439eda8dec1.png",
+    "3188c7868e8c2b09.png",
+    "392075bf6244f473.png",
+    "5a4e98d59ec26a97.png",
+    "65a13c4f34ebd986.png",
+    "664cbae337d99a9b.png",
+    "794d7448445a01a6.png",
+    "834b1e6058374f42.png",
+    "910b466f457b154d.png",
+    "94709b768b84a3a4.png",
+    "953d62d87127ab34.png",
+    "96853d2de294608d.png",
+    "9a46e21b38a9e31e.png",
+    "b954b736d29fb1c9.png",
+    "c667aeaa880a4ccb.png",
+    "cba388459fafda58.png",
+    "d1e7258d2e04098d.png",
+    "ddb6809900f00f69.png",
+    "e93a1216c4d05fd8.png",
+    "f234613213996ad8.png"
+  ]
+}
