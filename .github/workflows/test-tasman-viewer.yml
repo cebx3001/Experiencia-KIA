@@ -73,6 +73,25 @@ jobs:
             if(portrait.image!=="none"||portrait.bg!=="rgb(16, 19, 22)"||
               !portrait.photosHidden||!portrait.noCanvas||portrait.watermark==="none")
               throw Error("Portrait HUD: "+JSON.stringify(portrait));
+            await page.locator("#secondaryButton").click();
+            const fonts=await page.evaluate(()=>{
+              const read=selector=>{const style=getComputedStyle(document.querySelector(selector));return {family:style.fontFamily,weight:style.fontWeight,spacing:style.letterSpacing,stroke:style.webkitTextStrokeWidth};};
+              return {
+                title:read(".vehicle-copy h1"),
+                year:read(".vehicle-copy .year"),
+                nav:read(".kia-category"),
+                copy:read(".vehicle-copy .subcopy"),
+                counter:read(".frame-index")
+              };
+            });
+            console.log("TYPOGRAPHY:",JSON.stringify(fonts));
+            if(!fonts.title.family.includes("Monument Extended")||
+               !fonts.year.family.includes("Space Grotesk")||
+               fonts.year.stroke!=="1.5px"||
+               !fonts.nav.family.includes("JetBrains Mono")||
+               !fonts.copy.family.includes("Space Grotesk")||
+               !fonts.counter.family.includes("Space Grotesk"))
+              throw Error("Kia typography guide not applied: "+JSON.stringify(fonts));
             if(errors.length)throw Error("Browser errors: "+errors.join("; "));
             console.log("PASS: Only the Kia editorial graphic UI is visible, both orientations, with working selectors and no photo or 3D viewer.");
             await browser.close();
