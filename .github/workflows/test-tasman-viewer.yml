@@ -85,12 +85,14 @@ jobs:
               };
             });
             console.log("TYPOGRAPHY:",JSON.stringify(fonts));
-            if(!fonts.title.family.includes("Unbounded")||
-               !fonts.year.family.includes("Space Grotesk")||
+            if(!fonts.title.family.includes("Monument Extended")||
+               !fonts.year.family.includes("Share Tech Mono")||
                fonts.year.stroke!=="1.5px"||
-               !fonts.nav.family.includes("JetBrains Mono")||
-               !fonts.copy.family.includes("Space Grotesk")||
-               !fonts.counter.family.includes("Space Grotesk"))
+               !fonts.nav.family.includes("Share Tech Mono")||
+               fonts.nav.weight!=="700"||
+               !fonts.copy.family.includes("Chakra Petch")||
+               fonts.copy.weight!=="500"||
+               !fonts.counter.family.includes("Share Tech Mono"))
               throw Error("Kia typography guide not applied: "+JSON.stringify(fonts));
             if(errors.length)throw Error("Browser errors: "+errors.join("; "));
             console.log("PASS: Only the Kia editorial graphic UI is visible, both orientations, with working selectors and no photo or 3D viewer.");
