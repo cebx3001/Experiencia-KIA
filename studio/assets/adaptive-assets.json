@@ -1,0 +1,24 @@
+[
+  {
+    "name": "mobile",
+    "file": "kia-tasman-mobile.glb",
+    "bytes": 32116960,
+    "maxTextureSize": 1024,
+    "estimatedRGBAWithMipsBytes": 150994944,
+    "geometrySimplified": false,
+    "geometryDracoBytesPreserved": true,
+    "materials": 17,
+    "animations": 10
+  },
+  {
+    "name": "balanced",
+    "file": "kia-tasman-balanced.glb",
+    "bytes": 45207944,
+    "maxTextureSize": 2048,
+    "estimatedRGBAWithMipsBytes": 603979776,
+    "geometrySimplified": false,
+    "geometryDracoBytesPreserved": true,
+    "materials": 17,
+    "animations": 10
+  }
+]

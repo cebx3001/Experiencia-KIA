@@ -1,0 +1,198 @@
+[
+  {
+    "name": "desktop",
+    "status": {
+      "loaded": true,
+      "asset": "kia-tasman-balanced.glb",
+      "quality": {
+        "name": "balanced",
+        "file": "kia-tasman-balanced.glb",
+        "pixelRatio": 1,
+        "samples": 12,
+        "shadow": 1024,
+        "reflection": 0.25
+      }
+    },
+    "loadMs": 52579,
+    "data": {
+      "poses": {
+        "threequarter": [
+          6.038112163543701,
+          2.915616512298584,
+          8.62331771850586
+        ],
+        "side": [
+          10.609712600708008,
+          2.387085437774658,
+          6.496574887037809e-16
+        ],
+        "front": [
+          0,
+          1.8550872802734375,
+          10.665778160095215
+        ],
+        "rear": [
+          1.3024522815650733e-15,
+          2.1746277809143066,
+          -10.635330200195312
+        ],
+        "top": [
+          1.1860004663467407,
+          11.195408821105957,
+          1.362963080406189
+        ]
+      },
+      "paints": {
+        "arena": [
+          "MI_Tasman_Premium_Paint_SK_KiaTasman_Master"
+        ],
+        "gris": [
+          "MI_Tasman_AGT_SK_KiaTasman_Master"
+        ],
+        "negro": [
+          "MI_Tasman_ABP_SK_KiaTasman_Master"
+        ],
+        "verde": [
+          "MI_Tasman_CGE_SK_KiaTasman_Master"
+        ]
+      },
+      "doors": {
+        "front_left": 65.00000000000001,
+        "front_right": -65.00000000000001,
+        "rear_left": 65.00000000000001,
+        "rear_right": -65.00000000000001
+      },
+      "cabin": [
+        0.05999999865889549,
+        1.340000033378601,
+        0.30000001192092896
+      ],
+      "anchors": [
+        [
+          "hood",
+          true
+        ],
+        [
+          "cargo_bed",
+          true
+        ],
+        [
+          "headlight_front_left",
+          true
+        ],
+        [
+          "door_front_left",
+          true
+        ]
+      ],
+      "gpu": "WebKit WebGL",
+      "memory": {
+        "tex": 726579316,
+        "vb": 95028112,
+        "ib": 35021910,
+        "ub": 22752,
+        "sb": 0
+      },
+      "drawCalls": 52
+    },
+    "errors": []
+  },
+  {
+    "name": "mobile",
+    "status": {
+      "loaded": true,
+      "asset": "kia-tasman-mobile.glb",
+      "quality": {
+        "name": "mobile",
+        "file": "kia-tasman-mobile.glb",
+        "pixelRatio": 1,
+        "samples": 8,
+        "shadow": 512,
+        "reflection": 0.18
+      }
+    },
+    "loadMs": 12683,
+    "data": {
+      "poses": {
+        "threequarter": [
+          16.3338680267334,
+          6.18198823928833,
+          23.327180862426758
+        ],
+        "side": [
+          28.700632095336914,
+          4.752243518829346,
+          1.7574068065460404e-15
+        ],
+        "front": [
+          0,
+          3.3131206035614014,
+          28.852296829223633
+        ],
+        "rear": [
+          3.5233004597070954e-15,
+          4.177518844604492,
+          -28.76993179321289
+        ],
+        "top": [
+          3.311283588409424,
+          29.363313674926758,
+          4.729002952575684
+        ]
+      },
+      "paints": {
+        "arena": [
+          "MI_Tasman_Premium_Paint_SK_KiaTasman_Master"
+        ],
+        "gris": [
+          "MI_Tasman_AGT_SK_KiaTasman_Master"
+        ],
+        "negro": [
+          "MI_Tasman_ABP_SK_KiaTasman_Master"
+        ],
+        "verde": [
+          "MI_Tasman_CGE_SK_KiaTasman_Master"
+        ]
+      },
+      "doors": {
+        "front_left": 65.00000000000001,
+        "front_right": -65.00000000000001,
+        "rear_left": 65.00000000000001,
+        "rear_right": -65.00000000000001
+      },
+      "cabin": [
+        0.05999999865889549,
+        1.340000033378601,
+        0.30000001192092896
+      ],
+      "anchors": [
+        [
+          "hood",
+          true
+        ],
+        [
+          "cargo_bed",
+          true
+        ],
+        [
+          "headlight_front_left",
+          true
+        ],
+        [
+          "door_front_left",
+          true
+        ]
+      ],
+      "gpu": "WebKit WebGL",
+      "memory": {
+        "tex": 189096674,
+        "vb": 95028112,
+        "ib": 35021910,
+        "ub": 22752,
+        "sb": 0
+      },
+      "drawCalls": 50
+    },
+    "errors": []
+  }
+]

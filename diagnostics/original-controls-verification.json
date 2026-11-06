@@ -1,0 +1,115 @@
+{
+  "readyMs": 67128,
+  "cpuThrottle": 2,
+  "ui": [
+    {
+      "category": "cameras",
+      "label": "LATERAL",
+      "description": "",
+      "camera": [
+        10.609712600708008,
+        2.387085437774658,
+        6.496574887037809e-16
+      ]
+    },
+    {
+      "category": "colors",
+      "label": "INTERSTELLAR GRAY",
+      "description": "",
+      "camera": [
+        6.038112163543701,
+        2.915616512298584,
+        8.62331771850586
+      ]
+    },
+    {
+      "category": "exterior",
+      "label": "RUEDAS 17″",
+      "description": "Ruedas todoterreno\n\nAros de aluminio de 17 pulgadas para conducción dentro y fuera del camino, según versión.\n\n×",
+      "camera": [
+        -2.5543367862701416,
+        0.5622581839561462,
+        1.6350001096725464
+      ]
+    },
+    {
+      "category": "interior",
+      "label": "ASIENTO DELANTERO",
+      "description": "Asiento delantero\n\nLos asientos delanteros eléctricos permiten ajustar la posición para personalizar el soporte y la comodidad, según versión.\n\n×",
+      "camera": [
+        -1.4500000476837158,
+        1.2599999904632568,
+        0.2199999988079071
+      ]
+    }
+  ],
+  "cabinPosition": [
+    0.05999999865889549,
+    1.340000033378601,
+    0.30000001192092896
+  ],
+  "interaction": {
+    "before": [
+      6.038112163543701,
+      2.915616512298584,
+      8.62331771850586
+    ],
+    "after": [
+      -1.0987101793289185,
+      4.56831169128418,
+      10.027462005615234
+    ],
+    "zoom": [
+      -1.4107717275619507,
+      5.581803321838379,
+      12.875515937805176
+    ],
+    "touchEventsDispatched": true
+  },
+  "challenge": "WATER CROSSING",
+  "performanceState": {
+    "profile": {
+      "name": "mobile",
+      "file": "kia-tasman-mobile.glb",
+      "pixelRatio": 1,
+      "samples": 8,
+      "shadow": 512,
+      "reflection": 0.18
+    },
+    "history": [
+      {
+        "ms": 34.09090909090911,
+        "ratio": 1
+      },
+      {
+        "ms": 17.235428571428574,
+        "ratio": 1
+      },
+      {
+        "ms": 19.845394736842152,
+        "ratio": 1
+      },
+      {
+        "ms": 82.8567567567567,
+        "ratio": 1
+      },
+      {
+        "ms": 92.89393939393898,
+        "ratio": 1
+      },
+      {
+        "ms": 89.19999999999969,
+        "ratio": 0.85
+      },
+      {
+        "ms": 84.72777777777732,
+        "ratio": 0.85
+      },
+      {
+        "ms": 87.58571428571433,
+        "ratio": 0.85
+      }
+    ]
+  },
+  "errors": []
+}

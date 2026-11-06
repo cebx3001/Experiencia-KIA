@@ -3,7 +3,7 @@ import * as pc from './vendor/playcanvas.mjs';
 // The probe captures the empty, independently designed studio, including its
 // neutral floor. Analytic LTC emitters provide direct light; SH retains only
 // indirect radiance so their diffuse contribution is not counted twice.
-export function createStudioLighting(app, config, load){
+export function createStudioLighting(app, config, load,quality={shadow:1024}){
  const lights=[],groundLights=[],accents=[], materials=new Set();let environment='cinematic';
  function placePanel(entity,panel){
   const target=new pc.Vec3(...panel.aim_m),direction=new pc.Vec3(...panel.position_m).sub(target).normalize();
@@ -21,7 +21,7 @@ export function createStudioLighting(app, config, load){
    type:'spot',shape:pc.LIGHTSHAPE_RECT,color:new pc.Color(...panel.tint),
    intensity:panel.linear_radiance*config.direct_scale,range:28,
    innerConeAngle:40,outerConeAngle:70,mask:1,castShadows:panel.cast_shadows,
-   shadowResolution:1024,shadowType:pc.SHADOW_VSM_32F,
+   shadowResolution:quality.shadow,shadowType:pc.SHADOW_VSM_32F,
    vsmBlurSize:25,vsmBlurMode:pc.BLUR_GAUSSIAN,vsmBias:.0025,
    shadowBias:.06,normalOffsetBias:.015,shadowUpdateMode:pc.SHADOWUPDATE_THISFRAME,
    falloffMode:pc.LIGHTFALLOFF_INVERSESQUARED

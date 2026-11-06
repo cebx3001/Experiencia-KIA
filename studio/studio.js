@@ -1,13 +1,16 @@
 import * as pc from './vendor/playcanvas.mjs';
+import {chooseQuality,monitorQuality} from './adaptive-quality.js';
+const quality=chooseQuality();
+if(new URLSearchParams(location.search).has('embed')){const style=document.createElement('style');style.textContent='header,.title,aside,footer,.hint{display:none!important}html,body,main{width:100%;height:100%;margin:0;}';document.head.append(style);}
 import {applyDeclaredCoating,applyGlassOptics} from './material-adapter.js';
-import {createStudioLighting} from './lighting.js?v=refined360-20261029';
+import {createStudioLighting} from './lighting.js?v=adaptive-20261105';
 import {createStudioStage} from './stage.js';
 
 const $=s=>document.querySelector(s), V=(x=0,y=0,z=0)=>new pc.Vec3(x,y,z);
 const canvas=$('#canvas'), host=$('main');
 const debug=window.__tasmanMaster={status:'loading',engine:pc.version,errors:[],materials:[],doors:{},paint:'arena'};
-const app=new pc.Application(canvas,{graphicsDeviceOptions:{alpha:false,antialias:true,powerPreference:'high-performance',preserveDrawingBuffer:true}});
-app.graphicsDevice.maxPixelRatio=Math.min(devicePixelRatio,1.75);
+const app=new pc.Application(canvas,{graphicsDeviceOptions:{alpha:false,antialias:true,powerPreference:'high-performance',preserveDrawingBuffer:false}});
+app.graphicsDevice.maxPixelRatio=quality.pixelRatio;
 app.setCanvasResolution(pc.RESOLUTION_AUTO);app.setCanvasFillMode(pc.FILLMODE_NONE);
 app.scene.clusteredLightingEnabled=false;
 app.scene.ambientLight=new pc.Color(0,0,0);app.scene.exposure=.75;app.scene.skyboxIntensity=1.5;
@@ -23,10 +26,11 @@ frame.rendering.sceneColorMap=true;
 frame.rendering.sceneDepthMap=true;
 frame.taa.enabled=true;
 frame.ssao.type=pc.SSAOTYPE_LIGHTING;
-frame.ssao.samples=24;frame.ssao.intensity=.9;frame.ssao.radius=.45;frame.ssao.power=1.6;
+frame.ssao.samples=quality.samples;frame.ssao.intensity=.9;frame.ssao.radius=.45;frame.ssao.power=1.6;
 frame.bloom.intensity=.025;frame.bloom.threshold=4;
 frame.vignette.intensity=.16;frame.vignette.inner=.65;
 frame.update();
+debug.performance=monitorQuality(app,frame,quality);
 let lighting,stage;
 function refreshAreaShadows(){lighting?.refreshShadows();}
 const floor=new pc.Entity('Matte studio floor');floor.addComponent('render',{type:'plane'});floor.setLocalScale(200,1,200);const fm=new pc.StandardMaterial();fm.diffuse.set(.303532,.303532,.303532);fm.useSkybox=false;fm.gloss=.58;fm.update();floor.render.material=fm;floor.render.castShadows=false;for(const mi of floor.render.meshInstances)mi.mask=2;app.root.addChild(floor);
@@ -37,12 +41,13 @@ const load=(url,type)=>new Promise((resolve,reject)=>app.assets.loadFromUrl(url,
 pc.dracoInitialize({jsUrl:'vendor/draco_wasm_wrapper.js',wasmUrl:'vendor/draco_decoder.wasm',numWorkers:2,lazyInit:true});
 async function setEnvironment(name){await lighting.setEnvironment(name);fm.useSkybox=name==='photo';fm.update();debug.environment=name;}
 const environmentSelect=document.createElement('select');environmentSelect.setAttribute('aria-label','Iluminación del estudio');environmentSelect.innerHTML='<option value="cinematic">Estudio publicitario</option><option value="photo">Entorno fotográfico</option>';$('.settings').prepend(environmentSelect);environmentSelect.onchange=async()=>{environmentSelect.disabled=true;try{await setEnvironment(environmentSelect.value);}finally{environmentSelect.disabled=false;}};
+const paintedInstances=[];
 let model,container,rotating=false,doorsOpen=false,mode='orbit',yaw=.68,pitch=.18,distance=10,insideYaw=.42,insidePitch=-.067;
 const target=V(0,1,0), doors=new Map(), pointers=new Map();
 const paints={arena:{name:'Tan Beige',code:'TAM'},gris:{name:'Interstellar Grey',code:'AGT'},negro:{name:'Aurora Black Pearl',code:'ABP'},verde:{name:'Cityscape Green',code:'CGE'}};
 function resize(){app.resizeCanvas(host.clientWidth,host.clientHeight);}
 new ResizeObserver(resize).observe(host);resize();
-function orbit(){const c=Math.cos(pitch),r=distance*(camera.camera.horizontalFov?1:Math.max(1,.95/(host.clientWidth/host.clientHeight)));camera.setPosition(target.x+r*Math.sin(yaw)*c,target.y+r*Math.sin(pitch),target.z+r*Math.cos(yaw)*c);camera.lookAt(target);}
+function orbit(){const c=Math.cos(pitch),r=distance*Math.max(1,1.25/(host.clientWidth/host.clientHeight));camera.setPosition(target.x+r*Math.sin(yaw)*c,target.y+r*Math.sin(pitch),target.z+r*Math.cos(yaw)*c);camera.lookAt(target);}
 function setOrbit({azimuth,elevation=.16,distance:radius=10.7,target:point=[0,1,0]}){
  if(![azimuth,elevation,radius,...point].every(Number.isFinite))throw Error('Invalid orbit');
  mode='orbit';rotating=false;$('#rotate').setAttribute('aria-pressed','false');
@@ -51,7 +56,7 @@ function setOrbit({azimuth,elevation=.16,distance:radius=10.7,target:point=[0,1,
 }
 function setDoor(key,open){const d=doors.get(key);if(!d)return false;d.open=open;d.start=d.angle;d.started=performance.now();d.goal=open?d.sign*65:0;debug.doors[key]=open;document.querySelector(`[data-door="${key}"]`)?.setAttribute('aria-pressed',String(open));return true;}
 function setAllDoors(open){doorsOpen=open;for(const key of doors.keys())setDoor(key,open);$('#all-doors').textContent=open?'Cerrar todas':'Abrir todas';}
-function setPaint(key){if(!container||!paints[key])return false;const name=paints[key].code;container.resource.applyMaterialVariant(model,name);debug.paint=key;$('#paint-label').innerHTML=`${paints[key].name} <span>${name}</span>`;document.querySelectorAll('[data-paint]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.paint===key)));return true;}
+function setPaint(key){if(!container||!paints[key])return false;const name=paints[key].code;container.resource.applyMaterialVariant(model,name);const desired=container.resource.materials.find(a=>a.resource.name.includes({TAM:'Premium_Paint',AGT:'MI_Tasman_AGT',ABP:'MI_Tasman_ABP',CGE:'MI_Tasman_CGE'}[name]))?.resource;if(desired)for(const mi of paintedInstances)mi.material=desired;debug.paint=key;$('#paint-label').innerHTML=`${paints[key].name} <span>${name}</span>`;document.querySelectorAll('[data-paint]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.paint===key)));return true;}
 function setView(key){
  mode='orbit';rotating=false;$('#rotate').setAttribute('aria-pressed','false');camera.camera.horizontalFov=true;camera.camera.fov=key==='hero'?37:41.11;stage?.setEnabled(key!=='interior');
  const views={hero:[-.74,.14,10.7,[0,1,0]],side:[-Math.PI/2,.045,10,[0,1,-.2]],rear:[Math.PI-.65,.1,10.5,[0,1,-.2]],paint:[.95,.15,2.3,[.75,1.25,.8]],wheel:[.6,.08,2,[.9,.45,1.65]],glass:[.3,.1,3,[0,1.55,.9]],interior:[0,0,1,[0,1.35,.75]]};
@@ -79,21 +84,21 @@ app.on('update',dt=>{if(rotating)yaw+=dt*.14;if(mode==='orbit')orbit();let movin
 app.start();
 try{
  const luts=await (await fetch('assets/area-light-luts.json')).json();app.setAreaLightLuts(luts.LTC_MAT_1,luts.LTC_MAT_2);app.scene.lighting.areaLightsEnabled=true;app.scene.lighting.shadowAtlasResolution=4096;
- const lightingConfig=await (await fetch('assets/studio-lighting.json?v=refined360-20261029')).json();lighting=createStudioLighting(app,lightingConfig,load);debug.lighting=lightingConfig;app.scene.exposure=lightingConfig.exposure;$('#exposure').value=lightingConfig.exposure;
+ const lightingConfig=await (await fetch('assets/studio-lighting.json?v=refined360-20261029')).json();lighting=createStudioLighting(app,lightingConfig,load,quality);debug.lighting=lightingConfig;lightingConfig.stage.reflection.resolution_scale=quality.reflection;app.scene.exposure=lightingConfig.exposure;$('#exposure').value=lightingConfig.exposure;
  const groundAo=await load('assets/studio-ground-shadow.png','texture');groundAo.resource.addressU=pc.ADDRESS_CLAMP_TO_EDGE;groundAo.resource.addressV=pc.ADDRESS_CLAMP_TO_EDGE;fm.aoMap=groundAo.resource;fm.aoMapChannel='r';fm.aoMapTiling.set(12.5,12.5);fm.aoMapOffset.set(-5.75,-5.75);fm.occludeDirect=true;fm.update();
  const environment=new URLSearchParams(location.search).get('environment')==='photo'?'photo':'cinematic';environmentSelect.value=environment;await setEnvironment(environment);
  // GitHub Pages serves LFS pointers; the lossless-texture web GLB is the public delivery.
- const assetFile=new URLSearchParams(location.search).get('quality')==='master'&&!location.hostname.endsWith('github.io')?'kia-tasman-master.glb':'kia-tasman-web.glb';
+ const assetFile=quality.file;
  container=await load('assets/'+assetFile,'container');
  const materialManifest=await (await fetch('assets/materials.json')).json();debug.coatingAdaptations=applyDeclaredCoating(container.resource,materialManifest,pc,app.graphicsDevice);
  const glassManifest=await (await fetch('assets/glass-adaptations.json')).json();debug.glassAdaptations=applyGlassOptics(container.resource,glassManifest,pc,app.graphicsDevice);
  lighting.bindMaterials(container.resource);
- model=container.resource.instantiateRenderEntity({castShadows:true,receiveShadows:true});app.root.addChild(model);lighting.bindMeshes(model);
+ model=container.resource.instantiateRenderEntity({castShadows:true,receiveShadows:true});app.root.addChild(model);model.forEach(e=>e.render?.meshInstances.forEach(mi=>{if(mi.material.name.includes('Premium_Paint'))paintedInstances.push(mi);}));lighting.bindMeshes(model);
  stage=createStudioStage(app,camera,floor,cyclorama,lightingConfig);
  refreshAreaShadows();
  for(const key of ['front_left','front_right','rear_left','rear_right']){const entity=model.findByName('door_'+key);if(!entity)throw Error('No se encontró la articulación door_'+key);doors.set(key,{entity,base:entity.getLocalEulerAngles().clone(),angle:0,start:0,started:0,goal:0,open:false,sign:key.endsWith('left')?1:-1});debug.doors[key]=false;}
  const unique=new Map();model.forEach(e=>{if(e.render)for(const mi of e.render.meshInstances){const m=mi.material;unique.set(m.name,{name:m.name,normal:!!m.normalMap,clearcoatNormal:!!m.clearCoatNormalMap,clearcoat:m.clearCoat,transmission:m.refraction,roughness:m.glossInvert?m.gloss:1-m.gloss});}});debug.materials=[...unique.values()];debug.variants=container.resource.getMaterialVariants();
  if(debug.variants.length!==4)throw Error('El GLB debe incluir las cuatro variantes de pintura');
- setView('hero');setPaint('arena');debug.status='ready';$('#loading').hidden=true;
- Object.assign(debug,{app,model,camera,frame,stage,lighting,setPaint,setView,setOrbit,setEnvironment,setDoor,setAllDoors,getDoorAngles:()=>Object.fromEntries([...doors].map(([k,d])=>[k,d.entity.getLocalEulerAngles().y-d.base.y]))});
+ setView('hero');setPaint('arena');debug.asset=assetFile;debug.paintInstances=paintedInstances.length;debug.status='ready';$('#loading').hidden=true;
+ Object.assign(debug,{setCameraPose:({position,lookAt,fov=42,interior=false})=>{mode=interior?"interior":"inspection";stage.setEnabled(!interior);camera.camera.horizontalFov=false;camera.camera.fov=fov;camera.setPosition(...position);camera.lookAt(...lookAt);const dx=lookAt[0]-position[0],dy=lookAt[1]-position[1],dz=lookAt[2]-position[2];insideYaw=Math.atan2(dx,dz);insidePitch=Math.atan2(dy,Math.hypot(dx,dz));},app,model,camera,frame,stage,lighting,setPaint,setView,setOrbit,setEnvironment,setDoor,setAllDoors,getDoorAngles:()=>Object.fromEntries([...doors].map(([k,d])=>[k,d.entity.getLocalEulerAngles().y-d.base.y]))});
 }catch(e){debug.status='error';debug.errors.push(String(e));$('#loading').hidden=true;$('#error').hidden=false;$('#error').textContent='No se pudo cargar el estudio.\n'+e.message;console.error(e);}
