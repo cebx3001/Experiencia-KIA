@@ -1,9 +1,14 @@
-name: Verify Kia Tasman standalone graphic interface
+name: Verify Kia Tasman graphic and integrated experiences
 on:
   workflow_dispatch:
   push:
     paths:
       - 'index.html'
+      - 'app.js'
+      - 'styles.css'
+      - 'kia-*.js'
+      - 'studio/**'
+      - 'diagnostics/verify-integrated.cjs'
       - 'tasman-nueva.html'
       - 'tasman-nueva.css'
       - 'tasman-nueva.js'
@@ -35,7 +40,7 @@ jobs:
             const page=await browser.newPage({viewport:{width:1280,height:720}});
             const errors=[];
             page.on("pageerror",e=>errors.push(e.message));
-            await page.goto("http://127.0.0.1:8765/",{waitUntil:"networkidle",timeout:45000});
+            await page.goto("http://127.0.0.1:8765/tasman-nueva.html",{waitUntil:"networkidle",timeout:45000});
             await page.waitForFunction(()=>!!window.__kiaCarousel&&!!window.__kiaUI,null,{timeout:15000});
             const probe=()=>page.evaluate(()=>{
               const root=document.getElementById("experience");
@@ -106,3 +111,24 @@ jobs:
             await browser.close();
           })().catch(err=>{console.error(err);process.exit(1)});
           NODE
+  integrated-studio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Check original controls and dynamic studio
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/kia-integrated-server.log 2>&1 &
+          node diagnostics/verify-integrated.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: integrated-browser-captures
+          path: diagnostics/integrated-*.png
