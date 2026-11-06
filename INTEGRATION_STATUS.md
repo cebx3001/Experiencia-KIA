@@ -45,3 +45,5 @@ Las pruebas se ejecutan en Chrome del equipo disponible y con viewports/táctil 
 Persisten las limitaciones de UV subtexel y tangentes de la auditoría anterior. Esta integración conserva los materiales actuales y no declara solucionado su microdetalle. Las correcciones de barniz/refracción de `studio/material-adapter.js` se preservan.
 
 Fuentes de optimización consultadas: https://developer.playcanvas.com/user-manual/optimization/texture-compression/ y https://developer.playcanvas.com/user-manual/optimization/guidelines/ . La elección aplicada prioriza una entrega comprobable con el motor fijado 2.23.1 y conserva el perfil alto.
+
+Se corrigió además una regresión de encuadre vertical: con FOV horizontal no debe multiplicarse la distancia por el aspecto de pantalla, porque la cámara salía del ciclorama y la pared ocultaba el vehículo. Se confirmó el resultado con una captura móvil completa. Los tiempos de carga registrados son de esta máquina y no deben interpretarse como una prueba de red 4G.

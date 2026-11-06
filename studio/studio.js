@@ -47,7 +47,7 @@ const target=V(0,1,0), doors=new Map(), pointers=new Map();
 const paints={arena:{name:'Tan Beige',code:'TAM'},gris:{name:'Interstellar Grey',code:'AGT'},negro:{name:'Aurora Black Pearl',code:'ABP'},verde:{name:'Cityscape Green',code:'CGE'}};
 function resize(){app.resizeCanvas(host.clientWidth,host.clientHeight);}
 new ResizeObserver(resize).observe(host);resize();
-function orbit(){const c=Math.cos(pitch),r=distance*Math.max(1,1.25/(host.clientWidth/host.clientHeight));camera.setPosition(target.x+r*Math.sin(yaw)*c,target.y+r*Math.sin(pitch),target.z+r*Math.cos(yaw)*c);camera.lookAt(target);}
+function orbit(){const c=Math.cos(pitch),r=distance*(camera.camera.horizontalFov?1:Math.max(1,.95/(host.clientWidth/host.clientHeight)));camera.setPosition(target.x+r*Math.sin(yaw)*c,target.y+r*Math.sin(pitch),target.z+r*Math.cos(yaw)*c);camera.lookAt(target);}
 function setOrbit({azimuth,elevation=.16,distance:radius=10.7,target:point=[0,1,0]}){
  if(![azimuth,elevation,radius,...point].every(Number.isFinite))throw Error('Invalid orbit');
  mode='orbit';rotating=false;$('#rotate').setAttribute('aria-pressed','false');
