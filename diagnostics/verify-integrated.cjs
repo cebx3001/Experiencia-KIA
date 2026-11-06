@@ -15,7 +15,10 @@ const {chromium}=require('playwright');
   // Wait for the actual articulated state, not an assumed frame rate.
   await page.waitForFunction(()=>Object.values(__kiaIntegratedViewer.studio.getDoorAngles()).every(a=>Math.abs(a)>64.9),null,{polling:100,timeout:90000});
   const doors=await page.evaluate(()=>__kiaIntegratedViewer.studio.getDoorAngles());if(!Object.values(doors).every(a=>Math.abs(a)>64.9))throw Error('Doors failed '+JSON.stringify(doors));
-  await page.screenshot({path:`diagnostics/integrated-${viewport.width}.png`});if(errors.length)throw Error(errors.join('\n'));await page.close();
+  // Assertions above run with the normal continuous renderer. Only the capture
+  // uses one requested frame so SwiftShader does not starve compositor readback.
+  await page.evaluate(()=>new Promise(resolve=>{const app=__kiaIntegratedViewer.app;app.autoRender=false;app.once('postrender',()=>setTimeout(resolve,0));app.renderNextFrame=true;}));
+  await page.screenshot({path:`diagnostics/integrated-${viewport.width}.png`,timeout:120000});if(errors.length)throw Error(errors.join('\n'));await page.close();
  }
  await browser.close();console.log('Integrated studio and original controls passed');
 })().catch(e=>{console.error(e);process.exit(1);});
