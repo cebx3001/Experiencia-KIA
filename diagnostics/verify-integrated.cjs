@@ -12,7 +12,9 @@ const {chromium}=require('playwright');
   // clicks are covered locally; CI verifies visible controls and their handlers.
   for(const category of ['cameras','colors','exterior','interior']){const button=page.locator(`button[data-category="${category}"]`);if(!await button.isVisible())throw Error('Hidden category '+category);await button.dispatchEvent('click');await page.locator('#carouselNext').dispatchEvent('click');await page.locator('#carouselSelected').dispatchEvent('click');}
   await page.evaluate(()=>{const v=__kiaIntegratedViewer;for(const color of ['arena','gris','negro','verde']){v.setPaintColor(color);const materials=new Set();v.model.forEach(e=>e.render?.meshInstances.forEach(mi=>{if(/Premium_Paint|MI_Tasman_AGT|MI_Tasman_ABP|MI_Tasman_CGE/.test(mi.material.name))materials.add(mi.material.name);}));if(materials.size!==1)throw Error('Incomplete paint coverage '+color);}v.setDoorsOpen(true);});
-  await page.waitForTimeout(1200);const doors=await page.evaluate(()=>__kiaIntegratedViewer.studio.getDoorAngles());if(!Object.values(doors).every(a=>Math.abs(a)>64.9))throw Error('Doors failed');
+  // Wait for the actual articulated state, not an assumed frame rate.
+  await page.waitForFunction(()=>Object.values(__kiaIntegratedViewer.studio.getDoorAngles()).every(a=>Math.abs(a)>64.9),null,{polling:100,timeout:90000});
+  const doors=await page.evaluate(()=>__kiaIntegratedViewer.studio.getDoorAngles());if(!Object.values(doors).every(a=>Math.abs(a)>64.9))throw Error('Doors failed '+JSON.stringify(doors));
   await page.screenshot({path:`diagnostics/integrated-${viewport.width}.png`});if(errors.length)throw Error(errors.join('\n'));await page.close();
  }
  await browser.close();console.log('Integrated studio and original controls passed');
