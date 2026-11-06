@@ -18,7 +18,7 @@ permissions:
   contents: read
 jobs:
   browser-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -112,7 +112,7 @@ jobs:
           })().catch(err=>{console.error(err);process.exit(1)});
           NODE
   integrated-studio:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -132,3 +132,4 @@ jobs:
         with:
           name: integrated-browser-captures
           path: diagnostics/integrated-*.png
+
