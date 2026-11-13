@@ -1,10 +1,12 @@
 const {chromium}=require('playwright');
 (async()=>{
- const browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage','--enable-webgl','--ignore-gpu-blocklist','--enable-unsafe-swiftshader']});
+ const browser=await chromium.launch({headless:true,executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
  for(const viewport of [{width:1280,height:800},{width:390,height:844}]){
   const page=await browser.newPage({viewport}),errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto('http://127.0.0.1:8765/?quality=mobile',{waitUntil:'domcontentloaded'});
-  await page.waitForFunction(()=>window.__kiaViewerStatus?.loaded,null,{timeout:240000});
+  try{await page.waitForFunction(()=>window.__kiaViewerStatus?.loaded,null,{timeout:300000});}
+  catch(error){console.error('Integrated load diagnostics',await page.evaluate(()=>{const d=document.querySelector('iframe')?.contentWindow?.__tasmanMaster;return {outer:window.__kiaViewerStatus,inner:d&&{status:d.status,errors:d.errors,frameReady:d.vehicleFrameReady,shaders:d.app?.graphicsDevice.shaders.map(s=>({name:s.name,ready:s.ready,failed:s.failed,program:!!s.impl?.glProgram}))}};}));throw error;}
+  console.log('Integrated viewer ready',viewport);
   await page.waitForTimeout(1600);
   const baseline=await page.evaluate(()=>{const v=__kiaIntegratedViewer,p=v.camera.getPosition();return {radius:Math.hypot(p.x,p.z),models:v.meshCount,profile:v.studio.performance.profile.name};});
   if(baseline.radius>23||baseline.models<10)throw Error('Vehicle hidden outside studio: '+JSON.stringify(baseline));
