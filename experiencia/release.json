@@ -1,0 +1,29 @@
+{
+  "release": "cines-20261113-r1",
+  "codeCommit": "f30509726510a01b6b3ee91cc76541e596df0deb",
+  "generatedAt": "2026-11-13T23:35:09.545248+00:00",
+  "files": {
+    "experiencia/index.html": "5f23fdaee1f8cd5e7d755713cc26994137fc27ca55e07af4410658376a03941d",
+    "experiencia/experience.js": "eff3d730e0e8e2b354908d90e6c07f5b98905f3f3fd5f0c3a13925f3ad3014cd",
+    "experiencia/experience.css": "7f772af400467a66f9e5ef8dde273726d1a645736dcec10e3f3b822637416fb5",
+    "experiencia/config.js": "9b7856f3e33b5763e3c9daaa164d402641b86df179b61111e0e87c71d42b0162",
+    "experiencia/qr.html": "8aba11b724e6b852a410a6f0c4432f852802d2faba4951b57f415203f16353e3",
+    "experiencia/assets/qr-tasman.png": "71d7d29c8aa5668999bcf74e938935696febb4cdc64474be9023a94f583eff21",
+    "studio/index.html": "fff2144a2d2942244ebe4e14d06641d382369b91dc623ee741366c2c02c5e1fc",
+    "studio/studio.js": "96c70f8f4939a6771dbc439b949dc76469beb8419b38a8bca5d5dc2eed45f06e",
+    "studio/adaptive-quality.js": "f567b7a54cdf40d83dfbd64d6747dc5ea89ec23c2c9709c7b0d60276f834513f",
+    "studio/campaign-scene.js": "37c850ebedc55e321aecb3be2c9efbfea0d6bb775f840831ad6f35ffcf05dd91",
+    "studio/drop.js": "5d85cfa4f1e61fe5ddcafcc3c0c1ffa1eb7c103c061048f3c14c322f2a7a724d",
+    "studio/material-adapter.js": "331ccb09be657df66d6303f3a5e17ef17cc223460966c6fef45d2a2cc11d44ab",
+    "studio/stage.js": "4e173d34ec033eb9dad6834b7a002ffc96805a6cbf53212bf008ab62c03d0dea",
+    "studio/lighting.js": "9a1baddd2258a4695f5f6e17cf0961e5652a3ce74251261a8a6fae8b6375ccad",
+    "studio/vendor/playcanvas.mjs": "bcc15030901e8656b7585d767aee834dd812397509aaa45b0f754aa448f1bce9",
+    "studio/vendor/blurred-planar-reflection.mjs": "aaae5235fd0fc666b2f52e8a11e6f087bfa01ca7418d04160a771d6f7935e200",
+    "studio/assets/audit/mobile-sharp.json": "950aab5eb437e566d74c92e319e05c210f15889a5c2da90acce062c8f3b6d669"
+  },
+  "externalPending": [
+    "official campaign WhatsApp number",
+    "licensed Kia Signature font files",
+    "commercial cargo variant confirmation (brief: up to 1.2 t; cited local sheet: 1151 kg)"
+  ]
+}
