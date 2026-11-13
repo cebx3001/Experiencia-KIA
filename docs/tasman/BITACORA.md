@@ -25,3 +25,11 @@ Contador real, volver a explorar, Kia Ecuador y contacto configurable. El QR se 
 Texto comercial «hasta 1,2 t» conservado del brief. La guía señala una ficha local de 1.151 kg; requiere confirmación comercial de versión. No se afirma haber verificado esa fuente externa desde esta red.
 
 La validación publicada y los commits finales se registran en la entrega y en `experiencia/release.json`. Safari/iPhone físico y Android físico se distinguen de las emulaciones disponibles; no se certifica una prueba que no se haya ejecutado.
+
+### Ajustes tras la inspección de las cinco capturas
+
+La primera ejecución completa pasó los controles, pero la inspección visual encontró encuadre de vadeo demasiado cerrado y proyecciones de tablero por detrás de la superficie real. Se amplió la toma lateral y se localizaron superficies del tablero mediante intersecciones con los triángulos decodificados: pantalla cerca de z=0,736 m y cargadores alrededor de y=0,956 m / z=0,65 m. Las proyecciones se colocan por delante de esas superficies; la cámara se sitúa en el lado del conductor.
+
+Se corrigió además el pivote de la inclinación: el GLB tiene traslación importada (-1,1524; 0,0115; 2,5022) y escala 1,2052. Un rig exterior aplica la inclinación alrededor del origen del vehículo sin sobrescribir ese transform. Los apoyos se prueban también por encima del piso, no sólo por cercanía al terreno. Los recursos primitivos compartidos se destruyen mediante sus componentes, sin invalidar mallas de suelo/cajas compartidas.
+
+La carga de campaña usa el progreso nativo de `Asset` de PlayCanvas; no realiza una segunda lectura del GLB mediante blob ni conserva una copia de descarga adicional. El porcentaje proviene de bytes reales cuando el servidor informa el total.

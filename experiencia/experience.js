@@ -1,6 +1,14 @@
 import {campaign,whatsappUrl} from './config.js?v=cines-20261113';
 const $=s=>document.querySelector(s),host=$('#experience'),iframe=$('#studio'),panel=$('#panel'),visited=new Set();
 let enterStarted=0,scene=null,studio=null,state='loading',missionIndex=null,token=0,entered=false,impactCount=0,lastSceneMode='',audioContext=null,audioNodes=[];
+const iconPaths=[
+ '<path d="M2 7q3-4 6 0t6 0t6 0M2 13q3-4 6 0t6 0t6 0M2 19q3-4 6 0t6 0t6 0"/>',
+ '<path d="m12 2 9 5v10l-9 5-9-5V7Zm-9 5 9 5 9-5M12 12v10M7 4l9 5"/>',
+ '<path d="M2 8h14v10H2ZM16 14h5l2 3M2 18h21"/><circle cx="6" cy="19" r="2"/><circle cx="16" cy="19" r="2"/>',
+ '<path d="m2 19 7-14 4 7 3-5 6 12M7 19l4-5 3 5"/>',
+ '<rect x="2" y="4" width="20" height="12" rx="2"/><path d="M5 8h6M5 11h9M9 21h6M12 16v5"/>'
+];
+const icon=i=>`<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${iconPaths[i]}</svg>`;
 const events=[];
 function log(type,detail={}){events.push({type,detail,at:performance.now()});if(events.length>150)events.shift();}
 function setState(value){state=value;host.dataset.state=value;$('#mission-count').textContent=value==='mission'?`${String(missionIndex+1).padStart(2,'0')} / 05`:'';$('#skip').hidden=value!=='intro';$('#loading-card').hidden=value!=='loading';panel.hidden=['loading','intro','scan'].includes(value);$('#scene-status').textContent=value==='scan'?'ESCANEANDO VEHÍCULO':value==='menu'?'THE ALL-TERRAIN PICKUP':'';if(value!=='intro')$('#curtain').style.opacity=0;log('state',{value});}
@@ -9,7 +17,7 @@ function audioStart(){try{audioContext??=new(window.AudioContext||window.webkitA
 function impact(){impactCount++;log('impact');try{if(audioContext){const buffer=audioContext.createBuffer(1,audioContext.sampleRate*.3,audioContext.sampleRate),a=buffer.getChannelData(0);for(let i=0;i<a.length;i++)a[i]=(Math.random()*2-1)*Math.exp(-i/(a.length/6));const source=audioContext.createBufferSource(),filter=audioContext.createBiquadFilter(),gain=audioContext.createGain();filter.type='lowpass';filter.frequency.value=350;gain.gain.value=.18;source.buffer=buffer;source.connect(filter).connect(gain).connect(audioContext.destination);source.start();audioNodes.push(source);}}
  catch{}try{navigator.vibrate?.(70);}catch{} }
 function presentation(){setState('presentation');panel.innerHTML='<h1 class="brand-title">KIA TASMAN</h1><p class="description">La pickup todoterreno. · 2.2 Turbodiésel · 4×4</p><button class="primary" id="features">VER FEATURES　›</button>';$('#features').onclick=menu;}
-function menu(){++token;scene.menu();missionIndex=null;setState('menu');panel.innerHTML='<h2 class="menu-title">¿Qué quieres explorar?</h2><div class="grid">'+campaign.missions.map((m,i)=>`<button class="feature" data-mission="${i}"><b aria-hidden="true">${m.icon}</b><small>${String(i+1).padStart(2,'0')}</small><span>${m.name.toUpperCase()}</span></button>`).join('')+'</div>';panel.querySelectorAll('[data-mission]').forEach(b=>b.onclick=()=>showMission(Number(b.dataset.mission)));}
+function menu(){++token;scene.menu();missionIndex=null;setState('menu');panel.innerHTML='<h2 class="menu-title">¿Qué quieres explorar?</h2><div class="grid">'+campaign.missions.map((m,i)=>`<button class="feature" data-mission="${i}"><b aria-hidden="true">${icon(i)}</b><small>${String(i+1).padStart(2,'0')}</small><span>${m.name.toUpperCase()}</span></button>`).join('')+'</div>';panel.querySelectorAll('[data-mission]').forEach(b=>b.onclick=()=>showMission(Number(b.dataset.mission)));}
 async function showMission(index){
  if(!scene||index<0||index>=5)return;const current=++token;missionIndex=index;setState('mission');const m=campaign.missions[index];
  panel.innerHTML=`<p class="eyebrow">MISIÓN ${String(index+1).padStart(2,'0')} · ${m.eyebrow}</p><h2 class="value">${m.value} <small>${m.unit}</small></h2><p class="description">${m.description}</p><div class="chips">${m.chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div><nav><button class="back" id="back" aria-label="Volver al menú">‹</button><div class="dots" aria-label="Misión ${index+1} de 5">${campaign.missions.map((_,i)=>`<span class="dot ${i===index?'active':''}"></span>`).join('')}</div><button id="next">${index===4?'FINALIZAR':'SIGUIENTE'}　›</button></nav>`;
@@ -46,4 +54,4 @@ setInterval(()=>{
 },100);
 document.addEventListener('visibilitychange',()=>{if(document.hidden){stopAudio();audioContext?.suspend();}else if(entered)audioContext?.resume().catch(()=>{});});
 if(campaign.brandFontUrl){const font=new FontFace('Kia Signature',`url(${campaign.brandFontUrl})`);font.load().then(f=>document.fonts.add(f)).catch(()=>log('brand-font-unavailable'));}
-window.__tasmanExperience={ready,enter,skipIntro:skip,menu,showMission,closing,get studio(){return studio;},get scene(){return scene;},getState:()=>({state,missionIndex,completed:[...visited],impactCount,events:[...events],scene:scene?.getState(),release:campaign.release}),whatsappUrl};
+window.__tasmanExperience={ready,enter,replayIntro:()=>{entered=false;enter();},skipIntro:skip,menu,showMission,closing,get studio(){return studio;},get scene(){return scene;},getState:()=>({state,missionIndex,completed:[...visited],impactCount,events:[...events],scene:scene?.getState(),release:campaign.release}),whatsappUrl};

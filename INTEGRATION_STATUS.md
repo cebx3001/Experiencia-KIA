@@ -47,3 +47,11 @@ Persisten las limitaciones de UV subtexel y tangentes de la auditoría anterior.
 Fuentes de optimización consultadas: https://developer.playcanvas.com/user-manual/optimization/texture-compression/ y https://developer.playcanvas.com/user-manual/optimization/guidelines/ . La elección aplicada prioriza una entrega comprobable con el motor fijado 2.23.1 y conserva el perfil alto.
 
 Se corrigió además una regresión de encuadre vertical: con FOV horizontal no debe multiplicarse la distancia por el aspecto de pantalla, porque la cámara salía del ciclorama y la pared ocultaba el vehículo. Se confirmó el resultado con una captura móvil completa. Los tiempos de carga registrados son de esta máquina y no deben interpretarse como una prueba de red 4G.
+
+## Continuación · Experiencia de cine completa
+
+La entrada aislada de campaña está en `experiencia/`. Conserva una sola instancia del estudio y su vehículo real; no carga la antigua maqueta ni un sustituto del automóvil. El plan del cliente se incorporó desde `feat/tasman-experiencia-cines`. Implementación, bitácora, auditoría de nitidez y evidencias: `docs/tasman/`.
+
+La caída ahora comienza fuera del encuadre completo, con altura calculada a partir de su proyección. La campaña incluye impacto, escaneo, menú orbital y cinco demostraciones con geometría holográfica y profundidad. El pivote importado del vehículo se conserva mediante un rig exterior en todoterreno. Se retiró el descenso de resolución a DPR 0,6 y se elimina la acumulación de poses del antialiasing temporal durante el movimiento.
+
+Contacto de WhatsApp, fuente oficial y confirmación comercial de carga se registran como datos externos pendientes; no hay números personales inventados. El cierre cuenta las misiones únicas completadas. El seguimiento de publicación incluye hashes de los archivos servidos y comprobación de GLB binario, mediante el workflow de la campaña.

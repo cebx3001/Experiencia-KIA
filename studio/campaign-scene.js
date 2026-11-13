@@ -3,6 +3,7 @@ import {createDropPreview} from './drop.js?v=cines-20261113';
 
 export function createCampaignScene(d){
  const {app,model,camera,lighting}=d,basePosition=model.getLocalPosition().clone(),baseRotation=model.getLocalRotation().clone();
+ const rig=new pc.Entity('Campaign vehicle motion',app);app.root.addChild(rig);model.reparent(rig);
  const root=new pc.Entity('Campaign holograms',app);app.root.addChild(root);
  let mode='idle',active=null,age=0,autoOrbit=false,orbitAngle=-.74,transition=null,serial=0,impactListener=()=>{},impactAge=99,scanGroup=null;
  const wheels=['Kia.wheel.fr.l.001','Kia.wheel.fr.r.001','Kia.wheel.bk.l.001','Kia.wheel.bk.r.001'].map(n=>model.findByName(n));
@@ -23,7 +24,7 @@ export function createCampaignScene(d){
   for(const child of [...root.children]){child.destroy();}
   for(const m of materials.splice(0))m.destroy();
   active=null;scanGroup=null;dust=null;age=0;impactAge=99;autoOrbit=false;
-  model.setLocalRotation(baseRotation);model.setLocalPosition(basePosition);drop.finish();
+  rig.setLocalPosition(0,0,0);rig.setLocalEulerAngles(0,0,0);model.setLocalRotation(baseRotation);model.setLocalPosition(basePosition);drop.finish();
  }
  function director(pose,duration=.85){
   if(transition)transition.resolve(false);
@@ -48,13 +49,13 @@ export function createCampaignScene(d){
  function setIntro(){clear();mode='intro';cue.enabled=true;cue.light.intensity=0;age=0;drop.replay();}
  function skip(){clear();mode='idle';cue.light.intensity=0;drop.finish();}
  function scan(){clear();mode='scan';scanGroup=wireBox(root,'Scan slice',[0,.05,0],[2.3,.025,5.8],.04);ring(scanGroup,'Scanning footprint',2.5,0);}
- function menu(){clear();mode='menu';cue.light.intensity=0;d.stage.setEnabled(true);autoOrbit=true;d.setOrbit({azimuth:orbitAngle,elevation:.15,distance:10.2,target:[0,1,0]});}
+ function menu(){clear();mode='menu';cue.light.intensity=0;d.stage.setEnabled(true);autoOrbit=true;d.setOrbit({azimuth:orbitAngle,elevation:.15,distance:9.7,target:[0,1,0]});}
  const poses=[
-  {position:[-7.4,2.15,2.4],lookAt:[0,.9,0],fov:45},
+  {position:[-9.3,2.3,2.8],lookAt:[0,.9,0],fov:45},
   {position:[-4.5,3.6,-5.5],lookAt:[0,1.18,-1.35],fov:43},
   {position:[-13.5,4.5,-9.5],lookAt:[0,.9,-1.7],fov:43},
   {position:[-6.8,2.7,6.4],lookAt:[0,1.05,0],fov:43},
-  {position:[-.45,1.44,-.05],lookAt:[.1,1.18,1.12],fov:59,interior:true}
+  {position:[.42,1.48,-.12],lookAt:[.08,1.25,1.0],fov:59,interior:true}
  ];
  async function mission(index){
   clear();mode='mission';cue.light.intensity=0;const ticket=serial;const arrived=await director(poses[index]);if(!arrived||ticket!==serial)return false;
@@ -81,17 +82,18 @@ export function createCampaignScene(d){
    const mesh=new pc.Mesh(app.graphicsDevice),positions=[],triangles=[],edges=[],n=10;
    for(let z=0;z<=n;z++)for(let x=0;x<=n;x++)positions.push((x/n-.5)*3.6,0,(z/n-.5)*6);
    for(let z=0;z<n;z++)for(let x=0;x<n;x++){const a=z*(n+1)+x;triangles.push(a,a+1,a+n+1,a+1,a+n+2,a+n+1);edges.push(a,a+1,a,a+n+1,a+1,a+n+1);}
-   mesh.setPositions(positions);mesh.setIndices(triangles);mesh.setNormals(pc.calculateNormals(positions,triangles));mesh.update();meshEntity(g,'Faceted holographic terrain',mesh,material(.09));
+   mesh.setPositions(positions);mesh.setIndices(triangles);mesh.setNormals(pc.calculateNormals(positions,triangles));mesh.update();meshEntity(g,'Faceted holographic terrain',mesh,material(.18));
+   active.contacts=wheels.map((w,i)=>ring(g,'Tire support '+i,.24,.008));
    const e=lines(g,'Terrain contour',positions,edges);active.terrain={mesh,lineMesh:e.render.meshInstances[0].mesh,positions,triangles};
    active.anchors=[{text:'e-LD · bloqueo electrónico trasero',point:[-.8,.6,-1.63]},{text:'GROUND VIEW MONITOR',point:[0,.8,2.4]}];
   }else{
-   wireBox(g,'Panoramic display projection',[0,1.22,1.05],[1.05,.24,.025],.05);
-   for(const x of [.02,.2])wireBox(g,'Wireless charger projection',[x,.95,.45],[.14,.02,.22],.12);
-   active.anchors=[{text:'PANTALLA PANORÁMICA',point:[-.32,1.28,1.02]},{text:'2 CARGADORES INALÁMBRICOS',point:[.17,.97,.45]},{text:'LFA 2 · FCA 2 · SCC',point:[.35,1.35,1.1]}];
+   const display=wireBox(g,'Panoramic display projection',[.26,1.335,.717],[.83,.17,.008],.04);display.setLocalEulerAngles(6,0,0);
+   for(const x of [-.075,.075])wireBox(g,'Wireless charger projection',[x,.968,.61],[.12,.008,.19],.10);
+   active.anchors=[{text:'PANTALLA PANORÁMICA',point:[.2,1.42,.716]},{text:'2 CARGADORES INALÁMBRICOS',point:[-.02,.975,.61]},{text:'LFA 2 · FCA 2 · SCC',point:[.6,1.42,.73]}];
   }
   return true;
  }
- function groundHeight(x,z){const tilt=model.getLocalEulerAngles(),pitch=tilt.x*Math.PI/180,roll=tilt.z*Math.PI/180;return .25-Math.sin(pitch)*z+Math.sin(roll)*x;}
+ function groundHeight(x,z){const tilt=rig.getLocalEulerAngles(),pitch=tilt.x*Math.PI/180,roll=tilt.z*Math.PI/180;return .25-Math.sin(pitch)*z+Math.sin(roll)*x;}
  function end(){menu();mode='closing';autoOrbit=false;}
  camera.getPosition();app.graphicsDevice.canvas.addEventListener('pointerdown',()=>{autoOrbit=false;});
  app.on('update',delta=>{
@@ -107,14 +109,15 @@ export function createCampaignScene(d){
    dust.pulse.setLocalScale(1+impactAge*2,1,1+impactAge*2);
   }else if(dust){dust.enabled=false;dust=null;}
   if(mode==='scan'&&scanGroup)scanGroup.setLocalPosition(0,Math.min(2.3,age*.9),0);
-  if(mode==='menu'&&autoOrbit){orbitAngle+=dt*.12;d.setOrbit({azimuth:orbitAngle,elevation:.15,distance:10.2,target:[0,1,0]});}
+  if(mode==='menu'&&autoOrbit){orbitAngle+=dt*.12;d.setOrbit({azimuth:orbitAngle,elevation:.15,distance:9.7,target:[0,1,0]});}
   if(active?.index===0){active.waterLevel=Math.min(.8,age*.55);active.group.setLocalPosition(0,active.waterLevel-.8,0);for(let i=1;i<active.waterPositions.length;i+=3)active.waterPositions[i]=.8+Math.sin(active.waterPositions[i-1]*3+active.waterPositions[i+1]*2+age*2)*.012;active.water.render.meshInstances[0].mesh.setPositions(active.waterPositions);active.water.render.meshInstances[0].mesh.update();}
   if(active?.index===1)for(const box of active.boxes){const u=Math.max(0,Math.min(1,(age-box.index*.12)/.8)),h=1.8*Math.pow(1-u,3);box.entity.setLocalPosition(box.position[0],box.position[1]+h,box.position[2]);}
   if(active?.index===3){
-   const u=Math.min(1,age/1.1),smooth=u*u*(3-2*u);model.setLocalEulerAngles(-4.5*smooth,0,2.5*smooth);model.setLocalPosition(0,.25*smooth,0);
+   const u=Math.min(1,age/1.1),smooth=u*u*(3-2*u);rig.setLocalEulerAngles(-4.5*smooth,0,2.5*smooth);rig.setLocalPosition(0,.25*smooth,0);
    const terrain=active.terrain;for(let i=0;i<terrain.positions.length;i+=3){const x=terrain.positions[i],z=terrain.positions[i+2];const r=.06*Math.sin(Math.PI*(x+.81142)/1.62284)**2*Math.sin(Math.PI*(z+1.635)/3.27)**2;terrain.positions[i+1]=groundHeight(x,z)*smooth+r*smooth;}
-   terrain.mesh.setPositions(terrain.positions);terrain.mesh.setNormals(pc.calculateNormals(terrain.positions,terrain.triangles));terrain.mesh.update();terrain.lineMesh.setPositions(terrain.positions);terrain.lineMesh.update(pc.PRIMITIVE_LINES);lighting.refreshShadows();
+   terrain.mesh.setPositions(terrain.positions);terrain.mesh.setNormals(pc.calculateNormals(terrain.positions,terrain.triangles));terrain.mesh.update();terrain.lineMesh.setPositions(terrain.positions);terrain.lineMesh.update(pc.PRIMITIVE_LINES);for(let i=0;i<wheels.length;i++){const p=wheels[i].getPosition();active.contacts[i].setLocalPosition(p.x,groundHeight(p.x,p.z),p.z);active.contacts[i].setLocalEulerAngles(-4.5*smooth,0,2.5*smooth);}
+   lighting.refreshShadows();
   }
  });
- return {startIntro:setIntro,skipIntro:skip,scan,menu,mission,closing:end,drop,onImpact(fn){impactListener=fn;},getState(){return {mode,age,impactAge,transition:!!transition,mission:active?.index??null,propCount:root.children.length,waterLevel:active?.waterLevel??null,hitch:active?.hitch??null,boxes:active?.boxes.map(b=>b.entity.getPosition().toArray())??[],wheelSupports:active?.index===3?wheels.map(w=>{const p=w.getPosition();return {bottom:p.y-.4049708,terrain:groundHeight(p.x,p.z),x:p.x,z:p.z};}):[],anchors:active?.anchors??[],drop:drop.getState()};},project(point){const p=camera.camera.worldToScreen(new pc.Vec3(...point));return {x:p.x,y:p.y,z:p.z};}};
+ return {startIntro:setIntro,skipIntro:skip,scan,menu,mission,closing:end,drop,onImpact(fn){impactListener=fn;},getState(){return {mode,age,impactAge,importTransform:{position:model.getLocalPosition().toArray(),scale:model.getLocalScale().toArray()},transition:!!transition,mission:active?.index??null,propCount:root.children.length,waterLevel:active?.waterLevel??null,hitch:active?.hitch??null,boxes:active?.boxes.map(b=>b.entity.getPosition().toArray())??[],wheelSupports:active?.index===3?wheels.map(w=>{const p=w.getPosition();return {bottom:p.y-.4049708,terrain:groundHeight(p.x,p.z),x:p.x,z:p.z};}):[],anchors:active?.anchors??[],drop:drop.getState()};},project(point){const p=camera.camera.worldToScreen(new pc.Vec3(...point));return {x:p.x,y:p.y,z:p.z};}};
 }

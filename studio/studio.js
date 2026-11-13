@@ -39,16 +39,15 @@ const floor=new pc.Entity('Matte studio floor');floor.addComponent('render',{typ
 // A new, continuous 360-degree cyclorama: floor-to-wall cove with no horizon seam.
 function createCyclorama(){const positions=[],normals=[],uvs=[],indices=[];const segments=192,rings=26;for(let ring=0;ring<=rings;ring++){const t=Math.min(ring/24,1)*Math.PI/2,r=24+4*Math.sin(t),y=ring<=24?4*(1-Math.cos(t)):4+(ring-24)*6;for(let i=0;i<=segments;i++){const a=i/segments*Math.PI*2;positions.push(r*Math.sin(a),y,r*Math.cos(a));normals.push(-Math.sin(t)*Math.sin(a),Math.cos(t),-Math.sin(t)*Math.cos(a));uvs.push(i/segments,ring/rings);}}for(let ring=0;ring<rings;ring++)for(let i=0;i<segments;i++){const a=ring*(segments+1)+i,b=a+segments+1;indices.push(a,b,a+1,a+1,b,b+1);}const mesh=pc.createMesh(app.graphicsDevice,positions,{normals,uvs,indices});const material=fm.clone();material.diffuse.set(.008,.008,.008);material.cull=pc.CULLFACE_NONE;material.update();const e=new pc.Entity('Continuous cyclorama');e.addComponent('render',{meshInstances:[new pc.MeshInstance(mesh,material,e)],castShadows:false,receiveShadows:true});app.root.addChild(e);return e;}
 const cyclorama=createCyclorama();
-const load=async(url,type)=>{
- if(type!=='container'||!new URLSearchParams(location.search).has('campaign'))return new Promise((resolve,reject)=>app.assets.loadFromUrl(url,type,(err,a)=>err?reject(Error(`${url}: ${err}`)):resolve(a)));
- const response=await fetch(url);if(!response.ok)throw Error(`${url}: HTTP ${response.status}`);
- const total=Number(response.headers.get('content-length'))||null,chunks=[];let loaded=0;
- debug.loadProgress={loaded,total,phase:'download'};
- const reader=response.body.getReader();while(true){const {done,value}=await reader.read();if(done)break;chunks.push(value);loaded+=value.byteLength;debug.loadProgress={loaded,total,phase:'download'};}
- debug.loadProgress={loaded,total,phase:'render'};
- const blob=URL.createObjectURL(new Blob(chunks));
- try{return await new Promise((resolve,reject)=>app.assets.loadFromUrlAndFilename(blob,url,type,(err,a)=>err?reject(Error(String(err))):resolve(a)));}finally{URL.revokeObjectURL(blob);}
-};
+const load=(url,type)=>new Promise((resolve,reject)=>{
+ if(type!=='container'||!new URLSearchParams(location.search).has('campaign'))return app.assets.loadFromUrl(url,type,(err,asset)=>err?reject(Error(`${url}: ${err}`)):resolve(asset));
+ const asset=new pc.Asset(url.split('/').pop(),'container',{url});app.assets.add(asset);
+ debug.loadProgress={loaded:0,total:null,phase:'download'};
+ asset.on('progress',(loaded,total)=>{debug.loadProgress={loaded,total:total||null,phase:total&&loaded===total?'render':'download'};});
+ asset.once('load',()=>{debug.loadProgress.phase='render';resolve(asset);});
+ asset.once('error',error=>reject(Error(`${url}: ${error}`)));
+ app.assets.load(asset);
+});
 pc.dracoInitialize({jsUrl:'vendor/draco_wasm_wrapper.js',wasmUrl:'vendor/draco_decoder.wasm',numWorkers:quality.name==='mobile'?1:2,lazyInit:true});
 async function setEnvironment(name){await lighting.setEnvironment(name);fm.useSkybox=name==='photo';fm.update();debug.environment=name;}
 const environmentSelect=document.createElement('select');environmentSelect.setAttribute('aria-label','Iluminación del estudio');environmentSelect.innerHTML='<option value="cinematic">Estudio publicitario</option><option value="photo">Entorno fotográfico</option>';$('.settings').prepend(environmentSelect);environmentSelect.onchange=async()=>{environmentSelect.disabled=true;try{await setEnvironment(environmentSelect.value);}finally{environmentSelect.disabled=false;}};

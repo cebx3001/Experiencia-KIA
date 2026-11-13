@@ -1,0 +1,34 @@
+{
+  "physicalDevice": false,
+  "profile": "Chrome touch 360x740, 6 Mbps, CPU 4x",
+  "errors": [],
+  "checks": [
+    "Cold-cache network-limited load has exact byte progress and no duplicate high-quality GLB",
+    "Actual skip before contact, five consecutive Next/Finish actions, count 5/5",
+    "WhatsApp URL construction tested without sending; campaign number explicitly pending",
+    "Return and wide-screen vertical composition"
+  ],
+  "webkit": {
+    "tested": false,
+    "reason": "browserType.launch: Executable doesn't exist at /home/agent/.cache/ms-playwright/webkit-2336/pw_run.sh"
+  },
+  "loaded": {
+    "progress": {
+      "loaded": 35712304,
+      "total": 35712304,
+      "phase": "render"
+    },
+    "asset": "kia-tasman-mobile-sharp.glb",
+    "scale": [
+      1.2051975727081299,
+      1.2051975727081299,
+      1.2051975727081299
+    ]
+  },
+  "qaWhatsApp": {
+    "urlConstructionPassed": true,
+    "sent": false,
+    "number": "reserved fictional 555-0100; QA only"
+  },
+  "passed": true
+}
