@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "viewport": [
+    844,
+    390
+  ],
+  "state": {
+    "state": {
+      "t": 0.5999999999999991,
+      "y": -0.15783978309165586,
+      "v": 0.8215192069027002,
+      "contact": true,
+      "running": false
+    },
+    "camera": [
+      -11.893058776855469,
+      3.83557391166687,
+      13.025074005126953
+    ],
+    "bodyClass": "drop-preview",
+    "axes": {
+      "up": "+Y",
+      "front": "+Z",
+      "frontZ": 1.635000228881836,
+      "rearZ": -1.6349996328353882
+    }
+  },
+  "errors": [],
+  "physicalDevice": false
+}
