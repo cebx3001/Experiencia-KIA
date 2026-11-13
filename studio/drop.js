@@ -15,6 +15,9 @@ export function createDropPreview({app,model,setOrbit,lighting,controls=true,aut
  let initialHeight=3,y=3,v=0,t=0,running=false,contact=false,impactAt=null,seeking=false,rate=1,accumulator=0,startProjection=[];
  const dt=1/240;
  function reframe(){const host=document.querySelector('main'),frame=window.frameElement,width=frame?.clientWidth||host.clientWidth,height=frame?.clientHeight||host.clientHeight,aspect=width/height;app.resizeCanvas(width,height);camera.camera.aspectRatio=aspect;setOrbit({azimuth:-.74,elevation:.14,distance:10.7*Math.max(1,aspect/1.3),target:[0,1.35,0]});
+  // PlayCanvas refreshes cached view matrices on prerender. This calculation
+  // also runs between frames (including after an interior camera), so refresh it now.
+  camera.camera.onAppPrerender();
   // Fit the entire translated world AABB ABOVE the viewport, not just the roof.
   for(initialHeight=3;initialHeight<40;initialHeight+=.25){startProjection=corners.map(p=>camera.camera.worldToScreen(new Vec3(p.x,p.y+initialHeight,p.z)));if(startProjection.every(p=>p.y< -24&&p.z>0))break;}
   if(initialHeight>=40)throw Error('Unable to frame an off-screen drop');

@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "actualClosingButton": true,
+  "navigationInterceptedBeforeNetwork": true,
+  "messageSent": false,
+  "productionNumber": null
+}

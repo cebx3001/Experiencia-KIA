@@ -33,3 +33,9 @@ La primera ejecución completa pasó los controles, pero la inspección visual e
 Se corrigió además el pivote de la inclinación: el GLB tiene traslación importada (-1,1524; 0,0115; 2,5022) y escala 1,2052. Un rig exterior aplica la inclinación alrededor del origen del vehículo sin sobrescribir ese transform. Los apoyos se prueban también por encima del piso, no sólo por cercanía al terreno. Los recursos primitivos compartidos se destruyen mediante sus componentes, sin invalidar mallas de suelo/cajas compartidas.
 
 La carga de campaña usa el progreso nativo de `Asset` de PlayCanvas; no realiza una segunda lectura del GLB mediante blob ni conserva una copia de descarga adicional. El porcentaje proviene de bytes reales cuando el servidor informa el total.
+
+### Verificación final de encuadre y contacto
+
+Se añadió regresión específica del caché de matrices de cámara de PlayCanvas: al salir de una vista interior, la proyección debía refrescar su matriz antes de calcular la altura. La prueba usa la cámara del motor fijado y AABB conservador; pasa dos repeticiones por tamaño (390×844, 360×740, 390×492 y 844×390). Es una prueba matemática, distinta de las capturas del GLB real. Resultados en `evidence/drop-framing-regression.json`.
+
+La apertura del botón real de cierre se comprobó con un número ficticio, interceptando `wa.me` antes de salir a la red. Se restauró la configuración comercial nula al terminar. Registro: `evidence/whatsapp-navigation.json`. No se enviaron mensajes ni se incorporó un destinatario de QA a la entrega.

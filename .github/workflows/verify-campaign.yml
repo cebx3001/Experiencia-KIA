@@ -1,0 +1,34 @@
+name: Verify cinematic Tasman experience and published delivery
+on:
+  workflow_dispatch:
+  push:
+    branches: [feat/tasman-unreal-studio]
+    paths: ['experiencia/**', 'studio/**', 'diagnostics/verify-campaign.cjs', 'diagnostics/verify-published.py', '.github/workflows/verify-campaign.yml']
+permissions:
+  contents: read
+jobs:
+  campaign:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test browser
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Serve and verify full cinematic flow
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/tasman-http.log 2>&1 &
+          node diagnostics/verify-campaign.cjs
+      - name: Verify the actual Pages release and model asset
+        run: python3 diagnostics/verify-published.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tasman-campaign-verification
+          path: docs/tasman/evidence/
