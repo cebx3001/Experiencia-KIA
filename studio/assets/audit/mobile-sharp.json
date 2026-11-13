@@ -1,0 +1,171 @@
+{
+  "sha256": "182df9621a57df9d9da2df6de85876c2f1122114d9403038a1a590ef7e7fbd4d",
+  "bytes": 35712304,
+  "geometryIdentical": true,
+  "materialsIdentical": true,
+  "images": [
+    {
+      "name": "MI_Tasman_Car_BaseColor",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 549531
+    },
+    {
+      "name": "MI_Tasman_Car_MetallicRoughness",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 572113
+    },
+    {
+      "name": "MI_Tasman_Car_Normal",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 895489
+    },
+    {
+      "name": "MI_Tasman_Interior_BaseColor",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 1437822
+    },
+    {
+      "name": "MI_Tasman_Interior_MetallicRoughness",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 64363
+    },
+    {
+      "name": "MI_Tasman_Interior_Normal",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 226385
+    },
+    {
+      "name": "MI_Tasman_Licence_Plate_BaseColor",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 28247
+    },
+    {
+      "name": "MI_Tasman_Licence_Plate_MetallicRoughness",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 22821
+    },
+    {
+      "name": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_BaseColor",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 5700
+    },
+    {
+      "name": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_Normal",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 215986
+    },
+    {
+      "name": "MI_Tasman_Premium_Paint_SK_KiaTasman_Master_ClearCoatNormal",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 169763
+    },
+    {
+      "name": "MI_Tasman_Master_Tire_Rubber_BaseColor",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 174800
+    },
+    {
+      "name": "MI_Tasman_Master_Tire_Rubber_MetallicRoughness",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 251873
+    },
+    {
+      "name": "MI_Tasman_Master_Tire_Rubber_Normal",
+      "width": 2048,
+      "height": 2048,
+      "bytes": 2889898
+    },
+    {
+      "name": "MI_Tasman_Master_Wheel_Metal_MetallicRoughness",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 230152
+    },
+    {
+      "name": "MI_Tasman_Master_Exterior_Metal_BaseColor",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 134909
+    },
+    {
+      "name": "MI_Tasman_Master_Exterior_Metal_MetallicRoughness",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 568148
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Metal_BaseColor",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 363176
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Metal_MetallicRoughness",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 63936
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Textile_BaseColor",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 306435
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Textile_MetallicRoughness",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 39578
+    },
+    {
+      "name": "MI_Tasman_Master_Interior_Textile_Normal",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 214643
+    },
+    {
+      "name": "MI_Tasman_Master_Seat_Leather_BaseColor",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 360478
+    },
+    {
+      "name": "MI_Tasman_Master_Seat_Leather_MetallicRoughness",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 48712
+    },
+    {
+      "name": "MI_Tasman_AGT_SK_KiaTasman_Master_BaseColor",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 68916
+    },
+    {
+      "name": "MI_Tasman_ABP_SK_KiaTasman_Master_BaseColor",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 133669
+    },
+    {
+      "name": "MI_Tasman_CGE_SK_KiaTasman_Master_BaseColor",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 30746
+    }
+  ],
+  "estimatedVehicleTextureBytes": 234881015
+}

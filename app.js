@@ -112,7 +112,7 @@ async function initVehicle(){
   ? "./assets/kia-tasman.glb" : "./assets/kia-tasman-quality.glb";
  try{
   showModelStatus("CARGANDO KIA TASMAN 3D");
-  const {mountKiaPlayCanvas}=await import("./kia-playcanvas-renderer.js?v=20261105-integrated-v1");
+  const {mountKiaPlayCanvas}=await import("./kia-playcanvas-renderer.js?v=cines-20261113");
   const viewer=await mountKiaPlayCanvas({
    canvas,host:stage,assetUrl,initialAngle:state.angle,
    onAngleChange:degrees=>{state.angle=degrees;}

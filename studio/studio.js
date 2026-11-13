@@ -1,30 +1,32 @@
 import * as pc from './vendor/playcanvas.mjs';
-import {chooseQuality,monitorQuality} from './adaptive-quality.js';
+import {chooseQuality,monitorQuality} from './adaptive-quality.js?v=cines-20261113';
 const quality=chooseQuality();
 if(new URLSearchParams(location.search).has('embed')){const style=document.createElement('style');style.textContent='header,.title,aside,footer,.hint{display:none!important}html,body,main{width:100%;height:100%;margin:0;}';document.head.append(style);}
-import {applyDeclaredCoating,applyGlassOptics} from './material-adapter.js';
-import {createStudioLighting} from './lighting.js?v=adaptive-20261105';
-import {createStudioStage} from './stage.js';
+import {applyDeclaredCoating,applyGlassOptics} from './material-adapter.js?v=cines-20261113';
+import {createStudioLighting} from './lighting.js?v=cines-20261113';
+import {createStudioStage} from './stage.js?v=cines-20261113';
 
 const $=s=>document.querySelector(s), V=(x=0,y=0,z=0)=>new pc.Vec3(x,y,z);
 const canvas=$('#canvas'), host=$('main');
 const debug=window.__tasmanMaster={status:'loading',engine:pc.version,errors:[],materials:[],doors:{},paint:'arena'};
-const app=new pc.Application(canvas,{graphicsDeviceOptions:{alpha:false,antialias:true,powerPreference:'high-performance',preserveDrawingBuffer:false}});
+const app=new pc.Application(canvas,{graphicsDeviceOptions:{alpha:false,antialias:false,powerPreference:'high-performance',preserveDrawingBuffer:false}});
 app.graphicsDevice.maxPixelRatio=quality.pixelRatio;
 app.setCanvasResolution(pc.RESOLUTION_AUTO);app.setCanvasFillMode(pc.FILLMODE_NONE);
 app.scene.clusteredLightingEnabled=false;
 app.scene.ambientLight=new pc.Color(0,0,0);app.scene.exposure=.75;app.scene.skyboxIntensity=1.5;
 app.scene.fog.type=pc.FOG_NONE;app.scene.fog.color=new pc.Color(.1517,.1641,.1828);app.scene.fog.start=18;app.scene.fog.end=55;
 const camera=new pc.Entity('Inspection camera');
-camera.addComponent('camera',{fov:36,nearClip:.025,farClip:100,clearColor:new pc.Color(.02,.023,.028)});
+camera.addComponent('camera',{fov:36,nearClip:.12,farClip:60,clearColor:new pc.Color(.02,.023,.028)});
 camera.camera.toneMapping=pc.TONEMAP_ACES2;
 camera.camera.layers=camera.camera.layers.filter(id=>id!==pc.LAYERID_SKYBOX);
+camera.camera.frustumCulling=false; // Keep the complete product in the primary pass; shadow/reflection cameras retain their own culling.
 app.root.addChild(camera);
 const frame=new pc.CameraFrame(app,camera.camera);
 frame.rendering.toneMapping=pc.TONEMAP_ACES2;
 frame.rendering.sceneColorMap=true;
 frame.rendering.sceneDepthMap=true;
-frame.taa.enabled=true;
+frame.taa.enabled=false;
+frame.rendering.samples=Math.min(4,app.graphicsDevice.maxSamples);
 frame.ssao.type=pc.SSAOTYPE_LIGHTING;
 frame.ssao.samples=quality.samples;frame.ssao.intensity=.9;frame.ssao.radius=.45;frame.ssao.power=1.6;
 frame.bloom.intensity=.025;frame.bloom.threshold=4;
@@ -37,8 +39,17 @@ const floor=new pc.Entity('Matte studio floor');floor.addComponent('render',{typ
 // A new, continuous 360-degree cyclorama: floor-to-wall cove with no horizon seam.
 function createCyclorama(){const positions=[],normals=[],uvs=[],indices=[];const segments=192,rings=26;for(let ring=0;ring<=rings;ring++){const t=Math.min(ring/24,1)*Math.PI/2,r=24+4*Math.sin(t),y=ring<=24?4*(1-Math.cos(t)):4+(ring-24)*6;for(let i=0;i<=segments;i++){const a=i/segments*Math.PI*2;positions.push(r*Math.sin(a),y,r*Math.cos(a));normals.push(-Math.sin(t)*Math.sin(a),Math.cos(t),-Math.sin(t)*Math.cos(a));uvs.push(i/segments,ring/rings);}}for(let ring=0;ring<rings;ring++)for(let i=0;i<segments;i++){const a=ring*(segments+1)+i,b=a+segments+1;indices.push(a,b,a+1,a+1,b,b+1);}const mesh=pc.createMesh(app.graphicsDevice,positions,{normals,uvs,indices});const material=fm.clone();material.diffuse.set(.008,.008,.008);material.cull=pc.CULLFACE_NONE;material.update();const e=new pc.Entity('Continuous cyclorama');e.addComponent('render',{meshInstances:[new pc.MeshInstance(mesh,material,e)],castShadows:false,receiveShadows:true});app.root.addChild(e);return e;}
 const cyclorama=createCyclorama();
-const load=(url,type)=>new Promise((resolve,reject)=>app.assets.loadFromUrl(url,type,(err,a)=>err?reject(Error(`${url}: ${err}`)):resolve(a)));
-pc.dracoInitialize({jsUrl:'vendor/draco_wasm_wrapper.js',wasmUrl:'vendor/draco_decoder.wasm',numWorkers:2,lazyInit:true});
+const load=async(url,type)=>{
+ if(type!=='container'||!new URLSearchParams(location.search).has('campaign'))return new Promise((resolve,reject)=>app.assets.loadFromUrl(url,type,(err,a)=>err?reject(Error(`${url}: ${err}`)):resolve(a)));
+ const response=await fetch(url);if(!response.ok)throw Error(`${url}: HTTP ${response.status}`);
+ const total=Number(response.headers.get('content-length'))||null,chunks=[];let loaded=0;
+ debug.loadProgress={loaded,total,phase:'download'};
+ const reader=response.body.getReader();while(true){const {done,value}=await reader.read();if(done)break;chunks.push(value);loaded+=value.byteLength;debug.loadProgress={loaded,total,phase:'download'};}
+ debug.loadProgress={loaded,total,phase:'render'};
+ const blob=URL.createObjectURL(new Blob(chunks));
+ try{return await new Promise((resolve,reject)=>app.assets.loadFromUrlAndFilename(blob,url,type,(err,a)=>err?reject(Error(String(err))):resolve(a)));}finally{URL.revokeObjectURL(blob);}
+};
+pc.dracoInitialize({jsUrl:'vendor/draco_wasm_wrapper.js',wasmUrl:'vendor/draco_decoder.wasm',numWorkers:quality.name==='mobile'?1:2,lazyInit:true});
 async function setEnvironment(name){await lighting.setEnvironment(name);fm.useSkybox=name==='photo';fm.update();debug.environment=name;}
 const environmentSelect=document.createElement('select');environmentSelect.setAttribute('aria-label','Iluminación del estudio');environmentSelect.innerHTML='<option value="cinematic">Estudio publicitario</option><option value="photo">Entorno fotográfico</option>';$('.settings').prepend(environmentSelect);environmentSelect.onchange=async()=>{environmentSelect.disabled=true;try{await setEnvironment(environmentSelect.value);}finally{environmentSelect.disabled=false;}};
 const paintedInstances=[];
@@ -61,6 +72,7 @@ function setView(key){
  mode='orbit';rotating=false;$('#rotate').setAttribute('aria-pressed','false');camera.camera.horizontalFov=true;camera.camera.fov=key==='hero'?37:41.11;stage?.setEnabled(key!=='interior');
  const views={hero:[-.74,.14,10.7,[0,1,0]],side:[-Math.PI/2,.045,10,[0,1,-.2]],rear:[Math.PI-.65,.1,10.5,[0,1,-.2]],paint:[.95,.15,2.3,[.75,1.25,.8]],wheel:[.6,.08,2,[.9,.45,1.65]],glass:[.3,.1,3,[0,1.55,.9]],interior:[0,0,1,[0,1.35,.75]]};
  const s=views[key]||views.hero;yaw=s[0];pitch=s[1];distance=s[2];target.set(...s[3]);
+ camera.camera.nearClip=key==='interior'?.025:.12;
  if(key==='interior'){setAllDoors(true);mode='interior';insideYaw=.42;insidePitch=-.067;camera.camera.horizontalFov=false;camera.camera.fov=54;camera.setPosition(-.45,1.44,-.05);camera.lookAt(.1,1.35,1.18);}
  $('.hint').textContent=key==='interior'?'ARRASTRA PARA MIRAR · RUEDA PARA MOVERTE POR EL INTERIOR':'ARRASTRA PARA GIRAR · RUEDA PARA ACERCAR · MAYÚS + ARRASTRAR PARA DESPLAZAR';
  document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.view===key)));debug.view=key;
@@ -94,12 +106,28 @@ try{
  const glassManifest=await (await fetch('assets/glass-adaptations.json')).json();debug.glassAdaptations=applyGlassOptics(container.resource,glassManifest,pc,app.graphicsDevice);
  lighting.bindMaterials(container.resource);
  model=container.resource.instantiateRenderEntity({castShadows:true,receiveShadows:true});app.root.addChild(model);model.forEach(e=>e.render?.meshInstances.forEach(mi=>{if(mi.material.name.includes('Premium_Paint'))paintedInstances.push(mi);}));lighting.bindMeshes(model);
+
+ for(const texture of app.graphicsDevice.textures)texture.anisotropy=Math.min(4,app.graphicsDevice.maxAnisotropy);
  stage=createStudioStage(app,camera,floor,cyclorama,lightingConfig);
  refreshAreaShadows();
  for(const key of ['front_left','front_right','rear_left','rear_right']){const entity=model.findByName('door_'+key);if(!entity)throw Error('No se encontró la articulación door_'+key);doors.set(key,{entity,base:entity.getLocalEulerAngles().clone(),angle:0,start:0,started:0,goal:0,open:false,sign:key.endsWith('left')?1:-1});debug.doors[key]=false;}
  const unique=new Map();model.forEach(e=>{if(e.render)for(const mi of e.render.meshInstances){const m=mi.material;unique.set(m.name,{name:m.name,normal:!!m.normalMap,clearcoatNormal:!!m.clearCoatNormalMap,clearcoat:m.clearCoat,transmission:m.refraction,roughness:m.glossInvert?m.gloss:1-m.gloss});}});debug.materials=[...unique.values()];debug.variants=container.resource.getMaterialVariants();
  if(debug.variants.length!==4)throw Error('El GLB debe incluir las cuatro variantes de pintura');
- setView('hero');setPaint('arena');debug.asset=assetFile;debug.paintInstances=paintedInstances.length;debug.status='ready';$('#loading').hidden=true;
- Object.assign(debug,{setCameraPose:({position,lookAt,fov=42,interior=false})=>{mode=interior?"interior":"inspection";stage.setEnabled(!interior);camera.camera.horizontalFov=false;camera.camera.fov=fov;camera.setPosition(...position);camera.lookAt(...lookAt);const dx=lookAt[0]-position[0],dy=lookAt[1]-position[1],dz=lookAt[2]-position[2];insideYaw=Math.atan2(dx,dz);insidePitch=Math.atan2(dy,Math.hypot(dx,dz));},app,model,camera,frame,stage,lighting,setPaint,setView,setOrbit,setEnvironment,setDoor,setAllDoors,getDoorAngles:()=>Object.fromEntries([...doors].map(([k,d])=>[k,d.entity.getLocalEulerAngles().y-d.base.y]))});
- if(new URLSearchParams(location.search).get('phase')==='drop'){const {createDropPreview}=await import('./drop.js');debug.drop=createDropPreview({app,model,setOrbit,lighting});}
+ setView('hero');setPaint('arena');debug.asset=assetFile;debug.paintInstances=paintedInstances.length;debug.status='preparing';
+ Object.assign(debug,{setCameraPose:({position,lookAt,fov=42,interior=false})=>{mode=interior?"interior":"inspection";camera.camera.nearClip=interior?.025:.12;stage.setEnabled(!interior);camera.camera.horizontalFov=false;camera.camera.fov=fov;camera.setPosition(...position);camera.lookAt(...lookAt);const dx=lookAt[0]-position[0],dy=lookAt[1]-position[1],dz=lookAt[2]-position[2];insideYaw=Math.atan2(dx,dz);insidePitch=Math.atan2(dy,Math.hypot(dx,dz));},app,model,camera,frame,stage,lighting,setPaint,setView,setOrbit,setEnvironment,setDoor,setAllDoors,getDoorAngles:()=>Object.fromEntries([...doors].map(([k,d])=>[k,d.entity.getLocalEulerAngles().y-d.base.y]))});
+ if(new URLSearchParams(location.search).has('campaign')){const {createCampaignScene}=await import('./campaign-scene.js?v=cines-20261113');debug.campaign=createCampaignScene(debug);}
+ if(new URLSearchParams(location.search).get('phase')==='drop'){const {createDropPreview}=await import('./drop.js?v=cines-20261113');debug.drop=createDropPreview({app,model,setOrbit,lighting,autoPlay:false});}
+ let warmFrames=0,recovering=false;
+ const finishWarmup=()=>{
+  warmFrames++;
+  const shaders=app.graphicsDevice.shaders.filter(s=>s.impl?.glProgram);
+  const failed=shaders.filter(s=>s.failed);
+  if(failed.length){debug.errors.push('Shader compilation failed');debug.status='error';app.off('postrender',finishWarmup);$('#loading').hidden=true;$('#error').hidden=false;$('#error').textContent='No se pudo preparar el render del vehículo.';return;}
+  if(warmFrames<4||shaders.some(s=>!s.ready))return;
+  app.off('postrender',finishWarmup);debug.vehicleFrameReady=true;debug.status='ready';if(recovering){app.timeScale=document.hidden?0:1;recovering=false;}$('#loading').hidden=true;
+  if(debug.drop)debug.drop.replay();
+ };
+ app.on('postrender',finishWarmup);
+ canvas.addEventListener('webglcontextlost',()=>{recovering=true;app.timeScale=0;debug.vehicleFrameReady=false;debug.status='preparing';$('#loading').hidden=false;});
+ canvas.addEventListener('webglcontextrestored',()=>{warmFrames=0;app.off('postrender',finishWarmup);app.on('postrender',finishWarmup);});
 }catch(e){debug.status='error';debug.errors.push(String(e));$('#loading').hidden=true;$('#error').hidden=false;$('#error').textContent='No se pudo cargar el estudio.\n'+e.message;console.error(e);}
