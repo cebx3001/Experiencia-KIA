@@ -24,6 +24,7 @@ jobs:
       - name: Serve and verify full cinematic flow
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/tasman-http.log 2>&1 &
+          node diagnostics/verify-drop-framing.mjs
           node diagnostics/verify-campaign.cjs
       - name: Verify the actual Pages release and model asset
         run: python3 diagnostics/verify-published.py
