@@ -1,5 +1,7 @@
 # Experiencia Kia Tasman · Especificación de implementación
 
+**Revisión vigente:** [Fluidez y acabado tras la primera pasada](REVISION-02.md). Continúa desde la implementación actual y aplica sus prioridades y criterios de aceptación.
+
 **Encargo para Codex.** Implementa y publica el recorrido completo de la guía del cliente en `cebx3001/Experiencia-KIA`. Ejecuta las fases en orden, comprueba cada una, corrige lo que falle y sigue automáticamente. Registra los resultados en el repositorio. Carlos revisará la experiencia completa al final.
 
 ## Base y referencias
