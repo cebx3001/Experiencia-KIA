@@ -1,0 +1,6 @@
+{
+  "tested": false,
+  "installAttempted": true,
+  "physicalDevice": false,
+  "reason": "Official Playwright WebKit downloads returned HTTP 403 Domain forbidden; no Safari/iPhone validation claimed."
+}

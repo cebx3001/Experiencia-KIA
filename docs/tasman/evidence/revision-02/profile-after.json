@@ -1,0 +1,25 @@
+{
+  "physicalDevice": false,
+  "backend": "Chromium SwiftShader",
+  "cases": [
+    {
+      "name": "orbit",
+      "p50": 5984.5999999996275,
+      "p95": 6603.9000000003725,
+      "longFrames": 12,
+      "drawCalls": 120,
+      "width": 390,
+      "height": 492,
+      "cpuUpdateMs": 0.19999999925494194,
+      "cpuRenderSubmitMs": 2.099999999627471,
+      "gpuMs": null,
+      "contextLost": false,
+      "mode": "menu",
+      "mission": null
+    }
+  ],
+  "protocol": "Visible continuous autoRender, 3 warm frames then 12 postrender intervals per case. GPU timing unavailable.",
+  "coldLoadMs": 26400,
+  "status": "partial",
+  "reason": "150-second bound stopped continuous software profiling after the orbit case. Unmeasured scene intervals are not inferred."
+}

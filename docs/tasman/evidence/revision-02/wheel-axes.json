@@ -1,0 +1,35 @@
+{
+  "source": "kia-tasman-cinematic-lod.glb",
+  "method": "Decode glTF node transforms and compose the hierarchy",
+  "up": "+Y",
+  "front": "+Z",
+  "axleWorldDirection": [
+    1,
+    0,
+    0
+  ],
+  "wheelCenters": [
+    [
+      -0.8114,
+      0.405,
+      1.635
+    ],
+    [
+      0.8114,
+      0.405,
+      1.635
+    ],
+    [
+      -0.8114,
+      0.405,
+      -1.635
+    ],
+    [
+      0.8114,
+      0.405,
+      -1.635
+    ]
+  ],
+  "allLocalXAxesMatchWorldX": true,
+  "note": "Measured from GLB transforms, not an engineering vehicle specification."
+}

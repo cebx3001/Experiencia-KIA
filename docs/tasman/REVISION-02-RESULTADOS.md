@@ -35,3 +35,13 @@ El intento de cadencia continua anterior no completó las 12 muestras requeridas
 La comprobación funcional y de los 21 hashes publicados pasó en GitHub Actions: https://github.com/cebx3001/Experiencia-KIA/actions/runs/43537954535 . También pasó la regresión del visor original: https://github.com/cebx3001/Experiencia-KIA/actions/runs/43537954534 . Esas pruebas cubren flujo, shaders y assets, y no certifican 30 FPS en Android.
 
 Los clips de demostración usan escala de render 0,65 para mantener acotado el coste de captura por software; las imágenes `*-final.png` se capturan de nuevo a resolución nativa. Esto solo pertenece al generador offline y no modifica la resolución de la web publicada.
+
+## Entrega verificable
+
+Implementación final: `57581ebb8281cd9e00710af9ff0b5212c2ec77d0`; manifiesto de entrega `b056982`. La revisión final del flujo, los 25 ciclos acelerados de creación/destrucción y los hashes servidos pasó en https://github.com/cebx3001/Experiencia-KIA/actions/runs/43540383758 . Los controles originales pasaron en https://github.com/cebx3001/Experiencia-KIA/actions/runs/43540383776 . Los ciclos acelerados comprueban liberación de recursos; no equivalen a una sesión prolongada de FPS en un teléfono.
+
+Receta de dependencias usada para el LOD: `npm install --prefix /tmp/kia-rev02 @gltf-transform/core@4.5.1 @gltf-transform/functions@4.5.1 @gltf-transform/extensions@4.5.1 meshoptimizer@1.3.0 draco3dgltf@1.5.9`, seguido de `KIA_OPTIMIZER_MODULES=/tmp/kia-rev02/node_modules node studio/tools/build-cinematic-lod.mjs` desde la raíz del repo.
+
+Se intentó instalar WebKit para una comprobación adicional. Las descargas oficiales devolvieron HTTP 403; `evidence/revision-02/webkit.json` registra el resultado. No se afirma haber probado Safari. El contacto de WhatsApp sigue sin número oficial configurado; se comprobó el enlace con un número ficticio y sin enviar mensajes.
+
+Clips y controles de cámara lenta: [galería](evidence/revision-02/index.html). Los MP4 se auditan con `ffprobe` en `video-audit.json`; la caída incluye también `impact-slow.mp4`. `clip-verification.json` confirma ausencia de errores de navegador durante la captura de las funciones. El objetivo de 30 FPS y la sesión prolongada normal continúan pendientes de medición en el hardware de referencia.

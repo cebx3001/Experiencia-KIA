@@ -1,7 +1,7 @@
 {
   "release": "cines-20261114-r02-final",
   "codeCommit": "57581ebb8281cd9e00710af9ff0b5212c2ec77d0",
-  "generatedAt": "2026-11-14T01:24:13.499429+00:00",
+  "generatedAt": "2026-11-14T03:09:13.824883+00:00",
   "files": {
     "experiencia/index.html": "243ef03f89ce773be80438a7b030463291bd00a758aa1a5c59b093a91f919dbd",
     "experiencia/experience.js": "06ec48128eb863fb4baa6a4522f1cb4e86ba3bc154af2f380f6335960b116290",
@@ -23,7 +23,24 @@
     "studio/campaign-effects.js": "9e548998dca0a0cb4cb0aa709695299e01113cf2b63e2b03145dec8a45078b92",
     "studio/playback-clock.js": "8e458c821d1548f5e433c37191d68e075cf476750e5c47c0f57b61cd245bfbb6",
     "studio/performance-diagnostics.js": "120fe99f4839eac3c5d7e37ec2a303798f7ae13aee768642bdd93b853ebaec0f",
-    "studio/assets/kia-tasman-cinematic-lod.glb": "e359d0c669cb5a958705e8b6e26bf02f05abd0dd25a00f36e01434f4bbce6386"
+    "studio/assets/kia-tasman-cinematic-lod.glb": "e359d0c669cb5a958705e8b6e26bf02f05abd0dd25a00f36e01434f4bbce6386",
+    "docs/tasman/evidence/revision-02/index.html": "080c3db9c47e6af11825208e357802207207dbde5d99c5ef1b07c828a9d7c969",
+    "docs/tasman/evidence/revision-02/orbit-sheet.jpg": "1d9ced2e3e37ca488d2039935655ae560f68e58dc01745b85d8167cd2e733119",
+    "docs/tasman/evidence/revision-02/trailer.mp4": "658f70120e91b04f4b4de0e6583a87f9c797e0192663cacc4a722ead6216d85e",
+    "docs/tasman/evidence/revision-02/xtrek.mp4": "f77916b0c341d1e83253ac127023d209889337d212c9b9fc0e390ccb0f2e0215",
+    "docs/tasman/evidence/revision-02/impact-slow.mp4": "552e467a7a0ff40537785bd272e687d1fcc48a9c8df7dbf52cdca7e3065b243c",
+    "docs/tasman/evidence/revision-02/cargo.mp4": "dbb570921dc6207e653a1daad80a8767970af2e7b8133f5bf6efa1e7ba4c9d34",
+    "docs/tasman/evidence/revision-02/impact.mp4": "811a8635c6cee6ee15c8c900a9e0f4d102702921e324b0d390d2b83838050f23",
+    "docs/tasman/evidence/revision-02/interior.mp4": "e5918b2fb3427b49a7e7d35d53784147db2a005974c650926fff48881d7c004a",
+    "docs/tasman/evidence/revision-02/water.mp4": "2150a60e75fe2718e2515fc3b1b7a9b6ff3df992e24cd615a334fa8c0206fae1",
+    "docs/tasman/evidence/revision-02/scan.mp4": "7496d3d78877ce90c36d5c011d295290d707f6a68c390d0fbed9a917b6787738",
+    "docs/tasman/evidence/revision-02/impact-final.png": "0261e815288fbd7e2c8fc67755c10e19369d24af539e883a13b0d9b28482ed1f",
+    "docs/tasman/evidence/revision-02/scan-final.png": "0261e815288fbd7e2c8fc67755c10e19369d24af539e883a13b0d9b28482ed1f",
+    "docs/tasman/evidence/revision-02/xtrek-final.png": "feebe2c34e190af8af9163aa66b8f0a6550df59abf7996b1fbd85808fd354e2f",
+    "docs/tasman/evidence/revision-02/interior-final.png": "578485bf3287dfc24d8e44396f79495d04704231fc2cb5a216000fd20cc34c25",
+    "docs/tasman/evidence/revision-02/water-final.png": "688943458f5a5cf19ef10519e5fe09975c762dc8be69c1a3ebb9c95b74a6e4b7",
+    "docs/tasman/evidence/revision-02/trailer-final.png": "6d6561d21f0155ef2e0134e566130ee73c49f21e228098ccdb42948e22d2d517",
+    "docs/tasman/evidence/revision-02/cargo-final.png": "609b121cd1de5af7552ddf968814a5cbe073cdd6245f15dcba25455a23571fa9"
   },
   "externalPending": [
     "official campaign WhatsApp number",

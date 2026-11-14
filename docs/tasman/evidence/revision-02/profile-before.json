@@ -1,0 +1,9 @@
+{
+  "physicalDevice": false,
+  "backend": "Chromium SwiftShader",
+  "cases": [],
+  "protocol": "Visible continuous autoRender, 3 warm frames then 12 postrender intervals per case. GPU timing unavailable.",
+  "coldLoadMs": 89055,
+  "status": "incomplete",
+  "reason": "Continuous visible-canvas benchmark did not produce the requested 12 intervals within the bounded software test. No baseline FPS is claimed."
+}

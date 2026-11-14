@@ -1,0 +1,50 @@
+{
+  "cargo.mp4": {
+    "duration": 2.0,
+    "width": 254,
+    "height": 320,
+    "bytes": 33250
+  },
+  "impact-slow.mp4": {
+    "duration": 13.666667,
+    "width": 254,
+    "height": 320,
+    "bytes": 54016
+  },
+  "impact.mp4": {
+    "duration": 3.5,
+    "width": 254,
+    "height": 320,
+    "bytes": 39024
+  },
+  "interior.mp4": {
+    "duration": 1.0,
+    "width": 254,
+    "height": 320,
+    "bytes": 16806
+  },
+  "scan.mp4": {
+    "duration": 2.666667,
+    "width": 254,
+    "height": 320,
+    "bytes": 15887
+  },
+  "trailer.mp4": {
+    "duration": 1.0,
+    "width": 254,
+    "height": 320,
+    "bytes": 6850
+  },
+  "water.mp4": {
+    "duration": 3.0,
+    "width": 254,
+    "height": 320,
+    "bytes": 36603
+  },
+  "xtrek.mp4": {
+    "duration": 6.0,
+    "width": 254,
+    "height": 320,
+    "bytes": 126451
+  }
+}

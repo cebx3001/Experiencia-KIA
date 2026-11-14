@@ -1,0 +1,22 @@
+{
+  "texturesIdentical": true,
+  "sourceNodes": 1458,
+  "lodNodes": 1458,
+  "namesPreserved": true,
+  "variants": {
+    "variants": [
+      {
+        "name": "TAM"
+      },
+      {
+        "name": "AGT"
+      },
+      {
+        "name": "ABP"
+      },
+      {
+        "name": "CGE"
+      }
+    ]
+  }
+}
