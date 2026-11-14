@@ -1,6 +1,7 @@
+import {playbackClock} from './playback-clock.js';
 import {Vec3} from './vendor/playcanvas.mjs';
 // Fixed-step artistic suspension motion about the original static ride height.
-export function createDropPreview({app,model,setOrbit,lighting,controls=true,autoPlay=true,onImpact=()=>{}}){
+export function createDropPreview({app,model,setOrbit,lighting,controls=true,autoPlay=true,onImpact=()=>{},manualClock=()=>false}){
  const names=['Kia.wheel.fr.l.001','Kia.wheel.fr.r.001','Kia.wheel.bk.l.001','Kia.wheel.bk.r.001'];
  const wheels=names.map(name=>{const entity=model.findByName(name);if(!entity)throw Error('Missing wheel assembly '+name);return {entity,base:entity.getPosition().clone()};});
  const base=model.getLocalPosition().clone();let bounds;
@@ -13,7 +14,7 @@ export function createDropPreview({app,model,setOrbit,lighting,controls=true,aut
  const frontZ=(wheels[0].base.z+wheels[1].base.z)/2,rearZ=(wheels[2].base.z+wheels[3].base.z)/2;
  if(Math.abs(frontZ-rearZ)<1)throw Error('Unexpected model axes');
  let initialHeight=3,y=3,v=0,t=0,running=false,contact=false,impactAt=null,seeking=false,rate=1,accumulator=0,startProjection=[];
- const dt=1/240;
+ const dt=1/240;const clock=playbackClock(manualClock);let track=[],duration=0,playTime=0,lastShadow=-1;
  function reframe(){const host=document.querySelector('main'),frame=window.frameElement,width=frame?.clientWidth||host.clientWidth,height=frame?.clientHeight||host.clientHeight,aspect=width/height;app.resizeCanvas(width,height);camera.camera.aspectRatio=aspect;setOrbit({azimuth:-.74,elevation:.14,distance:10.7*Math.max(1,aspect/1.3),target:[0,1.35,0]});
   // PlayCanvas refreshes cached view matrices on prerender. This calculation
   // also runs between frames (including after an interior camera), so refresh it now.
@@ -28,16 +29,16 @@ export function createDropPreview({app,model,setOrbit,lighting,controls=true,aut
   else{v+=(-190*y-15*v)*dt;y+=v*dt;if(y<-.24){y=-.24;v=Math.max(0,-v*.15);}}
   t+=dt;if(impactAt!==null&&t-impactAt>2.2){y=0;v=0;running=false;}
  }
- function pose(){model.setLocalPosition(base.x,base.y+y,base.z);const lift=contact?Math.max(0,y-.075):Math.max(0,y);for(const w of wheels)w.entity.setPosition(w.base.x,w.base.y+lift,w.base.z);lighting.refreshShadows();}
- function replay(){reframe();reset();running=true;pose();}
+ function pose(){model.setLocalPosition(base.x,base.y+y,base.z);const lift=contact?Math.max(0,y-.075):Math.max(0,y);for(const w of wheels)w.entity.setPosition(w.base.x,w.base.y+lift,w.base.z);if(t-lastShadow>.1||!running){lighting.refreshShadows();lastShadow=t;}}
+ function replay(){reframe();reset();seeking=true;track=[];running=true;for(let i=0;i<1920;i++){track.push({y,v,contact,impactAt,t});integrate();if(!running)break;}duration=t;seeking=false;reset();playTime=0;lastShadow=-1;running=true;pose();}
  function seek(seconds){seeking=true;reset();for(let i=0;i<Math.floor(Math.min(8,Math.max(0,seconds))/dt);i++)integrate();seeking=false;running=false;pose();}
  function finish(){reset();y=0;v=0;contact=true;impactAt=0;running=false;pose();}
- app.on('update',delta=>{if(!running)return;accumulator+=Math.min(delta,1/15)*rate;while(accumulator>=dt){integrate();accumulator-=dt;}pose();});
+ app.on('update',delta=>{const elapsed=clock(delta);if(!running)return;playTime+=elapsed*rate;const previous=contact;t=Math.min(duration,playTime);const sample=track[Math.min(track.length-1,Math.floor(t/dt))];y=sample.y;v=sample.v;contact=sample.contact;impactAt=sample.impactAt;if(!previous&&contact)onImpact({time:impactAt,velocity:-Math.sqrt(2*9.81*initialHeight)});if(playTime>=duration){running=false;y=0;v=0;}pose();});
  if(controls){
   const panel=document.createElement('section');panel.className='drop-panel';panel.innerHTML='<p>LABORATORIO · CAÍDA DESDE FUERA DE CÁMARA</p><h2>Caída de la Tasman</h2><button type="button" id="drop-replay">Repetir caída</button><label><input type="checkbox" id="drop-slow"> Cámara lenta ×0,25</label><a href="../experiencia/">Abrir experiencia completa</a>';
   document.body.classList.add('drop-preview');document.querySelector('main').append(panel);panel.querySelector('button').onclick=replay;panel.querySelector('input').onchange=e=>{rate=e.target.checked?.25:1;};
   const observer=new ResizeObserver(()=>{if(!running){reframe();if(t===0){reset();pose();}}});observer.observe(document.querySelector('main'));app.once('destroy',()=>observer.disconnect());
  }
  reframe();if(autoPlay)replay();else finish();
- return {replay,seek,finish,audit,axes:{up:'+Y',front:'+Z',frontZ,rearZ},getState:()=>({t,y,v,contact,running,initialHeight,impactAt,startProjection:startProjection.map(p=>p.toArray())})};
+ return {replay,seek,finish,setRate:value=>{rate=value;},audit,axes:{up:'+Y',front:'+Z',frontZ,rearZ},getState:()=>({t,y,v,contact,running,initialHeight,impactAt,startProjection:startProjection.map(p=>p.toArray())})};
 }

@@ -28,6 +28,7 @@ export function createStudioStage(app,camera,floor,cyclorama,config){
  const finish=new pc.Entity('Reflective studio finish');
  finish.addComponent('render',{type:'plane',layers:[finishLayer.id],castShadows:false,receiveShadows:false});
  finish.setLocalScale(200,1,200);finish.setPosition(0,.002,0);finish.addComponent('script');app.root.addChild(finish);
+ const mobile=new URLSearchParams(location.search).get('quality')==='mobile'||matchMedia('(pointer:coarse)').matches;
  const r=settings.reflection;
  const reflection=finish.script.create(BlurredPlanarReflection,{properties:{
   mainCamera:camera,excludeLayers:[backdrop.id],resolution:r.resolution_scale,
@@ -35,8 +36,10 @@ export function createStudioStage(app,camera,floor,cyclorama,config){
   angleFade:r.angle_fade,heightRange:r.height_range_m,
   fadeColor:new pc.Color(0,0,0,0),sceneColorMap:true
  }});
+ finish.enabled=!mobile;
  return {
-  setEnabled(enabled){finish.enabled=enabled;},
+  setEnabled(enabled){finish.enabled=enabled&&!mobile;},
+  setReflection(enabled){finish.enabled=enabled;},
   getState(){return {enabled:finish.enabled,resolution:reflection.resolution,intensity:reflection.intensity,shadow:'direct area-light irradiance ratio',vehicleMaterialsChanged:false};}
  };
 }

@@ -1,0 +1,2 @@
+// Wall time is independent of engine delta clamping; hidden time is excluded.
+export function playbackClock(manual=()=>false){let last=performance.now();let hidden=document.hidden;document.addEventListener?.('visibilitychange',()=>{hidden=document.hidden;last=performance.now();});return delta=>{const now=performance.now(),elapsed=(now-last)/1000;last=now;return hidden?0:manual()?delta:Math.max(0,elapsed);};}

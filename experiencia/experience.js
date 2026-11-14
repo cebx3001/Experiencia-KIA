@@ -1,4 +1,4 @@
-import {campaign,whatsappUrl} from './config.js?v=cines-20261113';
+import {campaign,whatsappUrl} from './config.js?v=cines-20261114-r02';
 const $=s=>document.querySelector(s),host=$('#experience'),iframe=$('#studio'),panel=$('#panel'),visited=new Set();
 let enterStarted=0,scene=null,studio=null,state='loading',missionIndex=null,token=0,entered=false,impactCount=0,lastSceneMode='',audioContext=null,audioNodes=[];
 const iconPaths=[
@@ -29,6 +29,7 @@ function skip(){if(state!=='intro')return;++token;stopAudio();scene.skipIntro();
 function enter(){if(!scene||entered)return;entered=true;audioStart();setState('intro');enterStarted=performance.now();$('#curtain').style.opacity=.999;scene.startIntro();log('enter');if(matchMedia('(prefers-reduced-motion: reduce)').matches)skip();}
 $('#enter').onclick=enter;$('#skip').onclick=skip;
 let readyResolve,readyReject;const ready=new Promise((resolve,reject)=>{readyResolve=resolve;readyReject=reject;});
+for(const key of ['perf','slow'])if(new URLSearchParams(location.search).has(key))iframe.src+='&'+key+'=1';
 let started=performance.now();
 const loading=setInterval(()=>{
  try{
@@ -48,10 +49,12 @@ setInterval(()=>{
   if(s.drop.contact&&s.drop.impactAt!==null&&s.drop.t-s.drop.impactAt>1.1){scene.skipIntro();scene.scan();setState('scan');}
  }else if(state==='scan'&&s.age>=2.6){scene.menu();presentation();}
  const anchors=$('#anchors');if(state==='mission'&&s.anchors.length){
-  anchors.innerHTML=s.anchors.map(a=>{const p=scene.project(a.point);if(p.z<=0)return '';const w=iframe.clientWidth,h=iframe.clientHeight;return `<span class="callout" style="left:${Math.max(70,Math.min(w-70,p.x))}px;top:${Math.max(70,Math.min(h-20,p.y-15))}px">${a.text}</span>`;}).join('');
+  while(anchors.childElementCount>s.anchors.length)anchors.lastElementChild.remove();
+  s.anchors.forEach((a,i)=>{let node=anchors.children[i];if(!node){node=document.createElement('span');node.className='callout';anchors.append(node);}if(node.textContent!==a.text)node.textContent=a.text;const p=scene.project(a.point),w=iframe.clientWidth,h=iframe.clientHeight;node.hidden=p.z<=0;node.style.left=`${Math.max(70,Math.min(w-70,p.x))}px`;node.style.top=`${Math.max(70,Math.min(h-20,p.y-15))}px`;});
  }else if(anchors.childElementCount)anchors.replaceChildren();
  lastSceneMode=s.mode;
 },100);
-document.addEventListener('visibilitychange',()=>{if(document.hidden){stopAudio();audioContext?.suspend();}else if(entered)audioContext?.resume().catch(()=>{});});
+let hiddenAt=0;
+document.addEventListener('visibilitychange',()=>{if(document.hidden){hiddenAt=performance.now();stopAudio();audioContext?.suspend();}else{if(hiddenAt&&state==='intro')enterStarted+=performance.now()-hiddenAt;hiddenAt=0;if(entered)audioContext?.resume().catch(()=>{});}});
 if(campaign.brandFontUrl){const font=new FontFace('Kia Signature',`url(${campaign.brandFontUrl})`);font.load().then(f=>document.fonts.add(f)).catch(()=>log('brand-font-unavailable'));}
 window.__tasmanExperience={ready,enter,replayIntro:()=>{entered=false;enter();},skipIntro:skip,menu,showMission,closing,get studio(){return studio;},get scene(){return scene;},getState:()=>({state,missionIndex,completed:[...visited],impactCount,events:[...events],scene:scene?.getState(),release:campaign.release}),whatsappUrl};

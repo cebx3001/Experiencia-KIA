@@ -13,7 +13,7 @@ for attempt in range(20):
   if actual['codeCommit']!=expected['codeCommit']:raise ValueError('Previous Pages build still being served')
   for name,digest in expected['files'].items():assert hashlib.sha256(fetch(name)).hexdigest()==digest,name
   # Check the large model incrementally; do not confuse an LFS pointer with a GLB.
-  url=base+'studio/assets/kia-tasman-mobile-sharp.glb'
+  url=base+expected.get('modelAsset','studio/assets/kia-tasman-cinematic-lod.glb')
   req=urllib.request.Request(url,headers={'Range':'bytes=0-3'})
   with urllib.request.urlopen(req,timeout=60) as r:assert r.read(4)==b'glTF','Published model is not a binary GLB'
   print(json.dumps({'passed':True,'url':base+'experiencia/','codeCommit':actual['codeCommit'],'files':len(expected['files'])}));break

@@ -1,0 +1,11 @@
+{
+  "source": "studio/assets/kia-tasman-mobile-sharp.glb",
+  "target": "studio/assets/kia-tasman-cinematic-lod.glb",
+  "before": 3741245,
+  "after": 832267,
+  "bytes": 15322580,
+  "ratio": 0.22,
+  "error": 0.0003,
+  "lockBorder": true,
+  "notes": "Original nodes, variants, textures and pivots retained. Screen-space silhouette validation required."
+}

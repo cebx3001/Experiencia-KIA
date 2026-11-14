@@ -1,10 +1,10 @@
 import * as pc from './vendor/playcanvas.mjs';
-import {chooseQuality,monitorQuality} from './adaptive-quality.js?v=cines-20261113';
+import {chooseQuality,monitorQuality} from './adaptive-quality.js?v=cines-20261114-r02';
 const quality=chooseQuality();
 if(new URLSearchParams(location.search).has('embed')){const style=document.createElement('style');style.textContent='header,.title,aside,footer,.hint{display:none!important}html,body,main{width:100%;height:100%;margin:0;}';document.head.append(style);}
-import {applyDeclaredCoating,applyGlassOptics} from './material-adapter.js?v=cines-20261113';
-import {createStudioLighting} from './lighting.js?v=cines-20261113';
-import {createStudioStage} from './stage.js?v=cines-20261113';
+import {applyDeclaredCoating,applyGlassOptics} from './material-adapter.js?v=cines-20261114-r02';
+import {createStudioLighting} from './lighting.js?v=cines-20261114-r02';
+import {createStudioStage} from './stage.js?v=cines-20261114-r02';
 
 const $=s=>document.querySelector(s), V=(x=0,y=0,z=0)=>new pc.Vec3(x,y,z);
 const canvas=$('#canvas'), host=$('main');
@@ -19,15 +19,15 @@ const camera=new pc.Entity('Inspection camera');
 camera.addComponent('camera',{fov:36,nearClip:.12,farClip:60,clearColor:new pc.Color(.02,.023,.028)});
 camera.camera.toneMapping=pc.TONEMAP_ACES2;
 camera.camera.layers=camera.camera.layers.filter(id=>id!==pc.LAYERID_SKYBOX);
-camera.camera.frustumCulling=false; // Keep the complete product in the primary pass; shadow/reflection cameras retain their own culling.
+camera.camera.frustumCulling=true; // Keep the complete product in the primary pass; shadow/reflection cameras retain their own culling.
 app.root.addChild(camera);
 const frame=new pc.CameraFrame(app,camera.camera);
 frame.rendering.toneMapping=pc.TONEMAP_ACES2;
 frame.rendering.sceneColorMap=true;
 frame.rendering.sceneDepthMap=true;
 frame.taa.enabled=false;
-frame.rendering.samples=Math.min(4,app.graphicsDevice.maxSamples);
-frame.ssao.type=pc.SSAOTYPE_LIGHTING;
+frame.rendering.samples=Math.min(quality.mobile?2:4,app.graphicsDevice.maxSamples);
+frame.ssao.type=quality.mobile?pc.SSAOTYPE_NONE:pc.SSAOTYPE_LIGHTING;
 frame.ssao.samples=quality.samples;frame.ssao.intensity=.9;frame.ssao.radius=.45;frame.ssao.power=1.6;
 frame.bloom.intensity=.025;frame.bloom.threshold=4;
 frame.vignette.intensity=.16;frame.vignette.inner=.65;
@@ -114,19 +114,20 @@ try{
  if(debug.variants.length!==4)throw Error('El GLB debe incluir las cuatro variantes de pintura');
  setView('hero');setPaint('arena');debug.asset=assetFile;debug.paintInstances=paintedInstances.length;debug.status='preparing';
  Object.assign(debug,{setCameraPose:({position,lookAt,fov=42,interior=false})=>{mode=interior?"interior":"inspection";camera.camera.nearClip=interior?.025:.12;stage.setEnabled(!interior);camera.camera.horizontalFov=false;camera.camera.fov=fov;camera.setPosition(...position);camera.lookAt(...lookAt);const dx=lookAt[0]-position[0],dy=lookAt[1]-position[1],dz=lookAt[2]-position[2];insideYaw=Math.atan2(dx,dz);insidePitch=Math.atan2(dy,Math.hypot(dx,dz));},app,model,camera,frame,stage,lighting,setPaint,setView,setOrbit,setEnvironment,setDoor,setAllDoors,getDoorAngles:()=>Object.fromEntries([...doors].map(([k,d])=>[k,d.entity.getLocalEulerAngles().y-d.base.y]))});
- if(new URLSearchParams(location.search).has('campaign')){const {createCampaignScene}=await import('./campaign-scene.js?v=cines-20261113');debug.campaign=createCampaignScene(debug);}
- if(new URLSearchParams(location.search).get('phase')==='drop'){const {createDropPreview}=await import('./drop.js?v=cines-20261113');debug.drop=createDropPreview({app,model,setOrbit,lighting,autoPlay:false});}
+ if(new URLSearchParams(location.search).has('campaign')){const {createCampaignScene}=await import('./campaign-scene.js?v=cines-20261114-r02');debug.campaign=createCampaignScene(debug);}
+ if(new URLSearchParams(location.search).get('phase')==='drop'){const {createDropPreview}=await import('./drop.js?v=cines-20261114-r02');debug.drop=createDropPreview({app,model,setOrbit,lighting,autoPlay:false});}
  let warmFrames=0,recovering=false;
  const finishWarmup=()=>{
   warmFrames++;
   const shaders=app.graphicsDevice.shaders.filter(s=>s.impl?.glProgram);
   const failed=shaders.filter(s=>s.failed);
   if(failed.length){debug.errors.push('Shader compilation failed');debug.status='error';app.off('postrender',finishWarmup);$('#loading').hidden=true;$('#error').hidden=false;$('#error').textContent='No se pudo preparar el render del vehículo.';return;}
-  if(warmFrames<4||shaders.some(s=>!s.ready))return;
+  if(warmFrames<2||shaders.some(s=>!s.ready))return;
   app.off('postrender',finishWarmup);debug.vehicleFrameReady=true;debug.status='ready';if(recovering){app.timeScale=document.hidden?0:1;recovering=false;}$('#loading').hidden=true;
   if(debug.drop)debug.drop.replay();
  };
  app.on('postrender',finishWarmup);
+ if(new URLSearchParams(location.search).has('perf'))import('./performance-diagnostics.js').then(m=>m.installDiagnostics(debug));
  canvas.addEventListener('webglcontextlost',()=>{recovering=true;app.timeScale=0;debug.vehicleFrameReady=false;debug.status='preparing';$('#loading').hidden=false;});
  canvas.addEventListener('webglcontextrestored',()=>{warmFrames=0;app.off('postrender',finishWarmup);app.on('postrender',finishWarmup);});
 }catch(e){debug.status='error';debug.errors.push(String(e));$('#loading').hidden=true;$('#error').hidden=false;$('#error').textContent='No se pudo cargar el estudio.\n'+e.message;console.error(e);}

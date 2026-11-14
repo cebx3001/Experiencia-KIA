@@ -1,0 +1,9 @@
+// npm install --prefix /tmp/kia-rev02 @gltf-transform/core @gltf-transform/functions @gltf-transform/extensions meshoptimizer draco3dgltf
+// KIA_OPTIMIZER_MODULES=/tmp/kia-rev02/node_modules node studio/tools/build-cinematic-lod.mjs
+import {createRequire} from 'node:module';import fs from 'node:fs';import path from 'node:path';
+const req=createRequire(path.join(process.env.KIA_OPTIMIZER_MODULES||'/tmp/kia-rev02/node_modules','loader.cjs'));
+const {NodeIO}=req('@gltf-transform/core'),{ALL_EXTENSIONS,KHRDracoMeshCompression}=req('@gltf-transform/extensions'),{simplify}=req('@gltf-transform/functions'),{MeshoptSimplifier}=await import(path.join(process.env.KIA_OPTIMIZER_MODULES||'/tmp/kia-rev02/node_modules','meshoptimizer/index.js')),draco=req('draco3dgltf');await MeshoptSimplifier.ready;
+const io=new NodeIO().registerExtensions(ALL_EXTENSIONS).registerDependencies({'draco3d.decoder':await draco.createDecoderModule(),'draco3d.encoder':await draco.createEncoderModule()});const source='studio/assets/kia-tasman-mobile-sharp.glb',doc=await io.read(source);
+const count=()=>doc.getRoot().listMeshes().reduce((s,m)=>s+m.listPrimitives().reduce((n,p)=>n+p.getIndices().getCount()/3,0),0),before=count();
+await doc.transform(simplify({simplifier:MeshoptSimplifier,ratio:.22,error:.0003,lockBorder:true}));
+doc.createExtension(KHRDracoMeshCompression).setRequired(true).setEncoderOptions({method:KHRDracoMeshCompression.EncoderMethod.EDGEBREAKER,encodeSpeed:5,decodeSpeed:5});const target='studio/assets/kia-tasman-cinematic-lod.glb';await io.write(target,doc);fs.writeFileSync('studio/assets/audit/cinematic-lod.json',JSON.stringify({source,target,before,after:count(),bytes:fs.statSync(target).size,ratio:.22,error:.0003,lockBorder:true,notes:'Original nodes, variants, textures and pivots retained. Screen-space silhouette validation required.'},null,2));console.log(before,count());

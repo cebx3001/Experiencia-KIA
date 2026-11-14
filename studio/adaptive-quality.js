@@ -5,7 +5,7 @@ export function chooseQuality(){
  const memory=navigator.deviceMemory??4;
  let name=mobile||memory<=4?'mobile':'balanced';
  if(['mobile','balanced','high','master'].includes(forced))name=forced;
- return {name,file:{mobile:'kia-tasman-mobile-sharp.glb',balanced:'kia-tasman-balanced.glb',high:'kia-tasman-web.glb',master:location.hostname.endsWith('github.io')?'kia-tasman-web.glb':'kia-tasman-master.glb'}[name],pixelRatio:Math.min(devicePixelRatio,name==='high'?1.75:1.5),samples:name==='mobile'?8:12,shadow:name==='mobile'?512:1024,reflection:name==='mobile'?.18:.25};
+ return {name,mobile:name==='mobile',file:{mobile:'kia-tasman-cinematic-lod.glb',balanced:'kia-tasman-balanced.glb',high:'kia-tasman-web.glb',master:location.hostname.endsWith('github.io')?'kia-tasman-web.glb':'kia-tasman-master.glb'}[name],pixelRatio:Math.min(devicePixelRatio,name==='high'?1.75:1.5),samples:name==='mobile'?8:12,shadow:name==='mobile'?512:1024,reflection:name==='mobile'?.18:.25};
 }
 export function monitorQuality(app,frame,profile){
  const history=[],window=[];let last=0,lastChange=0;
@@ -17,7 +17,7 @@ export function monitorQuality(app,frame,profile){
   history.push({p75,ratio:app.graphicsDevice.maxPixelRatio});if(history.length>20)history.shift();
   if(p75>45){
    app.graphicsDevice.maxPixelRatio=Math.max(nativeFloor,app.graphicsDevice.maxPixelRatio-.125);
-   frame.ssao.samples=6;frame.ssao.scale=.5;frame.update();
+   frame.ssao.samples=6;frame.ssao.scale=.5;if(profile.mobile)frame.rendering.samples=1;frame.update();
    app.resizeCanvas(app.graphicsDevice.canvas.clientWidth,app.graphicsDevice.canvas.clientHeight);
   }else if(p75<19&&app.graphicsDevice.maxPixelRatio<profile.pixelRatio){
    app.graphicsDevice.maxPixelRatio=Math.min(profile.pixelRatio,app.graphicsDevice.maxPixelRatio+.125);
