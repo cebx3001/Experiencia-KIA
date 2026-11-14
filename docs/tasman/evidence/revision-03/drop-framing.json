@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "camera": "PlayCanvas 2.23.1, including cached interior view",
+  "results": [
+    {
+      "width": 390,
+      "height": 844,
+      "initialHeight": 1.25,
+      "passed": true
+    },
+    {
+      "width": 360,
+      "height": 740,
+      "initialHeight": 1.25,
+      "passed": true
+    },
+    {
+      "width": 390,
+      "height": 492,
+      "initialHeight": 1.25,
+      "passed": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "initialHeight": 1.25,
+      "passed": true
+    }
+  ]
+}
