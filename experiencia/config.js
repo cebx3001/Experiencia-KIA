@@ -1,5 +1,5 @@
 export const campaign={
- release:'cines-20261114-r03-r1',url:'https://cebx3001.github.io/Experiencia-KIA/experiencia/',
+ release:'cines-20261114-r03-final-r1',url:'https://cebx3001.github.io/Experiencia-KIA/experiencia/',
  brandFontUrl:null,expectedBrandFont:'experiencia/assets/KiaSignatureRegular.woff2',
  whatsappNumber:null,whatsappMessage:'Hola, quiero agendar un test drive de la Kia Tasman en Ecuador.',
  kiaUrl:'https://www.kia.com/ec/main.html',

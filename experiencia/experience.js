@@ -1,4 +1,4 @@
-import {campaign,whatsappUrl} from './config.js?v=cines-20261114-r03';
+import {campaign,whatsappUrl} from './config.js?v=cines-20261114-r03-final';
 const $=s=>document.querySelector(s),host=$('#experience'),iframe=$('#studio'),panel=$('#panel'),visited=new Set();
 let enterStarted=0,scene=null,studio=null,state='loading',missionIndex=null,token=0,entered=false,impactCount=0,lastSceneMode='',audioContext=null,audioNodes=[];
 const iconPaths=[

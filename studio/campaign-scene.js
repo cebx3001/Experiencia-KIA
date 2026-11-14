@@ -1,8 +1,8 @@
-import {playbackClock} from './playback-clock.js?v=cines-20261114-r03';
-import {surfaceScanner,createWater,createRockTerrain,buildTrailer} from './campaign-effects.js?v=cines-20261114-r03';
-import {rigidTracks,sampleRigid,applyChassis} from './rigid-playback.js?v=cines-20261114-r03';
+import {playbackClock} from './playback-clock.js?v=cines-20261114-r03-final';
+import {surfaceScanner,createWater,createRockTerrain,buildTrailer} from './campaign-effects.js?v=cines-20261114-r03-final';
+import {rigidTracks,sampleRigid,applyChassis} from './rigid-playback.js?v=cines-20261114-r03-final';
 import * as pc from './vendor/playcanvas.mjs';
-import {createDropPreview} from './drop.js?v=cines-20261114-r03';
+import {createDropPreview} from './drop.js?v=cines-20261114-r03-final';
 
 export function createCampaignScene(d,resources={}){
  const {app,model,camera,lighting}=d,basePosition=model.getLocalPosition().clone(),baseRotation=model.getLocalRotation().clone();
@@ -26,6 +26,7 @@ export function createCampaignScene(d,resources={}){
  }
  function ring(parent,name,radius,y){const p=[],idx=[];for(let i=0;i<64;i++){const a=i/64*Math.PI*2;p.push(Math.cos(a)*radius,y,Math.sin(a)*radius);idx.push(i,(i+1)%64);}return lines(parent,name,p,idx);}
  function clear(){
+  d.stage.setVehicleShadowPosition?.(0,0);
   cabinLight.enabled=false;
   waterResource?.destroy();waterResource=null;scanSurface(-100);for(let i=0;i<wheels.length;i++){wheels[i].setLocalPosition(wheelRest[i].position);wheels[i].setLocalRotation(wheelRest[i].rotation);}
   serial++;if(transition){transition.resolve(false);transition=null;}
@@ -128,7 +129,7 @@ export function createCampaignScene(d,resources={}){
     rig.setLocalPosition(0,(front+rear)/2,z);rig.setLocalEulerAngles(Math.atan2(rear-front,3.27)*180/Math.PI,0,Math.atan2(positive-negative,1.62284)*180/Math.PI);
     for(let i=0;i<4;i++){const w=wheels[i];w.setLocalPosition(wheelRest[i].position);const p=w.getPosition(),support=active.terrain.support(p.x,p.z);w.setPosition(p.x,support.center,p.z);w.setLocalRotation(wheelRest[i].rotation);w.rotateLocal(u*4.0/.405*180/Math.PI,0,0);}
     d.setCameraPose({position:[-8.5,2.25,8+z],lookAt:[0,1.15,z],fov:43});
-    if(u===1)active.motionDone=true;if(age-lastShadow>.12){lighting.refreshShadows();lastShadow=age;}
+    if(u===1)active.motionDone=true;if(age-lastShadow>.12){d.stage.setVehicleShadowPosition?.(0,z);lighting.refreshShadows();lastShadow=age;}
    }
   }
 

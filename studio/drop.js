@@ -1,6 +1,6 @@
 import {playbackClock} from './playback-clock.js';
 import {Vec3,GraphNode} from './vendor/playcanvas.mjs';
-import {rigidTracks,sampleRigid,applyChassis} from './rigid-playback.js?v=cines-20261114-r03';
+import {rigidTracks,sampleRigid,applyChassis} from './rigid-playback.js?v=cines-20261114-r03-final';
 // SI-unit rigid-body suspension playback, generated at 240 Hz with Rapier.
 export function createDropPreview({app,model,setOrbit,lighting,controls=true,autoPlay=true,onImpact=()=>{},manualClock=()=>false}){
  const names=['Kia.wheel.fr.l.001','Kia.wheel.fr.r.001','Kia.wheel.bk.l.001','Kia.wheel.bk.r.001'];

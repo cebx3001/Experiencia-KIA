@@ -36,9 +36,11 @@ export function createStudioStage(app,camera,floor,cyclorama,config){
   angleFade:r.angle_fade,heightRange:r.height_range_m,
   fadeColor:new pc.Color(0,0,0,0),sceneColorMap:true
  }});
+ const shadowOrigin=fm.aoMapOffset.clone();
  finish.enabled=!mobile;
  return {
   setEnabled(enabled){finish.enabled=enabled&&!mobile;},
+  setVehicleShadowPosition(x,z){const u=shadowOrigin.x-x/16,v=shadowOrigin.y-z/16;if(Math.abs(fm.aoMapOffset.x-u)+Math.abs(fm.aoMapOffset.y-v)>.00005){fm.aoMapOffset.set(u,v);fm.update();}},
   setReflection(enabled){finish.enabled=enabled;},
   getState(){return {enabled:finish.enabled,resolution:reflection.resolution,intensity:reflection.intensity,shadow:'direct area-light irradiance ratio',vehicleMaterialsChanged:false};}
  };
