@@ -1,7 +1,7 @@
 {
   "release": "cines-20261114-r02",
-  "codeCommit": "242b5a9180c57789d4b79f7b883b025ac842d3de",
-  "generatedAt": "2026-11-14T01:01:10.195705+00:00",
+  "codeCommit": "c502c2da06b1c7b7a57940880353ad8c3338d77c",
+  "generatedAt": "2026-11-14T01:12:21.252380+00:00",
   "files": {
     "experiencia/index.html": "ce0c8af838a4bd38d1ad61f3be1d197701ea1651b2014026e849bd7fb804d865",
     "experiencia/experience.js": "86c423bbc48e89306f01b308463ac78abb668cdb23d885eaf1015a2a54e681be",
@@ -11,8 +11,8 @@
     "experiencia/assets/qr-tasman.png": "71d7d29c8aa5668999bcf74e938935696febb4cdc64474be9023a94f583eff21",
     "studio/index.html": "2aca2496890509a69042039441929e1fee1755f2434f9aadb62aa92dfc656248",
     "studio/studio.js": "482cabdc70b6a974b7cfcb8de4807979e429a6409f2766a676bdb76aa3174b09",
-    "studio/adaptive-quality.js": "3e3437c505d7f3a624efa6f1a751cdd2a86b3baf318c122f57d81bea8e7b02f7",
-    "studio/campaign-scene.js": "9d116c1d8f2e2ff083fa6b965f1ab76af7cc4b96fae387b4f3e28a70aa686d1c",
+    "studio/adaptive-quality.js": "23f2718ab9f0b6935cec7e696f049b5685f6f36b92271687619d21eef5de6b85",
+    "studio/campaign-scene.js": "183792eb21e62741956d74365a9c7e5ead15a82180002122d326ccfbe61dcc88",
     "studio/drop.js": "538a5bbd5c72124318047b9276278f24506b0cec4f582a91ae39cbb86499448c",
     "studio/material-adapter.js": "331ccb09be657df66d6303f3a5e17ef17cc223460966c6fef45d2a2cc11d44ab",
     "studio/stage.js": "7f03a174c8936cd751aea41354ca4432ea4ac9ae2c3226b88f965fc514cc9feb",
@@ -22,7 +22,7 @@
     "studio/assets/audit/mobile-sharp.json": "950aab5eb437e566d74c92e319e05c210f15889a5c2da90acce062c8f3b6d669",
     "studio/campaign-effects.js": "db1fa7b6139b994daed7d4c1d6e1685249b51ba7d23701e6da15214c7e7badd1",
     "studio/playback-clock.js": "8e458c821d1548f5e433c37191d68e075cf476750e5c47c0f57b61cd245bfbb6",
-    "studio/performance-diagnostics.js": "9dfcca15a63737bf52749f989e21f646a30588ab974156d05682b5fa86700c53",
+    "studio/performance-diagnostics.js": "120fe99f4839eac3c5d7e37ec2a303798f7ae13aee768642bdd93b853ebaec0f",
     "studio/assets/kia-tasman-cinematic-lod.glb": "e359d0c669cb5a958705e8b6e26bf02f05abd0dd25a00f36e01434f4bbce6386"
   },
   "externalPending": [
