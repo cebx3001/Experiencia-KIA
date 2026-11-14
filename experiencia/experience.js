@@ -1,4 +1,4 @@
-import {campaign,whatsappUrl} from './config.js?v=cines-20261114-r02-final';
+import {campaign,whatsappUrl} from './config.js?v=cines-20261114-r03';
 const $=s=>document.querySelector(s),host=$('#experience'),iframe=$('#studio'),panel=$('#panel'),visited=new Set();
 let enterStarted=0,scene=null,studio=null,state='loading',missionIndex=null,token=0,entered=false,impactCount=0,lastSceneMode='',audioContext=null,audioNodes=[];
 const iconPaths=[
@@ -46,8 +46,8 @@ setInterval(()=>{
  if(!scene)return;const s=scene.getState();
  if(state==='intro'){
   const elapsed=(performance.now()-enterStarted)/1000;$('#curtain').style.opacity=elapsed<.6?.999:Math.max(0,.999-(elapsed-.6)/.3);
-  if(s.drop.contact&&s.drop.impactAt!==null&&s.drop.t-s.drop.impactAt>1.1){scene.skipIntro();scene.scan();setState('scan');}
- }else if(state==='scan'&&s.age>=2.6){scene.menu();presentation();}
+  if(s.drop.contact&&!s.drop.running&&s.drop.t>=3.9){scene.skipIntro();scene.scan();setState('scan');}
+ }else if(state==='scan'&&s.age>=4.2){scene.menu();presentation();}
  const anchors=$('#anchors');if(state==='mission'&&s.anchors.length){
   while(anchors.childElementCount>s.anchors.length)anchors.lastElementChild.remove();
   s.anchors.forEach((a,i)=>{let node=anchors.children[i];if(!node){node=document.createElement('span');node.className='callout';anchors.append(node);}if(node.textContent!==a.text)node.textContent=a.text;const p=scene.project(a.point),w=iframe.clientWidth,h=iframe.clientHeight;node.hidden=p.z<=0;node.style.left=`${Math.max(70,Math.min(w-70,p.x))}px`;node.style.top=`${Math.max(70,Math.min(h-20,p.y-15))}px`;});

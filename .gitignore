@@ -1,0 +1,5 @@
+
+# Reproducible intermediate scan geometry, not runtime assets.
+studio/tools/sources/rock-geometry.json
+studio/tools/sources/road-geometry.json
+studio/assets/r03/paricutin-rock.glb

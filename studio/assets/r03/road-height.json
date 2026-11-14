@@ -1,0 +1,12 @@
+{
+  "nx": 321,
+  "nz": 641,
+  "minX": -2,
+  "minZ": -3.5,
+  "sizeX": 4,
+  "sizeZ": 8,
+  "heightScaleM": 2,
+  "method": "Upper envelope rasterized from actual rendered scanned-rock triangles",
+  "triangles": 152520,
+  "maxHeightM": 1.1296291462138925
+}

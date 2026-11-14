@@ -1,10 +1,10 @@
 import * as pc from './vendor/playcanvas.mjs';
-import {chooseQuality,monitorQuality} from './adaptive-quality.js?v=cines-20261114-r02-final';
+import {chooseQuality,monitorQuality} from './adaptive-quality.js?v=cines-20261114-r03';
 const quality=chooseQuality();
 if(new URLSearchParams(location.search).has('embed')){const style=document.createElement('style');style.textContent='header,.title,aside,footer,.hint{display:none!important}html,body,main{width:100%;height:100%;margin:0;}';document.head.append(style);}
-import {applyDeclaredCoating,applyGlassOptics} from './material-adapter.js?v=cines-20261114-r02-final';
-import {createStudioLighting} from './lighting.js?v=cines-20261114-r02-final';
-import {createStudioStage} from './stage.js?v=cines-20261114-r02-final';
+import {applyDeclaredCoating,applyGlassOptics} from './material-adapter.js?v=cines-20261114-r03';
+import {createStudioLighting} from './lighting.js?v=cines-20261114-r03';
+import {createStudioStage} from './stage.js?v=cines-20261114-r03';
 
 const $=s=>document.querySelector(s), V=(x=0,y=0,z=0)=>new pc.Vec3(x,y,z);
 const canvas=$('#canvas'), host=$('main');
@@ -114,8 +114,8 @@ try{
  if(debug.variants.length!==4)throw Error('El GLB debe incluir las cuatro variantes de pintura');
  setView('hero');setPaint('arena');debug.asset=assetFile;debug.paintInstances=paintedInstances.length;debug.status='preparing';
  Object.assign(debug,{setCameraPose:({position,lookAt,fov=42,interior=false})=>{mode=interior?"interior":"inspection";camera.camera.nearClip=interior?.025:.12;stage.setEnabled(!interior);camera.camera.horizontalFov=false;camera.camera.fov=fov;camera.setPosition(...position);camera.lookAt(...lookAt);const dx=lookAt[0]-position[0],dy=lookAt[1]-position[1],dz=lookAt[2]-position[2];insideYaw=Math.atan2(dx,dz);insidePitch=Math.atan2(dy,Math.hypot(dx,dz));},app,model,camera,frame,stage,lighting,setPaint,setView,setOrbit,setEnvironment,setDoor,setAllDoors,getDoorAngles:()=>Object.fromEntries([...doors].map(([k,d])=>[k,d.entity.getLocalEulerAngles().y-d.base.y]))});
- if(new URLSearchParams(location.search).has('campaign')){const {createCampaignScene}=await import('./campaign-scene.js?v=cines-20261114-r02-final');debug.campaign=createCampaignScene(debug);}
- if(new URLSearchParams(location.search).get('phase')==='drop'){const {createDropPreview}=await import('./drop.js?v=cines-20261114-r02-final');debug.drop=createDropPreview({app,model,setOrbit,lighting,autoPlay:false});}
+ if(new URLSearchParams(location.search).has('campaign')){const {createCampaignScene}=await import('./campaign-scene.js?v=cines-20261114-r03');const {prepareEffect}=await import('./campaign-effects.js?v=cines-20261114-r03');const prepared=await Promise.all([0,2,3].map(async index=>[index,await prepareEffect(app,index)]));debug.campaign=createCampaignScene(debug,Object.fromEntries(prepared));}
+ if(new URLSearchParams(location.search).get('phase')==='drop'){const {createDropPreview}=await import('./drop.js?v=cines-20261114-r03');debug.drop=createDropPreview({app,model,setOrbit,lighting,autoPlay:false});}
  let warmFrames=0,recovering=false;
  const finishWarmup=()=>{
   warmFrames++;
@@ -127,7 +127,7 @@ try{
   if(debug.drop)debug.drop.replay();
  };
  app.on('postrender',finishWarmup);
- if(new URLSearchParams(location.search).has('perf'))import('./performance-diagnostics.js?v=cines-20261114-r02-final').then(m=>m.installDiagnostics(debug));
+ if(new URLSearchParams(location.search).has('perf'))import('./performance-diagnostics.js?v=cines-20261114-r03').then(m=>m.installDiagnostics(debug));
  canvas.addEventListener('webglcontextlost',()=>{recovering=true;app.timeScale=0;debug.vehicleFrameReady=false;debug.status='preparing';$('#loading').hidden=false;});
  canvas.addEventListener('webglcontextrestored',()=>{warmFrames=0;app.off('postrender',finishWarmup);app.on('postrender',finishWarmup);});
 }catch(e){debug.status='error';debug.errors.push(String(e));$('#loading').hidden=true;$('#error').hidden=false;$('#error').textContent='No se pudo cargar el estudio.\n'+e.message;console.error(e);}

@@ -2,7 +2,7 @@ import * as pc from './studio/vendor/playcanvas.mjs';
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),ease=t=>t*t*(3-2*t),vec=(x=0,y=0,z=0)=>new pc.Vec3(x,y,z),copy=v=>vec(v.x,v.y,v.z),interpolate=(a,b,t)=>vec(a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t,a.z+(b.z-a.z)*t);
 // Compatibility adapter: original UI controls the existing studio. Exactly one WebGL application.
 export async function mountKiaPlayCanvas({canvas,host,initialAngle=35,onAngleChange=()=>{}}){
- canvas.remove();const iframe=document.createElement('iframe');iframe.title='Estudio dinámico Kia Tasman';iframe.src='./studio/?embed=1&v=cines-20261114-r02-final'+(new URLSearchParams(location.search).has('quality')?'&quality='+encodeURIComponent(new URLSearchParams(location.search).get('quality')):'');
+ canvas.remove();const iframe=document.createElement('iframe');iframe.title='Estudio dinámico Kia Tasman';iframe.src='./studio/?embed=1&v=cines-20261114-r03'+(new URLSearchParams(location.search).has('quality')?'&quality='+encodeURIComponent(new URLSearchParams(location.search).get('quality')):'');
  Object.assign(iframe.style,{position:'absolute',inset:'0',width:'100%',height:'100%',border:'0',zIndex:'1'});host.prepend(iframe);
  const d=await new Promise((resolve,reject)=>{const started=performance.now();const t=setInterval(()=>{const d=iframe.contentWindow?.__tasmanMaster;if(d?.status==='ready'){clearInterval(t);resolve(d);}else if(d?.status==='error'||performance.now()-started>240000){clearInterval(t);reject(Error(d?.errors?.join()||'Studio loading timeout'));}},100);});
  const {app,model,camera}=d;let baseRadius=10.7,radius=10.7,azimuth=initialAngle*Math.PI/180,inclination=.18,override=null,token=0,cabinOpen=false;
