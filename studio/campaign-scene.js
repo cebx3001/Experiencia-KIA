@@ -1,7 +1,7 @@
-import {playbackClock} from './playback-clock.js';
-import {surfaceScanner,createWater,createRockTerrain,rockHeight,buildTrailer} from './campaign-effects.js';
+import {playbackClock} from './playback-clock.js?v=cines-20261114-r02-final';
+import {surfaceScanner,createWater,createRockTerrain,rockHeight,buildTrailer} from './campaign-effects.js?v=cines-20261114-r02-final';
 import * as pc from './vendor/playcanvas.mjs';
-import {createDropPreview} from './drop.js?v=cines-20261114-r02';
+import {createDropPreview} from './drop.js?v=cines-20261114-r02-final';
 
 export function createCampaignScene(d){
  const {app,model,camera,lighting}=d,basePosition=model.getLocalPosition().clone(),baseRotation=model.getLocalRotation().clone();
@@ -9,7 +9,7 @@ export function createCampaignScene(d){
  const root=new pc.Entity('Campaign holograms',app);app.root.addChild(root);
  let mode='idle',active=null,age=0,autoOrbit=false,orbitAngle=-.74,transition=null,serial=0,impactListener=()=>{},impactAge=99,scanGroup=null;
  const wheels=['Kia.wheel.fr.l.001','Kia.wheel.fr.r.001','Kia.wheel.bk.l.001','Kia.wheel.bk.r.001'].map(n=>model.findByName(n));
- const clock=playbackClock(()=>d.manualClock),scanSurface=surfaceScanner(app,model),wheelRest=wheels.map(w=>({position:w.getLocalPosition().clone(),rotation:w.getLocalRotation().clone()}));
+ const clock=playbackClock(()=>d.manualClock),scanSurface=surfaceScanner(app,model),wheelRest=wheels.map(w=>({position:w.getLocalPosition().clone(),world:w.getPosition().clone(),rotation:w.getLocalRotation().clone()}));
  const ownedMeshes=[];
  const materials=[];let waterResource=null,lastShadow=-1;
 
@@ -69,7 +69,7 @@ export function createCampaignScene(d){
   {position:[-11.3,2.8,3.4],lookAt:[0,.9,0],fov:45},
   {position:[-4.5,3.6,-5.5],lookAt:[0,1.18,-1.35],fov:43},
   {position:[-13.5,4.5,-9.5],lookAt:[0,.9,-1.7],fov:43},
-  {position:[-6.8,2.7,6.4],lookAt:[0,1.05,0],fov:43},
+  {position:[-7.5,1.95,7.1],lookAt:[0,1.1,0],fov:43},
   {position:[.42,1.48,-.12],lookAt:[.08,1.25,1.0],fov:59,interior:true}
  ];
  async function mission(index){
@@ -93,7 +93,9 @@ export function createCampaignScene(d){
   }else{
    cabinLight.enabled=true;
    const display=wireBox(g,'Panoramic display projection',[.26,1.335,.717],[.83,.17,.008],.04);display.setLocalEulerAngles(6,0,0);
-   for(const x of [-.075,.075])wireBox(g,'Wireless charger projection',[x,.968,.61],[.12,.008,.19],.10);
+   for(const x of [-.075,.075]){const charger=wireBox(g,'Wireless charger projection',[x,.968,.61],[.12,.008,.19],.10);lines(charger,'Charging bolt',[-.02,.01,-.05,.015,.01,-.005,-.015,.01,.005,.02,.01,.05],[0,1,1,2,2,3]);}
+   lines(display,'ADAS lane projection',[-.16,-.065,-.012,-.09,.065,-.012,.16,-.065,-.012,.09,.065,-.012,-.015,-.06,-.013,-.015,.06,-.013,.015,-.06,-.013,.015,.06,-.013],[0,1,2,3,4,5,6,7]);
+   wireBox(display,'ADAS vehicle indicator',[0,-.01,-.015],[.055,.065,.008],.12);
    active.anchors=[{text:'PANTALLA PANORÁMICA',point:[.2,1.42,.716]},{text:'2 CARGADORES INALÁMBRICOS',point:[-.02,.975,.61]},{text:'LFA 2 · FCA 2 · SCC',point:[.6,1.42,.73]}];
   }
   return true;
@@ -118,10 +120,10 @@ export function createCampaignScene(d){
   if(active?.index===0)active.waterLevel=waterResource.update(age);
   if(active?.index===1)for(const box of active.boxes){const elapsed=Math.max(0,age-box.index*.18),u=Math.min(1,elapsed/.65),landed=Math.max(0,elapsed-.65),h=u<1?1.8*(1-u*u):.035*Math.exp(-landed*8)*Math.abs(Math.sin(landed*18));box.entity.setLocalPosition(box.position[0],box.position[1]+h,box.position[2]);}
   if(active?.index===3&&!active.motionDone){
-   const u=Math.min(1,age/6),z=-.8+u*1.6,h=wheels.map((w,i)=>rockHeight(i%2?.81142:-.81142,(i<2?1.635:-1.635)+z));
-   const front=(h[0]+h[1])/2,rear=(h[2]+h[3])/2,left=(h[0]+h[2])/2,right=(h[1]+h[3])/2;
-   rig.setLocalPosition(0,(front+rear)/2,z);rig.setLocalEulerAngles(Math.atan2(rear-front,3.27)*180/Math.PI,0,Math.atan2(right-left,1.62284)*180/Math.PI);
-   for(let i=0;i<wheels.length;i++){const w=wheels[i],p=w.getPosition();w.setPosition(p.x,rockHeight(p.x,p.z)+.4049708,p.z);w.setLocalRotation(wheelRest[i].rotation);w.rotateLocal(u*1.6/.405*180/Math.PI,0,0);active.contacts[i].setLocalPosition(p.x,rockHeight(p.x,p.z)+.008,p.z);}
+   const u=Math.min(1,age/6),z=-.8+u*1.6,h=wheelRest.map(w=>rockHeight(w.world.x,w.world.z+z));
+   const front=(h[0]+h[1])/2,rear=(h[2]+h[3])/2,positive=h.filter((_,i)=>wheelRest[i].world.x>0).reduce((a,b)=>a+b,0)/2,negative=h.filter((_,i)=>wheelRest[i].world.x<0).reduce((a,b)=>a+b,0)/2;
+   rig.setLocalPosition(0,(front+rear)/2,z);rig.setLocalEulerAngles(Math.atan2(rear-front,3.27)*180/Math.PI,0,Math.atan2(positive-negative,1.62284)*180/Math.PI);
+   for(let i=0;i<wheels.length;i++){const w=wheels[i];w.setLocalPosition(wheelRest[i].position);const p=w.getPosition();w.setPosition(p.x,rockHeight(p.x,p.z)+.4049708,p.z);w.setLocalRotation(wheelRest[i].rotation);w.rotateLocal(u*1.6/.405*180/Math.PI,0,0);active.contacts[i].setLocalPosition(p.x,rockHeight(p.x,p.z)+.008,p.z);}
    if(u===1)active.motionDone=true;
    if(age-lastShadow>.12&&u<=1){lighting.refreshShadows();lastShadow=age;}
 

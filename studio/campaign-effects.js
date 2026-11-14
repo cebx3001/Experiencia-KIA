@@ -26,7 +26,7 @@ export function createRockTerrain(app,parent){
 }
 export function buildTrailer(parent,wireBox,lines,ring){
  // Geometry reference: 2.5 × 1.5 m single axle utility trailer layout.
- // Technical reference: https://www.humbaur.com/en/trailers/single-axle-trailers/ha/
+ // Technical reference: https://github.com/johnharveyusa/trailerjoes (reference only; no copied assets)
  wireBox(parent,'Galvanized chassis',[0,.52,-4.8],[1.65,.12,2.5],.18);
  wireBox(parent,'Load bed',[0,.75,-4.8],[1.55,.4,2.45],.08);
  for(const x of [-.82,.82]){wireBox(parent,'Top rail',[x,1,-4.8],[.045,.06,2.5],.28);wireBox(parent,'Mudguard',[x*1.15,.75,-4.9],[.32,.12,.8],.24);}

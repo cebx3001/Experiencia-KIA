@@ -1,4 +1,4 @@
-import {playbackClock} from './playback-clock.js';
+import {playbackClock} from './playback-clock.js?v=cines-20261114-r02-final';
 import {Vec3} from './vendor/playcanvas.mjs';
 // Fixed-step artistic suspension motion about the original static ride height.
 export function createDropPreview({app,model,setOrbit,lighting,controls=true,autoPlay=true,onImpact=()=>{},manualClock=()=>false}){
