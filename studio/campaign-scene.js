@@ -52,7 +52,7 @@ export function createCampaignScene(d){
   dust.puffs=[];dust.stones=[];
   for(let i=0;i<28;i++){
    const side=i%2?1:-1,z=i%3===0?-1.63:1.63;
-   const e=new pc.Entity('Soft impact dust '+i,app);e.addComponent('render',{type:'plane',castShadows:false,receiveShadows:false});const m=new pc.StandardMaterial();m.useLighting=false;m.useSkybox=false;m.diffuseMap=dustTexture;m.opacityMap=dustTexture;m.opacityMapChannel='a';m.diffuse.set(1,1,1);m.opacity=.65;m.blendType=pc.BLEND_NORMAL;m.depthWrite=false;m.cull=pc.CULLFACE_NONE;m.update();impactMaterials.push(m);e.render.material=m;dust.addChild(e);dust.puffs.push({e,m,side,z,seed:i/28});
+   const e=new pc.Entity('Soft impact dust '+i,app);e.addComponent('render',{type:'plane',castShadows:false,receiveShadows:false});const m=new pc.StandardMaterial();m.useLighting=false;m.useSkybox=false;m.diffuseMap=dustTexture;m.emissiveMap=dustTexture;m.emissive.set(.65,.56,.43);m.opacityMap=dustTexture;m.opacityMapChannel='a';m.diffuse.set(1,1,1);m.opacity=.65;m.blendType=pc.BLEND_NORMAL;m.depthWrite=false;m.cull=pc.CULLFACE_NONE;m.update();impactMaterials.push(m);e.render.material=m;dust.addChild(e);dust.puffs.push({e,m,side,z,seed:i/28});
   }
   for(let i=0;i<8;i++){const e=new pc.Entity('Impact stone '+i,app);e.addComponent('render',{type:'box',castShadows:false,receiveShadows:false});const m=new pc.StandardMaterial();m.diffuse.set(.32,.29,.24);m.gloss=.15;m.opacity=0;m.blendType=pc.BLEND_NORMAL;m.depthWrite=false;m.update();impactMaterials.push(m);e.render.material=m;e.setLocalScale(.055,.035,.075);dust.addChild(e);dust.stones.push({e,side:i%2?1:-1,z:i%3===0?-1.63:1.63,seed:i/8});}
 

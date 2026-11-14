@@ -8,9 +8,10 @@ export function chooseQuality(){
  return {name,mobile:name==='mobile',file:{mobile:'kia-tasman-cinematic-lod.glb',balanced:'kia-tasman-balanced.glb',high:'kia-tasman-web.glb',master:location.hostname.endsWith('github.io')?'kia-tasman-web.glb':'kia-tasman-master.glb'}[name],pixelRatio:Math.min(devicePixelRatio,name==='high'?1.75:1.5),samples:name==='mobile'?8:12,shadow:name==='mobile'?512:1024,reflection:name==='mobile'?.18:.25};
 }
 export function monitorQuality(app,frame,profile){
- const history=[],window=[];let last=0,lastChange=0;
+ const history=[],window=[];let last=0,lastChange=0,paused=false;
  const nativeFloor=Math.min(devicePixelRatio,1.25);
  app.on('postrender',()=>{
+  if(paused){last=0;window.length=0;return;}
   const now=performance.now();if(last&&!document.hidden){const ms=now-last;if(ms>0&&ms<5000)window.push(ms);}last=now;
   if(window.length<45||now-lastChange<15000)return;
   const p75=[...window].sort((a,b)=>a-b)[Math.floor(window.length*.75)];window.length=0;
@@ -26,5 +27,5 @@ export function monitorQuality(app,frame,profile){
   lastChange=now;
  });
  document.addEventListener('visibilitychange',()=>{last=0;window.length=0;app.timeScale=document.hidden?0:1;});
- return {profile,history,nativeFloor,antialias:'MSAA; no temporal image history'};
+ return {setPaused(value){paused=!!value;},profile,history,nativeFloor,antialias:'MSAA; no temporal image history'};
 }
