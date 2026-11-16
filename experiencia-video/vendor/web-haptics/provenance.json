@@ -1,0 +1,15 @@
+{
+  "package": "web-haptics",
+  "version": "0.0.6",
+  "repository": "https://github.com/lochie/web-haptics",
+  "inspected_commit": "7904ed1e1c92e093c1861091e4d809f7d00b7d0d",
+  "source": "https://registry.npmjs.org/web-haptics/-/web-haptics-0.0.6.tgz",
+  "license": "MIT",
+  "bundled_sha256": "5e4667f5b81bb5a2ad14b555007aba5dbc279e738c76aea4a3130a8b3477b45f",
+  "debug_audio": false,
+  "ios_hardware_verified": false,
+  "bundled_files": {
+    "index.mjs": "5e4667f5b81bb5a2ad14b555007aba5dbc279e738c76aea4a3130a8b3477b45f",
+    "chunk-4NSAIXAB.mjs": "c6399eadefbf8b1bf3c01d945ce4529da3d488c79f3ac420ceae0d8f4ff4a2f6"
+  }
+}

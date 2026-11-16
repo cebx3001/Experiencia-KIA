@@ -22,3 +22,6 @@ body:is([data-state=intro],[data-state=studio]) #panel{height:232px;min-height:2
 main#campaign{overflow-x:hidden;overflow-y:auto}header button,#back,#skip,#pause{font-size:11px}#panel .row button,#panel .row a{font-size:11px}#explorer #detail{font-size:12px;color:#c0cbc0;letter-spacing:.05em}footer a{font-size:9px;color:#9ba798}
 
 body[data-state=menu] #scene{min-height:255px}
+
+/* Gesture-only explorer: no camera, detail, rotation or zoom controls. */
+#explorer #detail{bottom:18px}body[data-state=studio] #panel{display:flex;align-items:center;justify-content:center}body[data-state=studio] #panel .primary{margin:0}

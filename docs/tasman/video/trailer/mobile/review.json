@@ -5,10 +5,10 @@
   "width": 720,
   "height": 1280,
   "audio": true,
-  "source_sha256": "0fc633088700f14b49bf950bb8b669b8666d2213e53b0b1a3dd81761356d0021",
-  "video_sha256": "d6a55fb4b555755939eae57535eaeffe5939c838b04174bdf06d76dd3f6410c9",
+  "source_sha256": "d39e59f06a7e1c7c11f992589a6d71ba5584f5c7289868a16ddf92ff7902e713",
+  "video_sha256": "d39e59f06a7e1c7c11f992589a6d71ba5584f5c7289868a16ddf92ff7902e713",
   "additional_paid_generation": false,
-  "framing": "Entire existing landscape shot preserved within a portrait black studio canvas; no cropping or generated extensions",
+  "framing": "Native portrait",
   "limitations": [
     "Condicionamiento histórico sin anclas explícitas de extremos: comparar continuidad de identidad durante la apertura y el cierre."
   ]

@@ -48,8 +48,8 @@
       "duration": 20.0,
       "audio": "aac",
       "sample_rate": "48000",
-      "bytes": 2696854,
-      "sha256": "d6a55fb4b555755939eae57535eaeffe5939c838b04174bdf06d76dd3f6410c9"
+      "bytes": 3005509,
+      "sha256": "d39e59f06a7e1c7c11f992589a6d71ba5584f5c7289868a16ddf92ff7902e713"
     },
     {
       "file": "vadeo.mp4",
@@ -58,8 +58,8 @@
       "duration": 20.0,
       "audio": "aac",
       "sample_rate": "48000",
-      "bytes": 3501635,
-      "sha256": "34b02cdd96d49d1105fe9c10276b695537b9ea5adb57c7d086cf2a09db179ec3"
+      "bytes": 10074597,
+      "sha256": "66553636048e64c249961e86dcc0f72d2cf06c75fed73a0186956f48a3faaaa2"
     },
     {
       "file": "xtrek.mp4",

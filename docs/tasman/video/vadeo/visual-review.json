@@ -1,0 +1,17 @@
+{
+  "reviewed": true,
+  "observed": [
+    "Cruce del río, salida completa a la orilla y regreso visible de cámara al maestro durante el desmontaje cian.",
+    "Sin superposición final del maestro grande sobre un vehículo lejano.",
+    "Sin dispositivo semejante a una sirena en las muestras del techo."
+  ],
+  "method": "Inspección de 24 muestras del rodaje final de 20 segundos y extremos nativos.",
+  "limitations": [
+    "Ilustración publicitaria generada; no certificación de física o detalles de fábrica."
+  ],
+  "raw_endpoint_similarity": {
+    "first": 0.986219,
+    "last": 0.984626
+  },
+  "automatic_client_approval": false
+}

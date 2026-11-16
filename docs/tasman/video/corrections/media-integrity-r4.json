@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "scene": "intro",
+      "video_stream_unchanged_by_audio": true,
+      "hash": "SHA256=6e19d25b88f719b11cc2e43a9ce692e9915c554156b60a7070ed687ebbfa21e3"
+    },
+    {
+      "scene": "cargo",
+      "video_stream_unchanged_by_audio": true,
+      "hash": "SHA256=247acaa97d91a8081ff128ba0a2e5620ad74cee66ca375a473ccdee393ff104a"
+    },
+    {
+      "scene": "storm",
+      "video_stream_unchanged_by_audio": true,
+      "hash": "SHA256=b434f98a1d8fba934e43ce64df864ce9d861c94fe6251f830e02018aa98f7117"
+    },
+    {
+      "scene": "xtrek",
+      "video_stream_unchanged_by_audio": true,
+      "hash": "SHA256=b07beefea09fe7ee2f5a37d8ed26ccd5b8b821a64fcb20629b694a8f6b2485e9"
+    },
+    {
+      "scene": "vadeo",
+      "original_audio_stream_unchanged": true,
+      "hash": "SHA256=692ebb90659b45fa4affa3a66cad6ecd885866e8e00ece35647486474f1160a0"
+    }
+  ]
+}

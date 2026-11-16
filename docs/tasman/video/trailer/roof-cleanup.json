@@ -1,0 +1,4441 @@
+{
+  "scene": "trailer",
+  "method": "Per-frame roof tracking and small tracked background clean plate; no new generated vehicle/scene.",
+  "source_sha256": "d6a55fb4b555755939eae57535eaeffe5939c838b04174bdf06d76dd3f6410c9",
+  "output_sha256": "d39e59f06a7e1c7c11f992589a6d71ba5584f5c7289868a16ddf92ff7902e713",
+  "audio_stream_unchanged": true,
+  "audio_hash": "SHA256=09420003ddd8bbfbc4a9753d8791dd694934bca5a8704c287a919308022e4b63",
+  "processed_frames": 480,
+  "locally_repaired_frames": 369,
+  "new_generation_cost_usd": 0,
+  "track": [
+    {
+      "frame": 75,
+      "seconds": 3.125,
+      "bbox_center": [
+        318.0,
+        545.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.867443323135376,
+      "pixels": 475
+    },
+    {
+      "frame": 76,
+      "seconds": 3.1666666666666665,
+      "bbox_center": [
+        318.0,
+        545.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.8759526014328003,
+      "pixels": 567
+    },
+    {
+      "frame": 77,
+      "seconds": 3.2083333333333335,
+      "bbox_center": [
+        318.0,
+        546.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9052525758743286,
+      "pixels": 475
+    },
+    {
+      "frame": 78,
+      "seconds": 3.25,
+      "bbox_center": [
+        318.0,
+        546.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.91242516040802,
+      "pixels": 475
+    },
+    {
+      "frame": 79,
+      "seconds": 3.2916666666666665,
+      "bbox_center": [
+        318.5,
+        547.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.916739821434021,
+      "pixels": 520
+    },
+    {
+      "frame": 80,
+      "seconds": 3.3333333333333335,
+      "bbox_center": [
+        319.0,
+        547.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9360213875770569,
+      "pixels": 475
+    },
+    {
+      "frame": 81,
+      "seconds": 3.375,
+      "bbox_center": [
+        319.5,
+        548.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.941498875617981,
+      "pixels": 520
+    },
+    {
+      "frame": 82,
+      "seconds": 3.4166666666666665,
+      "bbox_center": [
+        320.5,
+        548.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9470669627189636,
+      "pixels": 588
+    },
+    {
+      "frame": 83,
+      "seconds": 3.4583333333333335,
+      "bbox_center": [
+        321.0,
+        548.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9541014432907104,
+      "pixels": 567
+    },
+    {
+      "frame": 84,
+      "seconds": 3.5,
+      "bbox_center": [
+        321.5,
+        549.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.946391224861145,
+      "pixels": 588
+    },
+    {
+      "frame": 85,
+      "seconds": 3.5416666666666665,
+      "bbox_center": [
+        321.5,
+        549.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9581313729286194,
+      "pixels": 588
+    },
+    {
+      "frame": 86,
+      "seconds": 3.5833333333333335,
+      "bbox_center": [
+        322.0,
+        550.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.955142617225647,
+      "pixels": 638
+    },
+    {
+      "frame": 87,
+      "seconds": 3.625,
+      "bbox_center": [
+        322.5,
+        550.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9617171287536621,
+      "pixels": 588
+    },
+    {
+      "frame": 88,
+      "seconds": 3.6666666666666665,
+      "bbox_center": [
+        323.0,
+        551.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9520151615142822,
+      "pixels": 638
+    },
+    {
+      "frame": 89,
+      "seconds": 3.7083333333333335,
+      "bbox_center": [
+        323.5,
+        551.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9608539342880249,
+      "pixels": 588
+    },
+    {
+      "frame": 90,
+      "seconds": 3.75,
+      "bbox_center": [
+        324.0,
+        552.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9514486193656921,
+      "pixels": 638
+    },
+    {
+      "frame": 91,
+      "seconds": 3.7916666666666665,
+      "bbox_center": [
+        324.5,
+        552.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9618017673492432,
+      "pixels": 588
+    },
+    {
+      "frame": 92,
+      "seconds": 3.8333333333333335,
+      "bbox_center": [
+        325.0,
+        552.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9545511603355408,
+      "pixels": 567
+    },
+    {
+      "frame": 93,
+      "seconds": 3.875,
+      "bbox_center": [
+        325.5,
+        553.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9603167176246643,
+      "pixels": 588
+    },
+    {
+      "frame": 94,
+      "seconds": 3.9166666666666665,
+      "bbox_center": [
+        326.0,
+        553.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9610938429832458,
+      "pixels": 567
+    },
+    {
+      "frame": 95,
+      "seconds": 3.9583333333333335,
+      "bbox_center": [
+        327.0,
+        554.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9695125818252563,
+      "pixels": 567
+    },
+    {
+      "frame": 96,
+      "seconds": 4.0,
+      "bbox_center": [
+        328.0,
+        555.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9646280407905579,
+      "pixels": 567
+    },
+    {
+      "frame": 97,
+      "seconds": 4.041666666666667,
+      "bbox_center": [
+        328.5,
+        555.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9601250886917114,
+      "pixels": 588
+    },
+    {
+      "frame": 98,
+      "seconds": 4.083333333333333,
+      "bbox_center": [
+        329.0,
+        556.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9518398642539978,
+      "pixels": 638
+    },
+    {
+      "frame": 99,
+      "seconds": 4.125,
+      "bbox_center": [
+        330.0,
+        556.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9691069722175598,
+      "pixels": 567
+    },
+    {
+      "frame": 100,
+      "seconds": 4.166666666666667,
+      "bbox_center": [
+        330.0,
+        556.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9667957425117493,
+      "pixels": 567
+    },
+    {
+      "frame": 101,
+      "seconds": 4.208333333333333,
+      "bbox_center": [
+        331.0,
+        557.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9584237933158875,
+      "pixels": 638
+    },
+    {
+      "frame": 102,
+      "seconds": 4.25,
+      "bbox_center": [
+        331.5,
+        557.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9635189771652222,
+      "pixels": 588
+    },
+    {
+      "frame": 103,
+      "seconds": 4.291666666666667,
+      "bbox_center": [
+        332.0,
+        557.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9689262509346008,
+      "pixels": 567
+    },
+    {
+      "frame": 104,
+      "seconds": 4.333333333333333,
+      "bbox_center": [
+        332.5,
+        558.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9515084028244019,
+      "pixels": 520
+    },
+    {
+      "frame": 105,
+      "seconds": 4.375,
+      "bbox_center": [
+        333.0,
+        558.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9667766094207764,
+      "pixels": 567
+    },
+    {
+      "frame": 106,
+      "seconds": 4.416666666666667,
+      "bbox_center": [
+        333.0,
+        558.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.968536913394928,
+      "pixels": 567
+    },
+    {
+      "frame": 107,
+      "seconds": 4.458333333333333,
+      "bbox_center": [
+        334.0,
+        558.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9552208781242371,
+      "pixels": 567
+    },
+    {
+      "frame": 108,
+      "seconds": 4.5,
+      "bbox_center": [
+        335.0,
+        559.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9491308927536011,
+      "pixels": 638
+    },
+    {
+      "frame": 109,
+      "seconds": 4.541666666666667,
+      "bbox_center": [
+        335.0,
+        559.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9713689088821411,
+      "pixels": 567
+    },
+    {
+      "frame": 110,
+      "seconds": 4.583333333333333,
+      "bbox_center": [
+        335.0,
+        559.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9693532586097717,
+      "pixels": 567
+    },
+    {
+      "frame": 111,
+      "seconds": 4.625,
+      "bbox_center": [
+        335.5,
+        560.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9565793871879578,
+      "pixels": 520
+    },
+    {
+      "frame": 112,
+      "seconds": 4.666666666666667,
+      "bbox_center": [
+        336.5,
+        560.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9538823366165161,
+      "pixels": 588
+    },
+    {
+      "frame": 113,
+      "seconds": 4.708333333333333,
+      "bbox_center": [
+        337.0,
+        560.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9716004133224487,
+      "pixels": 567
+    },
+    {
+      "frame": 114,
+      "seconds": 4.75,
+      "bbox_center": [
+        337.0,
+        560.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9696953296661377,
+      "pixels": 567
+    },
+    {
+      "frame": 115,
+      "seconds": 4.791666666666667,
+      "bbox_center": [
+        338.0,
+        560.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9642748832702637,
+      "pixels": 567
+    },
+    {
+      "frame": 116,
+      "seconds": 4.833333333333333,
+      "bbox_center": [
+        338.5,
+        561.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9655092358589172,
+      "pixels": 520
+    },
+    {
+      "frame": 117,
+      "seconds": 4.875,
+      "bbox_center": [
+        339.0,
+        561.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9675644040107727,
+      "pixels": 638
+    },
+    {
+      "frame": 118,
+      "seconds": 4.916666666666667,
+      "bbox_center": [
+        339.5,
+        561.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9711487889289856,
+      "pixels": 588
+    },
+    {
+      "frame": 119,
+      "seconds": 4.958333333333333,
+      "bbox_center": [
+        340.0,
+        561.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9798805117607117,
+      "pixels": 567
+    },
+    {
+      "frame": 120,
+      "seconds": 5.0,
+      "bbox_center": [
+        340.5,
+        561.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9684979319572449,
+      "pixels": 588
+    },
+    {
+      "frame": 121,
+      "seconds": 5.041666666666667,
+      "bbox_center": [
+        341.0,
+        561.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9669283032417297,
+      "pixels": 567
+    },
+    {
+      "frame": 122,
+      "seconds": 5.083333333333333,
+      "bbox_center": [
+        341.5,
+        562.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9716286063194275,
+      "pixels": 520
+    },
+    {
+      "frame": 123,
+      "seconds": 5.125,
+      "bbox_center": [
+        343.0,
+        562.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9665035009384155,
+      "pixels": 638
+    },
+    {
+      "frame": 124,
+      "seconds": 5.166666666666667,
+      "bbox_center": [
+        343.0,
+        562.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9725569486618042,
+      "pixels": 567
+    },
+    {
+      "frame": 125,
+      "seconds": 5.208333333333333,
+      "bbox_center": [
+        343.5,
+        562.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9826497435569763,
+      "pixels": 588
+    },
+    {
+      "frame": 126,
+      "seconds": 5.25,
+      "bbox_center": [
+        344.0,
+        562.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9855661988258362,
+      "pixels": 567
+    },
+    {
+      "frame": 127,
+      "seconds": 5.291666666666667,
+      "bbox_center": [
+        345.0,
+        562.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.97416090965271,
+      "pixels": 567
+    },
+    {
+      "frame": 128,
+      "seconds": 5.333333333333333,
+      "bbox_center": [
+        345.5,
+        563.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9810065031051636,
+      "pixels": 520
+    },
+    {
+      "frame": 129,
+      "seconds": 5.375,
+      "bbox_center": [
+        345.5,
+        563.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9600790739059448,
+      "pixels": 520
+    },
+    {
+      "frame": 130,
+      "seconds": 5.416666666666667,
+      "bbox_center": [
+        346.5,
+        563.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9647678732872009,
+      "pixels": 520
+    },
+    {
+      "frame": 131,
+      "seconds": 5.458333333333333,
+      "bbox_center": [
+        347.5,
+        563.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9624326825141907,
+      "pixels": 588
+    },
+    {
+      "frame": 132,
+      "seconds": 5.5,
+      "bbox_center": [
+        348.5,
+        563.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9658712148666382,
+      "pixels": 588
+    },
+    {
+      "frame": 133,
+      "seconds": 5.541666666666667,
+      "bbox_center": [
+        349.0,
+        563.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9713847637176514,
+      "pixels": 567
+    },
+    {
+      "frame": 134,
+      "seconds": 5.583333333333333,
+      "bbox_center": [
+        349.5,
+        563.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9703778624534607,
+      "pixels": 588
+    },
+    {
+      "frame": 135,
+      "seconds": 5.625,
+      "bbox_center": [
+        350.0,
+        563.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9700382947921753,
+      "pixels": 567
+    },
+    {
+      "frame": 136,
+      "seconds": 5.666666666666667,
+      "bbox_center": [
+        350.5,
+        564.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9753643274307251,
+      "pixels": 520
+    },
+    {
+      "frame": 137,
+      "seconds": 5.708333333333333,
+      "bbox_center": [
+        351.5,
+        564.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9670930504798889,
+      "pixels": 520
+    },
+    {
+      "frame": 138,
+      "seconds": 5.75,
+      "bbox_center": [
+        351.5,
+        564.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9671400785446167,
+      "pixels": 520
+    },
+    {
+      "frame": 139,
+      "seconds": 5.791666666666667,
+      "bbox_center": [
+        352.5,
+        564.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9664181470870972,
+      "pixels": 520
+    },
+    {
+      "frame": 140,
+      "seconds": 5.833333333333333,
+      "bbox_center": [
+        353.0,
+        564.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9722427725791931,
+      "pixels": 475
+    },
+    {
+      "frame": 141,
+      "seconds": 5.875,
+      "bbox_center": [
+        354.0,
+        564.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9739583730697632,
+      "pixels": 567
+    },
+    {
+      "frame": 142,
+      "seconds": 5.916666666666667,
+      "bbox_center": [
+        355.0,
+        564.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9802029728889465,
+      "pixels": 567
+    },
+    {
+      "frame": 143,
+      "seconds": 5.958333333333333,
+      "bbox_center": [
+        356.5,
+        565.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9836709499359131,
+      "pixels": 520
+    },
+    {
+      "frame": 144,
+      "seconds": 6.0,
+      "bbox_center": [
+        357.5,
+        565
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 1.0,
+      "pixels": 520
+    },
+    {
+      "frame": 145,
+      "seconds": 6.041666666666667,
+      "bbox_center": [
+        358.5,
+        565.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.984084963798523,
+      "pixels": 520
+    },
+    {
+      "frame": 146,
+      "seconds": 6.083333333333333,
+      "bbox_center": [
+        359.0,
+        565.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9799553751945496,
+      "pixels": 475
+    },
+    {
+      "frame": 147,
+      "seconds": 6.125,
+      "bbox_center": [
+        360.0,
+        565.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9688016176223755,
+      "pixels": 475
+    },
+    {
+      "frame": 148,
+      "seconds": 6.166666666666667,
+      "bbox_center": [
+        360.5,
+        565.5
+      ],
+      "width": 15,
+      "height": 11,
+      "confidence": 0.9442054629325867,
+      "pixels": 456
+    },
+    {
+      "frame": 149,
+      "seconds": 6.208333333333333,
+      "bbox_center": [
+        361.0,
+        565.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9436094760894775,
+      "pixels": 475
+    },
+    {
+      "frame": 150,
+      "seconds": 6.25,
+      "bbox_center": [
+        361.5,
+        565.5
+      ],
+      "width": 15,
+      "height": 11,
+      "confidence": 0.9218835234642029,
+      "pixels": 456
+    },
+    {
+      "frame": 151,
+      "seconds": 6.291666666666667,
+      "bbox_center": [
+        363.0,
+        565.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9130674004554749,
+      "pixels": 567
+    },
+    {
+      "frame": 152,
+      "seconds": 6.333333333333333,
+      "bbox_center": [
+        363.5,
+        566.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9104618430137634,
+      "pixels": 520
+    },
+    {
+      "frame": 153,
+      "seconds": 6.375,
+      "bbox_center": [
+        364.5,
+        566.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9443967938423157,
+      "pixels": 520
+    },
+    {
+      "frame": 154,
+      "seconds": 6.416666666666667,
+      "bbox_center": [
+        365.5,
+        566.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9545586705207825,
+      "pixels": 520
+    },
+    {
+      "frame": 155,
+      "seconds": 6.458333333333333,
+      "bbox_center": [
+        366.5,
+        566.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9520636200904846,
+      "pixels": 520
+    },
+    {
+      "frame": 156,
+      "seconds": 6.5,
+      "bbox_center": [
+        366.5,
+        566.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9575058221817017,
+      "pixels": 520
+    },
+    {
+      "frame": 157,
+      "seconds": 6.541666666666667,
+      "bbox_center": [
+        367.5,
+        566.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9524407386779785,
+      "pixels": 520
+    },
+    {
+      "frame": 158,
+      "seconds": 6.583333333333333,
+      "bbox_center": [
+        368.5,
+        566.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.930433452129364,
+      "pixels": 520
+    },
+    {
+      "frame": 159,
+      "seconds": 6.625,
+      "bbox_center": [
+        369.0,
+        566.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9109549522399902,
+      "pixels": 475
+    },
+    {
+      "frame": 160,
+      "seconds": 6.666666666666667,
+      "bbox_center": [
+        370.0,
+        566.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9020323157310486,
+      "pixels": 475
+    },
+    {
+      "frame": 161,
+      "seconds": 6.708333333333333,
+      "bbox_center": [
+        371.0,
+        566.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.8995412588119507,
+      "pixels": 475
+    },
+    {
+      "frame": 162,
+      "seconds": 6.75,
+      "bbox_center": [
+        372.0,
+        566.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.8935098052024841,
+      "pixels": 475
+    },
+    {
+      "frame": 163,
+      "seconds": 6.791666666666667,
+      "bbox_center": [
+        373.0,
+        566.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.912263035774231,
+      "pixels": 475
+    },
+    {
+      "frame": 164,
+      "seconds": 6.833333333333333,
+      "bbox_center": [
+        374.0,
+        566.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.919416069984436,
+      "pixels": 475
+    },
+    {
+      "frame": 165,
+      "seconds": 6.875,
+      "bbox_center": [
+        376.0,
+        566.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9420145750045776,
+      "pixels": 567
+    },
+    {
+      "frame": 166,
+      "seconds": 6.916666666666667,
+      "bbox_center": [
+        377.0,
+        566.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9505497813224792,
+      "pixels": 567
+    },
+    {
+      "frame": 167,
+      "seconds": 6.958333333333333,
+      "bbox_center": [
+        378.0,
+        566.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9565235376358032,
+      "pixels": 567
+    },
+    {
+      "frame": 168,
+      "seconds": 7.0,
+      "bbox_center": [
+        378.5,
+        567.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9576281309127808,
+      "pixels": 520
+    },
+    {
+      "frame": 169,
+      "seconds": 7.041666666666667,
+      "bbox_center": [
+        379.5,
+        567.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9585578441619873,
+      "pixels": 520
+    },
+    {
+      "frame": 170,
+      "seconds": 7.083333333333333,
+      "bbox_center": [
+        381.5,
+        567.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.969871997833252,
+      "pixels": 520
+    },
+    {
+      "frame": 171,
+      "seconds": 7.125,
+      "bbox_center": [
+        382.5,
+        567.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9771454930305481,
+      "pixels": 520
+    },
+    {
+      "frame": 172,
+      "seconds": 7.166666666666667,
+      "bbox_center": [
+        383.5,
+        567.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9720242619514465,
+      "pixels": 520
+    },
+    {
+      "frame": 173,
+      "seconds": 7.208333333333333,
+      "bbox_center": [
+        384.5,
+        567.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9690328240394592,
+      "pixels": 520
+    },
+    {
+      "frame": 174,
+      "seconds": 7.25,
+      "bbox_center": [
+        386.0,
+        567.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9685921669006348,
+      "pixels": 475
+    },
+    {
+      "frame": 175,
+      "seconds": 7.291666666666667,
+      "bbox_center": [
+        387.0,
+        567.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9746102094650269,
+      "pixels": 475
+    },
+    {
+      "frame": 176,
+      "seconds": 7.333333333333333,
+      "bbox_center": [
+        388.0,
+        567.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.972324013710022,
+      "pixels": 475
+    },
+    {
+      "frame": 177,
+      "seconds": 7.375,
+      "bbox_center": [
+        389.0,
+        567.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9668334126472473,
+      "pixels": 475
+    },
+    {
+      "frame": 178,
+      "seconds": 7.416666666666667,
+      "bbox_center": [
+        390.5,
+        567.5
+      ],
+      "width": 15,
+      "height": 11,
+      "confidence": 0.9560171961784363,
+      "pixels": 456
+    },
+    {
+      "frame": 179,
+      "seconds": 7.458333333333333,
+      "bbox_center": [
+        392.0,
+        567.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9646984934806824,
+      "pixels": 475
+    },
+    {
+      "frame": 180,
+      "seconds": 7.5,
+      "bbox_center": [
+        393.0,
+        567.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9563429355621338,
+      "pixels": 475
+    },
+    {
+      "frame": 181,
+      "seconds": 7.541666666666667,
+      "bbox_center": [
+        394.5,
+        567.5
+      ],
+      "width": 15,
+      "height": 11,
+      "confidence": 0.9433714747428894,
+      "pixels": 456
+    },
+    {
+      "frame": 182,
+      "seconds": 7.583333333333333,
+      "bbox_center": [
+        395.5,
+        567.5
+      ],
+      "width": 15,
+      "height": 11,
+      "confidence": 0.9385054707527161,
+      "pixels": 456
+    },
+    {
+      "frame": 183,
+      "seconds": 7.625,
+      "bbox_center": [
+        397.5,
+        568.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9497528672218323,
+      "pixels": 520
+    },
+    {
+      "frame": 184,
+      "seconds": 7.666666666666667,
+      "bbox_center": [
+        398.5,
+        568.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.959745466709137,
+      "pixels": 520
+    },
+    {
+      "frame": 185,
+      "seconds": 7.708333333333333,
+      "bbox_center": [
+        399.5,
+        568.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9640783667564392,
+      "pixels": 520
+    },
+    {
+      "frame": 186,
+      "seconds": 7.75,
+      "bbox_center": [
+        401.5,
+        568.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9637452363967896,
+      "pixels": 520
+    },
+    {
+      "frame": 187,
+      "seconds": 7.791666666666667,
+      "bbox_center": [
+        402.5,
+        568.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9778995513916016,
+      "pixels": 520
+    },
+    {
+      "frame": 188,
+      "seconds": 7.833333333333333,
+      "bbox_center": [
+        403.5,
+        568.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.978604793548584,
+      "pixels": 520
+    },
+    {
+      "frame": 189,
+      "seconds": 7.875,
+      "bbox_center": [
+        404.5,
+        568.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9700216054916382,
+      "pixels": 520
+    },
+    {
+      "frame": 190,
+      "seconds": 7.916666666666667,
+      "bbox_center": [
+        406.5,
+        568.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9592752456665039,
+      "pixels": 520
+    },
+    {
+      "frame": 191,
+      "seconds": 7.958333333333333,
+      "bbox_center": [
+        408.0,
+        568.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9552147388458252,
+      "pixels": 475
+    },
+    {
+      "frame": 192,
+      "seconds": 8.0,
+      "bbox_center": [
+        411.0,
+        568.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.963067352771759,
+      "pixels": 475
+    },
+    {
+      "frame": 193,
+      "seconds": 8.041666666666666,
+      "bbox_center": [
+        412.0,
+        568.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9727679491043091,
+      "pixels": 475
+    },
+    {
+      "frame": 194,
+      "seconds": 8.083333333333334,
+      "bbox_center": [
+        413.0,
+        568.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9664748311042786,
+      "pixels": 475
+    },
+    {
+      "frame": 195,
+      "seconds": 8.125,
+      "bbox_center": [
+        414.0,
+        568.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9599283337593079,
+      "pixels": 475
+    },
+    {
+      "frame": 196,
+      "seconds": 8.166666666666666,
+      "bbox_center": [
+        415.5,
+        568.5
+      ],
+      "width": 15,
+      "height": 11,
+      "confidence": 0.9533601999282837,
+      "pixels": 456
+    },
+    {
+      "frame": 197,
+      "seconds": 8.208333333333334,
+      "bbox_center": [
+        416.5,
+        568.5
+      ],
+      "width": 15,
+      "height": 11,
+      "confidence": 0.9526249170303345,
+      "pixels": 456
+    },
+    {
+      "frame": 198,
+      "seconds": 8.25,
+      "bbox_center": [
+        418.0,
+        568.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9524710178375244,
+      "pixels": 475
+    },
+    {
+      "frame": 199,
+      "seconds": 8.291666666666666,
+      "bbox_center": [
+        419.0,
+        568.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9550732374191284,
+      "pixels": 475
+    },
+    {
+      "frame": 200,
+      "seconds": 8.333333333333334,
+      "bbox_center": [
+        420.0,
+        568.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9535269141197205,
+      "pixels": 475
+    },
+    {
+      "frame": 201,
+      "seconds": 8.375,
+      "bbox_center": [
+        421.0,
+        568.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9550490975379944,
+      "pixels": 475
+    },
+    {
+      "frame": 202,
+      "seconds": 8.416666666666666,
+      "bbox_center": [
+        422.0,
+        568.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9525790214538574,
+      "pixels": 475
+    },
+    {
+      "frame": 203,
+      "seconds": 8.458333333333334,
+      "bbox_center": [
+        423.5,
+        568.5
+      ],
+      "width": 15,
+      "height": 11,
+      "confidence": 0.9499750733375549,
+      "pixels": 456
+    },
+    {
+      "frame": 204,
+      "seconds": 8.5,
+      "bbox_center": [
+        424.5,
+        568.5
+      ],
+      "width": 15,
+      "height": 11,
+      "confidence": 0.9502904415130615,
+      "pixels": 456
+    },
+    {
+      "frame": 205,
+      "seconds": 8.541666666666666,
+      "bbox_center": [
+        425.5,
+        568.5
+      ],
+      "width": 15,
+      "height": 11,
+      "confidence": 0.9498087167739868,
+      "pixels": 456
+    },
+    {
+      "frame": 206,
+      "seconds": 8.583333333333334,
+      "bbox_center": [
+        426.5,
+        568.5
+      ],
+      "width": 15,
+      "height": 11,
+      "confidence": 0.9424955248832703,
+      "pixels": 456
+    },
+    {
+      "frame": 207,
+      "seconds": 8.625,
+      "bbox_center": [
+        427.5,
+        568.5
+      ],
+      "width": 15,
+      "height": 11,
+      "confidence": 0.9422175288200378,
+      "pixels": 456
+    },
+    {
+      "frame": 208,
+      "seconds": 8.666666666666666,
+      "bbox_center": [
+        428.5,
+        568.5
+      ],
+      "width": 15,
+      "height": 11,
+      "confidence": 0.9418938755989075,
+      "pixels": 456
+    },
+    {
+      "frame": 209,
+      "seconds": 8.708333333333334,
+      "bbox_center": [
+        429.5,
+        568.5
+      ],
+      "width": 15,
+      "height": 11,
+      "confidence": 0.9403839707374573,
+      "pixels": 456
+    },
+    {
+      "frame": 210,
+      "seconds": 8.75,
+      "bbox_center": [
+        431.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9518160820007324,
+      "pixels": 520
+    },
+    {
+      "frame": 211,
+      "seconds": 8.791666666666666,
+      "bbox_center": [
+        432.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9523922204971313,
+      "pixels": 520
+    },
+    {
+      "frame": 212,
+      "seconds": 8.833333333333334,
+      "bbox_center": [
+        433.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9622151255607605,
+      "pixels": 520
+    },
+    {
+      "frame": 213,
+      "seconds": 8.875,
+      "bbox_center": [
+        434.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9639564156532288,
+      "pixels": 520
+    },
+    {
+      "frame": 214,
+      "seconds": 8.916666666666666,
+      "bbox_center": [
+        435.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9682637453079224,
+      "pixels": 520
+    },
+    {
+      "frame": 215,
+      "seconds": 8.958333333333334,
+      "bbox_center": [
+        436.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9735989570617676,
+      "pixels": 520
+    },
+    {
+      "frame": 216,
+      "seconds": 9.0,
+      "bbox_center": [
+        437.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9767042994499207,
+      "pixels": 520
+    },
+    {
+      "frame": 217,
+      "seconds": 9.041666666666666,
+      "bbox_center": [
+        438.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9753819704055786,
+      "pixels": 520
+    },
+    {
+      "frame": 218,
+      "seconds": 9.083333333333334,
+      "bbox_center": [
+        439.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9755765795707703,
+      "pixels": 520
+    },
+    {
+      "frame": 219,
+      "seconds": 9.125,
+      "bbox_center": [
+        440.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9732723832130432,
+      "pixels": 520
+    },
+    {
+      "frame": 220,
+      "seconds": 9.166666666666666,
+      "bbox_center": [
+        441.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9667715430259705,
+      "pixels": 520
+    },
+    {
+      "frame": 221,
+      "seconds": 9.208333333333334,
+      "bbox_center": [
+        442.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9702901244163513,
+      "pixels": 520
+    },
+    {
+      "frame": 222,
+      "seconds": 9.25,
+      "bbox_center": [
+        442.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9636873006820679,
+      "pixels": 520
+    },
+    {
+      "frame": 223,
+      "seconds": 9.291666666666666,
+      "bbox_center": [
+        443.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9716514945030212,
+      "pixels": 520
+    },
+    {
+      "frame": 224,
+      "seconds": 9.333333333333334,
+      "bbox_center": [
+        444.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9745938777923584,
+      "pixels": 520
+    },
+    {
+      "frame": 225,
+      "seconds": 9.375,
+      "bbox_center": [
+        445.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9758172035217285,
+      "pixels": 520
+    },
+    {
+      "frame": 226,
+      "seconds": 9.416666666666666,
+      "bbox_center": [
+        446.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9700962901115417,
+      "pixels": 520
+    },
+    {
+      "frame": 227,
+      "seconds": 9.458333333333334,
+      "bbox_center": [
+        447.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9674200415611267,
+      "pixels": 520
+    },
+    {
+      "frame": 228,
+      "seconds": 9.5,
+      "bbox_center": [
+        448.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9613544344902039,
+      "pixels": 520
+    },
+    {
+      "frame": 229,
+      "seconds": 9.541666666666666,
+      "bbox_center": [
+        449.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9513657093048096,
+      "pixels": 520
+    },
+    {
+      "frame": 230,
+      "seconds": 9.583333333333334,
+      "bbox_center": [
+        450.0,
+        569.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.94736647605896,
+      "pixels": 475
+    },
+    {
+      "frame": 231,
+      "seconds": 9.625,
+      "bbox_center": [
+        451.0,
+        569.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9547694325447083,
+      "pixels": 475
+    },
+    {
+      "frame": 232,
+      "seconds": 9.666666666666666,
+      "bbox_center": [
+        452.0,
+        569.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9464789032936096,
+      "pixels": 475
+    },
+    {
+      "frame": 233,
+      "seconds": 9.708333333333334,
+      "bbox_center": [
+        452.5,
+        569.5
+      ],
+      "width": 15,
+      "height": 11,
+      "confidence": 0.9463040828704834,
+      "pixels": 456
+    },
+    {
+      "frame": 234,
+      "seconds": 9.75,
+      "bbox_center": [
+        453.0,
+        569.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9414845108985901,
+      "pixels": 475
+    },
+    {
+      "frame": 235,
+      "seconds": 9.791666666666666,
+      "bbox_center": [
+        454.0,
+        569.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9533446431159973,
+      "pixels": 475
+    },
+    {
+      "frame": 236,
+      "seconds": 9.833333333333334,
+      "bbox_center": [
+        455.0,
+        569.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9545031189918518,
+      "pixels": 475
+    },
+    {
+      "frame": 237,
+      "seconds": 9.875,
+      "bbox_center": [
+        456.0,
+        569.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9480751156806946,
+      "pixels": 475
+    },
+    {
+      "frame": 238,
+      "seconds": 9.916666666666666,
+      "bbox_center": [
+        456.5,
+        569.5
+      ],
+      "width": 15,
+      "height": 11,
+      "confidence": 0.9332767128944397,
+      "pixels": 456
+    },
+    {
+      "frame": 239,
+      "seconds": 9.958333333333334,
+      "bbox_center": [
+        458.0,
+        569.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.9308934807777405,
+      "pixels": 475
+    },
+    {
+      "frame": 240,
+      "seconds": 10.0,
+      "bbox_center": [
+        459.0,
+        569.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.8898879885673523,
+      "pixels": 475
+    },
+    {
+      "frame": 241,
+      "seconds": 10.041666666666666,
+      "bbox_center": [
+        460.0,
+        569.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.8865593075752258,
+      "pixels": 475
+    },
+    {
+      "frame": 242,
+      "seconds": 10.083333333333334,
+      "bbox_center": [
+        459.0,
+        568.5
+      ],
+      "width": 10,
+      "height": 7,
+      "confidence": 0.8828782439231873,
+      "pixels": 285
+    },
+    {
+      "frame": 243,
+      "seconds": 10.125,
+      "bbox_center": [
+        460.0,
+        568.5
+      ],
+      "width": 10,
+      "height": 7,
+      "confidence": 0.8839396834373474,
+      "pixels": 285
+    },
+    {
+      "frame": 244,
+      "seconds": 10.166666666666666,
+      "bbox_center": [
+        460.0,
+        568.5
+      ],
+      "width": 10,
+      "height": 7,
+      "confidence": 0.8650488257408142,
+      "pixels": 285
+    },
+    {
+      "frame": 245,
+      "seconds": 10.208333333333334,
+      "bbox_center": [
+        461.0,
+        568.5
+      ],
+      "width": 10,
+      "height": 7,
+      "confidence": 0.8856911063194275,
+      "pixels": 285
+    },
+    {
+      "frame": 246,
+      "seconds": 10.25,
+      "bbox_center": [
+        462.0,
+        568.5
+      ],
+      "width": 10,
+      "height": 7,
+      "confidence": 0.8594970107078552,
+      "pixels": 285
+    },
+    {
+      "frame": 247,
+      "seconds": 10.291666666666666,
+      "bbox_center": [
+        462.0,
+        568.5
+      ],
+      "width": 10,
+      "height": 7,
+      "confidence": 0.8739368319511414,
+      "pixels": 285
+    },
+    {
+      "frame": 248,
+      "seconds": 10.333333333333334,
+      "bbox_center": [
+        462.0,
+        568.5
+      ],
+      "width": 10,
+      "height": 7,
+      "confidence": 0.8545344471931458,
+      "pixels": 285
+    },
+    {
+      "frame": 249,
+      "seconds": 10.375,
+      "bbox_center": [
+        463.0,
+        568.5
+      ],
+      "width": 10,
+      "height": 7,
+      "confidence": 0.8683508038520813,
+      "pixels": 285
+    },
+    {
+      "frame": 250,
+      "seconds": 10.416666666666666,
+      "bbox_center": [
+        464.0,
+        569.0
+      ],
+      "width": 12,
+      "height": 8,
+      "confidence": 0.8465961217880249,
+      "pixels": 336
+    },
+    {
+      "frame": 251,
+      "seconds": 10.458333333333334,
+      "bbox_center": [
+        464.0,
+        568.5
+      ],
+      "width": 10,
+      "height": 7,
+      "confidence": 0.8464335203170776,
+      "pixels": 285
+    },
+    {
+      "frame": 252,
+      "seconds": 10.5,
+      "bbox_center": [
+        465.0,
+        569.0
+      ],
+      "width": 12,
+      "height": 8,
+      "confidence": 0.8422484397888184,
+      "pixels": 336
+    },
+    {
+      "frame": 253,
+      "seconds": 10.541666666666666,
+      "bbox_center": [
+        465.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8389058113098145,
+      "pixels": 221
+    },
+    {
+      "frame": 254,
+      "seconds": 10.583333333333334,
+      "bbox_center": [
+        465.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8281533718109131,
+      "pixels": 221
+    },
+    {
+      "frame": 255,
+      "seconds": 10.625,
+      "bbox_center": [
+        466.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8397057056427002,
+      "pixels": 221
+    },
+    {
+      "frame": 256,
+      "seconds": 10.666666666666666,
+      "bbox_center": [
+        466.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8470139503479004,
+      "pixels": 221
+    },
+    {
+      "frame": 257,
+      "seconds": 10.708333333333334,
+      "bbox_center": [
+        466.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8289495706558228,
+      "pixels": 221
+    },
+    {
+      "frame": 258,
+      "seconds": 10.75,
+      "bbox_center": [
+        467.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8370280861854553,
+      "pixels": 221
+    },
+    {
+      "frame": 259,
+      "seconds": 10.791666666666666,
+      "bbox_center": [
+        467.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8297998905181885,
+      "pixels": 221
+    },
+    {
+      "frame": 260,
+      "seconds": 10.833333333333334,
+      "bbox_center": [
+        469.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8520216345787048,
+      "pixels": 208
+    },
+    {
+      "frame": 261,
+      "seconds": 10.875,
+      "bbox_center": [
+        469.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8390142917633057,
+      "pixels": 208
+    },
+    {
+      "frame": 262,
+      "seconds": 10.916666666666666,
+      "bbox_center": [
+        470.0,
+        569.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8479508757591248,
+      "pixels": 221
+    },
+    {
+      "frame": 263,
+      "seconds": 10.958333333333334,
+      "bbox_center": [
+        470.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8443692922592163,
+      "pixels": 208
+    },
+    {
+      "frame": 264,
+      "seconds": 11.0,
+      "bbox_center": [
+        470.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8450279235839844,
+      "pixels": 208
+    },
+    {
+      "frame": 265,
+      "seconds": 11.041666666666666,
+      "bbox_center": [
+        471.0,
+        569.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8385608196258545,
+      "pixels": 221
+    },
+    {
+      "frame": 266,
+      "seconds": 11.083333333333334,
+      "bbox_center": [
+        471.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8482242226600647,
+      "pixels": 208
+    },
+    {
+      "frame": 267,
+      "seconds": 11.125,
+      "bbox_center": [
+        471.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8401677012443542,
+      "pixels": 208
+    },
+    {
+      "frame": 268,
+      "seconds": 11.166666666666666,
+      "bbox_center": [
+        472.0,
+        569.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8383111953735352,
+      "pixels": 221
+    },
+    {
+      "frame": 269,
+      "seconds": 11.208333333333334,
+      "bbox_center": [
+        472.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8338162302970886,
+      "pixels": 208
+    },
+    {
+      "frame": 270,
+      "seconds": 11.25,
+      "bbox_center": [
+        472.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8357136845588684,
+      "pixels": 208
+    },
+    {
+      "frame": 271,
+      "seconds": 11.291666666666666,
+      "bbox_center": [
+        472.0,
+        569.0
+      ],
+      "width": 6,
+      "height": 4,
+      "confidence": 0.827650785446167,
+      "pixels": 180
+    },
+    {
+      "frame": 272,
+      "seconds": 11.333333333333334,
+      "bbox_center": [
+        473.0,
+        569.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.828822910785675,
+      "pixels": 221
+    },
+    {
+      "frame": 273,
+      "seconds": 11.375,
+      "bbox_center": [
+        473.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8264306783676147,
+      "pixels": 208
+    },
+    {
+      "frame": 274,
+      "seconds": 11.416666666666666,
+      "bbox_center": [
+        473.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8321774005889893,
+      "pixels": 208
+    },
+    {
+      "frame": 275,
+      "seconds": 11.458333333333334,
+      "bbox_center": [
+        473.0,
+        569.0
+      ],
+      "width": 6,
+      "height": 4,
+      "confidence": 0.8241686820983887,
+      "pixels": 180
+    },
+    {
+      "frame": 276,
+      "seconds": 11.5,
+      "bbox_center": [
+        473.0,
+        569.0
+      ],
+      "width": 6,
+      "height": 4,
+      "confidence": 0.8117250800132751,
+      "pixels": 180
+    },
+    {
+      "frame": 277,
+      "seconds": 11.541666666666666,
+      "bbox_center": [
+        474.0,
+        569.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.813842236995697,
+      "pixels": 221
+    },
+    {
+      "frame": 278,
+      "seconds": 11.583333333333334,
+      "bbox_center": [
+        474.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.818651020526886,
+      "pixels": 208
+    },
+    {
+      "frame": 279,
+      "seconds": 11.625,
+      "bbox_center": [
+        474.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8197237253189087,
+      "pixels": 208
+    },
+    {
+      "frame": 280,
+      "seconds": 11.666666666666666,
+      "bbox_center": [
+        474.0,
+        569.0
+      ],
+      "width": 6,
+      "height": 4,
+      "confidence": 0.8244974613189697,
+      "pixels": 180
+    },
+    {
+      "frame": 281,
+      "seconds": 11.708333333333334,
+      "bbox_center": [
+        474.0,
+        569.0
+      ],
+      "width": 6,
+      "height": 4,
+      "confidence": 0.8137016892433167,
+      "pixels": 180
+    },
+    {
+      "frame": 282,
+      "seconds": 11.75,
+      "bbox_center": [
+        475.0,
+        569.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8164870142936707,
+      "pixels": 221
+    },
+    {
+      "frame": 283,
+      "seconds": 11.791666666666666,
+      "bbox_center": [
+        475.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8214026093482971,
+      "pixels": 208
+    },
+    {
+      "frame": 284,
+      "seconds": 11.833333333333334,
+      "bbox_center": [
+        475.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8221144080162048,
+      "pixels": 208
+    },
+    {
+      "frame": 285,
+      "seconds": 11.875,
+      "bbox_center": [
+        475.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8161039352416992,
+      "pixels": 208
+    },
+    {
+      "frame": 286,
+      "seconds": 11.916666666666666,
+      "bbox_center": [
+        475.0,
+        569.0
+      ],
+      "width": 6,
+      "height": 4,
+      "confidence": 0.8200159668922424,
+      "pixels": 180
+    },
+    {
+      "frame": 287,
+      "seconds": 11.958333333333334,
+      "bbox_center": [
+        475.0,
+        569.0
+      ],
+      "width": 6,
+      "height": 4,
+      "confidence": 0.8089330792427063,
+      "pixels": 180
+    },
+    {
+      "frame": 288,
+      "seconds": 12.0,
+      "bbox_center": [
+        476.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8169112205505371,
+      "pixels": 208
+    },
+    {
+      "frame": 289,
+      "seconds": 12.041666666666666,
+      "bbox_center": [
+        476.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8155344128608704,
+      "pixels": 208
+    },
+    {
+      "frame": 290,
+      "seconds": 12.083333333333334,
+      "bbox_center": [
+        476.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8106155395507812,
+      "pixels": 208
+    },
+    {
+      "frame": 291,
+      "seconds": 12.125,
+      "bbox_center": [
+        476.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8068378567695618,
+      "pixels": 208
+    },
+    {
+      "frame": 292,
+      "seconds": 12.166666666666666,
+      "bbox_center": [
+        476.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8038597106933594,
+      "pixels": 208
+    },
+    {
+      "frame": 293,
+      "seconds": 12.208333333333334,
+      "bbox_center": [
+        476.0,
+        569.0
+      ],
+      "width": 6,
+      "height": 4,
+      "confidence": 0.8095414042472839,
+      "pixels": 180
+    },
+    {
+      "frame": 294,
+      "seconds": 12.25,
+      "bbox_center": [
+        476.0,
+        569.0
+      ],
+      "width": 6,
+      "height": 4,
+      "confidence": 0.8066135048866272,
+      "pixels": 180
+    },
+    {
+      "frame": 295,
+      "seconds": 12.291666666666666,
+      "bbox_center": [
+        476.0,
+        569.0
+      ],
+      "width": 6,
+      "height": 4,
+      "confidence": 0.8062240481376648,
+      "pixels": 180
+    },
+    {
+      "frame": 296,
+      "seconds": 12.333333333333334,
+      "bbox_center": [
+        476.0,
+        569.0
+      ],
+      "width": 6,
+      "height": 4,
+      "confidence": 0.8056731820106506,
+      "pixels": 180
+    },
+    {
+      "frame": 297,
+      "seconds": 12.375,
+      "bbox_center": [
+        476.0,
+        569.0
+      ],
+      "width": 6,
+      "height": 4,
+      "confidence": 0.801655113697052,
+      "pixels": 180
+    },
+    {
+      "frame": 298,
+      "seconds": 12.416666666666666,
+      "bbox_center": [
+        476.0,
+        569.0
+      ],
+      "width": 6,
+      "height": 4,
+      "confidence": 0.798621654510498,
+      "pixels": 180
+    },
+    {
+      "frame": 299,
+      "seconds": 12.458333333333334,
+      "bbox_center": [
+        476.0,
+        569.0
+      ],
+      "width": 6,
+      "height": 4,
+      "confidence": 0.7969209551811218,
+      "pixels": 180
+    },
+    {
+      "frame": 300,
+      "seconds": 12.5,
+      "bbox_center": [
+        477.0,
+        569.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.797134280204773,
+      "pixels": 221
+    },
+    {
+      "frame": 301,
+      "seconds": 12.541666666666666,
+      "bbox_center": [
+        477.0,
+        569.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.7948460578918457,
+      "pixels": 221
+    },
+    {
+      "frame": 302,
+      "seconds": 12.583333333333334,
+      "bbox_center": [
+        477.0,
+        569.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.7915778756141663,
+      "pixels": 221
+    },
+    {
+      "frame": 303,
+      "seconds": 12.625,
+      "bbox_center": [
+        477.0,
+        569.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.791617751121521,
+      "pixels": 221
+    },
+    {
+      "frame": 304,
+      "seconds": 12.666666666666666,
+      "bbox_center": [
+        477.0,
+        569.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.7914932370185852,
+      "pixels": 221
+    },
+    {
+      "frame": 305,
+      "seconds": 12.708333333333334,
+      "bbox_center": [
+        477.0,
+        569.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.7915059328079224,
+      "pixels": 221
+    },
+    {
+      "frame": 306,
+      "seconds": 12.75,
+      "bbox_center": [
+        477.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.794502854347229,
+      "pixels": 208
+    },
+    {
+      "frame": 307,
+      "seconds": 12.791666666666666,
+      "bbox_center": [
+        477.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.7955650091171265,
+      "pixels": 208
+    },
+    {
+      "frame": 308,
+      "seconds": 12.833333333333334,
+      "bbox_center": [
+        477.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.7955758571624756,
+      "pixels": 208
+    },
+    {
+      "frame": 309,
+      "seconds": 12.875,
+      "bbox_center": [
+        477.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.7958251237869263,
+      "pixels": 208
+    },
+    {
+      "frame": 310,
+      "seconds": 12.916666666666666,
+      "bbox_center": [
+        477.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.7987940311431885,
+      "pixels": 208
+    },
+    {
+      "frame": 311,
+      "seconds": 12.958333333333334,
+      "bbox_center": [
+        477.5,
+        569.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.798568606376648,
+      "pixels": 208
+    },
+    {
+      "frame": 312,
+      "seconds": 13.0,
+      "bbox_center": [
+        476.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8100394010543823,
+      "pixels": 221
+    },
+    {
+      "frame": 313,
+      "seconds": 13.041666666666666,
+      "bbox_center": [
+        476.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.814258337020874,
+      "pixels": 221
+    },
+    {
+      "frame": 314,
+      "seconds": 13.083333333333334,
+      "bbox_center": [
+        476.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8182740211486816,
+      "pixels": 221
+    },
+    {
+      "frame": 315,
+      "seconds": 13.125,
+      "bbox_center": [
+        476.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8210643529891968,
+      "pixels": 221
+    },
+    {
+      "frame": 316,
+      "seconds": 13.166666666666666,
+      "bbox_center": [
+        476.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8244538307189941,
+      "pixels": 221
+    },
+    {
+      "frame": 317,
+      "seconds": 13.208333333333334,
+      "bbox_center": [
+        476.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8271632194519043,
+      "pixels": 221
+    },
+    {
+      "frame": 318,
+      "seconds": 13.25,
+      "bbox_center": [
+        476.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8296734094619751,
+      "pixels": 221
+    },
+    {
+      "frame": 319,
+      "seconds": 13.291666666666666,
+      "bbox_center": [
+        476.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8304397463798523,
+      "pixels": 221
+    },
+    {
+      "frame": 320,
+      "seconds": 13.333333333333334,
+      "bbox_center": [
+        476.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8310829997062683,
+      "pixels": 221
+    },
+    {
+      "frame": 321,
+      "seconds": 13.375,
+      "bbox_center": [
+        476.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8317684531211853,
+      "pixels": 221
+    },
+    {
+      "frame": 322,
+      "seconds": 13.416666666666666,
+      "bbox_center": [
+        476.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8328338861465454,
+      "pixels": 221
+    },
+    {
+      "frame": 323,
+      "seconds": 13.458333333333334,
+      "bbox_center": [
+        476.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8327001929283142,
+      "pixels": 221
+    },
+    {
+      "frame": 324,
+      "seconds": 13.5,
+      "bbox_center": [
+        476.0,
+        568.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8339560627937317,
+      "pixels": 221
+    },
+    {
+      "frame": 325,
+      "seconds": 13.541666666666666,
+      "bbox_center": [
+        477.5,
+        569.5
+      ],
+      "width": 15,
+      "height": 11,
+      "confidence": 0.8528661131858826,
+      "pixels": 456
+    },
+    {
+      "frame": 326,
+      "seconds": 13.583333333333334,
+      "bbox_center": [
+        478.0,
+        569.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.8591201305389404,
+      "pixels": 475
+    },
+    {
+      "frame": 327,
+      "seconds": 13.625,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.8733150362968445,
+      "pixels": 520
+    },
+    {
+      "frame": 328,
+      "seconds": 13.666666666666666,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.8852003812789917,
+      "pixels": 520
+    },
+    {
+      "frame": 329,
+      "seconds": 13.708333333333334,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.8938946723937988,
+      "pixels": 520
+    },
+    {
+      "frame": 330,
+      "seconds": 13.75,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9011635780334473,
+      "pixels": 520
+    },
+    {
+      "frame": 331,
+      "seconds": 13.791666666666666,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9098666906356812,
+      "pixels": 520
+    },
+    {
+      "frame": 332,
+      "seconds": 13.833333333333334,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9193239212036133,
+      "pixels": 520
+    },
+    {
+      "frame": 333,
+      "seconds": 13.875,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9256283640861511,
+      "pixels": 520
+    },
+    {
+      "frame": 334,
+      "seconds": 13.916666666666666,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9330428242683411,
+      "pixels": 520
+    },
+    {
+      "frame": 335,
+      "seconds": 13.958333333333334,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.93973308801651,
+      "pixels": 520
+    },
+    {
+      "frame": 336,
+      "seconds": 14.0,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9449014067649841,
+      "pixels": 520
+    },
+    {
+      "frame": 337,
+      "seconds": 14.041666666666666,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9472029805183411,
+      "pixels": 520
+    },
+    {
+      "frame": 338,
+      "seconds": 14.083333333333334,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9495048522949219,
+      "pixels": 520
+    },
+    {
+      "frame": 339,
+      "seconds": 14.125,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.951219379901886,
+      "pixels": 520
+    },
+    {
+      "frame": 340,
+      "seconds": 14.166666666666666,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9519755840301514,
+      "pixels": 520
+    },
+    {
+      "frame": 341,
+      "seconds": 14.208333333333334,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9536635875701904,
+      "pixels": 520
+    },
+    {
+      "frame": 342,
+      "seconds": 14.25,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9543374180793762,
+      "pixels": 520
+    },
+    {
+      "frame": 343,
+      "seconds": 14.291666666666666,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9551683068275452,
+      "pixels": 520
+    },
+    {
+      "frame": 344,
+      "seconds": 14.333333333333334,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.956375002861023,
+      "pixels": 520
+    },
+    {
+      "frame": 345,
+      "seconds": 14.375,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9568297863006592,
+      "pixels": 520
+    },
+    {
+      "frame": 346,
+      "seconds": 14.416666666666666,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9569051265716553,
+      "pixels": 520
+    },
+    {
+      "frame": 347,
+      "seconds": 14.458333333333334,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9571558833122253,
+      "pixels": 520
+    },
+    {
+      "frame": 348,
+      "seconds": 14.5,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9570967555046082,
+      "pixels": 520
+    },
+    {
+      "frame": 349,
+      "seconds": 14.541666666666666,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9572601914405823,
+      "pixels": 520
+    },
+    {
+      "frame": 350,
+      "seconds": 14.583333333333334,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9608237147331238,
+      "pixels": 638
+    },
+    {
+      "frame": 351,
+      "seconds": 14.625,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9612658023834229,
+      "pixels": 638
+    },
+    {
+      "frame": 352,
+      "seconds": 14.666666666666666,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9619051218032837,
+      "pixels": 638
+    },
+    {
+      "frame": 353,
+      "seconds": 14.708333333333334,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9621971845626831,
+      "pixels": 638
+    },
+    {
+      "frame": 354,
+      "seconds": 14.75,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9628927111625671,
+      "pixels": 638
+    },
+    {
+      "frame": 355,
+      "seconds": 14.791666666666666,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9628936052322388,
+      "pixels": 638
+    },
+    {
+      "frame": 356,
+      "seconds": 14.833333333333334,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9628351330757141,
+      "pixels": 638
+    },
+    {
+      "frame": 357,
+      "seconds": 14.875,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9628245234489441,
+      "pixels": 638
+    },
+    {
+      "frame": 358,
+      "seconds": 14.916666666666666,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9632096290588379,
+      "pixels": 638
+    },
+    {
+      "frame": 359,
+      "seconds": 14.958333333333334,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9630270004272461,
+      "pixels": 638
+    },
+    {
+      "frame": 360,
+      "seconds": 15.0,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9629797339439392,
+      "pixels": 638
+    },
+    {
+      "frame": 361,
+      "seconds": 15.041666666666666,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9630159735679626,
+      "pixels": 638
+    },
+    {
+      "frame": 362,
+      "seconds": 15.083333333333334,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.962705135345459,
+      "pixels": 638
+    },
+    {
+      "frame": 363,
+      "seconds": 15.125,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9624817967414856,
+      "pixels": 638
+    },
+    {
+      "frame": 364,
+      "seconds": 15.166666666666666,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9621663093566895,
+      "pixels": 638
+    },
+    {
+      "frame": 365,
+      "seconds": 15.208333333333334,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9617896676063538,
+      "pixels": 638
+    },
+    {
+      "frame": 366,
+      "seconds": 15.25,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9613527655601501,
+      "pixels": 638
+    },
+    {
+      "frame": 367,
+      "seconds": 15.291666666666666,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9617455005645752,
+      "pixels": 638
+    },
+    {
+      "frame": 368,
+      "seconds": 15.333333333333334,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9619462490081787,
+      "pixels": 638
+    },
+    {
+      "frame": 369,
+      "seconds": 15.375,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9622092247009277,
+      "pixels": 638
+    },
+    {
+      "frame": 370,
+      "seconds": 15.416666666666666,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9619859457015991,
+      "pixels": 638
+    },
+    {
+      "frame": 371,
+      "seconds": 15.458333333333334,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9618346691131592,
+      "pixels": 638
+    },
+    {
+      "frame": 372,
+      "seconds": 15.5,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9610968232154846,
+      "pixels": 638
+    },
+    {
+      "frame": 373,
+      "seconds": 15.541666666666666,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.96039217710495,
+      "pixels": 638
+    },
+    {
+      "frame": 374,
+      "seconds": 15.583333333333334,
+      "bbox_center": [
+        478.0,
+        569.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9588372111320496,
+      "pixels": 638
+    },
+    {
+      "frame": 375,
+      "seconds": 15.625,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9603807330131531,
+      "pixels": 520
+    },
+    {
+      "frame": 376,
+      "seconds": 15.666666666666666,
+      "bbox_center": [
+        477.5,
+        569.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9593937993049622,
+      "pixels": 520
+    },
+    {
+      "frame": 377,
+      "seconds": 15.708333333333334,
+      "bbox_center": [
+        477.5,
+        568.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9649637341499329,
+      "pixels": 588
+    },
+    {
+      "frame": 378,
+      "seconds": 15.75,
+      "bbox_center": [
+        477.5,
+        568.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9675605893135071,
+      "pixels": 588
+    },
+    {
+      "frame": 379,
+      "seconds": 15.791666666666666,
+      "bbox_center": [
+        477.5,
+        568.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9705170392990112,
+      "pixels": 588
+    },
+    {
+      "frame": 380,
+      "seconds": 15.833333333333334,
+      "bbox_center": [
+        477.5,
+        568.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9716580510139465,
+      "pixels": 588
+    },
+    {
+      "frame": 381,
+      "seconds": 15.875,
+      "bbox_center": [
+        477.5,
+        568.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9714483022689819,
+      "pixels": 588
+    },
+    {
+      "frame": 382,
+      "seconds": 15.916666666666666,
+      "bbox_center": [
+        477.5,
+        568.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9693757891654968,
+      "pixels": 588
+    },
+    {
+      "frame": 383,
+      "seconds": 15.958333333333334,
+      "bbox_center": [
+        477.5,
+        568.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9584900736808777,
+      "pixels": 588
+    },
+    {
+      "frame": 384,
+      "seconds": 16.0,
+      "bbox_center": [
+        477.0,
+        567.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9637172818183899,
+      "pixels": 567
+    },
+    {
+      "frame": 385,
+      "seconds": 16.041666666666668,
+      "bbox_center": [
+        477.0,
+        567.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9787122011184692,
+      "pixels": 567
+    },
+    {
+      "frame": 386,
+      "seconds": 16.083333333333332,
+      "bbox_center": [
+        477.0,
+        567.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.978661835193634,
+      "pixels": 567
+    },
+    {
+      "frame": 387,
+      "seconds": 16.125,
+      "bbox_center": [
+        477.0,
+        567.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9682832360267639,
+      "pixels": 567
+    },
+    {
+      "frame": 388,
+      "seconds": 16.166666666666668,
+      "bbox_center": [
+        477.0,
+        567.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9678683280944824,
+      "pixels": 638
+    },
+    {
+      "frame": 389,
+      "seconds": 16.208333333333332,
+      "bbox_center": [
+        476.0,
+        566.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9727285504341125,
+      "pixels": 567
+    },
+    {
+      "frame": 390,
+      "seconds": 16.25,
+      "bbox_center": [
+        476.0,
+        566.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9820230007171631,
+      "pixels": 567
+    },
+    {
+      "frame": 391,
+      "seconds": 16.291666666666668,
+      "bbox_center": [
+        476.0,
+        566.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9734663367271423,
+      "pixels": 567
+    },
+    {
+      "frame": 392,
+      "seconds": 16.333333333333332,
+      "bbox_center": [
+        476.0,
+        566.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9673325419425964,
+      "pixels": 638
+    },
+    {
+      "frame": 393,
+      "seconds": 16.375,
+      "bbox_center": [
+        475.0,
+        565.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9756841063499451,
+      "pixels": 567
+    },
+    {
+      "frame": 394,
+      "seconds": 16.416666666666668,
+      "bbox_center": [
+        474.5,
+        565.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9738451242446899,
+      "pixels": 588
+    },
+    {
+      "frame": 395,
+      "seconds": 16.458333333333332,
+      "bbox_center": [
+        474.0,
+        565.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9687589406967163,
+      "pixels": 638
+    },
+    {
+      "frame": 396,
+      "seconds": 16.5,
+      "bbox_center": [
+        473.5,
+        564.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9738231897354126,
+      "pixels": 588
+    },
+    {
+      "frame": 397,
+      "seconds": 16.541666666666668,
+      "bbox_center": [
+        473.0,
+        564.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9673545956611633,
+      "pixels": 638
+    },
+    {
+      "frame": 398,
+      "seconds": 16.583333333333332,
+      "bbox_center": [
+        472.0,
+        563.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9726805090904236,
+      "pixels": 567
+    },
+    {
+      "frame": 399,
+      "seconds": 16.625,
+      "bbox_center": [
+        472.0,
+        563.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9652743339538574,
+      "pixels": 638
+    },
+    {
+      "frame": 400,
+      "seconds": 16.666666666666668,
+      "bbox_center": [
+        471.0,
+        562.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.966537356376648,
+      "pixels": 567
+    },
+    {
+      "frame": 401,
+      "seconds": 16.708333333333332,
+      "bbox_center": [
+        470.0,
+        562.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9730014204978943,
+      "pixels": 638
+    },
+    {
+      "frame": 402,
+      "seconds": 16.75,
+      "bbox_center": [
+        469.0,
+        561.5
+      ],
+      "width": 18,
+      "height": 13,
+      "confidence": 0.9723040461540222,
+      "pixels": 567
+    },
+    {
+      "frame": 403,
+      "seconds": 16.791666666666668,
+      "bbox_center": [
+        468.0,
+        561.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9712295532226562,
+      "pixels": 638
+    },
+    {
+      "frame": 404,
+      "seconds": 16.833333333333332,
+      "bbox_center": [
+        466.5,
+        560.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9724602103233337,
+      "pixels": 588
+    },
+    {
+      "frame": 405,
+      "seconds": 16.875,
+      "bbox_center": [
+        465.5,
+        559.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9730563163757324,
+      "pixels": 588
+    },
+    {
+      "frame": 406,
+      "seconds": 16.916666666666668,
+      "bbox_center": [
+        464.0,
+        559.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9636486172676086,
+      "pixels": 638
+    },
+    {
+      "frame": 407,
+      "seconds": 16.958333333333332,
+      "bbox_center": [
+        463.0,
+        558.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9703532457351685,
+      "pixels": 638
+    },
+    {
+      "frame": 408,
+      "seconds": 17.0,
+      "bbox_center": [
+        461.5,
+        557.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9715884923934937,
+      "pixels": 588
+    },
+    {
+      "frame": 409,
+      "seconds": 17.041666666666668,
+      "bbox_center": [
+        459.5,
+        556.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.972303032875061,
+      "pixels": 588
+    },
+    {
+      "frame": 410,
+      "seconds": 17.083333333333332,
+      "bbox_center": [
+        458.0,
+        556.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9727787971496582,
+      "pixels": 638
+    },
+    {
+      "frame": 411,
+      "seconds": 17.125,
+      "bbox_center": [
+        456.0,
+        555.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9767849445343018,
+      "pixels": 638
+    },
+    {
+      "frame": 412,
+      "seconds": 17.166666666666668,
+      "bbox_center": [
+        454.0,
+        554.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.974999189376831,
+      "pixels": 638
+    },
+    {
+      "frame": 413,
+      "seconds": 17.208333333333332,
+      "bbox_center": [
+        452.0,
+        553.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9742573499679565,
+      "pixels": 638
+    },
+    {
+      "frame": 414,
+      "seconds": 17.25,
+      "bbox_center": [
+        450.0,
+        552.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9659321308135986,
+      "pixels": 638
+    },
+    {
+      "frame": 415,
+      "seconds": 17.291666666666668,
+      "bbox_center": [
+        447.5,
+        551.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9668218493461609,
+      "pixels": 588
+    },
+    {
+      "frame": 416,
+      "seconds": 17.333333333333332,
+      "bbox_center": [
+        445.5,
+        550.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9664721488952637,
+      "pixels": 588
+    },
+    {
+      "frame": 417,
+      "seconds": 17.375,
+      "bbox_center": [
+        442.5,
+        549.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.96510910987854,
+      "pixels": 588
+    },
+    {
+      "frame": 418,
+      "seconds": 17.416666666666668,
+      "bbox_center": [
+        440.5,
+        548.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9662555456161499,
+      "pixels": 588
+    },
+    {
+      "frame": 419,
+      "seconds": 17.458333333333332,
+      "bbox_center": [
+        437.5,
+        547.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9682169556617737,
+      "pixels": 588
+    },
+    {
+      "frame": 420,
+      "seconds": 17.5,
+      "bbox_center": [
+        435.0,
+        546.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.965782105922699,
+      "pixels": 638
+    },
+    {
+      "frame": 421,
+      "seconds": 17.541666666666668,
+      "bbox_center": [
+        432.0,
+        545.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9690242409706116,
+      "pixels": 638
+    },
+    {
+      "frame": 422,
+      "seconds": 17.583333333333332,
+      "bbox_center": [
+        429.0,
+        544.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9705407619476318,
+      "pixels": 638
+    },
+    {
+      "frame": 423,
+      "seconds": 17.625,
+      "bbox_center": [
+        426.0,
+        543.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9669420123100281,
+      "pixels": 638
+    },
+    {
+      "frame": 424,
+      "seconds": 17.666666666666668,
+      "bbox_center": [
+        423.0,
+        542.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9583429098129272,
+      "pixels": 638
+    },
+    {
+      "frame": 425,
+      "seconds": 17.708333333333332,
+      "bbox_center": [
+        418.5,
+        540.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9583390951156616,
+      "pixels": 588
+    },
+    {
+      "frame": 426,
+      "seconds": 17.75,
+      "bbox_center": [
+        415.5,
+        539.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9702751636505127,
+      "pixels": 588
+    },
+    {
+      "frame": 427,
+      "seconds": 17.791666666666668,
+      "bbox_center": [
+        412.0,
+        538.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9562031626701355,
+      "pixels": 638
+    },
+    {
+      "frame": 428,
+      "seconds": 17.833333333333332,
+      "bbox_center": [
+        408.0,
+        537.0
+      ],
+      "width": 20,
+      "height": 14,
+      "confidence": 0.9497010111808777,
+      "pixels": 638
+    },
+    {
+      "frame": 429,
+      "seconds": 17.875,
+      "bbox_center": [
+        404.5,
+        536.0
+      ],
+      "width": 17,
+      "height": 12,
+      "confidence": 0.9457073211669922,
+      "pixels": 520
+    },
+    {
+      "frame": 430,
+      "seconds": 17.916666666666668,
+      "bbox_center": [
+        400.5,
+        534.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9536039233207703,
+      "pixels": 588
+    },
+    {
+      "frame": 431,
+      "seconds": 17.958333333333332,
+      "bbox_center": [
+        393.5,
+        532.5
+      ],
+      "width": 19,
+      "height": 13,
+      "confidence": 0.9201887845993042,
+      "pixels": 588
+    },
+    {
+      "frame": 432,
+      "seconds": 18.0,
+      "bbox_center": [
+        386.0,
+        530.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.8962476849555969,
+      "pixels": 475
+    },
+    {
+      "frame": 433,
+      "seconds": 18.041666666666668,
+      "bbox_center": [
+        382.0,
+        529.5
+      ],
+      "width": 16,
+      "height": 11,
+      "confidence": 0.8607178926467896,
+      "pixels": 475
+    },
+    {
+      "frame": 434,
+      "seconds": 18.083333333333332,
+      "bbox_center": [
+        380.0,
+        529.0
+      ],
+      "width": 8,
+      "height": 6,
+      "confidence": 0.8615859746932983,
+      "pixels": 238
+    },
+    {
+      "frame": 435,
+      "seconds": 18.125,
+      "bbox_center": [
+        377.0,
+        528.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8394622206687927,
+      "pixels": 221
+    },
+    {
+      "frame": 436,
+      "seconds": 18.166666666666668,
+      "bbox_center": [
+        373.5,
+        527.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8354941606521606,
+      "pixels": 208
+    },
+    {
+      "frame": 437,
+      "seconds": 18.208333333333332,
+      "bbox_center": [
+        370.0,
+        526.5
+      ],
+      "width": 8,
+      "height": 5,
+      "confidence": 0.8247526288032532,
+      "pixels": 221
+    },
+    {
+      "frame": 438,
+      "seconds": 18.25,
+      "bbox_center": [
+        368.5,
+        516.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8669204115867615,
+      "pixels": 208
+    },
+    {
+      "frame": 439,
+      "seconds": 18.291666666666668,
+      "bbox_center": [
+        365.5,
+        515.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8438081741333008,
+      "pixels": 208
+    },
+    {
+      "frame": 441,
+      "seconds": 18.375,
+      "bbox_center": [
+        354.0,
+        512.0
+      ],
+      "width": 6,
+      "height": 4,
+      "confidence": 0.8597429394721985,
+      "pixels": 180
+    },
+    {
+      "frame": 442,
+      "seconds": 18.416666666666668,
+      "bbox_center": [
+        354.0,
+        512.0
+      ],
+      "width": 6,
+      "height": 4,
+      "confidence": 0.8597447872161865,
+      "pixels": 180
+    },
+    {
+      "frame": 443,
+      "seconds": 18.458333333333332,
+      "bbox_center": [
+        353.0,
+        512.0
+      ],
+      "width": 12,
+      "height": 8,
+      "confidence": 0.8082166910171509,
+      "pixels": 336
+    },
+    {
+      "frame": 447,
+      "seconds": 18.625,
+      "bbox_center": [
+        369.5,
+        512.5
+      ],
+      "width": 7,
+      "height": 5,
+      "confidence": 0.8065009713172913,
+      "pixels": 208
+    }
+  ]
+}

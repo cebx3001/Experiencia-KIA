@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "nativeVibrationApiNotMocked": true,
+  "haptics": {
+    "mode": "vibration-api",
+    "userActivated": true,
+    "lastAttempt": {
+      "mediaTime": 1.5,
+      "mode": "vibration-api",
+      "requestAccepted": true
+    },
+    "physicalDeviceVerified": false
+  },
+  "physicalDevice": false,
+  "physicalVibrationConfirmed": false
+}

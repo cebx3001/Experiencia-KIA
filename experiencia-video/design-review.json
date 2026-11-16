@@ -1,25 +1,10 @@
 {
   "passed": true,
-  "release": "20261116-r4",
-  "viewports": [
-    {
-      "width": 390,
-      "height": 844
-    },
-    {
-      "width": 360,
-      "height": 740
-    },
-    {
-      "width": 1280,
-      "height": 800
-    }
-  ],
-  "layout": "Text controls without boxes, borders, filled backgrounds or card grid. Official Kia Signature typography.",
-  "scan_to_explorer_same_stage": true,
-  "swipe_hint": true,
-  "interactive_menu": true,
-  "no_entrance_gate": true,
-  "no_repeat_intro_control": true,
+  "release": "20261116-r5",
+  "gesture_only_explorer": true,
+  "no_camera_poses": true,
+  "no_navigation_or_zoom_buttons": true,
+  "pinch_zoom": true,
+  "hint": "Desliza para girar",
   "physical_device": false
 }

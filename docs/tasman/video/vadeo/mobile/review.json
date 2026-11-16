@@ -5,9 +5,26 @@
   "width": 720,
   "height": 1280,
   "audio": true,
-  "source_sha256": "34b02cdd96d49d1105fe9c10276b695537b9ea5adb57c7d086cf2a09db179ec3",
-  "video_sha256": "34b02cdd96d49d1105fe9c10276b695537b9ea5adb57c7d086cf2a09db179ec3",
+  "source_sha256": "66553636048e64c249961e86dcc0f72d2cf06c75fed73a0186956f48a3faaaa2",
+  "video_sha256": "66553636048e64c249961e86dcc0f72d2cf06c75fed73a0186956f48a3faaaa2",
   "additional_paid_generation": false,
   "framing": "Native portrait",
-  "limitations": []
+  "limitations": [],
+  "visual_review": {
+    "reviewed": true,
+    "observed": [
+      "Cruce del río, salida completa a la orilla y regreso visible de cámara al maestro durante el desmontaje cian.",
+      "Sin superposición final del maestro grande sobre un vehículo lejano.",
+      "Sin dispositivo semejante a una sirena en las muestras del techo."
+    ],
+    "method": "Inspección de 24 muestras del rodaje final de 20 segundos y extremos nativos.",
+    "limitations": [
+      "Ilustración publicitaria generada; no certificación de física o detalles de fábrica."
+    ],
+    "raw_endpoint_similarity": {
+      "first": 0.986219,
+      "last": 0.984626
+    },
+    "automatic_client_approval": false
+  }
 }

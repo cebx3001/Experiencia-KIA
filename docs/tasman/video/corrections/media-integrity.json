@@ -1,30 +1,40 @@
 {
   "passed": true,
+  "release": "20261116-r5",
   "checks": [
     {
       "scene": "intro",
-      "video_stream_unchanged_by_audio": true,
-      "hash": "SHA256=6e19d25b88f719b11cc2e43a9ce692e9915c554156b60a7070ed687ebbfa21e3"
-    },
-    {
-      "scene": "cargo",
-      "video_stream_unchanged_by_audio": true,
-      "hash": "SHA256=247acaa97d91a8081ff128ba0a2e5620ad74cee66ca375a473ccdee393ff104a"
-    },
-    {
-      "scene": "storm",
-      "video_stream_unchanged_by_audio": true,
-      "hash": "SHA256=b434f98a1d8fba934e43ce64df864ce9d861c94fe6251f830e02018aa98f7117"
+      "video_unchanged_from_r4": true,
+      "sha256": "aabcb31c5213db2f9dd27bfe1bd687b63ff60ee546c01fe3a5876ad760b0b657"
     },
     {
       "scene": "xtrek",
-      "video_stream_unchanged_by_audio": true,
-      "hash": "SHA256=b07beefea09fe7ee2f5a37d8ed26ccd5b8b821a64fcb20629b694a8f6b2485e9"
+      "video_unchanged_from_r4": true,
+      "sha256": "f8f7f878506124728bf6988d6a5419e175c882a01fbda2d364700195bbe2e256"
+    },
+    {
+      "scene": "storm",
+      "video_unchanged_from_r4": true,
+      "sha256": "cfbd868850f8312a70973fb502d4c9f257a55c9df47d2cc68dfc929098e7144f"
+    },
+    {
+      "scene": "cargo",
+      "video_unchanged_from_r4": true,
+      "sha256": "5f0868c190423595d67e3078546e787c795b2045b441fd60347d1f829ba90c8f"
+    },
+    {
+      "scene": "interior",
+      "video_unchanged_from_r4": true,
+      "sha256": "b120996566549c1694d46832ba633dcef8ed1687d53b08bb9bdc86e9cb2031b1"
+    },
+    {
+      "scene": "trailer",
+      "original_audio_unchanged": true,
+      "audio_hash": "SHA256=09420003ddd8bbfbc4a9753d8791dd694934bca5a8704c287a919308022e4b63"
     },
     {
       "scene": "vadeo",
-      "original_audio_stream_unchanged": true,
-      "hash": "SHA256=692ebb90659b45fa4affa3a66cad6ecd885866e8e00ece35647486474f1160a0"
+      "native_corrective_video_stream_copied": true
     }
   ]
 }
