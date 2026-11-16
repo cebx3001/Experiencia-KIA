@@ -1,9 +1,9 @@
 {
-  "release": "tasman-intro-mobile-20261116-r4",
+  "release": "tasman-intro-mobile-20261116-r6",
   "files": {
     "index.html": "c498f0b22df074216fd23aa9137d662124b6282971095bcba305720d7bea0765",
-    "intro.mp4": "aabcb31c5213db2f9dd27bfe1bd687b63ff60ee546c01fe3a5876ad760b0b657",
+    "intro.mp4": "0de027f9496b5bf92d15e30358262e6566adb6c7d5ad8593ee628a33787f9d2f",
     "master.png": "87def8c90c3196e87d695e6dc4956921bf3f69a77bbcc49d67794fbc7781e4a2",
-    "review.json": "0e2e0ae9846d6323f4b09174f8bf5151bc8ad53b2fad1962c657af5d3da5510c"
+    "review.json": "ca58fab0d9f1f646d3f820f57a774c9a5a29b5a661bdb51803a9fc1aa61a0b24"
   }
 }

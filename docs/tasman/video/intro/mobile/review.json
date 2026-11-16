@@ -5,8 +5,8 @@
   "width": 720,
   "height": 1280,
   "audio": true,
-  "source_sha256": "086face432aaa1628df5fb1b962465c118f90347e363c28540f0ebdcae55b03d",
-  "video_sha256": "aabcb31c5213db2f9dd27bfe1bd687b63ff60ee546c01fe3a5876ad760b0b657",
+  "source_sha256": "0de027f9496b5bf92d15e30358262e6566adb6c7d5ad8593ee628a33787f9d2f",
+  "video_sha256": "0de027f9496b5bf92d15e30358262e6566adb6c7d5ad8593ee628a33787f9d2f",
   "additional_paid_generation": false,
   "framing": "Native portrait",
   "limitations": [],
@@ -25,18 +25,5 @@
       "The full-color digital-twin clarification arrived after the generation request; it is recorded in the common art direction and future drafts, not falsely attributed to the original request."
     ],
     "next_video_authorized": false
-  },
-  "procedural_audio": {
-    "scene": "intro",
-    "version": "material-front-v2",
-    "method": "Material-filtered granular synthesis driven by the actual reconstruction front; VFX stone collision times drive matching impacts.",
-    "seed": 20261672,
-    "sample_rate": 48000,
-    "grain_count": 127,
-    "visual_front_events": 86,
-    "impact_seconds": 1.5,
-    "external_samples": false,
-    "generation_cost_usd": 0,
-    "visual_source_sha256": "086face432aaa1628df5fb1b962465c118f90347e363c28540f0ebdcae55b03d"
   }
 }

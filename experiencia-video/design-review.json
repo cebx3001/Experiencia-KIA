@@ -1,10 +1,12 @@
 {
   "passed": true,
-  "release": "20261116-r5",
-  "gesture_only_explorer": true,
-  "no_camera_poses": true,
-  "no_navigation_or_zoom_buttons": true,
-  "pinch_zoom": true,
-  "hint": "Desliza para girar",
+  "release": "20261116-r6",
+  "splash": "Kia Ecuador",
+  "splash_milliseconds": 3000,
+  "no_touch_required_to_start": true,
+  "buttons": "Rounded capsules; icons and hierarchy adapted from the brief.",
+  "actual_button_glyph_fonts": "Kia Signature Fix Regular (official Kia Signature Regular)",
+  "gesture_only_viewer": true,
+  "no_camera_pose_buttons": true,
   "physical_device": false
 }

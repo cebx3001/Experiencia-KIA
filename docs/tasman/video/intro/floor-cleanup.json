@@ -1,0 +1,14 @@
+{
+  "source_sha256": "aabcb31c5213db2f9dd27bfe1bd687b63ff60ee546c01fe3a5876ad760b0b657",
+  "output_sha256": "b85eb79be781445aa38e15eea6b1a991f5d002fe9e6f899cbc5af522cd427a59",
+  "edited_frames": 36,
+  "unchanged_animation_timing": true,
+  "vehicle_pixels_protected_before_encoding": true,
+  "all_frames_at_and_after_contact_unchanged_before_encoding": true,
+  "impact_seconds": 1.5,
+  "shadow_formation_seconds": [
+    1.3,
+    1.5
+  ],
+  "additional_generation_cost_usd": 0
+}

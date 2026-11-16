@@ -1,4 +1,6 @@
-# Impacto háptico en móvil
+# Impacto háptico en móvil · histórico r5
+
+**Cambio posterior r6:** el cliente solicita inicio automático. Se retira la espera del primer toque: la intro se reproduce sola, silenciada si el navegador lo requiere. El toque para activar sonido/vibración es opcional. Se conserva el sincronismo y el respaldo iOS de este documento.
 
 Android/Chrome requiere activación del usuario para `navigator.vibrate()`. La intro anterior se reproducía silenciada y caía antes del primer toque; llamar a la API en ese estado no garantiza vibración. La corrección mantiene el video en su primer cuadro hasta tocarlo o activar sonido. Ese mismo gesto inicia sonido y caída. No se añade pantalla de acceso, botón Entrar ni controles al visor.
 

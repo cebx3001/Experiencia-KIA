@@ -9,7 +9,7 @@ from PIL import Image,ImageChops
 ROOT=Path(__file__).resolve().parents[2]
 VIDEO=ROOT/'docs/tasman/video'
 OUT=ROOT/'experiencia-video'
-RELEASE='tasman-mobile-video-20261116-r5'
+RELEASE='tasman-mobile-video-20261116-r6'
 
 
 def main():
@@ -19,7 +19,8 @@ def main():
     shutil.copytree(VIDEO/'spin',OUT/'spin',dirs_exist_ok=True)
     shutil.copy2(VIDEO/'shared/master-vertical.png',OUT/'media/master.png')
     shutil.copy2(ROOT/'assets/kia-logo.svg',OUT/'media/kia-logo.svg')
-    floor=VIDEO/'intro/drop-floor-vertical.png'
+    floor=VIDEO/'intro/drop-floor-clean-vertical.png'
+    if not floor.exists():floor=VIDEO/'intro/drop-floor-vertical.png'
     if floor.exists():portrait=Image.open(floor).convert('RGB')
     else:
         opening=Image.open(VIDEO/'intro/opening.png').convert('RGB').resize((720,406),Image.Resampling.LANCZOS)

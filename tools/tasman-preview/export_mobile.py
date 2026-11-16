@@ -20,12 +20,13 @@ def package(scene):
     source=folder/f'{scene}.mp4'
     if scene=='xtrek' and not source.exists():source=folder/'attempts/01-insufficient-travel/xtrek.mp4'
     if scene=='intro' and (folder/'intro-vertical-drop.mp4').exists():source=folder/'intro-vertical-drop.mp4'
+    if scene=='intro' and (folder/'intro-final-r6.mp4').exists():source=folder/'intro-final-r6.mp4'
     if scene=='vadeo' and (folder/'vadeo-cyan.mp4').exists():source=folder/'vadeo-cyan.mp4'
     if scene=='trailer' and (folder/'trailer-roof-clean.mp4').exists():source=folder/'trailer-roof-clean.mp4'
     probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_format','-show_streams','-of','json',str(source)]))
     duration=float(probe['format']['duration']);rate=duration/20
     stream=next(s for s in probe['streams'] if s['codec_type']=='video')
-    local_effects=folder/'effects.wav' if scene=='intro' else None
+    local_effects=folder/'effects.wav' if scene=='intro' and source.name!='intro-final-r6.mp4' else None
     audio=any(s['codec_type']=='audio' for s in probe['streams']) or bool(local_effects and local_effects.exists())
     vf=[]
     if abs(rate-1)>.001:

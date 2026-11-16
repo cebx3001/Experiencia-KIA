@@ -1,0 +1,14 @@
+{
+  "source_audio_sha256": "aabcb31c5213db2f9dd27bfe1bd687b63ff60ee546c01fe3a5876ad760b0b657",
+  "method": "Original descending pitched air whistle and layered material impact; no paid audio or stock samples.",
+  "whistle_seconds": [
+    0.27,
+    1.49
+  ],
+  "impact_seconds": 1.5,
+  "mix_changes_end_seconds": 2.8,
+  "later_scan_pcm_unchanged_before_encoding": true,
+  "animation_modified": false,
+  "new_generation_cost_usd": 0,
+  "output_sha256": "0de027f9496b5bf92d15e30358262e6566adb6c7d5ad8593ee628a33787f9d2f"
+}
