@@ -34,9 +34,34 @@ jobs:
             sudo apt-get update -qq
             sudo apt-get install -y ffmpeg
           fi
+      - name: Find the repository's OpenRouter secret by name
+        id: openrouter
+        env:
+          ACTIONS_SECRET_CONTEXT: ${{ toJSON(secrets) }}
+        run: |
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          context = json.loads(os.environ.pop('ACTIONS_SECRET_CONTEXT'))
+          names = sorted(name for name, value in context.items() if name != 'GITHUB_TOKEN' and value)
+          matches = [name for name in names if 'router' in name.lower()]
+          if 'OPENROUTER_API_KEY' in names:
+              selected = 'OPENROUTER_API_KEY'
+          elif len(matches) == 1:
+              selected = matches[0]
+          elif len(names) == 1:
+              selected = names[0]
+          else:
+              raise SystemExit('No se puede identificar un único secreto de OpenRouter por su nombre. No se genera video.')
+          # Only its NAME is logged or persisted. Values remain in the masked Actions context.
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('secret_name=' + selected + '\n')
+          Path('docs/tasman/video/intro/secret-binding.json').write_text(json.dumps({'secret_name': selected, 'scope': 'repository Actions secret'}, indent=2) + '\n')
+          print('Secreto de OpenRouter identificado por nombre: ' + selected)
+          PY
       - name: Prepare official references and generate only the intro
         env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets[steps.openrouter.outputs.secret_name] }}
         run: python tools/tasman-video/produce_intro.py
       - name: Preserve generation report and deliverables
         if: always()
