@@ -16,6 +16,8 @@ Generar mediante OpenRouter. Probar primero Seedance 2.5 con la introducción y,
 
 Para la introducción, usar la referencia de la Tasman descendiendo como apertura y el maestro como llegada. Para cada una de las seis pruebas, usar el mismo archivo maestro al inicio y al final. Cuando el modo permita fijar los extremos, asignar las imágenes correspondientes. Con múltiples referencias, indicar qué imagen corresponde a cada extremo. Si el regreso generado no empata, ajustar o regenerar ese tramo con el fotograma donde empieza el regreso y el maestro como fotograma de llegada. En montaje, verificar que la intro cierre en el maestro y que las seis pruebas usen ese mismo fotograma en ambos extremos. Revisar los cuadros contiguos en reproducción para que la salida y la llegada sean fluidas.
 
+Para las seis pruebas, apunta a **8–12 segundos por clip**. El efecto empieza enseguida desde el fotograma maestro. El entorno se arma en pocos segundos, se muestra una sola acción completa y empieza el desarmado apenas esa acción termina. Mantén el tiempo suficiente para leer el armado, ver el resultado de la maniobra y reconocer el regreso al maestro. En X-TREK, usa 10 segundos como punto de partida.
+
 Producir en el orden siguiente. Antes de entregar cada video, comprobar que se lean el armado, la acción y el desarmado donde correspondan, que la carrocería conserve sus proporciones y detalles a lo largo de la toma y que los empalmes con el maestro funcionen sin saltos de posición, luz ni encuadre: el cierre de la intro y ambos extremos de cada prueba. Entregar cada video reproducible para revisión y continuar con el siguiente tras su aprobación.
 
 | Video | Dirección |
