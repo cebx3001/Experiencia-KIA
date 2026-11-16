@@ -15,7 +15,7 @@
     54,
     63
   ],
-  "state": "AUTORIZADA PARA PRODUCCI\u00d3N",
+  "state": "MONTAJE CON RENDER EXISTENTE; REGENERACI\u00d3N PAUSADA PARA REVISI\u00d3N Y PRESUPUESTO",
   "next_video_authorized": false,
   "environment_images": [
     "environment.png",
@@ -23,5 +23,6 @@
   ],
   "video_guides": [
     "approved-look.mp4"
-  ]
+  ],
+  "generation_enabled": false
 }

@@ -75,6 +75,9 @@ def finish(config):
 def main():
     OUT.mkdir(exist_ok=True)
     config = json.loads((OUT / 'production.json').read_text())
+    if config.get('generation_enabled') is False:
+        print('Paid X-TREK generation is paused. Reuse the existing render and finish sound/editing locally.')
+        return
     final, validation = OUT / 'xtrek.mp4', OUT / 'validation.json'
     if final.exists() and validation.exists() and core.digest(final) == json.loads(validation.read_text())['sha256']:
         print('X-TREK ya entregado: se reutiliza sin nueva generación')
@@ -86,6 +89,12 @@ def main():
     if not isinstance(connection.get('data'), dict):
         raise RuntimeError('No se pudo verificar la autenticación de OpenRouter')
     write('connection.json', {'authenticated': True, 'secret_name': 'OPEN_ROUTER_ACCESS', 'endpoint': '/api/v1/key'})
+    budget_spec = importlib.util.spec_from_file_location('budget_guard', ROOT / 'tools/tasman-budget/guard.py')
+    budget = importlib.util.module_from_spec(budget_spec)
+    budget_spec.loader.exec_module(budget)
+    models = json.loads(core.request(core.API + '/videos/models', authenticated=True))['data']
+    live_model = next(m for m in models if m['id'] == config['model_id'])
+    write('budget-preflight.json', budget.preflight('xtrek', config['duration'], connection['data'], live_model))
     digest = hashlib.sha256(json.dumps(body, sort_keys=True).encode()).hexdigest()
     write('request-summary.json', {'request_sha256': digest, 'model': body['model'], 'duration': body['duration'],
                                   'resolution': body['resolution'], 'generate_audio': False, 'seed': body['seed'],

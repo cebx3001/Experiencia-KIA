@@ -1,0 +1,20 @@
+{
+  "currency": "USD",
+  "project_ceiling": 45.0,
+  "ceiling_includes_existing_usage": true,
+  "conservative_usd_per_generated_second_720p": 0.25,
+  "scene_limits": {
+    "intro": 6.0,
+    "xtrek": 14.0,
+    "vadeo": 5.0,
+    "storm": 4.5,
+    "cargo": 4.5,
+    "trailer": 4.5,
+    "interior": 5.5
+  },
+  "unallocated_reserve": 1.0,
+  "maximum_video_token_price": 0.0000107,
+  "automatic_paid_retries": false,
+  "future_stills_and_transitions": "Extract from approved video and original Kia views; no additional paid image generation planned.",
+  "audio_and_editing": "Local licensed/original effects and editing, without OpenRouter generation charges."
+}
