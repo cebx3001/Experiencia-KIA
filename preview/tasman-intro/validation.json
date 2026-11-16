@@ -1,0 +1,13 @@
+{
+  "decodable": true,
+  "codec": "h264",
+  "width": 1280,
+  "height": 720,
+  "duration": 20.0,
+  "bytes": 6106369,
+  "sha256": "bdc1e79b2b3b6241c8e2c5272e643757fb288c89e4a8f24779f72c3c026c43a1",
+  "audio": false,
+  "visual_review": "PENDING human approval: edited landing, full orbit, scanning band and full-color digital twin",
+  "physical_mobile_test": false,
+  "editing": "edit.json"
+}

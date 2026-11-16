@@ -1,0 +1,16 @@
+{
+  "state": "EN VALIDACIÓN",
+  "video": "intro.mp4",
+  "master": "master.png",
+  "next_video_authorized": false,
+  "source": "Seedance 2.5 / OpenRouter",
+  "job": {
+    "id": "gen-vid-1794792146-z3RTaxmAwPbGHu0bc3jE",
+    "status": "completed",
+    "generation_id": "gen-vid-1794792146-z3RTaxmAwPbGHu0bc3jE",
+    "usage": {
+      "cost": 5.55651,
+      "is_byok": false
+    }
+  }
+}

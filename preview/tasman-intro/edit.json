@@ -1,0 +1,37 @@
+{
+  "version": "landing-master-v1",
+  "generation_duration_seconds": 24,
+  "delivery_duration_seconds": 20.0,
+  "source_sha256": "7876fcf0e2c435d80b475f7dd9d0fd83d4e5e068ba050ee2c453ce0db178795b",
+  "master_sha256": "3417854db8f1997061efbf7979feb294b5318158802bc47040a437456946ac79",
+  "new_generations_submitted": 0,
+  "timing": [
+    {
+      "source": [
+        0,
+        3
+      ],
+      "speed": 4
+    },
+    {
+      "source": [
+        3,
+        7.5
+      ],
+      "speed": 2
+    },
+    {
+      "source": [
+        7.5,
+        24.041667
+      ],
+      "speed": 1
+    }
+  ],
+  "master_match": {
+    "method": "Half-second match dissolve during the settled pose; exact master held at the end",
+    "start_seconds": 19,
+    "full_master_since_seconds": 19.5
+  },
+  "audio": false
+}

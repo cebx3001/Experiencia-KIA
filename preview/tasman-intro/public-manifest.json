@@ -1,0 +1,15 @@
+{
+  "release": "tasman-intro-20261115-review01",
+  "state": "EN VALIDACI\u00d3N",
+  "source_branch": "feat/tasman-experiencia-cines",
+  "files": {
+    "index.html": "81009c463844bee3b4c5e4f76f79fcce1ba871e262e20abf5294b14b81f0df45",
+    "intro.mp4": "bdc1e79b2b3b6241c8e2c5272e643757fb288c89e4a8f24779f72c3c026c43a1",
+    "master.png": "3417854db8f1997061efbf7979feb294b5318158802bc47040a437456946ac79",
+    "opening.png": "e99a8a6fc0d019d7f5727532cec17cd5aa352427c8dbbb4470750a5987b4b31c",
+    "validation.json": "971b8cf4820b23aa1e1beaa33a43ed2abef93d386aa70c56f1328861677d9d55",
+    "edit.json": "02a4295b557360a306b19ec59b01f5bad242c0761546cbc19a982ad1ba064f66",
+    "REVIEW.md": "442b9c6dccc9125287984e9b49c98559acf892bdf5dcaa78718ca68d816d5f52",
+    "status.json": "4f418a02c505e98df97fe8e32c3377ea6930e0303b44ac58f9bddc8cc82face8"
+  }
+}
