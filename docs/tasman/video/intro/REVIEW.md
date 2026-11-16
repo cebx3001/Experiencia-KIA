@@ -10,7 +10,7 @@ El prompt distribuye 24 segundos entre descenso/aterrizaje (0–3,2), órbita co
 
 ## Ejecución
 
-El workflow `.github/workflows/generate-tasman-intro.yml` ejecuta solo en `feat/tasman-experiencia-cines`, al cambiar sus archivos de producción o mediante **Run workflow**. Durante el paso de generación vincula el primer nombre disponible entre `ROUTER_ACCESS`, `OPENROUTER_ACCESS`, `ROUTER_ACCESS_KEY`, `OPENROUTER_ACCESS_KEY`, `ROUTER_API_KEY` y `OPENROUTER_API_KEY` a la variable interna `OPENROUTER_API_KEY`. Son alias explícitos: no se enumera ni se convierte a JSON el contexto completo de secretos. El secreto no se guarda en archivos, navegador, recibos ni URLs públicas. Si está guardado en un Environment de Actions, el job debe vincular ese Environment por su nombre exacto; si es secreto del repositorio, no requiere Environment.
+El workflow `.github/workflows/generate-tasman-intro.yml` ejecuta solo en `feat/tasman-experiencia-cines`, al cambiar sus archivos de producción o mediante **Run workflow**. Durante el paso de generación vincula exclusivamente `${{ secrets.OPEN_ROUTER_ACCESS }}` a la variable interna `OPENROUTER_API_KEY`. El nombre exacto lo confirmó el cliente; no se enumeran otros secretos. El secreto no se guarda en archivos, navegador, recibos ni URLs públicas. Si está guardado en un Environment de Actions, el job debe vincular ese Environment por su nombre exacto; si es secreto del repositorio, no requiere Environment.
 
 Se usa la API oficial asíncrona: `GET /api/v1/videos/models`, `POST /api/v1/videos`, `GET /api/v1/videos/{id}` y `GET /api/v1/videos/{id}/content`. Documentación contrastada con https://github.com/OpenRouterTeam/docs/blob/main/api_reference/videos.mdx y el SDK oficial. No se usa `/chat/completions` para inventar una API de video.
 
@@ -19,3 +19,5 @@ Solo se hace un envío de pago. Un reintento con recibo continúa el mismo traba
 Si Actions informa un secreto vacío, no se envía ningún trabajo de pago. No hace falta compartir el valor en el chat: corregir su disponibilidad en Actions y volver a ejecutar el workflow.
 
 Diagnóstico del acceso: GitHub denegó el listado de nombres por su API de metadatos con `403: Resource not accessible by integration` (ver `secret-metadata.json`). Los alias comprobados devolvieron vacío. El intento anterior de inspeccionar el contexto completo fue rechazado por el control automático de GitHub y se retiró; no se ha ejecutado ni se necesita aprobarlo. Para configurar un nombre diferente hace falta copiar su nombre exacto desde Settings → Secrets and variables → Actions, nunca su valor.
+
+Configuración resuelta: el cliente confirmó el secreto de repositorio `OPEN_ROUTER_ACCESS`. Se retiraron las comprobaciones de alias y el diagnóstico de nombres; el workflow usa ese único secreto.
