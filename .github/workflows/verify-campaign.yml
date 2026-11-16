@@ -35,6 +35,9 @@ jobs:
           import os
           from pathlib import Path
           log=Path('docs/tasman/evidence/mobile-ci-console.log')
+          public=Path('docs/tasman/evidence/mobile-pages-verification.json')
+          if public.exists():
+              with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as summary:summary.write(public.read_text()+'\n')
           if log.exists():
               with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as summary:
                   summary.write('### Mobile browser verification\n\n<pre>'+log.read_text()[-20000:].replace('&','&amp;').replace('<','&lt;')+'</pre>\n')
