@@ -54,13 +54,38 @@ jobs:
               name=url.rsplit('/',1)[1];(out/name).write_bytes(data)
               manifest.append({'file':name,'url':url,'sha256':hashlib.sha256(data).hexdigest()})
           (out/'official-images.json').write_text(json.dumps(manifest,indent=2)+'\n')
+          # Read only original public Kia stylesheets to identify the prescribed brand font.
+          fontdir=Path('experiencia-video/fonts');fontdir.mkdir(parents=True,exist_ok=True)
+          cssqueue=[];visitedcss=set();fonthits=[];csssources=[]
+          for page in ['https://www.kia.com/ec/showroom/Tasman0/features.html','https://www.kia.com/ec/main.html']:
+              text=urllib.request.urlopen(urllib.request.Request(page,headers={'User-Agent':'Mozilla/5.0'}),timeout=45).read().decode()
+              for href in re.findall(r'(?:href|src)=["\']([^"\']+\.css(?:\?[^"\']*)?)["\']',text):cssqueue.append(urllib.parse.urljoin(page,href.replace('&amp;','&')))
+          while cssqueue and len(visitedcss)<35:
+              cssurl=cssqueue.pop(0)
+              if cssurl in visitedcss or not urllib.parse.urlsplit(cssurl).hostname.endswith('kia.com'):continue
+              visitedcss.add(cssurl)
+              try:css=urllib.request.urlopen(urllib.request.Request(cssurl,headers={'User-Agent':'Mozilla/5.0'}),timeout=30).read().decode()
+              except Exception:continue
+              csssources.append({'url':cssurl,'font_faces':re.findall(r'@font-face\s*\{[^}]+\}',css,re.S)})
+              for value in re.findall(r'url\(["\']?([^"\')]+)',css):
+                  url=urllib.parse.urljoin(cssurl,value)
+                  if '.css' in value:cssqueue.append(url)
+                  if re.search(r'\.(woff2?|ttf|otf)(?:[?#]|$)',value,re.I) and 'kia' in (value+css[max(0,css.find(value)-200):css.find(value)]).lower():
+                      if urllib.parse.urlsplit(url).hostname.endswith('kia.com') and url not in [item['url'] for item in fonthits]:
+                          try:data=urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'}),timeout=45).read()
+                          except Exception:continue
+                          if data[:4] not in (b'wOFF',b'wOF2',b'OTTO',b'\x00\x01\x00\x00'):continue
+                          name=urllib.parse.urlsplit(url).path.rsplit('/',1)[1];(fontdir/name).write_bytes(data)
+                          fonthits.append({'file':name,'url':url,'stylesheet':cssurl,'sha256':hashlib.sha256(data).hexdigest()})
+          (fontdir/'official-sources.json').write_text(json.dumps({'fonts':fonthits,'stylesheets':csssources},indent=2)+'\n')
+          print('Original brand font candidates:',len(fonthits))
           print('Original Kia cabin photos downloaded; no media generation submitted.')
           PY
       - name: Save only public reference metadata
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/tasman/video/interior/references
+          git add docs/tasman/video/interior/references experiencia-video/fonts
           if ! git diff --cached --quiet; then
             git commit -m 'Collect official Kia cabin image candidates without paid generation [skip ci]'
             git pull --rebase origin feat/tasman-experiencia-cines
