@@ -36,9 +36,26 @@ jobs:
           fi
       - name: Prepare official references and generate only the intro
         env:
-          OPENROUTER_API_KEY: ${{ secrets.ROUTER_ACCESS || secrets.OPENROUTER_ACCESS || secrets.OPENROUTER_API_KEY }}
-          OPENROUTER_SECRET_NAME: ${{ secrets.ROUTER_ACCESS && 'ROUTER_ACCESS' || secrets.OPENROUTER_ACCESS && 'OPENROUTER_ACCESS' || secrets.OPENROUTER_API_KEY && 'OPENROUTER_API_KEY' || '' }}
+          OPENROUTER_API_KEY: ${{ secrets.ROUTER_ACCESS || secrets.OPENROUTER_ACCESS || secrets.ROUTER_ACCESS_KEY || secrets.OPENROUTER_ACCESS_KEY || secrets.ROUTER_API_KEY || secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_SECRET_NAME: ${{ secrets.ROUTER_ACCESS && 'ROUTER_ACCESS' || secrets.OPENROUTER_ACCESS && 'OPENROUTER_ACCESS' || secrets.ROUTER_ACCESS_KEY && 'ROUTER_ACCESS_KEY' || secrets.OPENROUTER_ACCESS_KEY && 'OPENROUTER_ACCESS_KEY' || secrets.ROUTER_API_KEY && 'ROUTER_API_KEY' || secrets.OPENROUTER_API_KEY && 'OPENROUTER_API_KEY' || '' }}
         run: python tools/tasman-video/produce_intro.py
+      - name: Diagnose the repository secret name using metadata only
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          python - <<'PY'
+          import json, os, subprocess
+          from pathlib import Path
+          result = subprocess.run(['gh', 'secret', 'list', '--repo', os.environ['GH_REPO'], '--json', 'name'], capture_output=True, text=True)
+          if result.returncode == 0:
+              report = {'names': [x['name'] for x in json.loads(result.stdout)], 'values_requested': False}
+          else:
+              report = {'names': [], 'values_requested': False, 'metadata_access': 'denied', 'error': result.stderr.strip()[:500]}
+          Path('docs/tasman/video/intro/secret-metadata.json').write_text(json.dumps(report, indent=2) + '\n')
+          print(json.dumps(report))
+          PY
       - name: Preserve generation report and deliverables
         if: always()
         uses: actions/upload-artifact@v4
