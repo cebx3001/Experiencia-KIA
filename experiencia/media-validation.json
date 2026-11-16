@@ -8,7 +8,8 @@
       "duration": 20.0,
       "audio": "aac",
       "sample_rate": "48000",
-      "bytes": 3299620
+      "bytes": 9272617,
+      "sha256": "5f0868c190423595d67e3078546e787c795b2045b441fd60347d1f829ba90c8f"
     },
     {
       "file": "interior.mp4",
@@ -17,7 +18,8 @@
       "duration": 20.0,
       "audio": "aac",
       "sample_rate": "48000",
-      "bytes": 7990988
+      "bytes": 7990988,
+      "sha256": "b120996566549c1694d46832ba633dcef8ed1687d53b08bb9bdc86e9cb2031b1"
     },
     {
       "file": "intro.mp4",
@@ -26,7 +28,8 @@
       "duration": 20.0,
       "audio": "aac",
       "sample_rate": "48000",
-      "bytes": 2126917
+      "bytes": 2141455,
+      "sha256": "aabcb31c5213db2f9dd27bfe1bd687b63ff60ee546c01fe3a5876ad760b0b657"
     },
     {
       "file": "storm.mp4",
@@ -35,7 +38,8 @@
       "duration": 20.0,
       "audio": "aac",
       "sample_rate": "48000",
-      "bytes": 3697722
+      "bytes": 11010149,
+      "sha256": "cfbd868850f8312a70973fb502d4c9f257a55c9df47d2cc68dfc929098e7144f"
     },
     {
       "file": "trailer.mp4",
@@ -44,7 +48,8 @@
       "duration": 20.0,
       "audio": "aac",
       "sample_rate": "48000",
-      "bytes": 2696854
+      "bytes": 2696854,
+      "sha256": "d6a55fb4b555755939eae57535eaeffe5939c838b04174bdf06d76dd3f6410c9"
     },
     {
       "file": "vadeo.mp4",
@@ -53,7 +58,8 @@
       "duration": 20.0,
       "audio": "aac",
       "sample_rate": "48000",
-      "bytes": 3590501
+      "bytes": 3501635,
+      "sha256": "34b02cdd96d49d1105fe9c10276b695537b9ea5adb57c7d086cf2a09db179ec3"
     },
     {
       "file": "xtrek.mp4",
@@ -62,7 +68,8 @@
       "duration": 20.0,
       "audio": "aac",
       "sample_rate": "48000",
-      "bytes": 3924271
+      "bytes": 9726581,
+      "sha256": "f8f7f878506124728bf6988d6a5419e175c882a01fbda2d364700195bbe2e256"
     }
   ]
 }

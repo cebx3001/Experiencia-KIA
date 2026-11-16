@@ -1,7 +1,9 @@
 # Explorador móvil por imágenes
 
-72 vistas oficiales Tan Beige TAM, hashes originales contrastados con la secuencia de guía de la intro. 960×540, WebP calidad 94; carga inicial de cinco vistas, resto bajo demanda. Arrastre bidireccional, pellizco móvil, desplazamiento ampliado, teclado y acercamientos a faros, ruedas y paila. Máximo 14 ImageBitmap decodificados; los expulsados se cierran.
+72 vistas extraídas de la órbita de la intro aprobada; el mismo vehículo, color e iluminación. WebP 960×540. La aplicación usa `scan-frames/`; `frames/` conserva las referencias oficiales anteriores como archivo, sin sustituir el vehículo al explorar. `scan-frames.json` registra tiempos y hashes. No requiere generación de pago ni modelo 3D.
 
-El primer cuadro y «Vista completa» muestran el maestro aprobado; al explorar se usan las fotografías originales de Kia, cuya iluminación difiere del estudio generado. No se presenta ese cambio como una órbita generada idéntica a la intro. No se solicitó otro render pagado. La vista estática se basa en las referencias públicas oficiales para esta campaña, no en un modelo 3D.
+El constructor web reemplaza el ancla 45 con el último fotograma codificado de intro y usa el mismo cuadro vertical como póster. El escaneo y el visor comparten dimensiones de escena; no cambian el encuadre durante el enlace.
 
-Pruebas: `browser-review.json`, Chromium emulado en móvil y escritorio. El pellizco se probó con eventos táctiles del navegador en móvil; escritorio con botones/teclado. No certifica un Android o Safari físico.
+Arrastre bidireccional fraccional con mezcla de vistas e inercia, pellizco móvil, desplazamiento ampliado, teclado y acercamientos animados a faros, ruedas y paila. Máximo 14 ImageBitmap decodificados; se cierran los expulsados. Precarga codificada de baja prioridad durante el escaneo, excluida en ahorro de datos y conexiones 2G. Recursos con versión de publicación para evitar imágenes antiguas.
+
+La fuente es un video generado: las vistas intermedias no equivalen a geometría 3D certificada. La prueba de navegador se conserva en `docs/tasman/evidence/mobile-browser-review.json`; emulación móvil/escritorio, sin certificar hardware físico.

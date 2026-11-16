@@ -1,9 +1,9 @@
 {
-  "release": "tasman-vadeo-mobile-review01",
+  "release": "tasman-vadeo-mobile-20261116-r4",
   "files": {
     "index.html": "2c40dd6cc82122bc4e42d472659273afbe4263a6c834ddbb6d4b1820646f96de",
-    "vadeo.mp4": "312f949d0ad9c4072fc93f120096719a88c454761547e0668472083d6f2bbe8b",
+    "vadeo.mp4": "34b02cdd96d49d1105fe9c10276b695537b9ea5adb57c7d086cf2a09db179ec3",
     "master.png": "87def8c90c3196e87d695e6dc4956921bf3f69a77bbcc49d67794fbc7781e4a2",
-    "review.json": "632b74746827c0b212bfab365a4241650eaca906fd6bcb0328b8ab5f34e7f497"
+    "review.json": "7e611da3df25c1ab6f2ca3d662fe35a170948572f4fc4fd00fabcb582cb68038"
   }
 }

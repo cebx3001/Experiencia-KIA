@@ -5,9 +5,38 @@
   "width": 720,
   "height": 1280,
   "audio": true,
-  "source_sha256": "bdc1e79b2b3b6241c8e2c5272e643757fb288c89e4a8f24779f72c3c026c43a1",
-  "video_sha256": "9498c840f5a4284355921b438b2e04a84e6a5f5ac9cbc60b51a31965b1184c7b",
+  "source_sha256": "086face432aaa1628df5fb1b962465c118f90347e363c28540f0ebdcae55b03d",
+  "video_sha256": "aabcb31c5213db2f9dd27bfe1bd687b63ff60ee546c01fe3a5876ad760b0b657",
   "additional_paid_generation": false,
-  "framing": "Entire existing landscape shot preserved within a portrait black studio canvas; no cropping or generated extensions",
-  "limitations": []
+  "framing": "Native portrait",
+  "limitations": [],
+  "visual_review": {
+    "state": "EN VALIDACIÓN",
+    "reviewer": "Codex visual inspection; client approval pending",
+    "observations": {
+      "landing": "Original descent too slow; retimed without another generation",
+      "orbit": "Full vehicle circumference observed across sampled frames; truck stays in the studio",
+      "scan": "Surface-following cyan band and temporary mesh; full-color materials return afterward",
+      "master": "The final hold is encoded from the fixed master.png, with a half-second match dissolve while settled"
+    },
+    "limitations": [
+      "Generative vehicle detail consistency and photographic realism remain subject to client review.",
+      "No physical Android or iPhone test.",
+      "The full-color digital-twin clarification arrived after the generation request; it is recorded in the common art direction and future drafts, not falsely attributed to the original request."
+    ],
+    "next_video_authorized": false
+  },
+  "procedural_audio": {
+    "scene": "intro",
+    "version": "material-front-v2",
+    "method": "Material-filtered granular synthesis driven by the actual reconstruction front; VFX stone collision times drive matching impacts.",
+    "seed": 20261672,
+    "sample_rate": 48000,
+    "grain_count": 127,
+    "visual_front_events": 86,
+    "impact_seconds": 1.5,
+    "external_samples": false,
+    "generation_cost_usd": 0,
+    "visual_source_sha256": "086face432aaa1628df5fb1b962465c118f90347e363c28540f0ebdcae55b03d"
+  }
 }
