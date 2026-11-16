@@ -111,6 +111,9 @@ def generate(config):
     if final.exists() and (OUT / 'validation.json').exists():
         print('Entrega existente: no se envía otro trabajo de pago.')
         return
+    if os.environ.get('OPENROUTER_SECRET_NAME'):
+        write('secret-binding.json', {'secret_name': os.environ['OPENROUTER_SECRET_NAME'], 'scope': 'repository Actions secret'})
+        print('Nombre del secreto vinculado: ' + os.environ['OPENROUTER_SECRET_NAME'], flush=True)
     orbit_guide()
     payload = build_payload(config, model)
     request_hash = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
