@@ -7,12 +7,12 @@
     "intro": 6,
     "xtrek": 7,
     "vadeo": 3,
-    "storm": 2.5,
+    "storm": 5.0,
     "cargo": 2.5,
     "trailer": 2.5,
     "interior": 3
   },
-  "unallocated_reserve": 18.5,
+  "unallocated_reserve": 16.0,
   "maximum_video_token_price": 1.07e-05,
   "automatic_paid_retries": false,
   "future_stills_and_transitions": "Extract from approved video and original Kia views; no additional paid image generation planned.",
@@ -26,5 +26,8 @@
     "interior": 12
   },
   "xtrek_policy": "Reuse the existing paid render; no second generation.",
-  "editorial_delivery_seconds_per_demo": 20
+  "editorial_delivery_seconds_per_demo": 20,
+  "scene_generation_limits": {
+    "storm": 2
+  }
 }

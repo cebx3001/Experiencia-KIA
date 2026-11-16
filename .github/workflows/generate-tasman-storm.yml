@@ -1,4 +1,4 @@
-name: Generate Tasman Storm
+name: Generate the single authorized Storm replacement
 on:
   workflow_dispatch:
   push:
@@ -24,12 +24,17 @@ jobs:
             sudo apt-get update -qq
             sudo apt-get install -y ffmpeg
           fi
-      - name: Verify Storm reference dimensions
+      - name: Verify the approved Storm master and explicit frame anchors
         run: |
-          for reference in docs/tasman/video/storm/references/*.jpg; do
-            height=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 "$reference")
-            test "$height" -ge 300
-          done
+          python3 - <<'PY'
+          import json, hashlib
+          from pathlib import Path
+          config = json.loads(Path('docs/tasman/video/storm/production.json').read_text())
+          master = Path('docs/tasman/video/intro/master.png')
+          assert hashlib.sha256(master.read_bytes()).hexdigest() == config['master_sha256']
+          assert config['identity_mode'] == 'approved_master_only'
+          assert config['maximum_new_charge_reserved_usd'] == 2.5
+          PY
       - name: Check budget and generate or resume Storm
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPEN_ROUTER_ACCESS }}

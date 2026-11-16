@@ -1,6 +1,6 @@
 {
-  "state": "BORRADOR; NO AUTORIZADO PARA ENVÍO",
-  "generation_enabled": false,
+  "state": "SUSTITUCIÓN AUTORIZADA POR EL CLIENTE",
+  "generation_enabled": true,
   "model_id": "bytedance/seedance-2.5",
   "duration": 10,
   "resolution": "720p",
@@ -11,7 +11,9 @@
   "identity_mode": "approved_master_only",
   "reference_policy": "The storyboard guides the written environment and route; its different truck images are not sent as vehicle references.",
   "reserve_usd": 2.5,
-  "requires_explicit_paid_revision_authorization": true,
+  "requires_explicit_paid_revision_authorization": false,
   "editorial_delivery_seconds": 20,
-  "estimated_generation_usd": 2.32
+  "estimated_generation_usd": 2.32,
+  "authorized_revision": 1,
+  "maximum_new_charge_reserved_usd": 2.5
 }

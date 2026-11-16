@@ -18,10 +18,15 @@
     "review": "El cliente aprobó la escena y solicitó 20 segundos con partículas cian."
   },
   "storm": {
-    "state": "RECHAZADA POR EL CLIENTE",
-    "delivery_state": "NO APROBADA",
+    "state": "AUTORIZADA PARA PRODUCCIÓN",
+    "delivery_state": "SUSTITUCIÓN ÚNICA AUTORIZADA; PENDIENTE DE VALIDACIÓN",
     "review": "El cliente autorizó continuar con Remolque.",
-    "automatic_paid_regeneration": false
+    "automatic_paid_regeneration": false,
+    "paid_revision_authorization": {
+      "revision": 1,
+      "maximum_reserved_usd": 2.5,
+      "evidence": "Client explicitly authorized proceeding after the quoted $2.32 estimate and $2.50 reservation."
+    }
   },
   "trailer": {
     "state": "AUTORIZADA PARA PRODUCCIÓN",

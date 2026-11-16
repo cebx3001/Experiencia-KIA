@@ -22,7 +22,8 @@ def preflight(scene, seconds, key_data, catalog_model):
         record = json.loads(path.read_text()).get('job', {})
         if record.get('id'):
             accepted_ids.add(record['id'])
-    if len(accepted_ids) >= budget.get('maximum_accepted_generations_per_scene', 1):
+    allowed_generations = budget.get('scene_generation_limits', {}).get(scene, budget.get('maximum_accepted_generations_per_scene', 1))
+    if len(accepted_ids) >= allowed_generations:
         raise RuntimeError('This scene already has its single accepted generation; no paid correction is allowed')
     maximum_seconds = budget.get('planned_generation_seconds', {}).get(scene)
     if maximum_seconds is not None and seconds > maximum_seconds:
