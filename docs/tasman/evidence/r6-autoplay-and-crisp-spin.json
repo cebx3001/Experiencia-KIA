@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "noTouchBeforeIntro": true,
+  "autoplayTime": 2.119413,
+  "muted": true,
+  "userActivated": false,
+  "splashMs": 3001.5999999940395,
+  "renderMode": "whole-frame",
+  "restingFrame": 2,
+  "physicalDevice": false
+}

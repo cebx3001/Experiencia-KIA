@@ -5,12 +5,14 @@
       "name": "mobile",
       "width": 390,
       "height": 844,
-      "inlineIntroWithGesture": true,
-      "autoplayIntro": false,
-      "noEntranceGate": true,
+      "introStartsWithoutGesture": true,
+      "autoplayIntro": true,
+      "brandSplash": true,
+      "splashDurationMs": 3000.7999999970198,
+      "noEntranceButton": true,
       "noReplayIntroButton": true,
       "stableScanStage": true,
-      "textOnlyControls": true,
+      "roundedCapsuleControls": true,
       "fonts": [
         {
           "family": "Kia Signature",
@@ -21,8 +23,33 @@
           "weight": "300"
         }
       ],
+      "actualButtonFonts": [
+        {
+          "selector": "#sound",
+          "renderedFonts": [
+            {
+              "familyName": "Kia Signature Fix Regular",
+              "postScriptName": "KiaSignatureFixRegular",
+              "isCustomFont": true,
+              "glyphCount": 9
+            }
+          ]
+        },
+        {
+          "selector": "#open-menu",
+          "renderedFonts": [
+            {
+              "familyName": "Kia Signature Fix Regular",
+              "postScriptName": "KiaSignatureFixRegular",
+              "isCustomFont": true,
+              "glyphCount": 25
+            }
+          ]
+        }
+      ],
       "continuousDrag": true,
-      "fractionalFrames": true,
+      "fractionalFramesDuringMotion": true,
+      "wholeFrameAtRest": true,
       "maxDecodedFrames": 14,
       "gestureOnlyExplorer": true,
       "noCameraPoses": true,
@@ -42,7 +69,7 @@
             40
           ],
           "activated": true,
-          "time": 1.493676
+          "time": 1.481323
         }
       ],
       "skipCancelsImpact": true,
@@ -55,12 +82,14 @@
       "name": "small-mobile",
       "width": 360,
       "height": 740,
-      "inlineIntroWithGesture": true,
-      "autoplayIntro": false,
-      "noEntranceGate": true,
+      "introStartsWithoutGesture": true,
+      "autoplayIntro": true,
+      "brandSplash": true,
+      "splashDurationMs": 3000.9000000059605,
+      "noEntranceButton": true,
       "noReplayIntroButton": true,
       "stableScanStage": true,
-      "textOnlyControls": true,
+      "roundedCapsuleControls": true,
       "fonts": [
         {
           "family": "Kia Signature",
@@ -71,8 +100,33 @@
           "weight": "300"
         }
       ],
+      "actualButtonFonts": [
+        {
+          "selector": "#sound",
+          "renderedFonts": [
+            {
+              "familyName": "Kia Signature Fix Regular",
+              "postScriptName": "KiaSignatureFixRegular",
+              "isCustomFont": true,
+              "glyphCount": 9
+            }
+          ]
+        },
+        {
+          "selector": "#open-menu",
+          "renderedFonts": [
+            {
+              "familyName": "Kia Signature Fix Regular",
+              "postScriptName": "KiaSignatureFixRegular",
+              "isCustomFont": true,
+              "glyphCount": 25
+            }
+          ]
+        }
+      ],
       "continuousDrag": true,
-      "fractionalFrames": true,
+      "fractionalFramesDuringMotion": true,
+      "wholeFrameAtRest": true,
       "maxDecodedFrames": 14,
       "gestureOnlyExplorer": true,
       "noCameraPoses": true,
@@ -92,7 +146,7 @@
             40
           ],
           "activated": true,
-          "time": 1.492808
+          "time": 1.517874
         }
       ],
       "skipCancelsImpact": true,
@@ -105,12 +159,14 @@
       "name": "desktop",
       "width": 1280,
       "height": 800,
-      "inlineIntroWithGesture": false,
+      "introStartsWithoutGesture": true,
       "autoplayIntro": true,
-      "noEntranceGate": true,
+      "brandSplash": true,
+      "splashDurationMs": 3000.6999999955297,
+      "noEntranceButton": true,
       "noReplayIntroButton": true,
       "stableScanStage": true,
-      "textOnlyControls": true,
+      "roundedCapsuleControls": true,
       "fonts": [
         {
           "family": "Kia Signature",
@@ -121,8 +177,33 @@
           "weight": "300"
         }
       ],
+      "actualButtonFonts": [
+        {
+          "selector": "#sound",
+          "renderedFonts": [
+            {
+              "familyName": "Kia Signature Fix Regular",
+              "postScriptName": "KiaSignatureFixRegular",
+              "isCustomFont": true,
+              "glyphCount": 9
+            }
+          ]
+        },
+        {
+          "selector": "#open-menu",
+          "renderedFonts": [
+            {
+              "familyName": "Kia Signature Fix Regular",
+              "postScriptName": "KiaSignatureFixRegular",
+              "isCustomFont": true,
+              "glyphCount": 25
+            }
+          ]
+        }
+      ],
       "continuousDrag": true,
-      "fractionalFrames": true,
+      "fractionalFramesDuringMotion": true,
+      "wholeFrameAtRest": true,
       "maxDecodedFrames": 14,
       "gestureOnlyExplorer": true,
       "noCameraPoses": true,
@@ -142,7 +223,7 @@
             40
           ],
           "activated": true,
-          "time": 1.486644
+          "time": 1.494575
         }
       ],
       "skipCancelsImpact": true,
@@ -154,7 +235,7 @@
     {
       "name": "ios-fallback-contract",
       "mode": "ios-switch-experimental",
-      "nativeSwitchRequestAt": 1.505743,
+      "nativeSwitchRequestAt": 1.511504,
       "cancellation": true,
       "noVisibleControls": true,
       "physicalDevice": false,
