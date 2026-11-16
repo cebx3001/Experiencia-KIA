@@ -1,0 +1,11 @@
+{
+  "decodable": true,
+  "duration_seconds": 20.0,
+  "audio": true,
+  "sha256": "c7f82ab4a53b48660e8248576a78cdc2cd3a2ac965ccb2c32d83a266c24cfd91",
+  "raw_endpoint_similarity": {
+    "first": 0.98814,
+    "last": 0.985534
+  },
+  "visual_and_audio_review": "REQUIRED: identity throughout, straight then curve without braking, synchronized effects"
+}
