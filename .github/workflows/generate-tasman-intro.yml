@@ -1,0 +1,53 @@
+name: Generate Tasman intro with Seedance 2.5
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [feat/tasman-experiencia-cines]
+    paths:
+      - '.github/workflows/generate-tasman-intro.yml'
+      - 'tools/tasman-video/**'
+      - 'docs/tasman/video/intro/production.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tasman-seedance-intro
+  cancel-in-progress: false
+
+jobs:
+  intro:
+    if: github.ref == 'refs/heads/feat/tasman-experiencia-cines'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare official references and generate only the intro
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: python tools/tasman-video/produce_intro.py
+      - name: Preserve generation report and deliverables
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tasman-intro-${{ github.run_number }}
+          path: docs/tasman/video/intro/
+          retention-days: 90
+      - name: Save deliverables to the requested branch
+        if: always()
+        env:
+          DELIVERY_BRANCH: feat/tasman-experiencia-cines
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/tasman/video/intro/
+          if ! git diff --cached --quiet; then
+            git commit -m 'Save Tasman intro production output and status [skip ci]'
+            git pull --rebase origin "$DELIVERY_BRANCH"
+            git push origin "HEAD:refs/heads/$DELIVERY_BRANCH"
+          fi
