@@ -1,0 +1,83 @@
+{
+  "fonts": [
+    {
+      "file": "KiaSignatureBold.woff2",
+      "url": "https://www.kia.com/content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureBold.woff2",
+      "stylesheet": "https://www.kia.com/etc/designs/kia-ecuador/clientlib.min.css",
+      "sha256": "33f3f806e79cdc5f2bf2fbfee574bbeacf0a77e07e42106862773b0c7c1be10b"
+    },
+    {
+      "file": "KiaSignatureBold.woff",
+      "url": "https://www.kia.com/content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureBold.woff",
+      "stylesheet": "https://www.kia.com/etc/designs/kia-ecuador/clientlib.min.css",
+      "sha256": "c74b0c6433ea68da7c4f8fcc309749042a6dbef0e30e3062741973e7dde1152d"
+    },
+    {
+      "file": "KiaSignatureRegular.woff2",
+      "url": "https://www.kia.com/content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureRegular.woff2",
+      "stylesheet": "https://www.kia.com/etc/designs/kia-ecuador/clientlib.min.css",
+      "sha256": "e41b2f1df38ebd3a649559f41e80c4b9d034eee9383283fa3dfb8a00193d08af"
+    },
+    {
+      "file": "KiaSignatureRegular.woff",
+      "url": "https://www.kia.com/content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureRegular.woff",
+      "stylesheet": "https://www.kia.com/etc/designs/kia-ecuador/clientlib.min.css",
+      "sha256": "5df7012a7b75d916f0407eb0e3352026b8c3256d75f8147630bbc25d2149d3ad"
+    },
+    {
+      "file": "KiaSignatureLight.woff2",
+      "url": "https://www.kia.com/content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureLight.woff2",
+      "stylesheet": "https://www.kia.com/etc/designs/kia-ecuador/clientlib.min.css",
+      "sha256": "507c6742369fdf120a8bf0a6194b43a75747e0809922a0ff8719a51c6208ddf0"
+    },
+    {
+      "file": "KiaSignatureLight.woff",
+      "url": "https://www.kia.com/content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureLight.woff",
+      "stylesheet": "https://www.kia.com/etc/designs/kia-ecuador/clientlib.min.css",
+      "sha256": "1d1d08324b1bf345b632a16f8ba3738672b1e22124f13c93beedce08841f05c2"
+    },
+    {
+      "file": "NotoSans-Bold.ttf",
+      "url": "https://www.kia.com/content/dam/kwcms/gt/en/font/NotoSans-Bold.ttf",
+      "stylesheet": "https://www.kia.com/etc/designs/kia-ecuador/clientlib.min.css",
+      "sha256": "f9a6bd489df560f7a925b43d5b48d4536fa24589332e53702b63fc0072898f86"
+    }
+  ],
+  "stylesheets": [
+    {
+      "url": "https://www.kia.com/etc/designs/kia-ecuador/showroom-new.min.css",
+      "font_faces": [
+        "@font-face{font-family:'icon'}"
+      ]
+    },
+    {
+      "url": "https://www.kia.com/etc/designs/kia-global/showroom-new/css/animation.css",
+      "font_faces": []
+    },
+    {
+      "url": "https://www.kia.com/etc/designs/kia-ecuador/clientlib.min.css",
+      "font_faces": [
+        "@font-face{font-family:kiaB;font-weight:normal;font-style:normal;font-display:swap;src:url('../../../content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureBold.eot');src:url('../../../content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureBold.eot?#iefix') format('embedded-opentype'),url('../../../content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureBold.woff2') format('woff2'),url('../../../content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureBold.woff') format('woff')}",
+        "@font-face{font-family:kiaB;font-weight:700;font-style:normal;font-display:swap;src:url('../../../content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureBold.eot');src:url('../../../content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureBold.eot?#iefix') format('embedded-opentype'),url('../../../content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureBold.woff2') format('woff2'),url('../../../content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureBold.woff') format('woff')}",
+        "@font-face{font-family:kiaM;font-weight:normal;font-style:normal;font-display:swap;src:url('../../../content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureRegular.eot');src:url('../../../content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureRegular.eot?#iefix') format('embedded-opentype'),url('../../../content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureRegular.woff2') format('woff2'),url('../../../content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureRegular.woff') format('woff')}",
+        "@font-face{font-family:kiaL;font-weight:normal;font-style:normal;font-display:swap;src:url('../../../content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureLight.eot');src:url('../../../content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureLight.eot?#iefix') format('embedded-opentype'),url('../../../content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureLight.woff2') format('woff2'),url('../../../content/dam/kwcms/gt/en/font/font_optimization_201808/KiaSignatureLight.woff') format('woff')}",
+        "@font-face{font-family:Noto Sans Bold;font-weight:normal;font-style:normal;font-display:swap;src:url('../../../content/dam/kwcms/gt/en/font/NotoSans-Bold.ttf') format('truetype');src:url('../../../content/dam/kwcms/gt/en/font/NotoSans-Bold.ttf') format('truetype')}",
+        "@font-face{font-family:Noto Sans;font-weight:normal;font-style:normal;font-display:swap;src:url('../../../content/dam/kwcms/gt/en/font/NotoSans-Regular.ttf') format('truetype');src:url('../../../content/dam/kwcms/gt/en/font/NotoSans-Regular.ttf') format('truetype')}"
+      ]
+    },
+    {
+      "url": "https://www.kia.com/etc/designs/kia-ecuador/new-wsg.min.css",
+      "font_faces": []
+    },
+    {
+      "url": "https://www.kia.com/etc/designs/kia-ecuador/showroom/default_style.min.css",
+      "font_faces": []
+    },
+    {
+      "url": "https://www.kia.com/etc/designs/kia-global/showroom/vr360/vr360Clientlibs.min.css",
+      "font_faces": [
+        "@font-face{font-family:icomoon;src:url(../../../../../style/icons/icomoon.eot?ajdxit);src:url(../../../../../style/icons/icomoon.eot?ajdxit#iefix) format('embedded-opentype'),url(../../../../../style/icons/icomoon.ttf?ajdxit) format('truetype'),url(../../../../../style/icons/icomoon.woff?ajdxit) format('woff'),url(../../../../../style/icons/icomoon.svg?ajdxit#icomoon) format('svg');font-weight:400;font-style:normal}"
+      ]
+    }
+  ]
+}
