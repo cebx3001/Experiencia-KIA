@@ -20,15 +20,27 @@ jobs:
       - name: Install test browser
         run: |
           npm install --no-save playwright@1.56.1
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps chrome
       - name: Serve and verify the complete mobile video flow without loading a 3D model
         run: |
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/tasman-http.log 2>&1 &
-          node diagnostics/verify-mobile-video.cjs
+          mkdir -p docs/tasman/evidence
+          node diagnostics/verify-mobile-video.cjs 2>&1 | tee docs/tasman/evidence/mobile-ci-console.log
       - name: Verify actual Pages video, image and QR hashes
         run: python3 diagnostics/verify-mobile-published.py
+      - name: Summarize read-only browser verification
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          log=Path('docs/tasman/evidence/mobile-ci-console.log')
+          if log.exists():
+              with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as summary:
+                  summary.write('### Mobile browser verification\n\n<pre>'+log.read_text()[-20000:].replace('&','&amp;').replace('<','&lt;')+'</pre>\n')
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: tasman-mobile-campaign-verification
-          path: docs/tasman/evidence/mobile-*.json
+          path: docs/tasman/evidence/mobile-*
