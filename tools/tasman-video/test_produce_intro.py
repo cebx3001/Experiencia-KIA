@@ -62,6 +62,22 @@ class ProductionGuards(unittest.TestCase):
             production.generate(self.config)
             request.assert_not_called()
 
+    def test_error_diagnostics_exclude_key_urls_and_provider_metadata(self):
+        error = {'error': {'message': 'Bad request not-a-real-key https://example.com/?signed=secret', 'metadata': {'raw': 'never serialize this'}}}
+        with patch.dict(production.os.environ, {'OPENROUTER_API_KEY': 'not-a-real-key'}):
+            text = production.safe_api_error(json.dumps(error))
+        self.assertNotIn('not-a-real-key', text)
+        self.assertNotIn('example.com', text)
+        self.assertNotIn('never serialize', text)
+
+    def test_definitive_validation_rejection_is_not_an_ambiguous_paid_job(self):
+        with patch.dict(production.os.environ, {'OPENROUTER_API_KEY': 'not-a-real-key'}), patch.object(production, 'request', side_effect=production.RequestRejected(400, 'Validation failed')), patch.object(production, 'orbit_guide'), patch.object(production, 'build_payload', return_value={'duration':24,'resolution':'720p','aspect_ratio':'16:9'}):
+            with self.assertRaises(production.RequestRejected):
+                production.generate(self.config)
+        self.assertFalse((self.out / 'submission-intent.json').exists())
+        self.assertFalse((self.out / 'job.json').exists())
+        self.assertFalse(json.loads((self.out / 'rejected-request.json').read_text())['accepted'])
+
 
 if __name__ == '__main__':
     unittest.main()

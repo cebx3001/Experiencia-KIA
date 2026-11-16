@@ -18,6 +18,38 @@ OUT = ROOT / 'docs/tasman/video/intro'
 API = 'https://openrouter.ai/api/v1'
 
 
+class RequestRejected(RuntimeError):
+    def __init__(self, status_code, message):
+        self.status_code = status_code
+        super().__init__(message)
+
+
+def safe_api_error(raw):
+    """Keep validation messages, never request inputs or provider debug metadata."""
+    try:
+        body = json.loads(raw)
+    except (ValueError, UnicodeDecodeError):
+        return 'No JSON validation message returned'
+    error = body.get('error', {})
+    messages = []
+    if isinstance(error, str):
+        messages.append(error)
+    elif isinstance(error, dict) and isinstance(error.get('message'), str):
+        messages.append(error['message'])
+    if isinstance(body.get('message'), str):
+        messages.append(body['message'])
+    for detail in (body.get('detail') or [])[:6]:
+        if isinstance(detail, dict):
+            messages.append(str(detail.get('loc', '')) + ': ' + str(detail.get('msg', '')))
+    text = ' | '.join(messages)
+    secret = os.environ.get('OPENROUTER_API_KEY')
+    if secret:
+        text = text.replace(secret, '[redacted credential]')
+    text = re.sub(r'data:[^\s\"\']+', '[redacted media]', text)
+    text = re.sub(r'https?://[^\s\"\']+', '[redacted URL]', text)
+    return text[:1200] or 'No validation message returned'
+
+
 def write(name, value):
     (OUT / name).write_text(json.dumps(value, indent=2, ensure_ascii=False) + '\n')
 
@@ -34,8 +66,9 @@ def request(url, *, authenticated=False, payload=None):
         with urllib.request.urlopen(urllib.request.Request(url, data=data, headers=headers), timeout=180) as res:
             return res.read()
     except urllib.error.HTTPError as exc:
-        # Avoid publishing signed URLs, credentials, or arbitrary provider error bodies.
-        raise RuntimeError(f'HTTP {exc.code}: {urllib.parse.urlsplit(url).hostname}') from None
+        detail = safe_api_error(exc.read(256000))
+        write('api-error.json', {'http_status': exc.code, 'host': urllib.parse.urlsplit(url).hostname, 'validation_message': detail})
+        raise RequestRejected(exc.code, f'HTTP {exc.code}: {detail}') from None
 
 
 def digest(path):
@@ -137,7 +170,13 @@ def generate(config):
             raise RuntimeError('Existe un intento sin recibo: comprobar el proveedor antes de reenviar para evitar un doble cargo')
         write('submission-intent.json', {'request_sha256': request_hash, 'automatic_resubmission': False})
         # Exactly one POST; there is deliberately no automatic retry of a paid submission.
-        job = json.loads(request(API + '/videos', authenticated=True, payload=payload))
+        try:
+            job = json.loads(request(API + '/videos', authenticated=True, payload=payload))
+        except RequestRejected as exc:
+            if exc.status_code in [400, 401, 402, 403, 404, 405, 413, 415, 422]:
+                write('rejected-request.json', {'request_sha256': request_hash, 'http_status': exc.status_code, 'accepted': False})
+                intent.unlink()
+            raise
         if not re.fullmatch(r'[A-Za-z0-9_-]+', job.get('id', '')):
             raise RuntimeError('El proveedor no devolvió un identificador válido; no se repite el envío')
         write('job.json', {'request_sha256': request_hash, 'job': safe_job(job)})
