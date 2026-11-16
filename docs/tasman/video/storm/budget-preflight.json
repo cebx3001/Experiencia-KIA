@@ -1,0 +1,10 @@
+{
+  "scene": "storm",
+  "confirmed_usage": 27.3492,
+  "usage_used_for_guard": 27.3492,
+  "project_ceiling": 45,
+  "reserved_for_request": 3.0,
+  "scene_spent": 4.64166,
+  "remaining_project_after_reservation": 14.6508,
+  "note": "Conservative estimate under pinned pricing; provider key limits are not changed."
+}
