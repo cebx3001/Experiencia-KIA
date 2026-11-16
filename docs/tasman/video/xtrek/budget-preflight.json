@@ -1,0 +1,10 @@
+{
+  "scene": "xtrek",
+  "confirmed_usage": 27.3492,
+  "usage_used_for_guard": 32.89608,
+  "project_ceiling": 45,
+  "reserved_for_request": 3.0,
+  "scene_spent": 6.94323,
+  "remaining_project_after_reservation": 9.10392,
+  "note": "Conservative estimate under pinned pricing; provider key limits are not changed."
+}
