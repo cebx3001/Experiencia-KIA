@@ -1,0 +1,11 @@
+{
+  "decodable": true,
+  "duration": 30.041667,
+  "width": 1280,
+  "height": 720,
+  "bytes": 14372587,
+  "sha256": "14d22e19a5bd7bc3fdc60856d028308efe33260f335b1a68854056898e36eadc",
+  "audio": false,
+  "physical_mobile_test": false,
+  "visual_review": "PENDIENTE: orden de armado, apoyo de ambos ejes, cámara fija, desarmado y coincidencia con maestro"
+}
