@@ -1,0 +1,71 @@
+name: Verify published mobile experience and prepare review PR without paid media
+on:
+  workflow_dispatch:
+  push:
+    branches: [feat/tasman-experiencia-cines]
+    paths: ['.github/workflows/verify-tasman-mobile.yml']
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  public-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/tasman-experiencia-cines
+      - name: Verify all actual public app files including video, views and QR
+        run: |
+          python3 - <<'PY'
+          import concurrent.futures,hashlib,json,time,urllib.request
+          from pathlib import Path
+          folder=Path('experiencia-video');expected=json.loads((folder/'public-manifest.json').read_text())
+          base='https://cebx3001.github.io/Experiencia-KIA/experiencia/'
+          def fetch(name):
+              req=urllib.request.Request(base+name+'?verify='+expected['release'],headers={'Cache-Control':'no-cache'})
+              with urllib.request.urlopen(req,timeout=60) as response:return response.read()
+          def check(item):
+              name,digest=item
+              assert hashlib.sha256(fetch(name)).hexdigest()==digest,name
+          for attempt in range(20):
+              try:
+                  assert json.loads(fetch('public-manifest.json'))==expected,'Old preview build'
+                  with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:list(pool.map(check,expected['files'].items()))
+                  report={'passed':True,'release':expected['release'],'url':base,'files_verified':len(expected['files']),'qr_url':base+'qr.png','generation_submitted':False}
+                  Path('docs/tasman/video/web-public-verification.json').write_text(json.dumps(report,indent=2)+'\n')
+                  print(json.dumps(report));break
+              except Exception as error:
+                  print('Awaiting Pages:',str(error),flush=True)
+                  if attempt==19:raise
+                  time.sleep(15)
+          PY
+      - name: Find or create the review pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          report=Path('docs/tasman/video/web-public-verification.json');data=json.loads(report.read_text())
+          query=subprocess.run(['gh','pr','list','--head','feat/tasman-experiencia-cines','--base','main','--state','open','--json','url','--jq','.[0].url'],capture_output=True,text=True)
+          url=query.stdout.strip() if query.returncode==0 else ''
+          if not url:
+              body=Path('/tmp/pr-body.md');body.write_text('La experiencia móvil reproduce siete clips verticales con audio, un explorador por 72 imágenes con detalles, menú de seis pruebas y cierre por WhatsApp oficial. La intro sincroniza impacto y vibración con el reloj del video; el recorrido no carga GLB ni WebGL.\n\nPublicación: https://cebx3001.github.io/Experiencia-KIA/experiencia/\n\nValidación: decodificación, formatos y audio de los siete MP4; Chromium móvil/escritorio emulados; hashes de los archivos públicos. No se ha probado en Android o iPhone físico.\n\nLas limitaciones visuales pendientes de X-TREK, Storm, Carga e Interior están descritas en docs/tasman/video/DELIVERY-MOBILE.md. No se presentan como aprobadas ni se hicieron correcciones de pago automáticas.\n')
+              result=subprocess.run(['gh','pr','create','--draft','--base','main','--head','feat/tasman-experiencia-cines','--title','Integrate the mobile Tasman video experience, image exploration, audio and impact haptics','--body-file',str(body)],capture_output=True,text=True)
+              if result.returncode==0:url=result.stdout.strip()
+              else:data['pull_request_status']='Could not create automatically: '+result.stderr.strip()[:500]
+          if url:data['pull_request']=url
+          report.write_text(json.dumps(data,indent=2)+'\n')
+          print(json.dumps(data))
+          PY
+      - name: Save public verification and PR result
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/tasman/video/web-public-verification.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Verify public mobile experience, QR and review PR [skip ci]'
+            git pull --rebase origin feat/tasman-experiencia-cines
+            git push origin HEAD:refs/heads/feat/tasman-experiencia-cines
+          fi
