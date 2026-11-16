@@ -1,0 +1,28 @@
+{
+  "video": "xtrek",
+  "model_id": "bytedance/seedance-2.5",
+  "reference_commit": "fa1c28ff52edf2a9bf50640e2c45821ed7b388ae",
+  "master_sha256": "3417854db8f1997061efbf7979feb294b5318158802bc47040a437456946ac79",
+  "duration": 10,
+  "resolution": "720p",
+  "aspect_ratio": "16:9",
+  "seed": 2026111502,
+  "generate_audio": false,
+  "factory_angles": [
+    0,
+    36,
+    45,
+    54,
+    63
+  ],
+  "state": "MONTAJE CON RENDER EXISTENTE; REGENERACI\u00d3N PAUSADA PARA REVISI\u00d3N Y PRESUPUESTO",
+  "next_video_authorized": false,
+  "environment_images": [
+    "environment.png",
+    "climb-complete.png"
+  ],
+  "video_guides": [
+    "approved-look.mp4"
+  ],
+  "generation_enabled": false
+}

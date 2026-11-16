@@ -1,4 +1,4 @@
-name: Generate the single authorized Cargo scene
+name: Produce the single client-requested CARGO correction
 on:
   workflow_dispatch:
   push:
@@ -24,7 +24,7 @@ jobs:
             sudo apt-get update -qq
             sudo apt-get install -y ffmpeg
           fi
-      - name: Verify the approved Cargo master and explicit frame anchors
+      - name: Verify the approved CARGO master and explicit frame anchors
         run: |
           python3 - <<'PY'
           import json, hashlib
@@ -33,9 +33,10 @@ jobs:
           master = Path('docs/tasman/video/intro/master.png')
           assert hashlib.sha256(master.read_bytes()).hexdigest() == config['master_sha256']
           assert config['identity_mode'] == 'approved_master_only'
-          assert config['maximum_new_charge_reserved_usd'] == 2.5
+          assert config['maximum_new_charge_reserved_usd'] == 3.0
+          assert config['aspect_ratio'] == '9:16'
           PY
-      - name: Check budget and generate or resume Cargo
+      - name: Check budget and generate or resume CARGO
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPEN_ROUTER_ACCESS }}
         run: python3 tools/tasman-vadeo/produce.py cargo
@@ -46,7 +47,7 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add docs/tasman/video/cargo
           if ! git diff --cached --quiet; then
-            git commit -m 'Save Cargo generation and review status [skip ci]'
+            git commit -m 'Save CARGO generation and review status [skip ci]'
             git pull --rebase origin feat/tasman-experiencia-cines
             git push origin HEAD:refs/heads/feat/tasman-experiencia-cines
           fi

@@ -1,28 +1,36 @@
 {
-  "video": "xtrek",
+  "state": "CORRECCIÓN SOLICITADA EXPLÍCITAMENTE POR EL CLIENTE",
+  "generation_enabled": true,
   "model_id": "bytedance/seedance-2.5",
-  "reference_commit": "fa1c28ff52edf2a9bf50640e2c45821ed7b388ae",
-  "master_sha256": "3417854db8f1997061efbf7979feb294b5318158802bc47040a437456946ac79",
-  "duration": 10,
+  "duration": 12,
   "resolution": "720p",
-  "aspect_ratio": "16:9",
-  "seed": 2026111502,
-  "generate_audio": false,
-  "factory_angles": [
-    0,
-    36,
-    45,
-    54,
-    63
-  ],
-  "state": "MONTAJE CON RENDER EXISTENTE; REGENERACI\u00d3N PAUSADA PARA REVISI\u00d3N Y PRESUPUESTO",
-  "next_video_authorized": false,
-  "environment_images": [
-    "environment.png",
-    "climb-complete.png"
-  ],
-  "video_guides": [
-    "approved-look.mp4"
-  ],
-  "generation_enabled": false
+  "aspect_ratio": "9:16",
+  "generate_audio": true,
+  "seed": 2026111616,
+  "master_sha256": "3417854db8f1997061efbf7979feb294b5318158802bc47040a437456946ac79",
+  "vertical_master_sha256": "87def8c90c3196e87d695e6dc4956921bf3f69a77bbcc49d67794fbc7781e4a2",
+  "identity_mode": "approved_master_only",
+  "editorial_delivery_seconds": 20,
+  "reserve_usd": 3.0,
+  "maximum_new_charge_reserved_usd": 3.0,
+  "automatic_paid_retry": false,
+  "correction_round": "client-20261116",
+  "reference_commit": "5c18939ace913e8a932f8f1b2267472c7b3c7c4c",
+  "approved_reference_files": [
+    {
+      "path": "corrections/references/approved-tasman-view-45.jpg",
+      "kind": "image",
+      "sha256": "ad6714c598a9df42417ef6b5cb656096e6a3558aa39b98ff996dae419f79883f"
+    },
+    {
+      "path": "corrections/references/approved-tasman-view-36.jpg",
+      "kind": "image",
+      "sha256": "65bdf454758ae172534e197890e109f7ab0c214328248afc3545258910170d5c"
+    },
+    {
+      "path": "corrections/references/tasman-26my-offloead-01.jpg",
+      "kind": "image",
+      "sha256": "769dbeb0534f4510ada2f834af262223154f2869493f44154509e86ee3b6450c"
+    }
+  ]
 }

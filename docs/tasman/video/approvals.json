@@ -8,8 +8,14 @@
   "xtrek": {
     "state": "AUTORIZADA PARA PRODUCCIÓN",
     "requires_intro_approval": true,
-    "delivery_state": "EN VALIDACIÓN until client review",
-    "review": "El cliente autorizó continuar con Vadeo. El terreno de X-TREK queda pendiente de revisión: camino rocoso continuo, con varios apoyos e irregularidades."
+    "delivery_state": "CORRECCIÓN EXPLÍCITA DEL CLIENTE; EN VALIDACIÓN",
+    "review": "El cliente autorizó continuar con Vadeo. El terreno de X-TREK queda pendiente de revisión: camino rocoso continuo, con varios apoyos e irregularidades.",
+    "automatic_paid_regeneration": false,
+    "paid_revision_authorization": {
+      "round": "client-20261116",
+      "maximum_reserved_usd": 3,
+      "one_accepted_request_only": true
+    }
   },
   "other_videos_authorized": false,
   "vadeo": {
@@ -19,13 +25,13 @@
   },
   "storm": {
     "state": "AUTORIZADA PARA PRODUCCIÓN",
-    "delivery_state": "SUSTITUCIÓN ÚNICA AUTORIZADA; PENDIENTE DE VALIDACIÓN",
+    "delivery_state": "CORRECCIÓN EXPLÍCITA DEL CLIENTE; EN VALIDACIÓN",
     "review": "El cliente autorizó continuar con Remolque.",
     "automatic_paid_regeneration": false,
     "paid_revision_authorization": {
-      "revision": 1,
-      "maximum_reserved_usd": 2.5,
-      "evidence": "Client explicitly authorized proceeding after the quoted $2.32 estimate and $2.50 reservation."
+      "round": "client-20261116",
+      "maximum_reserved_usd": 3,
+      "one_accepted_request_only": true
     }
   },
   "trailer": {
@@ -34,9 +40,14 @@
   },
   "cargo": {
     "state": "AUTORIZADA PARA PRODUCCIÓN",
-    "delivery_state": "EN VALIDACIÓN hasta revisión del cliente",
+    "delivery_state": "CORRECCIÓN EXPLÍCITA DEL CLIENTE; EN VALIDACIÓN",
     "evidence": "Client: Y continúa, por favor, con la parte de las cajas. Búscalo. Mantén lo que el guion dice, no cambies las cosas.",
-    "automatic_paid_regeneration": false
+    "automatic_paid_regeneration": false,
+    "paid_revision_authorization": {
+      "round": "client-20261116",
+      "maximum_reserved_usd": 3,
+      "one_accepted_request_only": true
+    }
   },
   "interior": {
     "state": "AUTORIZADA PARA PRODUCCIÓN",

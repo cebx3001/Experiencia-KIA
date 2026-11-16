@@ -5,14 +5,14 @@
   "conservative_usd_per_generated_second_720p": 0.25,
   "scene_limits": {
     "intro": 6,
-    "xtrek": 7,
+    "xtrek": 10,
     "vadeo": 3,
-    "storm": 5.0,
-    "cargo": 2.5,
+    "storm": 8,
+    "cargo": 5.5,
     "trailer": 2.5,
     "interior": 3
   },
-  "unallocated_reserve": 16.0,
+  "unallocated_reserve": 7.0,
   "maximum_video_token_price": 1.07e-05,
   "automatic_paid_retries": false,
   "future_stills_and_transitions": "Extract from approved video and original Kia views; no additional paid image generation planned.",
@@ -20,14 +20,28 @@
   "maximum_accepted_generations_per_scene": 1,
   "planned_generation_seconds": {
     "vadeo": 12,
-    "storm": 10,
-    "cargo": 10,
+    "storm": 12,
+    "cargo": 12,
     "trailer": 10,
-    "interior": 12
+    "interior": 12,
+    "xtrek": 12
   },
-  "xtrek_policy": "Reuse the existing paid render; no second generation.",
+  "xtrek_policy": "One additional 12-second correction explicitly requested by the client for a continuous rocky ascent; no further paid retries.",
   "editorial_delivery_seconds_per_demo": 20,
   "scene_generation_limits": {
-    "storm": 2
+    "storm": 3,
+    "xtrek": 2,
+    "cargo": 2
+  },
+  "client_corrections_20261116": {
+    "scenes": [
+      "cargo",
+      "storm",
+      "xtrek"
+    ],
+    "maximum_reserved_each_usd": 3,
+    "vadeo": "Recolor the existing particles only; NO new generation.",
+    "reason": "Client explicitly rejected malformed Cargo geometry, inactive wet-road action and the isolated X-TREK obstacle; requested corrective scenes.",
+    "total_ceiling_unchanged": 45
   }
 }

@@ -1,23 +1,41 @@
 {
-  "state": "AUTORIZADA POR EL CLIENTE",
+  "state": "CORRECCIÓN SOLICITADA EXPLÍCITAMENTE POR EL CLIENTE",
   "generation_enabled": true,
   "model_id": "bytedance/seedance-2.5",
-  "duration": 10,
+  "duration": 12,
   "resolution": "720p",
-  "aspect_ratio": "16:9",
+  "aspect_ratio": "9:16",
   "generate_audio": true,
-  "seed": 2026111604,
+  "seed": 2026111614,
   "master_sha256": "3417854db8f1997061efbf7979feb294b5318158802bc47040a437456946ac79",
+  "vertical_master_sha256": "87def8c90c3196e87d695e6dc4956921bf3f69a77bbcc49d67794fbc7781e4a2",
   "identity_mode": "approved_master_only",
-  "official_identity_angles": [
-    27,
-    18,
-    36
-  ],
-  "reference_policy": "Exact approved master fixes both endpoints. Three official Kia Tan Beige views identify only the original rear/bed geometry. Customer Cargo storyboard directs written yard/camera/action, not an alternative truck identity.",
   "editorial_delivery_seconds": 20,
-  "maximum_new_charge_reserved_usd": 2.5,
-  "reserve_usd": 2.5,
-  "estimated_generation_usd": 2.32,
-  "automatic_paid_retry": false
+  "reserve_usd": 3.0,
+  "maximum_new_charge_reserved_usd": 3.0,
+  "automatic_paid_retry": false,
+  "correction_round": "client-20261116",
+  "reference_commit": "5c18939ace913e8a932f8f1b2267472c7b3c7c4c",
+  "approved_reference_files": [
+    {
+      "path": "corrections/references/approved-tasman-view-36.jpg",
+      "kind": "image",
+      "sha256": "65bdf454758ae172534e197890e109f7ab0c214328248afc3545258910170d5c"
+    },
+    {
+      "path": "corrections/references/approved-tasman-view-27.jpg",
+      "kind": "image",
+      "sha256": "897c17cfe94b10f93cdc5afbefc3376cb3af7b7f396beb183db9a25c81be2d1b"
+    },
+    {
+      "path": "corrections/references/approved-tasman-view-18.jpg",
+      "kind": "image",
+      "sha256": "5ff106fc123ac57c90e825ffb74cc86838e75caabd6f8c314384b1a975c94dc5"
+    },
+    {
+      "path": "corrections/references/tasman-26my-wide-exterior-06.jpg",
+      "kind": "image",
+      "sha256": "9dd141b62b7a0b2903b8feabbca90b0372e671a7fb7dcfb2aaeee924bbca2a3b"
+    }
+  ]
 }

@@ -1,9 +1,9 @@
-name: Generate only the approved X-TREK scene
+name: Produce the single client-requested XTREK correction
 on:
   workflow_dispatch:
   push:
     branches: [feat/tasman-experiencia-cines]
-    paths: ['.github/workflows/generate-tasman-xtrek.yml', 'tools/tasman-xtrek/**', 'docs/tasman/video/xtrek/production.json']
+    paths: ['.github/workflows/generate-tasman-xtrek.yml']
 permissions:
   contents: write
 concurrency:
@@ -18,37 +18,43 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: feat/tasman-experiencia-cines
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Verify the X-TREK production guards without credentials
-        run: python -m unittest discover -s tools/tasman-xtrek -p 'test_*.py' -v
       - name: Ensure FFmpeg is available
         run: |
           if ! command -v ffmpeg >/dev/null; then
             sudo apt-get update -qq
             sudo apt-get install -y ffmpeg
           fi
-      - name: Generate only X-TREK with the approved master at both endpoints
+      - name: Verify the approved XTREK master and explicit frame anchors
+        run: |
+          python3 - <<'PY'
+          import json, hashlib
+          from pathlib import Path
+          config = json.loads(Path('docs/tasman/video/xtrek/production.json').read_text())
+          master = Path('docs/tasman/video/intro/master.png')
+          assert hashlib.sha256(master.read_bytes()).hexdigest() == config['master_sha256']
+          assert config['identity_mode'] == 'approved_master_only'
+          assert config['maximum_new_charge_reserved_usd'] == 3.0
+          assert config['aspect_ratio'] == '9:16'
+          PY
+      - name: Check budget and generate or resume XTREK
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPEN_ROUTER_ACCESS }}
-        run: python tools/tasman-xtrek/produce.py
-      - name: Preserve the X-TREK deliverables and diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: tasman-xtrek-${{ github.run_number }}
-          path: docs/tasman/video/xtrek/
-          retention-days: 90
-      - name: Save the output to the requested branch
+        run: python3 tools/tasman-vadeo/produce.py xtrek
+      - name: Persist the receipt and delivery
         if: always()
         run: |
-          set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/tasman/video/xtrek/
+          git add docs/tasman/video/xtrek
           if ! git diff --cached --quiet; then
-            git commit -m 'Save X-TREK generation and review status [skip ci]'
+            git commit -m 'Save XTREK generation and review status [skip ci]'
             git pull --rebase origin feat/tasman-experiencia-cines
             git push origin HEAD:refs/heads/feat/tasman-experiencia-cines
           fi
+      - name: Preserve the playable proposal
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tasman-xtrek
+          path: docs/tasman/video/xtrek/
+          retention-days: 30
