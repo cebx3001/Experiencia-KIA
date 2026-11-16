@@ -1,5 +1,5 @@
 {
   "state": "ERROR",
-  "error": "Actions recibió OPENROUTER_API_KEY vacío. Vincular el Environment que lo contiene o guardar el secreto a nivel de este repositorio. No se ha enviado ningún trabajo de pago.",
+  "error": "HTTP 400: openrouter.ai",
   "next_video_authorized": false
 }
