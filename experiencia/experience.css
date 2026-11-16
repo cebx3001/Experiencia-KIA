@@ -61,3 +61,19 @@ body[data-state=menu] #panel h2{font-size:29px;line-height:1.1;letter-spacing:-.
 @media(prefers-reduced-motion:reduce){#campaign button{transition:none}}
 
 #splash .splash-sound-hint{position:absolute;bottom:max(28px,env(safe-area-inset-bottom));left:24px;right:24px;font-size:10px;letter-spacing:.025em;color:#8a9791}
+
+/* Prominent, optional sound activation; playback remains automatic. */
+#splash .sound-activate,#campaign #panel .sound-activate{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:15px 27px;border:1px solid #edf1e9;border-radius:999px;background:#edf1e9;color:#101916;font:400 13px 'Kia Signature',sans-serif;letter-spacing:.04em;max-width:100%;cursor:pointer}
+#splash .sound-activate{margin-top:27px}#splash .sound-activate:focus-visible{outline:2px solid #97dbe1;outline-offset:5px}#splash .sound-activate:disabled{opacity:.8;cursor:default}
+#splash .splash-audio-note{font-size:11px;line-height:1.4;margin:13px 0 0;color:#a8afa6}
+#campaign #panel #audio-prompt h1{font-size:34px;margin-bottom:18px}#campaign #panel #audio-prompt .eyebrow{margin-bottom:9px}#campaign #panel #audio-prompt .audio-note{font-size:10px;margin:12px 0 0;line-height:1.4}
+#campaign header #sound{font-size:12px;min-height:42px;padding:10px 15px;color:#edf1e9;border-color:#95d7de}
+/* Booking is the single persistent bottom action. */
+#campaign footer{flex:none;flex-direction:column;gap:8px;padding:14px 26px max(16px,env(safe-area-inset-bottom));position:sticky;bottom:0;z-index:10;background:#000}
+#campaign footer .booking-button{display:flex;align-items:center;justify-content:center;width:100%;max-width:330px;min-height:50px;padding:14px 24px;border:1px solid #edf1e9;border-radius:999px;background:#edf1e9;color:#101916;font:400 14px 'Kia Signature',sans-serif;letter-spacing:.015em;text-decoration:none}
+#campaign footer .booking-button:hover{background:#dceceb}#campaign footer .booking-button:focus-visible{outline:2px solid #97dbe1;outline-offset:4px;text-decoration:none}
+#campaign footer .booking-bonus{font-size:12px;line-height:1.3;color:#babbb4;margin:0;text-align:center}
+#campaign header{min-height:77px}
+#campaign #panel .grid{gap:10px}
+#campaign #panel .grid button{min-height:62px;padding-top:10px;padding-bottom:10px}
+body[data-state=menu] #panel{padding-top:14px;padding-bottom:14px}
