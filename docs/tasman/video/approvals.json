@@ -8,7 +8,12 @@
   "xtrek": {
     "state": "AUTORIZADA PARA PRODUCCIÓN",
     "requires_intro_approval": true,
-    "delivery_state": "EN VALIDACIÓN until client review"
+    "delivery_state": "EN VALIDACIÓN until client review",
+    "review": "El cliente autorizó continuar con Vadeo. El terreno de X-TREK queda pendiente de revisión: camino rocoso continuo, con varios apoyos e irregularidades."
   },
-  "other_videos_authorized": false
+  "other_videos_authorized": false,
+  "vadeo": {
+    "state": "AUTORIZADA PARA PRODUCCIÓN",
+    "delivery_state": "EN VALIDACIÓN hasta revisión del cliente"
+  }
 }

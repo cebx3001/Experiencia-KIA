@@ -12,7 +12,7 @@ La entrega usa videos generados. La introducción completa, incluidas la caída,
 
 ## 2. Producir y revisar siete videos
 
-**Presupuesto confirmado por el cliente:** máximo **45 USD en total**, incluyendo lo ya consumido. Los recibos de la intro y X-TREK suman 12,49974 USD. Desde este ajuste se permite una sola generación aceptada por escena, sin correcciones de pago automáticas. Comprobar `video/budget.json` y `tools/tasman-budget/guard.py` antes de cualquier solicitud: coste reservado, saldo disponible, precio vigente, duración corta y conservación de las partidas de las escenas restantes. Reutilizar fotogramas y la órbita aprobada para imágenes y clips auxiliares cuando sea posible; el montaje y los efectos locales no requieren otra generación de OpenRouter. El audio queda pospuesto por indicación del cliente mientras revisa X-TREK.
+**Presupuesto confirmado por el cliente:** máximo **45 USD en total**, incluyendo lo ya consumido. Los recibos de la intro y X-TREK suman 12,49974 USD. Desde este ajuste se permite una sola generación aceptada por escena, sin correcciones de pago automáticas. Comprobar `video/budget.json` y `tools/tasman-budget/guard.py` antes de cualquier solicitud: coste reservado, saldo disponible, precio vigente, duración corta y conservación de las partidas de las escenas restantes. Reutilizar fotogramas y la órbita aprobada para imágenes y clips auxiliares cuando sea posible; el montaje y los efectos locales no requieren otra generación de OpenRouter. X-TREK se revisa con audio de montaje. La siguiente escena autorizada es Vadeo.
 
 
 
@@ -28,7 +28,7 @@ Producir en el orden siguiente. Antes de entregar cada video, comprobar que se l
 | --- | --- |
 | Introducción | Abre directamente con la Tasman descendiendo en tres cuartos frontal sobre el piso del estudio negro. Las ruedas tocan el piso, la suspensión se comprime, la carrocería rebota ligeramente y saltan polvo y piedritas. La cámara orbita 360° alrededor del vehículo quieto. Al volver al tres cuartos, el escaneo sigue la carrocería y el video cierra en el fotograma maestro, con la Tasman en reposo. |
 | X-TREK | Camino rocoso en bosque de montaña. Cámara fija durante la prueba. Se lee el apoyo de la rueda, la articulación de la suspensión y el paso del eje trasero sobre la losa. |
-| Vadeo | Río ancho. Cámara fija durante la prueba. La Tasman entra, cruza un tramo sostenido con ola de proa y estela, y sale por la otra orilla. |
+| Vadeo | Desde el maestro, abrir el plano hasta mostrar ambas orillas del río ancho. Mantener esa cámara fija durante la entrada, el cruce con ola de proa y estela y la salida por la orilla opuesta. Luego acercar la cámara de forma continua mientras el cauce se desarma por profundidad. Ajustar la escala y posición de la Tasman hasta enlazar con el maestro. |
 | Storm | Carretera nocturna mojada. La cámara va de tres cuartos hacia lateral. La Tasman rueda por la recta bajo la lluvia y llega a la curva. Se reflejan faros y carrocería en el asfalto. |
 | Carga en la paila | Patio exterior de un centro de distribución. La cámara va a tres cuartos trasero elevado. Las cajas toman forma y caen una por una dentro de la paila. |
 | Remolque | Autopista en paisaje abierto. El remolque cargado toma forma detrás de la Tasman, con enganche visible. El conjunto se ve rodando en perfil lateral completo. |
@@ -41,7 +41,7 @@ La presentación holográfica de Peter Weyland en *Prometheus* y las láminas de
 
 Revisar las láminas del cliente antes del montaje. En las [páginas 4–6](references/tasman-01-04.jpg), **Entrar a la experiencia** da paso a la intro y el impacto combina golpe, sacudida breve y vibración. Usar el contacto visible de las llantas con el piso como punto de sincronía de los tres efectos en la edición final.
 
-Entregar los siete videos con audio sincronizado. Dar al armado holográfico un sonido común que siga la acción. Un pulso corto acompaña la primera malla, pequeñas capas de sonido aparecen conforme el terreno o la arquitectura toman forma, y el sonido se va apagando del fondo hacia la Tasman durante el desarmado. Dejar espacio en la mezcla para que el motor, el agua, las ruedas y los impactos se distingan. Cerrar cada prueba sobre el mismo ambiente silencioso o tenue del estudio, de modo que pueda enlazar con la siguiente.
+Entregar los siete videos con audio sincronizado. Dar al armado un sonido de partículas y piezas que se juntan. La primera malla empieza con granos finos en movimiento. Pequeños encajes secos marcan cómo se asientan las capas. Al desarmarse, las partículas se sueltan por grupos y el sonido se apaga del fondo hacia la Tasman. Usar un carácter táctil y discreto que acompañe la construcción. Dejar espacio en la mezcla para que el motor, el agua, las ruedas y los impactos se distingan. Cerrar cada prueba sobre el mismo ambiente silencioso o tenue del estudio, de modo que pueda enlazar con la siguiente.
 
 | Video | Sonido de la acción |
 | --- | --- |
