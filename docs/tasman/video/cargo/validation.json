@@ -1,0 +1,11 @@
+{
+  "decodable": true,
+  "duration_seconds": 20.0,
+  "audio": true,
+  "sha256": "6df6571432b5439b63930296dde26b1aff8f219d6a757e60197c260d0b7a1d2c",
+  "raw_endpoint_similarity": {
+    "first": 0.986235,
+    "last": 0.984144
+  },
+  "visual_and_audio_review": "REQUIRED: identity throughout, screenplay-specific action, synchronized effects; not an automatic creative approval"
+}
