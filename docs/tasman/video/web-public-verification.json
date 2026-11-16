@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "release": "tasman-mobile-video-20261116-r2",
+  "url": "https://cebx3001.github.io/Experiencia-KIA/experiencia/",
+  "files_verified": 99,
+  "qr_url": "https://cebx3001.github.io/Experiencia-KIA/experiencia/qr.png",
+  "generation_submitted": false,
+  "pull_request_status": "Could not create automatically: pull request create failed: GraphQL: GitHub Actions is not permitted to create or approve pull requests (createPullRequest)"
+}
