@@ -26,6 +26,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Check the API and duplicate-charge guards without credentials
+        run: python -m unittest discover -s tools/tasman-video -p 'test_*.py' -v
+      - name: Ensure FFmpeg is available
+        run: |
+          if ! command -v ffmpeg >/dev/null; then
+            sudo apt-get update -qq
+            sudo apt-get install -y ffmpeg
+          fi
       - name: Prepare official references and generate only the intro
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
@@ -51,3 +59,20 @@ jobs:
             git pull --rebase origin "$DELIVERY_BRANCH"
             git push origin "HEAD:refs/heads/$DELIVERY_BRANCH"
           fi
+      - name: Deliver the intro and master as a review prerelease
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          test -s docs/tasman/video/intro/intro.mp4
+          tag=tasman-intro-seedance-review-v1
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            gh release create "$tag" --target "$GITHUB_SHA" --prerelease \
+              --title 'Tasman · Introducción Seedance 2.5 · En validación' \
+              --notes-file docs/tasman/video/intro/REVIEW.md
+          fi
+          gh release upload "$tag" docs/tasman/video/intro/intro.mp4 \
+            docs/tasman/video/intro/master.png docs/tasman/video/intro/opening.png \
+            docs/tasman/video/intro/validation.json --clobber

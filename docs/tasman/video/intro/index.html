@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tasman · Introducción en validación</title>
+<style>body{background:#08090a;color:#eef0ed;font:16px system-ui;max-width:1200px;margin:32px auto;padding:0 20px}h1{font-weight:400}p{line-height:1.6}video,img{display:block;max-width:100%;height:auto}a{color:#b9dedf}button{padding:12px 18px;background:#202527;color:white;border:1px solid #556064;cursor:pointer}.controls{display:flex;gap:12px;margin:16px 0;align-items:center;flex-wrap:wrap}img{max-height:520px}</style>
+<h1>Tasman · Introducción</h1><p id="status">En validación · Solo la introducción. Las siguientes pruebas esperan aprobación.</p>
+<video id="intro" src="intro.mp4" poster="opening.png" controls playsinline preload="metadata"></video>
+<div class="controls"><button id="replay">Repetir intro</button><label>Velocidad <select id="speed"><option value="1">Normal</option><option value="0.25">Cámara lenta ×0,25</option></select></label><a href="intro.mp4" download>Descargar intro</a><a href="master.png" download>Descargar maestro</a></div>
+<p id="unavailable" hidden>El video todavía no está disponible. El fotograma maestro está preparado; consulta <a href="status.json">el estado de producción</a>. No se sustituye la intro generada por el clip anterior.</p>
+<h2>Fotograma maestro</h2><img src="master.png" alt="Kia Tasman Tan Beige en tres cuartos frontal dentro del estudio negro">
+<p><a href="REVIEW.md">Notas de producción y validación</a></p>
+<script>const v=document.querySelector('video');document.querySelector('#replay').onclick=()=>{v.currentTime=0;v.play().catch(()=>{})};document.querySelector('#speed').onchange=e=>v.playbackRate=+e.target.value;v.addEventListener('error',()=>document.querySelector('#unavailable').hidden=false);v.addEventListener('ended',()=>{v.poster='master.png'});</script></html>
