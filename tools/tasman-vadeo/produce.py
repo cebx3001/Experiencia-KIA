@@ -88,9 +88,10 @@ def payload(config):
                 if core.digest(OUT / 'references' / name) != hashes[name]:
                     raise RuntimeError('An original cabin reference changed')
             body['input_references'] = [image_ref(OUT / 'references' / name) for name in names]
-        if config.get('correction_round') == 'client-20261116':
-            if SCENE not in ('cargo','storm','xtrek'):
-                raise RuntimeError('Only the three explicitly requested scene corrections may use this conditioning set')
+        if config.get('correction_round') in ('client-20261116', 'client-20261116-vadeo-return'):
+            allowed=('vadeo',) if config['correction_round']=='client-20261116-vadeo-return' else ('cargo','storm','xtrek')
+            if SCENE not in allowed:
+                raise RuntimeError('Only the explicitly requested corrective scene may use this conditioning set')
             references=[]
             for item in config['approved_reference_files']:
                 path=(VIDEO/item['path']).resolve()
