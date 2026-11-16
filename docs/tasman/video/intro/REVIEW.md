@@ -21,3 +21,5 @@ Si Actions informa un secreto vacío, no se envía ningún trabajo de pago. No h
 Diagnóstico del acceso: GitHub denegó el listado de nombres por su API de metadatos con `403: Resource not accessible by integration` (ver `secret-metadata.json`). Los alias comprobados devolvieron vacío. El intento anterior de inspeccionar el contexto completo fue rechazado por el control automático de GitHub y se retiró; no se ha ejecutado ni se necesita aprobarlo. Para configurar un nombre diferente hace falta copiar su nombre exacto desde Settings → Secrets and variables → Actions, nunca su valor.
 
 Configuración resuelta: el cliente confirmó el secreto de repositorio `OPEN_ROUTER_ACCESS`. Se retiraron las comprobaciones de alias y el diagnóstico de nombres; el workflow usa ese único secreto.
+
+Producción visual sin audio generativo: el primer trabajo aceptado falló porque el proveedor rechazó su salida de audio por posibles restricciones de copyright. El intento se conserva en `attempts/01-audio-rejected`; el nuevo trabajo pide solamente video (`generate_audio: false`), sin reutilizar ni intentar reproducir la pista rechazada. El maestro no cambia.

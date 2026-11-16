@@ -131,7 +131,7 @@ def build_payload(config, model):
     refs += [media(p, 'video', config['reference_commit']) for p in guides]
     payload = {key: config[key] for key in ['duration', 'resolution', 'aspect_ratio']}
     payload.update(model=model['id'], prompt=(OUT / 'prompt.txt').read_text(), frame_images=frames,
-                   input_references=refs, generate_audio=True)
+                   input_references=refs, generate_audio=config.get('generate_audio', False))
     if model.get('seed'):
         payload['seed'] = config['seed']
     return payload
@@ -139,7 +139,10 @@ def build_payload(config, model):
 
 def safe_job(job):
     # In particular, do not persist the signed output URLs returned by the service.
-    return {key: job[key] for key in ['id', 'status', 'generation_id', 'usage'] if key in job}
+    result = {key: job[key] for key in ['id', 'status', 'generation_id', 'usage'] if key in job}
+    if job.get('error'):
+        result['error'] = safe_api_error(json.dumps({'error': job['error']}))
+    return result
 
 
 def generate(config):
@@ -159,7 +162,7 @@ def generate(config):
         'model': model['id'], 'duration': payload['duration'], 'resolution': payload['resolution'],
         'aspect_ratio': payload['aspect_ratio'], 'seed': payload.get('seed'), 'request_sha256': request_hash,
         'master_sha256': digest(OUT / 'master.png'), 'opening_sha256': digest(OUT / 'opening.png'),
-        'image_references': 7, 'video_guides': 3, 'approval': 'EN VALIDACIÓN', 'next_video_authorized': False,
+        'image_references': 7, 'video_guides': 3, 'generate_audio': payload['generate_audio'], 'approval': 'EN VALIDACIÓN', 'next_video_authorized': False,
     })
     if not os.environ.get('OPENROUTER_API_KEY'):
         raise RuntimeError('Actions recibió OPENROUTER_API_KEY vacío. Vincular el Environment que lo contiene o guardar el secreto a nivel de este repositorio. No se ha enviado ningún trabajo de pago.')
@@ -188,7 +191,8 @@ def generate(config):
     deadline = time.monotonic() + 30 * 60
     while job.get('status') != 'completed':
         if job.get('status') in ['failed', 'cancelled', 'expired']:
-            raise RuntimeError(f'El trabajo {job["id"]} terminó como {job["status"]}; revisar en OpenRouter, sin regeneración automática')
+            detail = safe_job(job).get('error', 'No provider detail returned')
+            raise RuntimeError(f'El trabajo {job["id"]} terminó como {job["status"]}: {detail}; sin regeneración automática')
         if time.monotonic() > deadline:
             raise RuntimeError('Generación todavía pendiente; volver a ejecutar continúa el mismo trabajo sin volver a pagarlo')
         print('Seedance:', job.get('status'), flush=True)

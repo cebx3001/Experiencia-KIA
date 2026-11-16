@@ -35,6 +35,7 @@ class ProductionGuards(unittest.TestCase):
         self.assertEqual(payload['frame_images'][1]['source'], str(self.out / 'master.png'))
         self.assertEqual(payload['frame_images'][1]['frame_type'], 'last_frame')
         self.assertEqual(payload['model'], 'bytedance/seedance-2.5')
+        self.assertFalse(payload['generate_audio'])
         self.assertFalse(any('TAM_45.png' in p['source'] for p in payload['input_references']))
 
     def test_do_not_invent_1080p_support(self):
@@ -51,14 +52,14 @@ class ProductionGuards(unittest.TestCase):
             production.media(production.ROOT / 'docs/tasman/video/intro/orbit-guide.mp4', 'video', 'main')
 
     def test_missing_secret_cannot_submit(self):
-        with patch.dict(production.os.environ, {}, clear=True), patch.object(production, 'request') as request, patch.object(production, 'orbit_guide'), patch.object(production, 'build_payload', return_value={'duration':24,'resolution':'720p','aspect_ratio':'16:9'}):
+        with patch.dict(production.os.environ, {}, clear=True), patch.object(production, 'request') as request, patch.object(production, 'orbit_guide'), patch.object(production, 'build_payload', return_value={'duration':24,'resolution':'720p','aspect_ratio':'16:9','generate_audio':False}):
             with self.assertRaisesRegex(RuntimeError, 'vacío'):
                 production.generate(self.config)
             request.assert_not_called()
 
     def test_ambiguous_previous_submission_never_reposts(self):
         (self.out / 'submission-intent.json').write_text('{}')
-        with patch.dict(production.os.environ, {'OPENROUTER_API_KEY': 'not-a-real-key'}), patch.object(production, 'request') as request, patch.object(production, 'orbit_guide'), patch.object(production, 'build_payload', return_value={'duration':24,'resolution':'720p','aspect_ratio':'16:9'}):
+        with patch.dict(production.os.environ, {'OPENROUTER_API_KEY': 'not-a-real-key'}), patch.object(production, 'request') as request, patch.object(production, 'orbit_guide'), patch.object(production, 'build_payload', return_value={'duration':24,'resolution':'720p','aspect_ratio':'16:9','generate_audio':False}):
             with self.assertRaisesRegex(RuntimeError, 'intento sin recibo'):
                 production.generate(self.config)
             request.assert_not_called()
@@ -79,7 +80,7 @@ class ProductionGuards(unittest.TestCase):
         self.assertNotIn('never serialize', text)
 
     def test_definitive_validation_rejection_is_not_an_ambiguous_paid_job(self):
-        with patch.dict(production.os.environ, {'OPENROUTER_API_KEY': 'not-a-real-key'}), patch.object(production, 'request', side_effect=production.RequestRejected(400, 'Validation failed')), patch.object(production, 'orbit_guide'), patch.object(production, 'build_payload', return_value={'duration':24,'resolution':'720p','aspect_ratio':'16:9'}):
+        with patch.dict(production.os.environ, {'OPENROUTER_API_KEY': 'not-a-real-key'}), patch.object(production, 'request', side_effect=production.RequestRejected(400, 'Validation failed')), patch.object(production, 'orbit_guide'), patch.object(production, 'build_payload', return_value={'duration':24,'resolution':'720p','aspect_ratio':'16:9','generate_audio':False}):
             with self.assertRaises(production.RequestRejected):
                 production.generate(self.config)
         self.assertFalse((self.out / 'submission-intent.json').exists())

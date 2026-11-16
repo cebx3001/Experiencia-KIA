@@ -1,0 +1,11 @@
+{
+  "stage": "intro",
+  "model_id": "bytedance/seedance-2.5",
+  "reference_commit": "1e4d5dbc644822a1c1e02c4bf16f61a4e746bd71",
+  "model_family": "Seedance 2.5",
+  "approval": "EN VALIDACIÓN: solo introducción; siguientes videos requieren aprobación del cliente",
+  "aspect_ratio": "16:9",
+  "resolution": "720p",
+  "duration": 24,
+  "seed": 20261115
+}
