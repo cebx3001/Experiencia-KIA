@@ -1,14 +1,14 @@
 {
   "passed": true,
-  "release": "tasman-mobile-video-20261116-r4",
-  "url": "https://cebx3001.github.io/Experiencia-KIA/experiencia/?v=20261116-r4",
-  "qr_url": "https://cebx3001.github.io/Experiencia-KIA/experiencia/qr.png?v=20261116-r4",
-  "public_files_verified_in_ci": 187,
-  "workflow_run": "https://github.com/cebx3001/Experiencia-KIA/actions/runs/43834689677",
-  "pages_deployment": "https://github.com/cebx3001/Experiencia-KIA/actions/runs/43834691941",
+  "release": "tasman-mobile-video-20261116-r5",
+  "url": "https://cebx3001.github.io/Experiencia-KIA/experiencia/?v=20261116-r5",
+  "qr_url": "https://cebx3001.github.io/Experiencia-KIA/experiencia/qr.png?v=20261116-r5",
+  "public_files_verified_in_ci": 192,
+  "workflow_run": "https://github.com/cebx3001/Experiencia-KIA/actions/runs/43876726734",
+  "pages_deployment": "https://github.com/cebx3001/Experiencia-KIA/actions/runs/43876724272",
   "pages_deploy_step": "success",
-  "public_commit": "b4cfa3b",
-  "source_implementation_commit": "a2dd63c",
+  "public_commit": "cc52675",
+  "source_implementation_commit": "d96c3f7",
   "checks": [
     {
       "name": "Set up job",
@@ -55,15 +55,18 @@
       "conclusion": "success"
     }
   ],
-  "browser_viewports": [
-    "390x844 mobile",
-    "360x740 mobile",
-    "1280x800 desktop"
-  ],
+  "gesture_only_explorer": true,
+  "pinch_zoom": true,
+  "camera_controls_removed": true,
+  "xtrek_unchanged_from_r4": true,
+  "trailer_roof_local_cleanup": true,
+  "vadeo_continuous_return_corrected": true,
+  "android_user_gesture_precedes_fall": true,
+  "native_chrome_vibration_request_accepted_at_seconds": 1.5,
+  "ios_switch_fallback": "Experimental, event contract tested; physical iPhone not verified",
   "physical_device": false,
-  "paid_generation_total_usd": 35.69841,
+  "paid_generation_total_usd": 38.48148,
   "paid_ceiling_usd": 45,
-  "further_generation_submitted": false,
-  "feature_name": "ESC — Control Electrónico de Estabilidad, confirmed in the official Kia Ecuador Tasman 2026 specification",
-  "pull_request_status": "Repository configuration does not permit Actions to create pull requests. Source is pushed to feat/tasman-experiencia-cines; Pages deployment and read-only CI passed."
+  "new_corrective_vadeo_usd": 2.78307,
+  "further_generation_submitted": false
 }
