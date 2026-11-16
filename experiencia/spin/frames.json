@@ -1,0 +1,586 @@
+{
+  "frame_count": 72,
+  "width": 960,
+  "height": 540,
+  "paid_generation": false,
+  "source": "Original Kia Ecuador 360 Tan Beige TAM, same hashes used for approved intro guidance",
+  "frames": [
+    {
+      "angle": 0,
+      "file": "frames/00.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_00.png",
+      "source_sha256": "0f7d35d108cc2ff7ae5eff6f4621fd09b66490adc7cda2f9119ffaa9bb2cc83e",
+      "sha256": "c3e4e24f0e88859a8b04643fe8a552af0d4aae45b47ab8ebc512114683ea9ecd",
+      "bytes": 25138
+    },
+    {
+      "angle": 1,
+      "file": "frames/01.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_01.png",
+      "source_sha256": "ce7cadff188ce8bf5fdce700104e3f3bd3cb4f487e8260722b241ab26aa55271",
+      "sha256": "8155521182525e87414a92730dd416141e947af2ee13c1f7c68fbffff05620dd",
+      "bytes": 24848
+    },
+    {
+      "angle": 2,
+      "file": "frames/02.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_02.png",
+      "source_sha256": "e7e30217cd3b2c0c84e8f5b19dc3712d08806bc13b83fcbe51b205930f8ed9a9",
+      "sha256": "34377b80267c4290410099bd9d4f1d090fbe3466e74ec74fd24e357427cdcdf3",
+      "bytes": 25462
+    },
+    {
+      "angle": 3,
+      "file": "frames/03.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_03.png",
+      "source_sha256": "73aa65df29ec3dd2b9f295784ec2387b9069071309ecc2c59776bc60aeb0da62",
+      "sha256": "578aba5def2cb9fd547d8d9c9fb239193bd22ac242818010dc502e693944d88d",
+      "bytes": 26182
+    },
+    {
+      "angle": 4,
+      "file": "frames/04.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_04.png",
+      "source_sha256": "3b4dc5153c0ae45e902d7fc6da3305e9084e65e90a2788eabd5c6f88ce92a3ac",
+      "sha256": "5708dbbb05a894f563695c1e4ea33e231a1ccd1bb738565dfbf0dc1c2867b7ae",
+      "bytes": 27246
+    },
+    {
+      "angle": 5,
+      "file": "frames/05.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_05.png",
+      "source_sha256": "76511ff05fc0e200430e7e75c6f1a7542a6d65557df25e04fe819373fc5237f2",
+      "sha256": "9b991004413606125520e340d9b5ff4a51bb266d02b0d04c493b50612a9e17c8",
+      "bytes": 27636
+    },
+    {
+      "angle": 6,
+      "file": "frames/06.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_06.png",
+      "source_sha256": "5eebc75f0622bbff42a1058017165369ca8bf0591e20421e42bdfe3ab1b74e0f",
+      "sha256": "5b590e868c54c60d59a1770092ec2cb7ceb007e3b3a001f6f63f1df2bbe8d562",
+      "bytes": 28274
+    },
+    {
+      "angle": 7,
+      "file": "frames/07.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_07.png",
+      "source_sha256": "8bcf9a239a2deb47979aedd2959df20e0d31af8c0366318a4b9b68e606639d74",
+      "sha256": "628f02eca70d237b701f99adad69ffca0255660c7a828f3c4a6f9d86c7bb69fd",
+      "bytes": 28372
+    },
+    {
+      "angle": 8,
+      "file": "frames/08.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_08.png",
+      "source_sha256": "34aaa1e47fb9c838a670f1218378d9139f70d2adca8cb8cf848e64f20752105e",
+      "sha256": "36bf783e0e3a254efe2e7a1bd803506f2ab967829a68a820b138a32b45bf1f28",
+      "bytes": 28502
+    },
+    {
+      "angle": 9,
+      "file": "frames/09.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_09.png",
+      "source_sha256": "7f8f557a98efa436b738b26fa5a2d880b134b7e95624f439f9e283a356663b94",
+      "sha256": "b1802d2729ed7d62f6c539eec26d0f3d19234c2a35f4a897fd6f530cf0bbff0e",
+      "bytes": 28050
+    },
+    {
+      "angle": 10,
+      "file": "frames/10.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_10.png",
+      "source_sha256": "81896c88322a42f180fa41c13845c4f4fd44aa68ee065ead2b7343fbda275a8e",
+      "sha256": "acee71080819ef12c7b1783e178d3d0c6dfe153b9d9f36576c2bb91f3d81589f",
+      "bytes": 27684
+    },
+    {
+      "angle": 11,
+      "file": "frames/11.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_11.png",
+      "source_sha256": "8565079459d1c3c87ef82896238fb2c948a919e80cd0c72739142c28872533cf",
+      "sha256": "3a9d9bb48c8415d6caf5a605791f76bb37a1664b7ebee59c6920ab6d1cb8d16c",
+      "bytes": 27026
+    },
+    {
+      "angle": 12,
+      "file": "frames/12.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_12.png",
+      "source_sha256": "d60386b50a17bc02e16ed483ba34ded7994e4fb2026ba27a5b4cefeacf450818",
+      "sha256": "15bef3b8f419a487d6a2feef7dc1db9f07f9a8ab1722dca9bad4e0f4dd2102bf",
+      "bytes": 25934
+    },
+    {
+      "angle": 13,
+      "file": "frames/13.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_13.png",
+      "source_sha256": "1a4aaa5307d17f500d29f461e5deeac7fe7cf95c2f67b6e53841ad73d4e15d70",
+      "sha256": "271dfd90194959f0c8fed94ba22b60e23ed33d0d44c70ecdd803dc503bfddd75",
+      "bytes": 24818
+    },
+    {
+      "angle": 14,
+      "file": "frames/14.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_14.png",
+      "source_sha256": "1c2820a078ae6a0dc1b3b602745832c6e4ffbebc50d8a291b99f7e4e996057c6",
+      "sha256": "29bc90973c1e64c3a8ae071b1a854b8e49aa1630d3858df7fa6e340d6c510462",
+      "bytes": 23442
+    },
+    {
+      "angle": 15,
+      "file": "frames/15.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_15.png",
+      "source_sha256": "6cf6719f0c5040adf9ac4a49e0d6dcffd49661ac2c86fc5f7b9f56d2cf721cfc",
+      "sha256": "345dc5b0ab2aa2354be344ea57d13fcac1edf698f59eb7534f746f807177c2c6",
+      "bytes": 21664
+    },
+    {
+      "angle": 16,
+      "file": "frames/16.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_16.png",
+      "source_sha256": "0d230f903e7a1222ba1afbaa57ef31cac10f020c97e74352513b5bb09cd077f7",
+      "sha256": "714700d55a45ccab677515a699027e0f438d4893793cb06b64de8430a7332415",
+      "bytes": 19322
+    },
+    {
+      "angle": 17,
+      "file": "frames/17.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_17.png",
+      "source_sha256": "5d536a719c5047254fb3008eb1f1809f08db662ecfb8cf507374af658442fc7e",
+      "sha256": "32b3ca4789b67523dcab9c910fa7a31b5904fe211d74a74d9d898df21ee7159d",
+      "bytes": 16298
+    },
+    {
+      "angle": 18,
+      "file": "frames/18.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_18.png",
+      "source_sha256": "bff7bff884a890194ed467bd5d44a1fd8c18f7f39e46c210a6266f5de4ffe9fd",
+      "sha256": "94484ce1d91f8d927f518362790a8856e6720ef4c7abd61b3f3d9b3cce2884d3",
+      "bytes": 14590
+    },
+    {
+      "angle": 19,
+      "file": "frames/19.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_19.png",
+      "source_sha256": "d10fb841eb9fc7c0df4286b23f300f866bddf23d87cd5a71f84f08e03ed82c2a",
+      "sha256": "d8c2b40ae6d4e8f7f9f10efd57c13a40c86644d1096f215790110c24f92a49f4",
+      "bytes": 16840
+    },
+    {
+      "angle": 20,
+      "file": "frames/20.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_20.png",
+      "source_sha256": "e22272892b92c97f5bf3070653c08b51df44370de8a1b52904a96b6d548e93a3",
+      "sha256": "775ac62db0c2e1deaf0f8310f49385ff97eacd505c4ccef0b115b905a1fe8932",
+      "bytes": 19430
+    },
+    {
+      "angle": 21,
+      "file": "frames/21.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_21.png",
+      "source_sha256": "ce3e8137ebc58bbe651d92b6a14d48f1320c3465f0d314f3fcdb9def57f8244d",
+      "sha256": "0f74d03535499462cb7765a73cfb681a35ceccf644aa1614f854779fab0efe9f",
+      "bytes": 21710
+    },
+    {
+      "angle": 22,
+      "file": "frames/22.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_22.png",
+      "source_sha256": "0c46e1342bc911becb5c1196da1eb2d57921baf594421cc12fb454c3c404b87e",
+      "sha256": "e83440c1ebde1a2b7c3e57384714d6c7c245c2852c393eded313fbc087fb16dd",
+      "bytes": 23416
+    },
+    {
+      "angle": 23,
+      "file": "frames/23.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_23.png",
+      "source_sha256": "58ac675de2ba3d7b1142740acf1d3c7cd07934c9a50271e2487933d7f32e9084",
+      "sha256": "ccbdf6f5c73243e377c18ae3666f081ab94680011ed0bfd7f10c9bbb2806a086",
+      "bytes": 24510
+    },
+    {
+      "angle": 24,
+      "file": "frames/24.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_24.png",
+      "source_sha256": "f16552e79295f9e7c38a9ce1523dd52c1e541f47e31586e4a1df5dc2ca3052e2",
+      "sha256": "5acf4cc9e8446fa4976e1510a235d06b7cbf829fd5845226e7f07fc6f70a7c81",
+      "bytes": 25786
+    },
+    {
+      "angle": 25,
+      "file": "frames/25.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_25.png",
+      "source_sha256": "56d7b75c18b0ef31225f24bca37b5e22bf7257273150cb1ebe4069785a732947",
+      "sha256": "72526dfa0c359e8f62b9d92d7cd3914c0764bce1cad358a0ac2cb333674b1986",
+      "bytes": 26732
+    },
+    {
+      "angle": 26,
+      "file": "frames/26.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_26.png",
+      "source_sha256": "76c9010d8399a15dbf8ab69cf97572bac44e90af94d2e0446e094e56da28fced",
+      "sha256": "c2086782ac42af0033b6aca76ccf32f63f22d36c3e7e2a7860e4d5f6919a77a2",
+      "bytes": 27558
+    },
+    {
+      "angle": 27,
+      "file": "frames/27.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_27.png",
+      "source_sha256": "2223cf37fe11720480c2706ec6b3455f42c429326e37bf752ae9b4a13d12e9fd",
+      "sha256": "ba085768404ca11db0e07f3be1714d8c6e3892e82a1394beff3214a1ac3baf78",
+      "bytes": 28034
+    },
+    {
+      "angle": 28,
+      "file": "frames/28.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_28.png",
+      "source_sha256": "09d1504b75211cf5dd8ec2f36e52e34b166fe307413db6962e27639307066ed0",
+      "sha256": "efd738ff24f410483cb3ec68a67286c695719a2f9bcd1b0bf8c792c919721ad1",
+      "bytes": 28098
+    },
+    {
+      "angle": 29,
+      "file": "frames/29.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_29.png",
+      "source_sha256": "ee6a6a91e8c7fd9cc36a4e3c38199465ac899b09d36bb800b3742a350d873323",
+      "sha256": "0bf9a85bc1a22529e6246e0199ccf3fd871fda2a8f01c717a48b1b95d582ca4a",
+      "bytes": 28194
+    },
+    {
+      "angle": 30,
+      "file": "frames/30.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_30.png",
+      "source_sha256": "c0ceac31ae19bdbb2092661a8e5645988bfadaf69df70f1cdd6682d2ba024e3d",
+      "sha256": "2d2be3ad8540e40bb0033e6f9b5cc9a8f6fd50c162491a8875398d8ef89220dd",
+      "bytes": 27634
+    },
+    {
+      "angle": 31,
+      "file": "frames/31.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_31.png",
+      "source_sha256": "d04251eebb77eefa8e56523029624dea8ef963138156cb757d90c81d34ee8a4a",
+      "sha256": "0c997a619ba47486a6a99d4039e75cb31cb536d64f052b9168f15cc3dc14fca5",
+      "bytes": 27344
+    },
+    {
+      "angle": 32,
+      "file": "frames/32.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_32.png",
+      "source_sha256": "8143aedb999434c33a69d35ac24614264f73c3eaab05f4dfbb25763b8993eade",
+      "sha256": "b62120b3d0473d341bfb497dce5f2f4a92d097673e5f4f3091db041371a3a823",
+      "bytes": 26908
+    },
+    {
+      "angle": 33,
+      "file": "frames/33.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_33.png",
+      "source_sha256": "4824906e000240f55a9f9dd98a49776c90a6f0755adcb0f4c2142c9f1bf24c9b",
+      "sha256": "780e881cc53a18ed96ae697c142e344908dd7db72720120139bb731ff22e5bc7",
+      "bytes": 25800
+    },
+    {
+      "angle": 34,
+      "file": "frames/34.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_34.png",
+      "source_sha256": "ac12994dfdfdfb5ec82d9f1a4129e5e60c5e5abce6dbfbe7504f55324328f1b6",
+      "sha256": "73d627923371fa9158d4cfc7f296129492d74ca3ce7cee370577af902d11e46f",
+      "bytes": 24912
+    },
+    {
+      "angle": 35,
+      "file": "frames/35.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_35.png",
+      "source_sha256": "529c19160fe48fbb206774f59997bee80ae1ac11d8d2990e937341c221b65c6b",
+      "sha256": "45af6d52fabab0c93b80314be645ed2ef7b5d23bdfd921b3d0033e6ab0088f6f",
+      "bytes": 24412
+    },
+    {
+      "angle": 36,
+      "file": "frames/36.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_36.png",
+      "source_sha256": "9e06129a9e6deff6c530fb4b6b2834c4b1bac9f7c8cd590d968c8b6bff201650",
+      "sha256": "9daea6292ddafe13a99a9b93abb7e8c1a637fa8686dd78bb275562fd49a82eb2",
+      "bytes": 23890
+    },
+    {
+      "angle": 37,
+      "file": "frames/37.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_37.png",
+      "source_sha256": "674675466e3ba33355052cace505838bf7320ba50efe57f66e21c3b092ce1933",
+      "sha256": "cfc07109594c854d743f3539702b921159b2d5708a6c3540317c92bb4b0d22f2",
+      "bytes": 24588
+    },
+    {
+      "angle": 38,
+      "file": "frames/38.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_38.png",
+      "source_sha256": "c2c33f069c6a0cf2be35c7e9899ce7ff026dda5d5eca1eec74ac224ac5c98f5b",
+      "sha256": "71c1937a332bbb712ea9ee004271ad1ddb4594ae35355bcfaae34440b347e897",
+      "bytes": 25778
+    },
+    {
+      "angle": 39,
+      "file": "frames/39.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_39.png",
+      "source_sha256": "6b2b1b2aebe0b046e72a05d6bf9a8789b93ce4455f36fb88d82616e200a3ffad",
+      "sha256": "5474e5fad6c6f83ecdc6df4ac0999094a6fde6006405a6bb2ec8dfd3720e0968",
+      "bytes": 26800
+    },
+    {
+      "angle": 40,
+      "file": "frames/40.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_40.png",
+      "source_sha256": "79369cb9341af22a247692d8869ddc18e9999995917d5d84d3edf18c23877071",
+      "sha256": "08f650117ec1293236caacd4e1007d89c3828d338125d3aae91f45c3d6424106",
+      "bytes": 28160
+    },
+    {
+      "angle": 41,
+      "file": "frames/41.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_41.png",
+      "source_sha256": "9ad46b5c34b4c508ac3a906444efc8947f6a1613bd2c3860620acd84b1391ed3",
+      "sha256": "528648ee70b71f197f35971c1302a1ed2e8d09ae8b2a07d2e488c9b8520b124f",
+      "bytes": 29224
+    },
+    {
+      "angle": 42,
+      "file": "frames/42.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_42.png",
+      "source_sha256": "8781994cd4b82f04564019759bbf4d9e40f72fa152951549b4dae09cc639ec5e",
+      "sha256": "ce75c0197ba435fe02f4e46d21d23701bdc1097e79f733480367e49203ec702f",
+      "bytes": 29976
+    },
+    {
+      "angle": 43,
+      "file": "frames/43.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_43.png",
+      "source_sha256": "03984c3ca282ede4268009c7d6eb5ec5247a5f1a0b1150dbc6a38046e361092f",
+      "sha256": "f4d4f934f18a42aa58e4c9eba45fa378bc954e2908dbeb6579287c98c60524cc",
+      "bytes": 30166
+    },
+    {
+      "angle": 44,
+      "file": "frames/44.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_44.png",
+      "source_sha256": "185027026b2855f4a32bc038478a50f42d8be51e29f42a685c04e3d3994fa55c",
+      "sha256": "cbb044188d51c344337c97e5acdc28eb012a4a09fd474614268574f602594b69",
+      "bytes": 29834
+    },
+    {
+      "angle": 45,
+      "file": "frames/45.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_45.png",
+      "source_sha256": "36c8abc8e91f2df51e53754fbeb292c473a4a02d5be1e3a638b7a72b9cbb9006",
+      "sha256": "55b10f70d0911ced6756eec5905436f681020b0325d4a92b0df1b08d33cff03a",
+      "bytes": 29234
+    },
+    {
+      "angle": 46,
+      "file": "frames/46.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_46.png",
+      "source_sha256": "9e8b8d3caecb4e251b598a0b9ac7a9f7d167fd489fa94ae7fd7d7e5f413a1df8",
+      "sha256": "9dd2c0bb56a96f3230dfffb9143834fc607721fa9696ce2263ec8b5d081d2c5f",
+      "bytes": 28764
+    },
+    {
+      "angle": 47,
+      "file": "frames/47.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_47.png",
+      "source_sha256": "58ac9e98c2273f89c9f209a6c5e9a8f047bbf98c205917935dca2e63476afbab",
+      "sha256": "55403765fea11ba6951a379d782aafd6639960c5e9acdfe2d8e81a09c94caea1",
+      "bytes": 28132
+    },
+    {
+      "angle": 48,
+      "file": "frames/48.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_48.png",
+      "source_sha256": "b4058d929e64de3391b3157f0c9aa6af072c24759ece9993525651b58468e0a9",
+      "sha256": "dfdbd2b962463b60cfe798add72259781673725863bf66c93c3ee9818f557f00",
+      "bytes": 27724
+    },
+    {
+      "angle": 49,
+      "file": "frames/49.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_49.png",
+      "source_sha256": "b7fbe2e8a967a5f03481bf0b897d7d1b5ffc938987fe8b91757e08621bdfa5db",
+      "sha256": "bd2549c5ecf9b0f5ed21a6452290f000816e09b86bed7430074baf0b0bab1452",
+      "bytes": 26382
+    },
+    {
+      "angle": 50,
+      "file": "frames/50.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_50.png",
+      "source_sha256": "0086e8331665b9a4580ec5bfce3b426e2baf6bef285fbe1eede467cd71b10215",
+      "sha256": "08ad9f5e2bccd93520c292e5e56dfdd47a6ba18c9b1034fdf003bdcd33dfb302",
+      "bytes": 25620
+    },
+    {
+      "angle": 51,
+      "file": "frames/51.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_51.png",
+      "source_sha256": "c96672873caab4429e6e8f3668defa861b28911823d597c855edd2486a1ed540",
+      "sha256": "6a455f98b806059b0c37432bd16158ff8fc1aeab9b1d1df8ee44f06d05b4ec98",
+      "bytes": 23474
+    },
+    {
+      "angle": 52,
+      "file": "frames/52.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_52.png",
+      "source_sha256": "ebbe1884bc6e4a9251b16821013601ab50148ed15bbfd2b352bc6c2e180737ad",
+      "sha256": "91cd78878ae7fcae2ab28ae67ef2f1e0972c14f27df9653f8d144b830081d5f4",
+      "bytes": 21272
+    },
+    {
+      "angle": 53,
+      "file": "frames/53.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_53.png",
+      "source_sha256": "3e53a959d1d4f2be6c6d1f35b49a8e69444f55ae5d41c3755a3c0ba0984ff7b1",
+      "sha256": "b9b25afab3129cb8a4846a5a995551894e010f5ad3044cdb0f1badc8bf0060e2",
+      "bytes": 18502
+    },
+    {
+      "angle": 54,
+      "file": "frames/54.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_54.png",
+      "source_sha256": "f31aa6b8cc888331dba7aeef01ec4e6000855fcb5e8e5a65134274aa57ac08cf",
+      "sha256": "221b9c4c19dd32af193f9bfdcb71c4ec0bb61723eda6089f6c322b855aa10192",
+      "bytes": 16456
+    },
+    {
+      "angle": 55,
+      "file": "frames/55.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_55.png",
+      "source_sha256": "7b638b0047f3f1aac627662bd9a6582f8461beaddf42cc7e6861ddfd1212a81f",
+      "sha256": "b3c5ebf3661e7abe46e85ef93d65a1ae822a9c5087971e0b3fe090d6a4ebb297",
+      "bytes": 18206
+    },
+    {
+      "angle": 56,
+      "file": "frames/56.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_56.png",
+      "source_sha256": "420002c0f07ad785839f9b0260ede72bb13b2198012158de9b432132a52e9058",
+      "sha256": "71f9e0fe6699700decc897ab0a127a4fd62f402bbd9bfd510e57acfc261117be",
+      "bytes": 21046
+    },
+    {
+      "angle": 57,
+      "file": "frames/57.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_57.png",
+      "source_sha256": "ca394df303318f5dd3aaa6d798258e8318a744cd40c0724b878c6b2875d09a7b",
+      "sha256": "2c273c3f900e42b4838d93dce00b3830762e438f13912a67b4cb17b902a794e7",
+      "bytes": 23684
+    },
+    {
+      "angle": 58,
+      "file": "frames/58.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_58.png",
+      "source_sha256": "ed30b6cc3f2dd5c7d0abc498efa974d7407fa0764e698760c1e25d85eee9fda5",
+      "sha256": "66842f6235a91f7dd02d434586efaf9cfc9abf1285cf189929be27d709e5a9c5",
+      "bytes": 25568
+    },
+    {
+      "angle": 59,
+      "file": "frames/59.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_59.png",
+      "source_sha256": "39b7bd768e36d8150fca8b2dc28482cd4f116107ce3e44c35e1f2cdcfb0439e3",
+      "sha256": "a86ce5273632680a79ed15f9a55e9a0a6c288b1d76b89f2f6d9473462e81f593",
+      "bytes": 26972
+    },
+    {
+      "angle": 60,
+      "file": "frames/60.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_60.png",
+      "source_sha256": "fe83b65feb861fca7ddc145e05da9bc320e3540c5c438dc8d9e33fc5c4b26062",
+      "sha256": "8879b5fa7451f04b1c18b6064f8477a1a7f5323a095bf13c8177a0d8a56c7821",
+      "bytes": 28168
+    },
+    {
+      "angle": 61,
+      "file": "frames/61.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_61.png",
+      "source_sha256": "b8e95312eb8fae91cfb055be50dc27711bc0c98909d31f6d9c886572385e0ac3",
+      "sha256": "3b6c9d2e182cc1d75b9318e7c7efbc42d3352235acfd144c12514f6bfab5afdf",
+      "bytes": 28646
+    },
+    {
+      "angle": 62,
+      "file": "frames/62.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_62.png",
+      "source_sha256": "10bc289757383788cf7797579657a038f4ebbe6c755f8a4d961ecd32596caed5",
+      "sha256": "a9db13fec0163be0b43a0634bd84a3269b6931c65379c62add4e2ab1859c57b6",
+      "bytes": 29724
+    },
+    {
+      "angle": 63,
+      "file": "frames/63.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_63.png",
+      "source_sha256": "c7faa23920e515cfacd8f6e10c3a5d03b189501fca35e31fc36c2506a36ccf7a",
+      "sha256": "d47eb2cf03de25029103a9adb7231facceed8fa89b82ecb223ed9e96c185f848",
+      "bytes": 29988
+    },
+    {
+      "angle": 64,
+      "file": "frames/64.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_64.png",
+      "source_sha256": "eed9a396f9e177faa09c659dae27c5ed2f1b994e66e8edef58d6f523fbd518de",
+      "sha256": "e1e0ae162d593729ad88aa6e6fc2fd770a00b471f26f1bc188dda66720dc511d",
+      "bytes": 30102
+    },
+    {
+      "angle": 65,
+      "file": "frames/65.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_65.png",
+      "source_sha256": "76c2ba3fe8a796b2dc3f5bd2691fb69d2751ec3535a4907a4f289a24068ab37d",
+      "sha256": "021b624c19c8c0199c6e064e74baffeb1f86eef601387d0c6e9bff40e99e4810",
+      "bytes": 30250
+    },
+    {
+      "angle": 66,
+      "file": "frames/66.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_66.png",
+      "source_sha256": "c28467809cbb09a2d3678e8c615ecaea617efc4c7c3677433ad03ce375e78ca3",
+      "sha256": "ab3baaa11d6e813b299caa6159a3a84b7b372f283b614085c43b79bb0a8e37fb",
+      "bytes": 29798
+    },
+    {
+      "angle": 67,
+      "file": "frames/67.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_67.png",
+      "source_sha256": "e0092a65e982132e4ae0d421aa76bf9d793353135316247d7dc9eb7d8c88849f",
+      "sha256": "caf367b7167fca142b1492052d3b7e5ef2a0ec7bf72e03f14465e11590a05f89",
+      "bytes": 29430
+    },
+    {
+      "angle": 68,
+      "file": "frames/68.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_68.png",
+      "source_sha256": "9211dbc0e6e0120055d84323959e3f85ce2814037c47a8b7d231aaac73d5a7d5",
+      "sha256": "65c51fcbba4acac3d999915078de6acddc6d477e69d89d626dfd21d44da71f91",
+      "bytes": 28464
+    },
+    {
+      "angle": 69,
+      "file": "frames/69.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_69.png",
+      "source_sha256": "db588f1f87b0227b4f32a864bd205368989bcdc2db6810dfbedc97f0fdb8be94",
+      "sha256": "c75b164f41ad1e619246915ae8a873b97e08a3a01b14bee43add32e9aba5c9fa",
+      "bytes": 27176
+    },
+    {
+      "angle": 70,
+      "file": "frames/70.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_70.png",
+      "source_sha256": "5e85ed41d444b854d67fb1aea5e873334a97f6143bcf563e21b38e4d897c187b",
+      "sha256": "b81ad57de77bf11aeb0b2486fb4b75ca901750be7e249c91ff95be5dcc829626",
+      "bytes": 26238
+    },
+    {
+      "angle": 71,
+      "file": "frames/71.webp",
+      "source_url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_71.png",
+      "source_sha256": "fda1f956df25a6df7e1aeeeec60974a897795ac7cc699d47bb66daf7fbe24b26",
+      "sha256": "6d3753d65fc3a855e374e28327994edf79e6a67123576b51b81006e665db833b",
+      "bytes": 25464
+    }
+  ],
+  "total_bytes": 1850706
+}

@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "immediate_explorer_after_intro": true,
+  "five_camera_poses": true,
+  "experience_access": true,
+  "layout": "Editorial navigation with fine separators; no card grid or large filled buttons",
+  "physical_device": false
+}

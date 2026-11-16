@@ -1,0 +1,16 @@
+{
+  "state": "EN VALIDACIÓN",
+  "scene": "storm",
+  "duration_seconds": 20,
+  "width": 720,
+  "height": 1280,
+  "audio": true,
+  "source_sha256": "c7f82ab4a53b48660e8248576a78cdc2cd3a2ac965ccb2c32d83a266c24cfd91",
+  "video_sha256": "5c56056dc5c6fe4e7ec91da1d3ae097789a46daff185a7fbc49f047386c44010",
+  "additional_paid_generation": false,
+  "framing": "Entire existing landscape shot preserved within a portrait black studio canvas; no cropping or generated extensions",
+  "limitations": [
+    "La generación conserva luz exterior diurna/encapotada; no cumple todavía la noche del guion.",
+    "La cámara no llega a un perfil lateral completo. Sin otra regeneración de pago."
+  ]
+}

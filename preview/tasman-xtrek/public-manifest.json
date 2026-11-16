@@ -1,10 +1,9 @@
 {
-  "release": "tasman-xtrek-review02",
+  "release": "tasman-xtrek-mobile-review01",
   "files": {
-    "index.html": "bb66f7283537f5afd4606254f8691135b5b7e407dc28190cb1920c94ffa5c1b8",
-    "xtrek.mp4": "71e67d85b01d4b15a51be87723150a8f3c5f5bb38138c89bc2cb584d3fbc2a5e",
-    "xtrek-original.mp4": "14d22e19a5bd7bc3fdc60856d028308efe33260f335b1a68854056898e36eadc",
-    "master.png": "3417854db8f1997061efbf7979feb294b5318158802bc47040a437456946ac79",
-    "review.json": "4b6138743f98603897849f9bf13f4a68b47dcc68e91ad76b0b092f1f389b331e"
+    "index.html": "a318495d10f17ee62ea732796678ef2866ded6b6519645226935ff1ce8bd4c37",
+    "xtrek.mp4": "6263fbffc8a2f43c364b1042f5ea0734189346e9e42929e195c64996895e8c77",
+    "master.png": "87def8c90c3196e87d695e6dc4956921bf3f69a77bbcc49d67794fbc7781e4a2",
+    "review.json": "34c0ba39aa3bd573577ead79b2126c576640aee7a609bc8d787121b3a87afa22"
   }
 }

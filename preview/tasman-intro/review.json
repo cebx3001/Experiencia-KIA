@@ -1,0 +1,13 @@
+{
+  "state": "EN VALIDACIÓN",
+  "scene": "intro",
+  "duration_seconds": 20,
+  "width": 720,
+  "height": 1280,
+  "audio": true,
+  "source_sha256": "bdc1e79b2b3b6241c8e2c5272e643757fb288c89e4a8f24779f72c3c026c43a1",
+  "video_sha256": "9498c840f5a4284355921b438b2e04a84e6a5f5ac9cbc60b51a31965b1184c7b",
+  "additional_paid_generation": false,
+  "framing": "Entire existing landscape shot preserved within a portrait black studio canvas; no cropping or generated extensions",
+  "limitations": []
+}

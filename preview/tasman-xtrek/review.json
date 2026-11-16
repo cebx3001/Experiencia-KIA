@@ -1,13 +1,15 @@
 {
-  "state": "EN VALIDACI\u00d3N",
-  "duration_seconds": 10,
-  "generated_source_seconds": 30,
-  "width": 1280,
-  "height": 720,
-  "audio": false,
-  "additional_paid_generations": 0,
+  "state": "EN VALIDACIÓN",
+  "scene": "xtrek",
+  "duration_seconds": 20,
+  "width": 720,
+  "height": 1280,
+  "audio": true,
   "source_sha256": "14d22e19a5bd7bc3fdc60856d028308efe33260f335b1a68854056898e36eadc",
-  "master_sha256": "3417854db8f1997061efbf7979feb294b5318158802bc47040a437456946ac79",
-  "endpoint_edit": "The same master file is encoded at both endpoints; short match fades preserve the handoff.",
-  "limitations": "First visual proposal; obstacle travel and procedural disassembly remain for client review. No corrected render was created."
+  "video_sha256": "6263fbffc8a2f43c364b1042f5ea0734189346e9e42929e195c64996895e8c77",
+  "additional_paid_generation": false,
+  "framing": "Entire existing landscape shot preserved within a portrait black studio canvas; no cropping or generated extensions",
+  "limitations": [
+    "El único render existente muestra un obstáculo dominante y no cumple todavía el camino rocoso continuo solicitado. Montaje sin nueva generación."
+  ]
 }

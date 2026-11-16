@@ -1,0 +1,9 @@
+{
+  "release": "tasman-trailer-mobile-review01",
+  "files": {
+    "index.html": "73dce87d60ccffc3c6e76ea0fb27e21a5f5b1c862565bb0ebd791b05dc541653",
+    "trailer.mp4": "d6a55fb4b555755939eae57535eaeffe5939c838b04174bdf06d76dd3f6410c9",
+    "master.png": "87def8c90c3196e87d695e6dc4956921bf3f69a77bbcc49d67794fbc7781e4a2",
+    "review.json": "8b314e9b6ad1fa5a3504ac93ffbe8b05e38469cc9e5b09d8f6a1059f2e7ae01b"
+  }
+}
