@@ -1,0 +1,10 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tasman · X-TREK para revisión</title>
+<style>body{background:#08090a;color:#eef0ed;font:16px system-ui;max-width:1200px;margin:30px auto;padding:0 20px}h1{font-weight:400}p{line-height:1.6;color:#bfc7c8}video,img{width:100%;height:auto;display:block;background:#08090a}a{color:#b9dedf}button,select{background:#202527;color:white;border:1px solid #556064;padding:10px;cursor:pointer}.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:16px 0}details{margin-top:25px}summary{cursor:pointer}</style>
+<h1>X-TREK · Rock Challenge</h1><p>Primera propuesta para revisión · Versión breve de 15 segundos, sin audio. Es un montaje del render existente, sin otra generación de IA.</p>
+<video id="video" src="xtrek.mp4" poster="master.png" playsinline controls preload="metadata"></video>
+<div class="controls"><button id="replay">Repetir</button><label>Velocidad <select id="speed"><option value="1">Normal</option><option value="0.5">Lenta ×0,5</option></select></label><a id="original" href="xtrek-original.mp4">Ver render original de 30 segundos</a><a href="xtrek.mp4" download>Descargar versión breve</a></div>
+<p>Revisa el armado del entorno, el ascenso y el regreso al estudio. Queda en validación; las siguientes escenas esperan tu aprobación.</p>
+<details><summary>Fotograma maestro compartido</summary><img src="master.png" alt="Fotograma maestro aprobado de la Kia Tasman"><a href="master.png" download>Descargar maestro</a></details>
+<p><a href="../tasman-intro/">Ver la intro aprobada</a></p>
+<script>const video=document.querySelector('video');document.querySelector('#replay').onclick=()=>{video.currentTime=0;video.play().catch(()=>{})};document.querySelector('#speed').onchange=e=>video.playbackRate=+e.target.value;</script></html>
