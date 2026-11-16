@@ -54,33 +54,34 @@ jobs:
               intro.write('provider-status.json', result)
               print(json.dumps(result))
           PY
-      - name: Verify the actual public intro delivery
+      - name: Verify the actual public intro and X-TREK files
         run: |
           python - <<'PY'
           import hashlib, json, time, urllib.request
           from pathlib import Path
-          folder = Path('docs/tasman/video/intro')
-          expected = json.loads((folder / 'public-manifest.json').read_text())
-          base = 'https://cebx3001.github.io/Experiencia-KIA/preview/tasman-intro/'
-          def fetch(name):
-              req = urllib.request.Request(base + name + '?verify=' + expected['release'], headers={'Cache-Control': 'no-cache'})
-              with urllib.request.urlopen(req, timeout=45) as response:
-                  return response.read()
-          for attempt in range(20):
-              try:
-                  live = json.loads(fetch('public-manifest.json'))
-                  assert live['release'] == expected['release'], 'Old preview build'
-                  for name, digest in expected['files'].items():
-                      assert hashlib.sha256(fetch(name)).hexdigest() == digest, name
-                  report = {'passed': True, 'release': expected['release'], 'url': base, 'files_verified': len(expected['files'])}
-                  (folder / 'pages-verification.json').write_text(json.dumps(report, indent=2) + '\n')
-                  print(json.dumps(report))
-                  break
-              except Exception as error:
-                  print('Awaiting published preview:', str(error), flush=True)
-                  if attempt == 19:
-                      raise
-                  time.sleep(15)
+          def verify(folder, base):
+              expected = json.loads((folder / 'public-manifest.json').read_text())
+              def fetch(name):
+                  req = urllib.request.Request(base + name + '?verify=' + expected['release'], headers={'Cache-Control': 'no-cache'})
+                  with urllib.request.urlopen(req, timeout=45) as response:
+                      return response.read()
+              for attempt in range(20):
+                  try:
+                      live = json.loads(fetch('public-manifest.json'))
+                      assert live['release'] == expected['release'], 'Old preview build'
+                      for name, digest in expected['files'].items():
+                          assert hashlib.sha256(fetch(name)).hexdigest() == digest, name
+                      report = {'passed': True, 'release': expected['release'], 'url': base, 'files_verified': len(expected['files'])}
+                      (folder / 'pages-verification.json').write_text(json.dumps(report, indent=2) + '\n')
+                      print(json.dumps(report))
+                      break
+                  except Exception as error:
+                      print('Awaiting published preview:', str(error), flush=True)
+                      if attempt == 19:
+                          raise
+                      time.sleep(15)
+          verify(Path('docs/tasman/video/intro'), 'https://cebx3001.github.io/Experiencia-KIA/preview/tasman-intro/')
+          verify(Path('docs/tasman/video/xtrek/delivery'), 'https://cebx3001.github.io/Experiencia-KIA/preview/tasman-xtrek/')
           PY
       - name: Save only connection and delivery results, never key data
         if: always()
@@ -94,6 +95,9 @@ jobs:
           fi
           if test -f docs/tasman/video/intro/pages-verification.json; then
             git add docs/tasman/video/intro/pages-verification.json
+          fi
+          if test -f docs/tasman/video/xtrek/delivery/pages-verification.json; then
+            git add docs/tasman/video/xtrek/delivery/pages-verification.json
           fi
           if ! git diff --cached --quiet; then
             git commit -m 'Record authenticated OpenRouter connectivity check [skip ci]'
