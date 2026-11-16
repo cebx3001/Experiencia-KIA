@@ -1,0 +1,54 @@
+name: Generate Tasman Trailer
+on:
+  workflow_dispatch:
+  push:
+    branches: [feat/tasman-experiencia-cines]
+    paths: ['.github/workflows/generate-tasman-trailer.yml']
+permissions:
+  contents: write
+concurrency:
+  group: tasman-seedance-trailer
+  cancel-in-progress: false
+jobs:
+  trailer:
+    if: github.ref == 'refs/heads/feat/tasman-experiencia-cines'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/tasman-experiencia-cines
+      - name: Ensure FFmpeg is available
+        run: |
+          if ! command -v ffmpeg >/dev/null; then
+            sudo apt-get update -qq
+            sudo apt-get install -y ffmpeg
+          fi
+      - name: Verify Trailer reference dimensions
+        run: |
+          for reference in docs/tasman/video/trailer/references/*.jpg; do
+            height=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 "$reference")
+            test "$height" -ge 300
+          done
+      - name: Check budget and generate or resume Trailer
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPEN_ROUTER_ACCESS }}
+        run: python3 tools/tasman-vadeo/produce.py trailer
+      - name: Persist the receipt and delivery
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/tasman/video/trailer
+          if ! git diff --cached --quiet; then
+            git commit -m 'Save Trailer generation and review status [skip ci]'
+            git pull --rebase origin feat/tasman-experiencia-cines
+            git push origin HEAD:refs/heads/feat/tasman-experiencia-cines
+          fi
+      - name: Preserve the playable proposal
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tasman-trailer
+          path: docs/tasman/video/trailer/
+          retention-days: 30

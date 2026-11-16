@@ -13,7 +13,7 @@ import time
 ROOT = Path(__file__).resolve().parents[2]
 VIDEO = ROOT / 'docs/tasman/video'
 SCENE = sys.argv[1] if __name__ == '__main__' and len(sys.argv) > 1 else 'vadeo'
-if SCENE not in ('vadeo', 'storm'):
+if SCENE not in ('vadeo', 'storm', 'trailer'):
     raise ValueError('Escena no configurada')
 OUT = VIDEO / SCENE
 MASTER = VIDEO / 'intro/master.png'

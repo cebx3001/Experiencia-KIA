@@ -19,6 +19,11 @@
   },
   "storm": {
     "state": "AUTORIZADA PARA PRODUCCIÓN",
+    "delivery_state": "EN VALIDACIÓN hasta revisión del cliente",
+    "review": "El cliente autorizó continuar con Remolque."
+  },
+  "trailer": {
+    "state": "AUTORIZADA PARA PRODUCCIÓN",
     "delivery_state": "EN VALIDACIÓN hasta revisión del cliente"
   }
 }
