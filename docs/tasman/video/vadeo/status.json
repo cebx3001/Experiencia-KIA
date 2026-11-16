@@ -1,4 +1,5 @@
 {
-  "state": "ERROR",
-  "error": "HTTP 400: HTTP 400: {\"error\":{\"code\":\"InvalidParameter\",\"message\":\"Error while downloading image, error: expected the height to be at least 300px, but received a 512x287px image instead Request id: 02179480089705832716c93dca5f9defc0d360fd0d690bd91a754\",\"param\":\"image_url\",\"type\":\"BadRequest\"}}"
+  "state": "EN VALIDACIÓN",
+  "video": "vadeo.mp4",
+  "next_video_authorized": false
 }

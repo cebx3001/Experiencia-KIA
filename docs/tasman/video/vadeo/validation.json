@@ -1,0 +1,9 @@
+{
+  "decodable": true,
+  "duration_seconds": 12.0,
+  "width": 1280,
+  "height": 720,
+  "audio": true,
+  "sha256": "569675be621be5a22f137dd968c65b6d4eba1506d7a1ca4f9e6fc831b84d65b0",
+  "master_sha256": "3417854db8f1997061efbf7979feb294b5318158802bc47040a437456946ac79"
+}
