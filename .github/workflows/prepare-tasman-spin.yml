@@ -1,0 +1,51 @@
+name: Prepare original Kia 72-view mobile spin without AI generation
+on:
+  workflow_dispatch:
+  push:
+    branches: [feat/tasman-experiencia-cines]
+    paths: ['.github/workflows/prepare-tasman-spin.yml']
+permissions:
+  contents: write
+jobs:
+  frames:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/tasman-experiencia-cines
+      - name: Install image encoder
+        run: python3 -m pip install Pillow==11.3.0
+      - name: Retrieve and verify the original views, then encode mobile frames
+        run: |
+          python3 - <<'PY'
+          import concurrent.futures,hashlib,io,json,urllib.request
+          from pathlib import Path
+          from PIL import Image
+          out=Path('docs/tasman/video/spin/frames');out.mkdir(parents=True,exist_ok=True)
+          sources=json.loads(Path('docs/tasman/video/intro/orbit-guide-sources.json').read_text())['frames']
+          def prepare(item):
+              req=urllib.request.Request(item['url'],headers={'User-Agent':'Mozilla/5.0'})
+              data=urllib.request.urlopen(req,timeout=60).read()
+              assert hashlib.sha256(data).hexdigest()==item['sha256'],'Official image changed'
+              image=Image.open(io.BytesIO(data)).convert('RGBA')
+              image.thumbnail((960,438),Image.Resampling.LANCZOS)
+              canvas=Image.new('RGBA',(960,540),(0,0,0,255));canvas.alpha_composite(image,((960-image.width)//2,(540-image.height)//2))
+              name=f"{item['angle']:02}.webp";path=out/name;canvas.convert('RGB').save(path,'WEBP',quality=94,method=6)
+              return {'angle':item['angle'],'file':'frames/'+name,'source_url':item['url'],'source_sha256':item['sha256'],'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'bytes':path.stat().st_size}
+          with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:frames=list(pool.map(prepare,sources))
+          frames.sort(key=lambda f:f['angle'])
+          report={'frame_count':72,'width':960,'height':540,'paid_generation':False,'source':'Original Kia Ecuador 360 Tan Beige TAM, same hashes used for approved intro guidance','frames':frames,'total_bytes':sum(f['bytes'] for f in frames)}
+          (out.parent/'frames.json').write_text(json.dumps(report,indent=2)+'\n')
+          print('72 original verified frames, encoded bytes:',report['total_bytes'])
+          PY
+      - name: Save the mobile image sequence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/tasman/video/spin
+          if ! git diff --cached --quiet; then
+            git commit -m 'Prepare original Kia 72-view image sequence without paid generation [skip ci]'
+            git pull --rebase origin feat/tasman-experiencia-cines
+            git push origin HEAD:refs/heads/feat/tasman-experiencia-cines
+          fi

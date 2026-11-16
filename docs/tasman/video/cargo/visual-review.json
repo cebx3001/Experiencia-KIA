@@ -1,0 +1,16 @@
+{
+  "reviewed_source_sha256": "7a32dc5d1e31fad4446dd8d7fa29f10c283171b57e71a7867f9c3f631812db22",
+  "state": "EN VALIDACIÓN; NO APROBADA",
+  "observed": [
+    "La camioneta permanece en el patio y la cámara llega a tres cuartos trasero elevado.",
+    "Se leen cajas individuales formando contornos y descendiendo a la paila.",
+    "Se conserva el regreso al maestro según comprobación de extremos."
+  ],
+  "deviations": [
+    "El generador abre la compuerta trasera aunque el prompt enviado pedía mantenerla cerrada.",
+    "La pila final sobresale por encima de los bordes: revisar la credibilidad de la distribución y del asentamiento.",
+    "El cielo aparece antes de completar el ensamblado próximo; no cumple estrictamente el orden de profundidad."
+  ],
+  "technical_checks_are_not_creative_approval": true,
+  "paid_regenerations_performed": 0
+}
