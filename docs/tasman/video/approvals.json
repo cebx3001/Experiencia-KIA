@@ -1,0 +1,14 @@
+{
+  "intro": {
+    "state": "APROBADA",
+    "video_sha256": "bdc1e79b2b3b6241c8e2c5272e643757fb288c89e4a8f24779f72c3c026c43a1",
+    "master_sha256": "3417854db8f1997061efbf7979feb294b5318158802bc47040a437456946ac79",
+    "evidence": "Client approved in chat: Está perfecto... me encanta... continuemos con el trek."
+  },
+  "xtrek": {
+    "state": "AUTORIZADA PARA PRODUCCIÓN",
+    "requires_intro_approval": true,
+    "delivery_state": "EN VALIDACIÓN until client review"
+  },
+  "other_videos_authorized": false
+}
