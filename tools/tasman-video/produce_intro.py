@@ -75,7 +75,12 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def media(path, kind):
+def media(path, kind, reference_commit=None):
+    if kind == 'video':
+        if not reference_commit or not re.fullmatch(r'[a-f0-9]{40}', reference_commit):
+            raise RuntimeError('Los videos guía requieren un commit fijo y URLs HTTPS públicas')
+        relative = path.relative_to(ROOT).as_posix()
+        return {'type': 'video_url', 'video_url': {'url': f'https://raw.githubusercontent.com/cebx3001/Experiencia-KIA/{reference_commit}/{relative}'}}
     mime = 'image/png' if kind == 'image' else 'video/mp4'
     url = 'data:' + mime + ';base64,' + base64.b64encode(path.read_bytes()).decode()
     return {'type': kind + '_url', kind + '_url': {'url': url}}
@@ -123,7 +128,7 @@ def build_payload(config, model):
     # Nine image inputs total, including both endpoints. Three motion guides total 14.25 seconds.
     refs = [media(p, 'image') for p in sorted((OUT / 'references').glob('*.png')) if p.name != 'Tan-Beige_TAM_45.png']
     guides = [ROOT / 'docs/tasman/evidence/revision-03/impact.mp4', OUT / 'orbit-guide.mp4', ROOT / 'docs/tasman/evidence/revision-03/scan.mp4']
-    refs += [media(p, 'video') for p in guides]
+    refs += [media(p, 'video', config['reference_commit']) for p in guides]
     payload = {key: config[key] for key in ['duration', 'resolution', 'aspect_ratio']}
     payload.update(model=model['id'], prompt=(OUT / 'prompt.txt').read_text(), frame_images=frames,
                    input_references=refs, generate_audio=True)

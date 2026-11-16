@@ -30,7 +30,7 @@ class ProductionGuards(unittest.TestCase):
         self.temp.cleanup()
 
     def test_bind_exact_master_and_only_supported_settings(self):
-        with patch.object(production, 'media', side_effect=lambda p, kind: {'source': str(p), 'type': kind}):
+        with patch.object(production, 'media', side_effect=lambda p, kind, *args: {'source': str(p), 'type': kind}):
             payload = production.build_payload(self.config, self.model)
         self.assertEqual(payload['frame_images'][1]['source'], str(self.out / 'master.png'))
         self.assertEqual(payload['frame_images'][1]['frame_type'], 'last_frame')
@@ -41,6 +41,14 @@ class ProductionGuards(unittest.TestCase):
         self.config['resolution'] = '1080p'
         with self.assertRaisesRegex(RuntimeError, 'Valor no admitido'):
             production.build_payload(self.config, self.model)
+
+    def test_motion_guides_are_immutable_https_references(self):
+        result = production.media(production.ROOT / 'docs/tasman/video/intro/orbit-guide.mp4', 'video', self.config['reference_commit'])
+        self.assertTrue(result['video_url']['url'].startswith('https://raw.githubusercontent.com/'))
+        self.assertIn(self.config['reference_commit'], result['video_url']['url'])
+        self.assertNotIn('data:', result['video_url']['url'])
+        with self.assertRaises(RuntimeError):
+            production.media(production.ROOT / 'docs/tasman/video/intro/orbit-guide.mp4', 'video', 'main')
 
     def test_missing_secret_cannot_submit(self):
         with patch.dict(production.os.environ, {}, clear=True), patch.object(production, 'request') as request, patch.object(production, 'orbit_guide'), patch.object(production, 'build_payload', return_value={'duration':24,'resolution':'720p','aspect_ratio':'16:9'}):
