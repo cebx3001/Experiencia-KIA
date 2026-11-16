@@ -1,5 +1,5 @@
 {
   "state": "ERROR",
-  "error": "HTTP 400: openrouter.ai",
+  "error": "HTTP 400: Invalid reference URL: input_references[7].video_url.url: Only HTTPS URLs are allowed",
   "next_video_authorized": false
 }

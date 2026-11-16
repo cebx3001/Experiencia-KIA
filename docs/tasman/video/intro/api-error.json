@@ -1,0 +1,5 @@
+{
+  "http_status": 400,
+  "host": "openrouter.ai",
+  "validation_message": "Invalid reference URL: input_references[7].video_url.url: Only HTTPS URLs are allowed"
+}
