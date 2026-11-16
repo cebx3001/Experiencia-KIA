@@ -2,13 +2,21 @@
 
 Fuente: las cinco láminas de seis viñetas que el cliente entregó en el chat (X‑TREK, Vadeo, Storm, Carga y Remolque), junto con `../PLAN-VIDEO-UNREAL.md`. Esta guía transcribe lo observado; las láminas no se han adjuntado retrospectivamente a una solicitud ya enviada. No autoriza producir otro video antes de aprobar la intro.
 
+## Naturaleza de la representación
+
+Aclaración posterior del cliente: el barrido de la intro produce un **gemelo digital volumétrico a color**. La Tasman permanece nítida, con pintura, vidrio, ruedas, reflejos y proporciones creíbles; su condición de gemelo se comunica mediante la reconstrucción y una microestructura de proyección contenida. Las pruebas son simulaciones holográficas que nacen del vehículo ya escaneado, no escenarios independientes que aparecen de fuera de cámara.
+
+La referencia expresiva es la presentación volumétrica de Weyland en *Prometheus*: presencia tridimensional, información superficial, puntos luminosos y reconstrucción por capas, conservando los colores y el aspecto de los materiales. No implica reproducir personajes ni planos de la película. Evitar el fantasma monocromo azul de ciencia ficción, la transparencia que borra carrocería y el ruido temporal que degrada la definición. El holograma a color debe seguir pareciendo fotografiado con óptica, luz y movimiento convincentes.
+
+La expansión se inicia en los datos superficiales de la Tasman, baja por las zonas de contacto de los neumáticos y se propaga al entorno. Tras armarse, la malla no tapa los materiales; la lectura holográfica se mantiene sutilmente en los bordes activos y la estructura espacial. Durante el desarmado, las capas regresan hacia ese origen. El maestro limpio permanece como ancla exacta de continuidad.
+
 ## Elementos que permanecen
 
 - Una única Tasman 2026 Tan Beige TAM de doble cabina, misma configuración oficial, ruedas negras, neumáticos, molduras, luces, emblemas y proporciones. La geometría se controla con las vistas oficiales de Kia; las láminas gobiernan puesta en escena y estética.
 - El mismo `intro/master.png`, sin regenerarlo por separado para cada prueba, en los dos extremos de cada prueba y al cierre de la intro. Coinciden cámara, escala, posición, ruedas, reflejos y sombra. La apertura de la intro usa su fotograma de descenso.
 - Estudio negro profundo, suelo carbón, pintura arena neutra, reflejos amplios y suaves que describen vidrio y chapa, detalle legible en ruedas y plásticos, contraste contenido y sombra de contacto. La luz del estudio permanece fija durante la órbita. Los exteriores usan luz físicamente apropiada al entorno con la misma corrección de color y acabado fotográfico.
 - Malla de líneas finas cian desaturado, con perspectiva, volumen y oclusión. Arranca junto a los contactos de las ruedas y avanza de cerca hacia el fondo. Se convierte de manera continua en relieve, textura y material real; no se sustituye por un fundido de fondo. Evitar neón saturado, superficies sólidas azules, geometría abstracta y destellos que tapen la camioneta.
-- La acción se ejecuta en el entorno materializado. Al cerrar, el entorno vuelve a contornos y desaparece por capas desde el fondo hasta los neumáticos, mientras la cámara y la camioneta recuperan el maestro. La última línea desaparece justo al coincidir con el estudio. No quedan objetos, carga, remolque ni agua que alteren el maestro.
+- La acción se ejecuta dentro de la simulación volumétrica a color, con apariencia fotográfica y física visual coherente. Al cerrar, el entorno vuelve a contornos y desaparece por capas desde el fondo hasta los neumáticos, mientras la cámara y la camioneta recuperan el maestro. La última línea desaparece justo al coincidir con el estudio. No quedan objetos, carga, remolque ni agua que alteren el maestro.
 - Movimiento pesado, neumáticos en contacto, suspensión amortiguada, sombras consistentes, reflejos continuos, sin cambio de carrocería entre cuadros. Los límites de un escenario o plano de agua no se ven.
 
 ## Puesta en cámara de las láminas
@@ -28,3 +36,5 @@ Las viñetas muestran armado y acción, pero no todos los regresos. El desarmado
 `prompts/COMMON.txt` es el bloque compartido que debe anteponerse a cada prompt de prueba. Los seis borradores describen cámara, armado, acción y regreso; no los ejecuta ningún workflow. La intro conserva el prompt exacto que ya fue enviado en `intro/prompt.txt`, para no falsear la trazabilidad. Sus resultados también deben revisarse contra esta guía; una toma que falle no se etiqueta como aprobada.
 
 Antes de aceptar cada clip: revisar cuerpo y ruedas a lo largo de la toma, acción completa, dirección de cámara, continuidad de reflejos, contacto físico, formación con profundidad y empalme real de los cuadros anteriores al maestro. La validación técnica y una lámina bonita no sustituyen la reproducción del video.
+
+Fotorealismo es un criterio de aceptación: ninguna generación queda aprobada por completar la solicitud. Las superficies, el agua, los neumáticos y las cargas deben conservar una respuesta creíble incluso dentro de la presentación holográfica.
