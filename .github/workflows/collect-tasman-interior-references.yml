@@ -79,13 +79,24 @@ jobs:
                           fonthits.append({'file':name,'url':url,'stylesheet':cssurl,'sha256':hashlib.sha256(data).hexdigest()})
           (fontdir/'official-sources.json').write_text(json.dumps({'fonts':fonthits,'stylesheets':csssources},indent=2)+'\n')
           print('Original brand font candidates:',len(fonthits))
+          exdir=Path('docs/tasman/video/corrections/references');exdir.mkdir(parents=True,exist_ok=True)
+          exterior=[]
+          for report in reports:
+              for item in report['images']:
+                  url=item['url']
+                  if ('/Gallery/ext/' in url and 'wide-exterior-' in url) or ('/Tasman-TK-26my/Features/' in url and any(part in url for part in ['/off-road/','/performance/','/convenience/'])):
+                      if url in [i['url'] for i in exterior]:continue
+                      try:data=urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'}),timeout=45).read()
+                      except Exception:continue
+                      name=url.rsplit('/',1)[1];(exdir/name).write_bytes(data);exterior.append({'file':name,'url':url,'sha256':hashlib.sha256(data).hexdigest()})
+          (exdir/'official-sources.json').write_text(json.dumps(exterior,indent=2)+'\n')
           print('Original Kia cabin photos downloaded; no media generation submitted.')
           PY
       - name: Save only public reference metadata
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/tasman/video/interior/references experiencia-video/fonts
+          git add docs/tasman/video/interior/references experiencia-video/fonts docs/tasman/video/corrections/references
           if ! git diff --cached --quiet; then
             git commit -m 'Collect official Kia cabin image candidates without paid generation [skip ci]'
             git pull --rebase origin feat/tasman-experiencia-cines
