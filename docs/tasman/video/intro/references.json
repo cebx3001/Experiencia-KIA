@@ -1,0 +1,46 @@
+{
+  "source": "Kia Ecuador official Tan Beige TAM 360 viewer",
+  "usage": "Production reference for this Kia showcase; original copyright remains Kia.",
+  "images": [
+    {
+      "file": "references/Tan-Beige_TAM_00.png",
+      "url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_00.png",
+      "sha256": "0f7d35d108cc2ff7ae5eff6f4621fd09b66490adc7cda2f9119ffaa9bb2cc83e"
+    },
+    {
+      "file": "references/Tan-Beige_TAM_09.png",
+      "url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_09.png",
+      "sha256": "7f8f557a98efa436b738b26fa5a2d880b134b7e95624f439f9e283a356663b94"
+    },
+    {
+      "file": "references/Tan-Beige_TAM_18.png",
+      "url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_18.png",
+      "sha256": "bff7bff884a890194ed467bd5d44a1fd8c18f7f39e46c210a6266f5de4ffe9fd"
+    },
+    {
+      "file": "references/Tan-Beige_TAM_27.png",
+      "url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_27.png",
+      "sha256": "2223cf37fe11720480c2706ec6b3455f42c429326e37bf752ae9b4a13d12e9fd"
+    },
+    {
+      "file": "references/Tan-Beige_TAM_36.png",
+      "url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_36.png",
+      "sha256": "9e06129a9e6deff6c530fb4b6b2834c4b1bac9f7c8cd590d968c8b6bff201650"
+    },
+    {
+      "file": "references/Tan-Beige_TAM_45.png",
+      "url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_45.png",
+      "sha256": "36c8abc8e91f2df51e53754fbeb292c473a4a02d5be1e3a638b7a72b9cbb9006"
+    },
+    {
+      "file": "references/Tan-Beige_TAM_54.png",
+      "url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_54.png",
+      "sha256": "f31aa6b8cc888331dba7aeef01ec4e6000855fcb5e8e5a65134274aa57ac08cf"
+    },
+    {
+      "file": "references/Tan-Beige_TAM_63.png",
+      "url": "https://www.kia.com/content/dam/kwcms/gt/en/images/showroom/Tasman-TK-26my/Features/360vr/ext/tan-beige/Tan-Beige_TAM_63.png",
+      "sha256": "c7faa23920e515cfacd8f6e10c3a5d03b189501fca35e31fc36c2506a36ccf7a"
+    }
+  ]
+}
