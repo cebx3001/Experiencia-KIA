@@ -30,6 +30,25 @@ Producir en el orden siguiente. Antes de entregar cada video, comprobar que se l
 
 La presentación holográfica de Peter Weyland en *Prometheus* y las láminas de X-TREK y Vadeo guían el armado. Cada prueba parte del fotograma maestro. En exteriores, la malla nace junto a las llantas y toma forma, textura y color de cerca hacia el fondo. Una vez que termina la acción, el entorno vuelve a contornos y malla y desaparece por capas, del fondo hacia la Tasman. Ese desarmado ocurre al mismo tiempo que la cámara vuelve al tres cuartos frontal y la camioneta recupera su posición en el encuadre. La última capa desaparece al llegar al maestro. En Interior, el efecto se retira mientras la cámara sale por la ventanilla lateral y vuelve al mismo plano del estudio.
 
+
+### Sonido y vibración
+
+Revisar las láminas del cliente antes del montaje. En las [páginas 4–6](references/tasman-01-04.jpg), **Entrar a la experiencia** da paso a la intro y el impacto combina golpe, sacudida breve y vibración. Usar el contacto visible de las llantas con el piso como punto de sincronía de los tres efectos en la edición final.
+
+Entregar los siete videos con audio sincronizado. Dar al armado holográfico un sonido común que siga la acción. Un pulso corto acompaña la primera malla, pequeñas capas de sonido aparecen conforme el terreno o la arquitectura toman forma, y el sonido se va apagando del fondo hacia la Tasman durante el desarmado. Dejar espacio en la mezcla para que el motor, el agua, las ruedas y los impactos se distingan. Cerrar cada prueba sobre el mismo ambiente silencioso o tenue del estudio, de modo que pueda enlazar con la siguiente.
+
+| Video | Sonido de la acción |
+| --- | --- |
+| Introducción | Grave breve durante el descenso. Al tocar el piso, golpe seco de llantas contra superficie firme, con cuerpo de chasis y un segundo acento más leve al asentarse la suspensión. Después se oyen las piedritas en el piso. Durante la órbita queda el ambiente tenue del estudio. El escaneo lleva un barrido electrónico corto que termina al llegar al fotograma maestro. |
+| X-TREK | Motor sostenido a bajas revoluciones, rodadura sobre grava y golpes puntuales al apoyar las llantas en la losa. El sonido de la piedra acompaña el movimiento de los ejes. |
+| Vadeo | Corriente del río, entrada de las llantas, ola de proa y estela que se aleja. Al salir, agua que escurre y motor bajo carga. |
+| Storm | Lluvia sobre carrocería y asfalto, rodadura en mojado, spray de las llantas y motor al recorrer la recta y tomar la curva. |
+| Carga en la paila | Cada caja tiene su propio golpe sincronizado sobre la paila, con cuerpo de cartón y respuesta corta del piso metálico. |
+| Remolque | Cierre metálico al asentarse el enganche, seguido de motor bajo carga y rodadura de Tasman y remolque. |
+| Interior | Al accionar el arranque, oír el motor encenderse desde la cabina y asentarse al ralentí. Un sonido breve acompaña el encendido del cuadro y la pantalla. |
+
+Ajustar la mezcla sobre la edición definitiva y probarla en el parlante de un teléfono. El golpe de la intro debe oírse también sin subgraves ni vibración física. Usar una pista de efectos integrada en el MP4 de cada escena. Si se usan efectos separados del audio del generador, sincronizarlos en el montaje antes de exportar. Entregar la intro con sonido y registrar el tiempo exacto del primer contacto en el MP4 final para la integración web.
+
 Generar también clips cortos de transición entre poses vecinas en las dos direcciones que requiere el gesto. Verificar en la intro y en los clips entre poses que los reflejos recorran el vidrio y la pintura de forma continua, que se lean los contornos y que la luz y la sombra empalmen al llegar a cada pose. En cada transición, comprobar también que se conserve la carrocería y se siga el giro previsto. Estos clips son auxiliares a los siete videos principales.
 
 ## 3. Integrar la experiencia web después de aprobar los siete videos
@@ -37,4 +56,5 @@ Generar también clips cortos de transición entre poses vecinas en las dos dire
 1. Conservar el flujo de la demo de cines. Entrada, caída y escaneo, estudio, y botón **Explorar las características**. Al abrirlo aparecen las seis pruebas. Al terminar cada video, reaparece el menú sobre el mismo encuadre del estudio.
 2. En el estudio, deslizar horizontalmente reproduce un clip corto hacia la pose siguiente o anterior y se detiene en su fotograma de llegada. Al deslizar otra vez, el movimiento continúa desde esa vista. Los botones dan acceso directo a las cinco poses. La órbita completa de 360° forma parte del video de introducción.
 3. Mientras carga la introducción, mostrar su primer fotograma como imagen de espera. Mostrar el fotograma maestro al terminar la intro, cuando se habilita el estudio. Dar prioridad de carga a la introducción y solicitar las pruebas bajo demanda. Evitar cargar el iframe de PlayCanvas, el GLB y el motor WebGL en la ruta de video.
-4. Verificar en un Android real desde el QR, con caché fría. Medir tiempo al primer fotograma visible, tiempo a la primera reproducción y bytes descargados antes de iniciar. Comparar contra la demo de cines con la misma conexión. Probar el gesto, los botones y el regreso al menú desde las seis pruebas.
+4. Iniciar el video con sonido al tocar **Entrar a la experiencia**, mantenerlo en las pruebas e incluir un control para silenciarlo. Al reproducir la intro, disparar una vibración breve una vez por reproducción al cruzar la marca del primer contacto, usando el tiempo del video. Si el usuario salta la intro antes del contacto, cancela ese pulso. Comprueba que una pausa o una espera por carga mantenga el pulso alineado con el cuadro de impacto. Usa la vibración en navegadores compatibles. En Safari de iPhone, el golpe se comunica con la imagen, la sacudida y el audio.
+5. Verificar en un Android real desde el QR, con caché fría. Medir tiempo al primer fotograma visible, tiempo a la primera reproducción y bytes descargados antes de iniciar. Comparar contra la demo de cines con la misma conexión. Probar el gesto, los botones y el regreso al menú desde las seis pruebas. Probar la sincronía del impacto y el salto de intro con y sin vibración, y la reproducción con sonido en Chrome de Android y Safari de iPhone.
