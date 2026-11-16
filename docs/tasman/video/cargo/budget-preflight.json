@@ -1,0 +1,10 @@
+{
+  "scene": "cargo",
+  "confirmed_usage": 22.2453,
+  "usage_used_for_guard": 22.2453,
+  "project_ceiling": 45,
+  "reserved_for_request": 2.5,
+  "scene_spent": 0,
+  "remaining_project_after_reservation": 20.2547,
+  "note": "Conservative estimate under pinned pricing; provider key limits are not changed."
+}
