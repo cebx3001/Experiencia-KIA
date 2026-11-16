@@ -1,0 +1,11 @@
+{
+  "decodable": true,
+  "codec": "h264",
+  "width": 1280,
+  "height": 720,
+  "duration": 24.041667,
+  "bytes": 6986079,
+  "sha256": "dfe1b49f40bab7321048b420b819a5d72d7fade46d66c9e5cb8eb426d50005de",
+  "visual_review": "PENDIENTE: identidad, órbita, impacto, escaneo y continuidad con el maestro",
+  "physical_mobile_test": false
+}
