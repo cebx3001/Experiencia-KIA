@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "physicalDevice": false,
+  "views": [
+    {
+      "name": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "video": {
+        "width": 1280,
+        "height": 720,
+        "duration": 20,
+        "playing": true,
+        "error": null
+      },
+      "slowMotion": true,
+      "ended": true,
+      "replay": true,
+      "webglOrGlbLoaded": false,
+      "errors": []
+    },
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "video": {
+        "width": 1280,
+        "height": 720,
+        "duration": 20,
+        "playing": true,
+        "error": null
+      },
+      "slowMotion": true,
+      "ended": true,
+      "replay": true,
+      "webglOrGlbLoaded": false,
+      "errors": []
+    }
+  ]
+}

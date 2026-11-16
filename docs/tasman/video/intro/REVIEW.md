@@ -2,7 +2,7 @@
 
 Estado de aprobación: **EN VALIDACIÓN**. La producción se limita a la introducción; no genera ninguna de las seis pruebas ni las transiciones. La integración del flujo web completo queda para después de las aprobaciones previstas en `docs/tasman/PLAN-VIDEO-UNREAL.md`.
 
-Archivos de revisión: `intro.mp4` (H.264/AAC, 24 segundos, 1280×720, descarga progresiva), `master.png` (único maestro), `opening.png` y `validation.json`. La resolución es nativa de Seedance 2.5 según el catálogo comprobado, sin presentarla como 1080p. Se conserva `intro-source.mp4` antes de la transcodificación.
+Archivos de revisión: `intro.mp4` (H.264 sin audio, 20 segundos de montaje, 1280×720, descarga progresiva), `master.png` (único maestro), `opening.png` y `validation.json`. La resolución es nativa de Seedance 2.5 según el catálogo comprobado, sin presentarla como 1080p. Se conserva `intro-source.mp4` antes de la transcodificación.
 
 La vista de Kia Tan Beige TAM 45 es la base del maestro. Las otras siete vistas oficiales conservan la identidad durante el giro. La guía orbital monta las 72 imágenes originales de Kia empezando en la misma vista. La caída y el escaneo funcionales de Revisión 03 se adjuntan como guías de movimiento; la apariencia la fijan las imágenes oficiales y el maestro. Sus fuentes y hashes quedan registrados.
 
@@ -23,3 +23,5 @@ Diagnóstico del acceso: GitHub denegó el listado de nombres por su API de meta
 Configuración resuelta: el cliente confirmó el secreto de repositorio `OPEN_ROUTER_ACCESS`. Se retiraron las comprobaciones de alias y el diagnóstico de nombres; el workflow usa ese único secreto.
 
 Producción visual sin audio generativo: el primer trabajo aceptado falló porque el proveedor rechazó su salida de audio por posibles restricciones de copyright. El intento se conserva en `attempts/01-audio-rejected`; el nuevo trabajo pide solamente video (`generate_audio: false`), sin reutilizar ni intentar reproducir la pista rechazada. El maestro no cambia.
+
+Montaje final reproducible: la fuente de Seedance dura 24,04 s. `tools/tasman-video/edit_intro.py` reduce el descenso lento y el tiempo de asentamiento, conserva íntegra la órbita y el escaneo a su cadencia original, y termina con una transición de coincidencia de 0,5 s al archivo maestro. Entrega de 20 s y 6,1 MB, sin otra generación ni cambio de maestro. El resultado sigue EN VALIDACIÓN y requiere revisión artística del cliente; los prompts posteriores incluyen las aclaraciones recibidas sobre el gemelo digital y las proyecciones a color.

@@ -41,6 +41,8 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPEN_ROUTER_ACCESS }}
           OPENROUTER_SECRET_NAME: OPEN_ROUTER_ACCESS
         run: python tools/tasman-video/produce_intro.py
+      - name: Finish landing timing and match the fixed master without another generation
+        run: python tools/tasman-video/edit_intro.py
       - name: Preserve generation report and deliverables
         if: always()
         uses: actions/upload-artifact@v4
