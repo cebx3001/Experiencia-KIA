@@ -1,0 +1,15 @@
+{
+  "observed": [
+    "Una sola paila detrás de la cabina; no aparece otra delante.",
+    "Vehículo estacionado, cámara elevada trasera y colocación secuencial de cajas.",
+    "Compuerta cerrada; entorno y carga se reconstruyen/desmontan en cian."
+  ],
+  "limitations": [
+    "El asentamiento es animación generada, no un cálculo físico certificado de carga útil."
+  ],
+  "reviewed": true,
+  "method": "Inspección visual de 24 muestras del video corregido, además de validación técnica.",
+  "technical_success_is_not_client_approval": true,
+  "source_sha256": "6df6571432b5439b63930296dde26b1aff8f219d6a757e60197c260d0b7a1d2c",
+  "further_paid_generation": false
+}

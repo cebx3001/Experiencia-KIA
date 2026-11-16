@@ -1,0 +1,6 @@
+Pillow==11.3.0
+numpy==2.2.6
+opencv-python-headless==4.12.0.88
+fonttools[woff]>=4.60,<5
+qrcode==8.2
+zxing-cpp==2.3.0

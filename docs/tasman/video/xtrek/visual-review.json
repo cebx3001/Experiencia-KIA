@@ -1,0 +1,15 @@
+{
+  "observed": [
+    "Camino continuo de roca angular, bosque y varios apoyos irregulares.",
+    "Ascenso con cambios visibles de cabeceo y soporte de ruedas.",
+    "Montaje y desmontaje cian del terreno."
+  ],
+  "limitations": [
+    "Persiste una cresta dominante; no se certifica la distancia recorrida ni una simulación mecánica real."
+  ],
+  "reviewed": true,
+  "method": "Inspección visual de 24 muestras del video corregido, además de validación técnica.",
+  "technical_success_is_not_client_approval": true,
+  "source_sha256": "6b6ac30fed6f7f7e00a0b3aca7422a6a12f371d494d21637d6ce47436c6b1be2",
+  "further_paid_generation": false
+}

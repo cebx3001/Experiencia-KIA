@@ -5,13 +5,38 @@
   "width": 720,
   "height": 1280,
   "audio": true,
-  "source_sha256": "8528e577dbf2e10a94c41084cf8f9789e9e1b8702149348bd17bb7357fc69bcf",
-  "video_sha256": "ca79f6fdabe3dcadd3b400b753d4a2b7627c93af1bfdbecb13d6ef2e378386fd",
+  "source_sha256": "6df6571432b5439b63930296dde26b1aff8f219d6a757e60197c260d0b7a1d2c",
+  "video_sha256": "5f0868c190423595d67e3078546e787c795b2045b441fd60347d1f829ba90c8f",
   "additional_paid_generation": false,
-  "framing": "Entire existing landscape shot preserved within a portrait black studio canvas; no cropping or generated extensions",
-  "limitations": [
-    "El generador abre la compuerta trasera aunque el prompt enviado pedía mantenerla cerrada.",
-    "La pila final sobresale por encima de los bordes: revisar la credibilidad de la distribución y del asentamiento.",
-    "El cielo aparece antes de completar el ensamblado próximo; no cumple estrictamente el orden de profundidad."
-  ]
+  "framing": "Native portrait",
+  "limitations": [],
+  "visual_review": {
+    "observed": [
+      "Una sola paila detrás de la cabina; no aparece otra delante.",
+      "Vehículo estacionado, cámara elevada trasera y colocación secuencial de cajas.",
+      "Compuerta cerrada; entorno y carga se reconstruyen/desmontan en cian."
+    ],
+    "limitations": [
+      "El asentamiento es animación generada, no un cálculo físico certificado de carga útil."
+    ],
+    "reviewed": true,
+    "method": "Inspección visual de 24 muestras del video corregido, además de validación técnica.",
+    "technical_success_is_not_client_approval": true,
+    "source_sha256": "6df6571432b5439b63930296dde26b1aff8f219d6a757e60197c260d0b7a1d2c",
+    "further_paid_generation": false
+  },
+  "procedural_audio": {
+    "scene": "cargo",
+    "version": "material-front-v2",
+    "method": "Material-filtered granular synthesis driven by the actual reconstruction front; VFX stone collision times drive matching impacts.",
+    "seed": 20261640,
+    "sample_rate": 48000,
+    "grain_count": 692,
+    "visual_front_events": 352,
+    "impact_seconds": null,
+    "external_samples": false,
+    "generation_cost_usd": 0,
+    "visual_source_sha256": "6df6571432b5439b63930296dde26b1aff8f219d6a757e60197c260d0b7a1d2c",
+    "output_sha256": "5f0868c190423595d67e3078546e787c795b2045b441fd60347d1f829ba90c8f"
+  }
 }

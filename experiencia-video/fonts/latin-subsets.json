@@ -1,0 +1,24 @@
+{
+  "preserves_original_brand_glyphs": true,
+  "languages": "Latin including Spanish accents",
+  "fonts": [
+    {
+      "original": "KiaSignatureRegular.woff2",
+      "file": "KiaSignatureRegular-latin.woff2",
+      "family": "Kia Signature Fix",
+      "bytes": 34704
+    },
+    {
+      "original": "KiaSignatureLight.woff2",
+      "file": "KiaSignatureLight-latin.woff2",
+      "family": "Kia Signature Light",
+      "bytes": 33020
+    },
+    {
+      "original": "KiaSignatureBold.woff2",
+      "file": "KiaSignatureBold-latin.woff2",
+      "family": "Kia Signature Fix Bold",
+      "bytes": 33780
+    }
+  ]
+}

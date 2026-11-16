@@ -1,0 +1,14 @@
+{
+  "scene": "xtrek",
+  "version": "material-front-v2",
+  "method": "Material-filtered granular synthesis driven by the actual reconstruction front; VFX stone collision times drive matching impacts.",
+  "seed": 20261674,
+  "sample_rate": 48000,
+  "grain_count": 458,
+  "visual_front_events": 245,
+  "impact_seconds": null,
+  "external_samples": false,
+  "generation_cost_usd": 0,
+  "visual_source_sha256": "6b6ac30fed6f7f7e00a0b3aca7422a6a12f371d494d21637d6ce47436c6b1be2",
+  "output_sha256": "f8f7f878506124728bf6988d6a5419e175c882a01fbda2d364700195bbe2e256"
+}

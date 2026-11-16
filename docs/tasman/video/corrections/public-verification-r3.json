@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "release": "tasman-mobile-video-20261116-r3",
+  "url": "https://cebx3001.github.io/Experiencia-KIA/experiencia/?v=20261116-r3",
+  "qr_url": "https://cebx3001.github.io/Experiencia-KIA/experiencia/qr.png?v=20261116-r3",
+  "public_files_verified_in_ci": 99,
+  "workflow_run": "https://github.com/cebx3001/Experiencia-KIA/actions/runs/43815468724",
+  "public_commit": "c858595",
+  "checks": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-node@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Install test browser",
+      "conclusion": "success"
+    },
+    {
+      "name": "Serve and verify the complete mobile video flow without loading a 3D model",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify actual Pages video, image and QR hashes",
+      "conclusion": "success"
+    },
+    {
+      "name": "Summarize read-only browser verification",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/upload-artifact@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-node@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/checkout@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ],
+  "physical_device": false,
+  "paid_generation_total_usd": 27.3492,
+  "pull_request_status": "GitHub repository configuration does not permit Actions to create pull requests. Changes are pushed to feat/tasman-experiencia-cines; publication and CI passed."
+}

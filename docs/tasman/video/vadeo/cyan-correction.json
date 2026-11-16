@@ -1,0 +1,9 @@
+{
+  "source_sha256": "312f949d0ad9c4072fc93f120096719a88c454761547e0668472083d6f2bbe8b",
+  "output_sha256": "34b02cdd96d49d1105fe9c10276b695537b9ea5adb57c7d086cf2a09db179ec3",
+  "only_correction": "Golden reconstruction particles to cyan; existing vehicle, water, camera and audio preserved.",
+  "frames": 477,
+  "pixels_selected": 3893829,
+  "additional_paid_generations": 0,
+  "audio": "Copied unchanged"
+}

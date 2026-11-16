@@ -1,0 +1,12 @@
+{
+  "confirmed_usd": 35.69841,
+  "ceiling_usd": 45,
+  "remaining_theoretical_usd": 9.30159,
+  "deduplicated_jobs": 11,
+  "new_corrective_jobs": {
+    "cargo": 2.78307,
+    "storm": 2.78307,
+    "xtrek": 2.78307
+  },
+  "automatic_paid_retries": false
+}

@@ -1,0 +1,14 @@
+{
+  "scene": "cargo",
+  "version": "material-front-v2",
+  "method": "Material-filtered granular synthesis driven by the actual reconstruction front; VFX stone collision times drive matching impacts.",
+  "seed": 20261640,
+  "sample_rate": 48000,
+  "grain_count": 692,
+  "visual_front_events": 352,
+  "impact_seconds": null,
+  "external_samples": false,
+  "generation_cost_usd": 0,
+  "visual_source_sha256": "6df6571432b5439b63930296dde26b1aff8f219d6a757e60197c260d0b7a1d2c",
+  "output_sha256": "5f0868c190423595d67e3078546e787c795b2045b441fd60347d1f829ba90c8f"
+}

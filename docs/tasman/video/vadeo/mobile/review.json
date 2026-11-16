@@ -5,9 +5,9 @@
   "width": 720,
   "height": 1280,
   "audio": true,
-  "source_sha256": "569675be621be5a22f137dd968c65b6d4eba1506d7a1ca4f9e6fc831b84d65b0",
-  "video_sha256": "312f949d0ad9c4072fc93f120096719a88c454761547e0668472083d6f2bbe8b",
+  "source_sha256": "34b02cdd96d49d1105fe9c10276b695537b9ea5adb57c7d086cf2a09db179ec3",
+  "video_sha256": "34b02cdd96d49d1105fe9c10276b695537b9ea5adb57c7d086cf2a09db179ec3",
   "additional_paid_generation": false,
-  "framing": "Entire existing landscape shot preserved within a portrait black studio canvas; no cropping or generated extensions",
+  "framing": "Native portrait",
   "limitations": []
 }

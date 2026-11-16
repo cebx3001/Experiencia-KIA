@@ -3,3 +3,7 @@
 studio/tools/sources/rock-geometry.json
 studio/tools/sources/road-geometry.json
 studio/assets/r03/paricutin-rock.glb
+
+# Local Python caches.
+__pycache__/
+*.pyc

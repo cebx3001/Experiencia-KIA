@@ -5,12 +5,40 @@
   "width": 720,
   "height": 1280,
   "audio": true,
-  "source_sha256": "c7f82ab4a53b48660e8248576a78cdc2cd3a2ac965ccb2c32d83a266c24cfd91",
-  "video_sha256": "5c56056dc5c6fe4e7ec91da1d3ae097789a46daff185a7fbc49f047386c44010",
+  "source_sha256": "f0bb9a3c1c8aff34230af2d37a3cfd5b15a401e3234912ba0d4b852f5cf13ae0",
+  "video_sha256": "cfbd868850f8312a70973fb502d4c9f257a55c9df47d2cc68dfc929098e7144f",
   "additional_paid_generation": false,
-  "framing": "Entire existing landscape shot preserved within a portrait black studio canvas; no cropping or generated extensions",
-  "limitations": [
-    "La generación conserva luz exterior diurna/encapotada; no cumple todavía la noche del guion.",
-    "La cámara no llega a un perfil lateral completo. Sin otra regeneración de pago."
-  ]
+  "framing": "Native portrait",
+  "limitations": [],
+  "feature": "Control Electrónico de Estabilidad (ESC), according to the official Ecuador specification; not a selectable rain mode.",
+  "visual_review": {
+    "observed": [
+      "Carretera mojada en curva, reflejos de faros y spray visible.",
+      "Cambio breve de alineación con recuperación y avance continuo.",
+      "Reconstrucción cian y regreso al maestro."
+    ],
+    "limitations": [
+      "Representación publicitaria de ESC, no simulación instrumentada del controlador real.",
+      "La cámara conserva predominio de tres cuartos; no se certifica un perfil puro."
+    ],
+    "reviewed": true,
+    "method": "Inspección visual de 24 muestras del video corregido, además de validación técnica.",
+    "technical_success_is_not_client_approval": true,
+    "source_sha256": "f0bb9a3c1c8aff34230af2d37a3cfd5b15a401e3234912ba0d4b852f5cf13ae0",
+    "further_paid_generation": false
+  },
+  "procedural_audio": {
+    "scene": "storm",
+    "version": "material-front-v2",
+    "method": "Material-filtered granular synthesis driven by the actual reconstruction front; VFX stone collision times drive matching impacts.",
+    "seed": 20261681,
+    "sample_rate": 48000,
+    "grain_count": 526,
+    "visual_front_events": 235,
+    "impact_seconds": null,
+    "external_samples": false,
+    "generation_cost_usd": 0,
+    "visual_source_sha256": "f0bb9a3c1c8aff34230af2d37a3cfd5b15a401e3234912ba0d4b852f5cf13ae0",
+    "output_sha256": "cfbd868850f8312a70973fb502d4c9f257a55c9df47d2cc68dfc929098e7144f"
+  }
 }

@@ -1,0 +1,16 @@
+{
+  "observed": [
+    "Carretera mojada en curva, reflejos de faros y spray visible.",
+    "Cambio breve de alineación con recuperación y avance continuo.",
+    "Reconstrucción cian y regreso al maestro."
+  ],
+  "limitations": [
+    "Representación publicitaria de ESC, no simulación instrumentada del controlador real.",
+    "La cámara conserva predominio de tres cuartos; no se certifica un perfil puro."
+  ],
+  "reviewed": true,
+  "method": "Inspección visual de 24 muestras del video corregido, además de validación técnica.",
+  "technical_success_is_not_client_approval": true,
+  "source_sha256": "f0bb9a3c1c8aff34230af2d37a3cfd5b15a401e3234912ba0d4b852f5cf13ae0",
+  "further_paid_generation": false
+}

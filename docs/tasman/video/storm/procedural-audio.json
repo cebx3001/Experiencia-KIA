@@ -1,0 +1,14 @@
+{
+  "scene": "storm",
+  "version": "material-front-v2",
+  "method": "Material-filtered granular synthesis driven by the actual reconstruction front; VFX stone collision times drive matching impacts.",
+  "seed": 20261681,
+  "sample_rate": 48000,
+  "grain_count": 526,
+  "visual_front_events": 235,
+  "impact_seconds": null,
+  "external_samples": false,
+  "generation_cost_usd": 0,
+  "visual_source_sha256": "f0bb9a3c1c8aff34230af2d37a3cfd5b15a401e3234912ba0d4b852f5cf13ae0",
+  "output_sha256": "cfbd868850f8312a70973fb502d4c9f257a55c9df47d2cc68dfc929098e7144f"
+}
