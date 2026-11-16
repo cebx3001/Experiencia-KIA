@@ -5,7 +5,8 @@
       "name": "mobile",
       "width": 390,
       "height": 844,
-      "autoplayIntro": true,
+      "inlineIntroWithGesture": true,
+      "autoplayIntro": false,
       "noEntranceGate": true,
       "noReplayIntroButton": true,
       "stableScanStage": true,
@@ -23,7 +24,11 @@
       "continuousDrag": true,
       "fractionalFrames": true,
       "maxDecodedFrames": 14,
-      "smoothDetailAndReturn": true,
+      "gestureOnlyExplorer": true,
+      "noCameraPoses": true,
+      "noRotationOrZoomButtons": true,
+      "pinchZoom": true,
+      "smoothReturnToMaster": true,
       "interactiveMenu": true,
       "missionCount": 6,
       "allVideoPortrait": true,
@@ -32,11 +37,12 @@
       "impactHaptics": [
         {
           "pattern": [
-            45,
-            25,
-            20
+            90,
+            35,
+            40
           ],
-          "time": 1.500217
+          "activated": true,
+          "time": 1.493676
         }
       ],
       "skipCancelsImpact": true,
@@ -49,7 +55,8 @@
       "name": "small-mobile",
       "width": 360,
       "height": 740,
-      "autoplayIntro": true,
+      "inlineIntroWithGesture": true,
+      "autoplayIntro": false,
       "noEntranceGate": true,
       "noReplayIntroButton": true,
       "stableScanStage": true,
@@ -67,7 +74,11 @@
       "continuousDrag": true,
       "fractionalFrames": true,
       "maxDecodedFrames": 14,
-      "smoothDetailAndReturn": true,
+      "gestureOnlyExplorer": true,
+      "noCameraPoses": true,
+      "noRotationOrZoomButtons": true,
+      "pinchZoom": true,
+      "smoothReturnToMaster": true,
       "interactiveMenu": true,
       "missionCount": 6,
       "allVideoPortrait": true,
@@ -76,11 +87,12 @@
       "impactHaptics": [
         {
           "pattern": [
-            45,
-            25,
-            20
+            90,
+            35,
+            40
           ],
-          "time": 1.498762
+          "activated": true,
+          "time": 1.492808
         }
       ],
       "skipCancelsImpact": true,
@@ -93,6 +105,7 @@
       "name": "desktop",
       "width": 1280,
       "height": 800,
+      "inlineIntroWithGesture": false,
       "autoplayIntro": true,
       "noEntranceGate": true,
       "noReplayIntroButton": true,
@@ -111,7 +124,11 @@
       "continuousDrag": true,
       "fractionalFrames": true,
       "maxDecodedFrames": 14,
-      "smoothDetailAndReturn": true,
+      "gestureOnlyExplorer": true,
+      "noCameraPoses": true,
+      "noRotationOrZoomButtons": true,
+      "pinchZoom": false,
+      "smoothReturnToMaster": true,
       "interactiveMenu": true,
       "missionCount": 6,
       "allVideoPortrait": true,
@@ -120,11 +137,12 @@
       "impactHaptics": [
         {
           "pattern": [
-            45,
-            25,
-            20
+            90,
+            35,
+            40
           ],
-          "time": 1.480109
+          "activated": true,
+          "time": 1.486644
         }
       ],
       "skipCancelsImpact": true,
@@ -132,6 +150,15 @@
       "officialWhatsapp": "https://wa.me/593999157077?text=Hola%2C%20quiero%20agendar%20un%20test%20drive%20de%20la%20Kia%20Tasman%20en%20Ecuador.",
       "errors": [],
       "physicalDevice": false
+    },
+    {
+      "name": "ios-fallback-contract",
+      "mode": "ios-switch-experimental",
+      "nativeSwitchRequestAt": 1.505743,
+      "cancellation": true,
+      "noVisibleControls": true,
+      "physicalDevice": false,
+      "physicalVibrationConfirmed": false
     }
   ]
 }

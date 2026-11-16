@@ -1,9 +1,7 @@
-# Explorador móvil por imágenes
+# Visor por gestos
 
-72 vistas extraídas de la órbita de la intro aprobada; el mismo vehículo, color e iluminación. WebP 960×540. La aplicación usa `scan-frames/`; `frames/` conserva las referencias oficiales anteriores como archivo, sin sustituir el vehículo al explorar. `scan-frames.json` registra tiempos y hashes. No requiere generación de pago ni modelo 3D.
+72 imágenes extraídas de la órbita de la intro aprobada, mismo vehículo e iluminación, WebP 960×540. Ancla 45 enlazada al último fotograma codificado de intro en el mismo encuadre. Sin modelo 3D ni nuevas generaciones.
 
-El constructor web reemplaza el ancla 45 con el último fotograma codificado de intro y usa el mismo cuadro vertical como póster. El escaneo y el visor comparten dimensiones de escena; no cambian el encuadre durante el enlace.
+Interfaz: únicamente «Desliza para girar». Arrastre bidireccional fraccional, mezcla de imágenes e inercia. Pellizco para zoom y arrastre para desplazar la imagen ampliada. Sin poses, detalles, Anterior/Siguiente, Vista completa, botones de zoom ni contador. Flechas de teclado como alternativa accesible; el retorno al maestro antes de abrir una experiencia es interno, sin control añadido.
 
-Arrastre bidireccional fraccional con mezcla de vistas e inercia, pellizco móvil, desplazamiento ampliado, teclado y acercamientos animados a faros, ruedas y paila. Máximo 14 ImageBitmap decodificados; se cierran los expulsados. Precarga codificada de baja prioridad durante el escaneo, excluida en ahorro de datos y conexiones 2G. Recursos con versión de publicación para evitar imágenes antiguas.
-
-La fuente es un video generado: las vistas intermedias no equivalen a geometría 3D certificada. La prueba de navegador se conserva en `docs/tasman/evidence/mobile-browser-review.json`; emulación móvil/escritorio, sin certificar hardware físico.
+Máximo 14 imágenes decodificadas, descarte con ImageBitmap.close, precarga codificada de baja prioridad durante el escaneo y exclusión para ahorro de datos o 2G. Referencias oficiales anteriores conservadas en `frames/` como archivo; el visor usa `scan-frames/`. Pruebas en `docs/tasman/evidence/mobile-browser-review.json`, sin certificar hardware físico.
