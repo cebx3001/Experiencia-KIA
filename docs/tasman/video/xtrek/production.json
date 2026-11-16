@@ -3,7 +3,7 @@
   "model_id": "bytedance/seedance-2.5",
   "reference_commit": "fa1c28ff52edf2a9bf50640e2c45821ed7b388ae",
   "master_sha256": "3417854db8f1997061efbf7979feb294b5318158802bc47040a437456946ac79",
-  "duration": 30,
+  "duration": 10,
   "resolution": "720p",
   "aspect_ratio": "16:9",
   "seed": 2026111502,
