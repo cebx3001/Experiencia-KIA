@@ -14,6 +14,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: feat/tasman-experiencia-cines
+      - name: Install public PDF text reader
+        run: python3 -m pip install pypdf==6.3.0
       - name: Read original Kia pages and list public image candidates
         run: |
           python3 - <<'PY'
@@ -90,6 +92,12 @@ jobs:
                       except Exception:continue
                       name=url.rsplit('/',1)[1];(exdir/name).write_bytes(data);exterior.append({'file':name,'url':url,'sha256':hashlib.sha256(data).hexdigest()})
           (exdir/'official-sources.json').write_text(json.dumps(exterior,indent=2)+'\n')
+          from pypdf import PdfReader
+          import io
+          pdfurl='https://www.kia.com/content/dam/kwcms/ec/es/files/brochure/Fichas2026/Ficha_T%C3%A9cnica_Tasman_2026.pdf'
+          pdfdata=urllib.request.urlopen(urllib.request.Request(pdfurl,headers={'User-Agent':'Mozilla/5.0'}),timeout=60).read()
+          reader=PdfReader(io.BytesIO(pdfdata))
+          (exdir/'tasman-ec-2026-specifications.txt').write_text('SOURCE: '+pdfurl+'\nSHA256: '+hashlib.sha256(pdfdata).hexdigest()+'\n\n'+'\n\n'.join(page.extract_text() for page in reader.pages))
           print('Original Kia cabin photos downloaded; no media generation submitted.')
           PY
       - name: Save only public reference metadata
