@@ -1,5 +1,5 @@
 {
   "state": "ERROR",
-  "error": "HTTP 400: Invalid reference URL: input_references[7].video_url.url: Only HTTPS URLs are allowed",
+  "error": "El trabajo gen-vid-1794791271-UBTRdS3P8vXoy5QxQ2Na terminó como failed; revisar en OpenRouter, sin regeneración automática",
   "next_video_authorized": false
 }
