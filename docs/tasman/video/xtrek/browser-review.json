@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "physicalDevice": false,
+  "views": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "duration": 10,
+      "width": 1280,
+      "height": 720,
+      "playing": true,
+      "error": null,
+      "ended": true
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "duration": 10,
+      "width": 1280,
+      "height": 720,
+      "playing": true,
+      "error": null,
+      "ended": true
+    }
+  ]
+}

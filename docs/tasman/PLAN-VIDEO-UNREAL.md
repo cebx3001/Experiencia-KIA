@@ -12,6 +12,10 @@ La entrega usa videos generados. La introducción completa, incluidas la caída,
 
 ## 2. Producir y revisar siete videos
 
+**Presupuesto confirmado por el cliente:** máximo **45 USD en total**, incluyendo lo ya consumido. Los recibos de la intro y X-TREK suman 12,49974 USD. Desde este ajuste se permite una sola generación aceptada por escena, sin correcciones de pago automáticas. Comprobar `video/budget.json` y `tools/tasman-budget/guard.py` antes de cualquier solicitud: coste reservado, saldo disponible, precio vigente, duración corta y conservación de las partidas de las escenas restantes. Reutilizar fotogramas y la órbita aprobada para imágenes y clips auxiliares cuando sea posible; el montaje y los efectos locales no requieren otra generación de OpenRouter. El audio queda pospuesto por indicación del cliente mientras revisa X-TREK.
+
+
+
 Generar mediante OpenRouter. Probar primero Seedance 2.5 con la introducción y, si cumple los criterios de animación y continuidad, usar ese mismo modelo para los siete videos. Comparar con Runway, Kling o MiniMax si hace falta. Usar las vistas originales de Kia para conservar la misma Tasman en cada generación y las láminas aprobadas para dirigir el armado, la acción y el cierre. Si el modelo admite video guía, usar la secuencia oficial para la órbita y las capturas de la demo para las acciones que correspondan.
 
 Para la introducción, usar la referencia de la Tasman descendiendo como apertura y el maestro como llegada. Para cada una de las seis pruebas, usar el mismo archivo maestro al inicio y al final. Cuando el modo permita fijar los extremos, asignar las imágenes correspondientes. Con múltiples referencias, indicar qué imagen corresponde a cada extremo. Si el regreso generado no empata, ajustar o regenerar ese tramo con el fotograma donde empieza el regreso y el maestro como fotograma de llegada. En montaje, verificar que la intro cierre en el maestro y que las seis pruebas usen ese mismo fotograma en ambos extremos. Revisar los cuadros contiguos en reproducción para que la salida y la llegada sean fluidas.
