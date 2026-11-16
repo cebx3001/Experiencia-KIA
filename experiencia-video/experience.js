@@ -39,6 +39,6 @@ function splash(){
  splashTimer=setTimeout(()=>{if(state==='splash')intro()},splashDuration);
 }
 // An optional touch during the brand screen primes this same media element.
-$('#splash').addEventListener('pointerdown',()=>{if(state!=='splash')return;video.muted=false;video.play().then(()=>{if(state==='splash'){video.pause();video.currentTime=0}}).catch(()=>{})});
+$('#splash').addEventListener('pointerdown',()=>{if(state!=='splash')return;video.muted=false;video.play().then(()=>{if(state==='splash'){video.pause();video.currentTime=0;$('#splash .splash-sound-hint').textContent='Sonido activado'}}).catch(()=>{})});
 splash();
 window.__tasmanExperience={enter:intro,skipIntro:()=>$('#skip').click(),menu,showMission:mission,closing,getState:()=>({state,current,splashDurationMs:splashDuration,splashStartedAt,introStartedAt,impactAt:IMPACT,completed:[...visited],impactFired,videoTime:video.currentTime,muted:video.muted,userMuted:muted,waitingForIntroTouch,haptics:haptics.getState(),audioNeedsGesture:needsAudioGesture,spin:spin?.getState()})};
