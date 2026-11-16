@@ -1,0 +1,14 @@
+{
+  "state": "EN VALIDACIÓN",
+  "reviewed_source_sha256": "d763cd8ffbd64bf3c92a848a17ccab03b0027cbfd49d4f84a58b242c4bfc3ae1",
+  "observed": [
+    "Generación nativa vertical 9:16; entrada y salida por la ventanilla del conductor.",
+    "Se muestran tablero y consola con referencias oficiales, encendido de pantalla y demostración de monitores.",
+    "Contornos cian localizados y regreso al estudio."
+  ],
+  "limitations": [
+    "Los gráficos de asistencias no certifican la reproducción exacta de las cinco interfaces de fábrica.",
+    "La consola y la colocación de teléfonos requieren revisión de fidelidad frente a las fotos oficiales; no se aprueban automáticamente."
+  ],
+  "paid_generation_count": 1
+}

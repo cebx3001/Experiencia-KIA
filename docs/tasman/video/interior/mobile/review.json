@@ -1,0 +1,13 @@
+{
+  "state": "EN VALIDACIÓN",
+  "scene": "interior",
+  "duration_seconds": 20,
+  "width": 720,
+  "height": 1280,
+  "audio": true,
+  "source_sha256": "8eb30a599ec113987a3752c9281a4716390b50fa2fa58d232b447903b9207c5a",
+  "video_sha256": "b120996566549c1694d46832ba633dcef8ed1687d53b08bb9bdc86e9cb2031b1",
+  "additional_paid_generation": false,
+  "framing": "Native portrait",
+  "limitations": []
+}

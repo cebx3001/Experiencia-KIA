@@ -1,0 +1,17 @@
+{
+  "state": "EN VALIDACIÓN",
+  "scene": "cargo",
+  "duration_seconds": 20,
+  "width": 720,
+  "height": 1280,
+  "audio": true,
+  "source_sha256": "8528e577dbf2e10a94c41084cf8f9789e9e1b8702149348bd17bb7357fc69bcf",
+  "video_sha256": "ca79f6fdabe3dcadd3b400b753d4a2b7627c93af1bfdbecb13d6ef2e378386fd",
+  "additional_paid_generation": false,
+  "framing": "Entire existing landscape shot preserved within a portrait black studio canvas; no cropping or generated extensions",
+  "limitations": [
+    "El generador abre la compuerta trasera aunque el prompt enviado pedía mantenerla cerrada.",
+    "La pila final sobresale por encima de los bordes: revisar la credibilidad de la distribución y del asentamiento.",
+    "El cielo aparece antes de completar el ensamblado próximo; no cumple estrictamente el orden de profundidad."
+  ]
+}

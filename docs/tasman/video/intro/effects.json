@@ -1,0 +1,15 @@
+{
+  "original_local_synthesis": true,
+  "license": "Original project sound design",
+  "scene": "intro",
+  "sample_rate": 48000,
+  "seconds": 20,
+  "cost_usd": 0,
+  "sync": {
+    "first_contact_seconds": 0.5833333333333334,
+    "scan_seconds": [
+      13.7,
+      18.0
+    ]
+  }
+}

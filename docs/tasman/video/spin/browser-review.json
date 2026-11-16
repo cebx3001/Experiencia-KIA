@@ -1,0 +1,116 @@
+{
+  "passed": true,
+  "physicalDevice": false,
+  "tests": [
+    {
+      "name": "mobile",
+      "lamps": {
+        "index": 45,
+        "zoom": 2.8,
+        "center": {
+          "x": 0.8,
+          "y": 0.53
+        },
+        "decodedFrames": 6,
+        "pendingFrames": 0,
+        "engaged": true
+      },
+      "wheels": {
+        "index": 36,
+        "zoom": 2.5,
+        "center": {
+          "x": 0.8,
+          "y": 0.68
+        },
+        "decodedFrames": 6,
+        "pendingFrames": 1,
+        "engaged": true
+      },
+      "drag": {
+        "index": 63,
+        "zoom": 1,
+        "center": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "decodedFrames": 14,
+        "pendingFrames": 0,
+        "engaged": true
+      },
+      "pinch": {
+        "index": 63,
+        "zoom": 1.6153846153846152,
+        "center": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "decodedFrames": 14,
+        "pendingFrames": 0,
+        "engaged": true
+      },
+      "finalState": {
+        "index": 53,
+        "zoom": 1,
+        "center": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "decodedFrames": 14,
+        "pendingFrames": 0,
+        "engaged": true
+      },
+      "errors": [],
+      "threeDLoaded": false
+    },
+    {
+      "name": "desktop",
+      "lamps": {
+        "index": 45,
+        "zoom": 2.8,
+        "center": {
+          "x": 0.8,
+          "y": 0.53
+        },
+        "decodedFrames": 6,
+        "pendingFrames": 0,
+        "engaged": true
+      },
+      "wheels": {
+        "index": 36,
+        "zoom": 2.5,
+        "center": {
+          "x": 0.8,
+          "y": 0.68
+        },
+        "decodedFrames": 6,
+        "pendingFrames": 1,
+        "engaged": true
+      },
+      "drag": {
+        "index": 63,
+        "zoom": 1,
+        "center": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "decodedFrames": 14,
+        "pendingFrames": 0,
+        "engaged": true
+      },
+      "pinch": null,
+      "finalState": {
+        "index": 53,
+        "zoom": 1,
+        "center": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "decodedFrames": 14,
+        "pendingFrames": 0,
+        "engaged": true
+      },
+      "errors": [],
+      "threeDLoaded": false
+    }
+  ]
+}

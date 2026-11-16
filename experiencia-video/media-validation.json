@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "clips": [
+    {
+      "file": "cargo.mp4",
+      "width": 720,
+      "height": 1280,
+      "duration": 20.0,
+      "audio": "aac",
+      "sample_rate": "48000",
+      "bytes": 3299620
+    },
+    {
+      "file": "interior.mp4",
+      "width": 720,
+      "height": 1280,
+      "duration": 20.0,
+      "audio": "aac",
+      "sample_rate": "48000",
+      "bytes": 7990988
+    },
+    {
+      "file": "intro.mp4",
+      "width": 720,
+      "height": 1280,
+      "duration": 20.0,
+      "audio": "aac",
+      "sample_rate": "48000",
+      "bytes": 2126917
+    },
+    {
+      "file": "storm.mp4",
+      "width": 720,
+      "height": 1280,
+      "duration": 20.0,
+      "audio": "aac",
+      "sample_rate": "48000",
+      "bytes": 3697722
+    },
+    {
+      "file": "trailer.mp4",
+      "width": 720,
+      "height": 1280,
+      "duration": 20.0,
+      "audio": "aac",
+      "sample_rate": "48000",
+      "bytes": 2696854
+    },
+    {
+      "file": "vadeo.mp4",
+      "width": 720,
+      "height": 1280,
+      "duration": 20.0,
+      "audio": "aac",
+      "sample_rate": "48000",
+      "bytes": 3590501
+    },
+    {
+      "file": "xtrek.mp4",
+      "width": 720,
+      "height": 1280,
+      "duration": 20.0,
+      "audio": "aac",
+      "sample_rate": "48000",
+      "bytes": 3924271
+    }
+  ]
+}
