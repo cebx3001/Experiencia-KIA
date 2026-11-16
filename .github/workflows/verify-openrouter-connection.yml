@@ -23,7 +23,7 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPEN_ROUTER_ACCESS }}
         run: |
           python - <<'PY'
-          import json, os, urllib.error, urllib.request
+          import importlib.util, json, os, urllib.error, urllib.request
           from pathlib import Path
           report = {'secret_name': 'OPEN_ROUTER_ACCESS', 'endpoint': '/api/v1/key', 'generation_submitted': False}
           token = os.environ.get('OPENROUTER_API_KEY', '')
@@ -41,6 +41,18 @@ jobs:
           print(json.dumps(report))
           if not report.get('authenticated'):
               raise SystemExit('OpenRouter authentication could not be verified')
+          receipt = Path('docs/tasman/video/intro/job.json')
+          if receipt.exists():
+              spec = importlib.util.spec_from_file_location('intro', 'tools/tasman-video/produce_intro.py')
+              intro = importlib.util.module_from_spec(spec)
+              spec.loader.exec_module(intro)
+              job_id = json.loads(receipt.read_text())['job']['id']
+              job = json.loads(intro.request(intro.API + '/videos/' + job_id, authenticated=True))
+              result = intro.safe_job(job)
+              if job.get('error'):
+                  result['error'] = intro.safe_api_error(json.dumps({'error': job['error']}))
+              intro.write('provider-status.json', result)
+              print(json.dumps(result))
           PY
       - name: Save only the connection result, never key data
         if: always()
@@ -49,6 +61,9 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add docs/tasman/video/intro/connection.json
+          if test -f docs/tasman/video/intro/provider-status.json; then
+            git add docs/tasman/video/intro/provider-status.json
+          fi
           if ! git diff --cached --quiet; then
             git commit -m 'Record authenticated OpenRouter connectivity check [skip ci]'
             git pull --rebase origin feat/tasman-experiencia-cines
