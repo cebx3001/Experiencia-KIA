@@ -38,3 +38,5 @@ Las viñetas muestran armado y acción, pero no todos los regresos. El desarmado
 Antes de aceptar cada clip: revisar cuerpo y ruedas a lo largo de la toma, acción completa, dirección de cámara, continuidad de reflejos, contacto físico, formación con profundidad y empalme real de los cuadros anteriores al maestro. La validación técnica y una lámina bonita no sustituyen la reproducción del video.
 
 Fotorealismo es un criterio de aceptación: ninguna generación queda aprobada por completar la solicitud. Las superficies, el agua, los neumáticos y las cargas deben conservar una respuesta creíble incluso dentro de la presentación holográfica.
+
+Aclaración de ensamblado procedural del cliente: el orden visible es contacto/suelo próximo → roca o calzada → raíces/plantas/detalles próximos → árboles o estructuras próximas → paisaje lejano → cielo/atmósfera al final. El desarmado invierte esa profundidad. La aparición del cielo no debe anticiparse a la construcción del suelo o de las plantas. Esta regla se aplica a todas las pruebas y ya está desglosada por segundos en la solicitud de X-TREK.
