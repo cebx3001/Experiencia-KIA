@@ -1264,3 +1264,17 @@ button{font-family:var(--kia-mono)}
 /* Integrated dynamic studio occupies the existing vehicle stage. */
 .stage iframe{display:block}.stage-watermark{display:none!important}.stage{background:none!important}
 .stage{inset:0!important;width:100%!important;height:100%!important}.ambient-backdrop,.ground-glow{display:none!important}.experience{background:#17191b}.stage iframe{z-index:0}
+
+
+/* Small, unobtrusive audio activation on the loading screen. */
+.loading-audio-enable{
+ position:absolute;z-index:6;left:50%;top:calc(50% + 54px);
+ transform:translateX(-50%);display:inline-flex;align-items:center;justify-content:center;gap:7px;
+ border:0;background:transparent;color:rgba(255,255,255,.82);
+ padding:8px 10px;font:600 10px/1.3 var(--kia-mono,monospace);
+ letter-spacing:.09em;white-space:nowrap;cursor:pointer;
+}
+.loading-audio-enable svg{flex:none}
+.loading-audio-enable.is-enabled{color:#fff}
+.loading-audio-enable[hidden]{display:none!important}
+@media(max-width:600px){.loading-audio-enable{top:calc(50% + 48px);font-size:9px}}
