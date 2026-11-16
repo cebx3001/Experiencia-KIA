@@ -18,9 +18,10 @@
     "review": "El cliente aprobó la escena y solicitó 20 segundos con partículas cian."
   },
   "storm": {
-    "state": "AUTORIZADA PARA PRODUCCIÓN",
-    "delivery_state": "EN VALIDACIÓN hasta revisión del cliente",
-    "review": "El cliente autorizó continuar con Remolque."
+    "state": "RECHAZADA POR EL CLIENTE",
+    "delivery_state": "NO APROBADA",
+    "review": "El cliente autorizó continuar con Remolque.",
+    "automatic_paid_regeneration": false
   },
   "trailer": {
     "state": "AUTORIZADA PARA PRODUCCIÓN",

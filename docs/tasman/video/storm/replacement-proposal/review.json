@@ -1,0 +1,13 @@
+{
+  "state": "PREPARADA; NO ENVIADA",
+  "current_confirmed_cost_usd": 19.92447,
+  "estimated_new_generation_usd": 2.32,
+  "proposed_maximum_reservation_usd": 2.5,
+  "project_ceiling_usd": 45,
+  "current_policy_blocks_paid_revision": true,
+  "requires_client_exception_to_single_generation_rule": true,
+  "image_generation_required": false,
+  "existing_scene_reused_as_human_action_environment_reference": true,
+  "known_bad_vehicle_images_not_sent": true,
+  "unsubmitted_payload_checks": "First and last frames use identical approved master; no conflicting vehicle references; generation_enabled is false."
+}

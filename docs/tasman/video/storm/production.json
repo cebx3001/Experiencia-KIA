@@ -1,15 +1,17 @@
 {
+  "state": "BORRADOR; NO AUTORIZADO PARA ENVÍO",
+  "generation_enabled": false,
   "model_id": "bytedance/seedance-2.5",
   "duration": 10,
   "resolution": "720p",
   "aspect_ratio": "16:9",
   "generate_audio": true,
-  "seed": 2026111504,
+  "seed": 2026111505,
   "master_sha256": "3417854db8f1997061efbf7979feb294b5318158802bc47040a437456946ac79",
-  "references": [
-    "wireframe",
-    "wet-asphalt",
-    "straight",
-    "curve"
-  ]
+  "identity_mode": "approved_master_only",
+  "reference_policy": "The storyboard guides the written environment and route; its different truck images are not sent as vehicle references.",
+  "reserve_usd": 2.5,
+  "requires_explicit_paid_revision_authorization": true,
+  "editorial_delivery_seconds": 20,
+  "estimated_generation_usd": 2.32
 }

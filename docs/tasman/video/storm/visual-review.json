@@ -1,0 +1,13 @@
+{
+  "state": "RECHAZADA POR EL CLIENTE",
+  "source_job_id": "gen-vid-1794803075-0ojaHCe7uk85ZxpCv0vS",
+  "confirmed_findings": {
+    "conditioning": "The submitted payload used input_references only; no first_frame/last_frame anchors.",
+    "opening": "The raw generated first frame already differs from the approved master in framing and vehicle appearance.",
+    "editing": "A 0.5-second overlay fades the master over that different raw vehicle, exposing a visible transformation.",
+    "motion": "The prompt says bring the truck to rest and does not explicitly prohibit braking. The client now clarified continuous straight driving followed by taking the curve without braking.",
+    "audio": "AAC stereo track exists, 32000 Hz; mean -27.0 dBFS and peak -7.7 dBFS. Track presence did not establish quality, synchronization or intelligibility."
+  },
+  "required_sequence": "same Tasman; road builds from tires; wheels begin turning; continuous straight driving; takes the curve without braking; scene deconstructs to the identical master",
+  "automatic_paid_regeneration": false
+}

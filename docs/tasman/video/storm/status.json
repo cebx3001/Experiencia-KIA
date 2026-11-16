@@ -1,5 +1,6 @@
 {
-  "state": "EN VALIDACIÓN",
+  "state": "RECHAZADA POR CONTINUIDAD Y ACCIÓN",
   "video": "storm.mp4",
-  "next_video_authorized": false
+  "next_video_authorized": false,
+  "automatic_paid_regeneration": false
 }

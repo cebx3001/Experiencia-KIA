@@ -8,6 +8,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import tempfile
 import time
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -51,6 +52,17 @@ def image_ref(path):
 
 
 def payload(config):
+    if config.get('identity_mode') == 'approved_master_only':
+        # No alternative truck in an environment storyboard may override the approved car.
+        body = {k: config[k] for k in ('duration', 'resolution', 'aspect_ratio', 'seed', 'generate_audio')}
+        body['model'] = config['model_id']
+        body['frame_images'] = []
+        for frame_type in ('first_frame', 'last_frame'):
+            frame = image_ref(MASTER)
+            frame['frame_type'] = frame_type
+            body['frame_images'].append(frame)
+        body['prompt'] = (OUT / 'prompt.txt').read_text()
+        return body
     factory = VIDEO / 'intro/references'
     refs = [MASTER, *(factory / f'Tan-Beige_TAM_{a:02}.png' for a in (36, 45, 54)),
             *(OUT / 'references' / f'{n}.jpg' for n in config.get('references', ('wireframe', 'entry', 'crossing', 'exit')))]
@@ -61,8 +73,45 @@ def payload(config):
     return body
 
 
+def check_raw_endpoints(source):
+    scores = {}
+    with tempfile.TemporaryDirectory() as directory:
+        for name, seek in [('first', []), ('last', ['-sseof', '-0.5'])]:
+            frame = Path(directory) / (name + '.png')
+            filters = ['-vf', 'reverse'] if name == 'last' else []
+            subprocess.run(['ffmpeg', '-v', 'error', '-y', *seek, '-i', str(source), *filters, '-frames:v', '1', str(frame)], check=True)
+            graph = '[0:v]scale=1280:720,crop=1152:560:64:100,format=yuv420p[a];[1:v]scale=1280:720,crop=1152:560:64:100,format=yuv420p[b];[a][b]ssim'
+            result = subprocess.run(['ffmpeg', '-hide_banner', '-i', str(frame), '-i', str(MASTER),
+                                     '-filter_complex', graph, '-frames:v', '1', '-f', 'null', '-'], capture_output=True, text=True, check=True)
+            match = re.search(r'All:([0-9.]+)', result.stderr)
+            scores[name] = float(match.group(1)) if match else 0
+    if min(scores.values()) < .94:
+        raise RuntimeError('Raw framing does not match the approved master; a master overlay must not hide it: ' + json.dumps(scores))
+    return scores
+
+
 def process(config, source):
     output = OUT / f'{SCENE}.mp4'
+    if config.get('identity_mode') == 'approved_master_only':
+        scores = check_raw_endpoints(source)
+        delivery_duration = config.get('editorial_delivery_seconds', config['duration'])
+        rate = config['duration'] / delivery_duration
+        vf = f'setpts=(PTS-STARTPTS)/{rate},minterpolate=fps=24:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1,tpad=stop_mode=clone:stop_duration=0.25'
+        af = f'atempo={rate},loudnorm=I=-18:TP=-1.5:LRA=11'
+        # Preserve the generated continuity. Never dissolve a correct photo over a different car.
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(source), '-map', '0:v:0', '-map', '0:a?',
+                        '-c:v', 'libx264', '-preset', 'fast', '-crf', '18', '-pix_fmt', 'yuv420p',
+                        '-vf', vf, '-af', af, '-t', str(delivery_duration), '-c:a', 'aac', '-ar', '48000', '-b:a', '192k',
+                        '-movflags', '+faststart', str(output)], check=True)
+        info = json.loads(subprocess.check_output(['ffprobe', '-v', 'error', '-show_streams', '-show_format', '-of', 'json', str(output)]))
+        has_audio = any(s['codec_type'] == 'audio' for s in info['streams'])
+        if config.get('generate_audio') and not has_audio:
+            raise RuntimeError('Requested audio is missing; track presence is a minimum, not an audio-quality approval')
+        core.write('validation.json', {'decodable': True, 'duration_seconds': float(info['format']['duration']),
+                   'audio': has_audio, 'sha256': core.digest(output), 'raw_endpoint_similarity': scores,
+                   'visual_and_audio_review': 'REQUIRED: identity throughout, straight then curve without braking, synchronized effects'})
+        core.write('status.json', {'state': 'EN VALIDACIÓN; NO APROBADA AUTOMÁTICAMENTE', 'video': output.name, 'next_video_authorized': False})
+        return
     close = config['duration'] - 0.5
     graph = (
         '[1:v]scale=1280:720,format=rgba,split=2[s][e];'
@@ -89,6 +138,8 @@ def process(config, source):
 
 def run():
     config = get('production.json')
+    if config.get('generation_enabled') is False:
+        raise RuntimeError('Generation is disabled; no new paid request is authorized')
     ready(config)
     if (OUT / f'{SCENE}.mp4').exists() and (OUT / 'validation.json').exists():
         if core.digest(OUT / f'{SCENE}.mp4') == get('validation.json')['sha256']:
@@ -108,6 +159,8 @@ def run():
     else:
         if intent.exists():
             raise RuntimeError('Existe un envío pendiente de reconciliar')
+        if config.get('identity_mode') != 'approved_master_only':
+            raise RuntimeError('No new paid request without explicit master frame anchors and an identity-consistent reference set')
         key = json.loads(core.request(core.API + '/key', authenticated=True))['data']
         catalog = json.loads(core.request(core.API + '/videos/models', authenticated=True))['data']
         model = next(m for m in catalog if m['id'] == body['model'])
