@@ -21,8 +21,9 @@ class XTrekGuards(unittest.TestCase):
         self.assertEqual(body['frame_images'][0]['frame_type'], 'first_frame')
         self.assertEqual(body['frame_images'][1]['frame_type'], 'last_frame')
         self.assertFalse(body['generate_audio'])
-        self.assertEqual(len(body['input_references']), 9)
-        for ref in body['input_references'][-2:]:
+        self.assertEqual(sum(r['type'] == 'image_url' for r in body['input_references']), 7)
+        self.assertEqual(sum(r['type'] == 'video_url' for r in body['input_references']), 1)
+        for ref in body['input_references'][-1:]:
             self.assertTrue(ref['video_url']['url'].startswith('https://raw.githubusercontent.com/'))
             self.assertIn(self.config['reference_commit'], ref['video_url']['url'])
 

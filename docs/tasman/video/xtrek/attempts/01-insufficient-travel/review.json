@@ -1,0 +1,4 @@
+{
+  "accepted_for_delivery": false,
+  "reason": "The fixed-camera obstacle traversal was not legible enough: insufficient visible wheelbase-length travel and overly close framing. Preserve the first render and request clearer start/end action references."
+}

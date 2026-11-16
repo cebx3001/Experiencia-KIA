@@ -1,0 +1,22 @@
+{
+  "environment": {
+    "file": "references/environment.png",
+    "sha256": "a11391e41f6b5c32fbe0a31f2bbdd135cc6353b645bffd8d33265a9b995fa97d",
+    "origin": "Generated image reference using the approved master; forest/bedrock composition transcribed from the customer X-TREK storyboard. Not the original storyboard file."
+  },
+  "approved_look": {
+    "file": "references/approved-look.mp4",
+    "sha256": "b37169c3ea294dfc47d6a2908516b337ae6729b34a1810c1355f4283a519ab22",
+    "source": "../intro/intro.mp4",
+    "source_range_seconds": [
+      17,
+      20
+    ]
+  },
+  "motion_only": {
+    "file": "references/climb-motion.mp4",
+    "sha256": "3e23270d038b3620a0c0d81b48ec1aa4c48ecb6032d46a14e50af2a3a22c7721",
+    "source": "../../evidence/revision-02/xtrek.mp4",
+    "purpose": "Wheel/body motion only; do not reuse old terrain or camera tracking."
+  }
+}

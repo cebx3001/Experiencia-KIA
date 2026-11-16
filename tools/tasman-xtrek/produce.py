@@ -44,8 +44,9 @@ def payload(config):
         item['frame_type'] = frame_type
         frames.append(item)
     references = [core.media(ROOT / f'docs/tasman/video/intro/references/Tan-Beige_TAM_{angle:02}.png', 'image') for angle in config['factory_angles']]
-    references.append(core.media(OUT / 'references/environment.png', 'image'))
-    for name in ['approved-look.mp4', 'climb-motion.mp4']:
+    for name in config.get('environment_images', ['environment.png']):
+        references.append(core.media(OUT / 'references' / name, 'image'))
+    for name in config.get('video_guides', ['approved-look.mp4', 'climb-motion.mp4']):
         references.append(core.media(OUT / 'references' / name, 'video', config['reference_commit']))
     return {'model': config['model_id'], 'duration': config['duration'], 'resolution': config['resolution'],
             'aspect_ratio': config['aspect_ratio'], 'seed': config['seed'], 'generate_audio': False,
@@ -89,7 +90,9 @@ def main():
     write('request-summary.json', {'request_sha256': digest, 'model': body['model'], 'duration': body['duration'],
                                   'resolution': body['resolution'], 'generate_audio': False, 'seed': body['seed'],
                                   'master_sha256': config['master_sha256'], 'first_and_last_frame': 'same approved intro/master.png',
-                                  'style_sha256': core.digest(OUT / 'style-snapshot.txt'), 'image_references': 7, 'video_guides': 2})
+                                  'style_sha256': core.digest(OUT / 'style-snapshot.txt'),
+                                  'image_references': sum(r['type'] == 'image_url' for r in body['input_references']),
+                                  'video_guides': sum(r['type'] == 'video_url' for r in body['input_references'])})
     receipt, intent = OUT / 'job.json', OUT / 'submission-intent.json'
     if receipt.exists():
         previous = json.loads(receipt.read_text())

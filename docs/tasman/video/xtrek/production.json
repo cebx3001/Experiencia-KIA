@@ -6,9 +6,22 @@
   "duration": 30,
   "resolution": "720p",
   "aspect_ratio": "16:9",
-  "seed": 2026111501,
+  "seed": 2026111502,
   "generate_audio": false,
-  "factory_angles": [0, 27, 36, 45, 54, 63],
-  "state": "AUTORIZADA PARA PRODUCCIÓN",
-  "next_video_authorized": false
+  "factory_angles": [
+    0,
+    36,
+    45,
+    54,
+    63
+  ],
+  "state": "AUTORIZADA PARA PRODUCCI\u00d3N",
+  "next_video_authorized": false,
+  "environment_images": [
+    "environment.png",
+    "climb-complete.png"
+  ],
+  "video_guides": [
+    "approved-look.mp4"
+  ]
 }
