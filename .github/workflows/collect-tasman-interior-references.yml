@@ -1,0 +1,48 @@
+name: Collect official Tasman cabin reference candidates without paid generation
+on:
+  workflow_dispatch:
+  push:
+    branches: [feat/tasman-experiencia-cines]
+    paths: ['.github/workflows/collect-tasman-interior-references.yml']
+permissions:
+  contents: write
+jobs:
+  references:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/tasman-experiencia-cines
+      - name: Read original Kia pages and list public image candidates
+        run: |
+          python3 - <<'PY'
+          import json,re,urllib.request,urllib.parse
+          from pathlib import Path
+          out=Path('docs/tasman/video/interior/references');out.mkdir(parents=True,exist_ok=True)
+          reports=[]
+          for page in ['https://www.kia.com/ec/showroom/Tasman0/gallery.html','https://www.kia.com/ec/showroom/Tasman0/features.html']:
+              req=urllib.request.Request(page,headers={'User-Agent':'Mozilla/5.0'})
+              html=urllib.request.urlopen(req,timeout=45).read().decode()
+              candidates=[];seen=set()
+              for match in re.finditer(r'[^\s\"\'<>]+\.(?:jpg|jpeg|png|webp)',html,re.I):
+                  value=match.group().replace('&amp;','&')
+                  if 'content/dam' not in value:continue
+                  url=urllib.parse.urljoin(page,value)
+                  if url in seen:continue
+                  seen.add(url)
+                  candidates.append({'url':url,'context':re.sub('<[^>]+>',' ',html[max(0,match.start()-400):match.end()+700])})
+              reports.append({'page':page,'images':candidates})
+          (out/'official-candidates.json').write_text(json.dumps(reports,indent=2,ensure_ascii=False)+'\n')
+          print('Official image candidates saved; no media generation submitted.')
+          PY
+      - name: Save only public reference metadata
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/tasman/video/interior/references/official-candidates.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Collect official Kia cabin image candidates without paid generation [skip ci]'
+            git pull --rebase origin feat/tasman-experiencia-cines
+            git push origin HEAD:refs/heads/feat/tasman-experiencia-cines
+          fi
