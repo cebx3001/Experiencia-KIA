@@ -1,24 +1,28 @@
 {
-  "release": "tasman-mobile-video-20261116-r1",
+  "release": "tasman-mobile-video-20261116-r2",
   "files": {
-    "experience.css": "1f410d7e7b5ae10c67084d87d25aaedfba14f4fa13648ff2e700eeea28f6d621",
-    "experience.js": "82c0f8546fdf8f2a39258a84e5977b4f53688b61ce6c28aed016d4d8166dcad5",
+    "design-review.json": "3b5e323203e62d386b71a03ad1066f66eafe0261ae845d7be2897ee40541c26b",
+    "experience.css": "8ecb4356d62abe2430c3bc8fc2e9895be229d031e921e67583ee41761cf624a1",
+    "experience.js": "da6e0e9240f13061be31b21dc5dcb60e044c471fca4cf6ea6cddc8ee5d20c4f7",
     "explorer.css": "cbf0aa44d8c87e1ebb881a34d843c7b7e494ee40ff6f7b46bbe85a7ff3a6f6f3",
-    "index.html": "c3f5f986c7ddb674fb90240efbbe9a3155c2a1436af9d870ab22d80479d8539a",
+    "index.html": "202702b028bc8db1351da81c12b7ebf2f63ca52db77bd949a7f49ca7e8fc12a9",
     "media/cargo.mp4": "ca79f6fdabe3dcadd3b400b753d4a2b7627c93af1bfdbecb13d6ef2e378386fd",
     "media/interior.mp4": "b120996566549c1694d46832ba633dcef8ed1687d53b08bb9bdc86e9cb2031b1",
     "media/intro.mp4": "9498c840f5a4284355921b438b2e04a84e6a5f5ac9cbc60b51a31965b1184c7b",
     "media/kia-logo.svg": "dcc3f0f351b90a32be6732783dd20175f8001695ca01a7790d2f5941dd55b3ea",
     "media/master.png": "87def8c90c3196e87d695e6dc4956921bf3f69a77bbcc49d67794fbc7781e4a2",
-    "media/opening.png": "c9d01555119be3f3ce1deb5956560060cbdabc3cd081c48607883fb12504ac40",
+    "media/master.webp": "89619ec25be176bd6da2fea1f931742b22cc903c67d53c0d83ea526a3005d003",
+    "media/opening.png": "65fd0a9fdb151d512d07c0ad291c59cce147c841d5779bc2f0da85a975bb33d5",
+    "media/opening.webp": "4161ae6dbbce52fe82f613e34a25cc650143c14635ca4e93fd6ab218dd126d0c",
     "media/storm.mp4": "5c56056dc5c6fe4e7ec91da1d3ae097789a46daff185a7fbc49f047386c44010",
     "media/trailer.mp4": "d6a55fb4b555755939eae57535eaeffe5939c838b04174bdf06d76dd3f6410c9",
     "media/vadeo.mp4": "312f949d0ad9c4072fc93f120096719a88c454761547e0668472083d6f2bbe8b",
     "media/xtrek.mp4": "6263fbffc8a2f43c364b1042f5ea0734189346e9e42929e195c64996895e8c77",
     "media-validation.json": "2ef7f156a3bf6a1b9c7443263b145839815dff4ebb2cecda7e3ec8bff35c5899",
-    "qr-verification.json": "32bb56a96cb80f16455be4c7197e4489ed1771ec352a283f203e54bb5b22c7f0",
+    "qr-verification.json": "63e7d0dc8d441fc951fe3ba8258e08b2ff4894ab15fd4567278cfe09ab14feb1",
     "qr.html": "d537314d1a7e5866f0a51ffa3c48131f9918b65a38b350e79cac42fb30f003fd",
-    "qr.png": "e38fbadc87d26aec36ea22ec92cc236983d447ea092d663379cab1a3f7b6b8f0",
+    "qr.png": "6c3d1834a6f1bce524f4de9ebd76ed862316f79b6556857fea4c364ad5c849bb",
+    "spin/README.md": "f6bb3d2748b5e5a9b47e67645926353f3406fdb12310350a40f915d6da4e5da0",
     "spin/frames/00.webp": "c3e4e24f0e88859a8b04643fe8a552af0d4aae45b47ab8ebc512114683ea9ecd",
     "spin/frames/01.webp": "8155521182525e87414a92730dd416141e947af2ee13c1f7c68fbffff05620dd",
     "spin/frames/02.webp": "34377b80267c4290410099bd9d4f1d090fbe3466e74ec74fd24e357427cdcdf3",
@@ -95,6 +99,6 @@
     "spin/index.html": "03933a7e7fc9712e5ea3e0a7fd84c72aed960decfa9b4ca08b1388136581eeab",
     "spin/master.png": "87def8c90c3196e87d695e6dc4956921bf3f69a77bbcc49d67794fbc7781e4a2",
     "spin/spin.css": "cbf0aa44d8c87e1ebb881a34d843c7b7e494ee40ff6f7b46bbe85a7ff3a6f6f3",
-    "spin/spin.js": "3751949d9be5580b635a462b133b78ef088f702e241a0f7d47b86c85d608f085"
+    "spin/spin.js": "b4a0e19e23fc242b70c29c79b12aa5e5ec7d9af1409ff8b5a0ceb21d8e0b7a0a"
   }
 }

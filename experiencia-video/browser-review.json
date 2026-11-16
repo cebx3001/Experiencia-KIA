@@ -1,0 +1,71 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "name": "mobile",
+      "initialTransferBytes": 642981,
+      "missionCount": 6,
+      "allVideoPortrait": true,
+      "allDurations20": true,
+      "userActivatedAudio": true,
+      "impactHaptics": [
+        {
+          "pattern": [
+            45,
+            25,
+            20
+          ],
+          "time": 0.627629
+        },
+        {
+          "pattern": [
+            45,
+            25,
+            20
+          ],
+          "time": 0.601278
+        }
+      ],
+      "skipCancelsImpact": true,
+      "pauseResume": true,
+      "replay": true,
+      "spinDetails": true,
+      "officialWhatsapp": "https://wa.me/593999157077?text=Hola%2C%20quiero%20agendar%20un%20test%20drive%20de%20la%20Kia%20Tasman%20en%20Ecuador.",
+      "errors": [],
+      "physicalDevice": false
+    },
+    {
+      "name": "desktop",
+      "initialTransferBytes": 642346,
+      "missionCount": 6,
+      "allVideoPortrait": true,
+      "allDurations20": true,
+      "userActivatedAudio": true,
+      "impactHaptics": [
+        {
+          "pattern": [
+            45,
+            25,
+            20
+          ],
+          "time": 0.62461
+        },
+        {
+          "pattern": [
+            45,
+            25,
+            20
+          ],
+          "time": 0.601594
+        }
+      ],
+      "skipCancelsImpact": true,
+      "pauseResume": true,
+      "replay": true,
+      "spinDetails": true,
+      "officialWhatsapp": "https://wa.me/593999157077?text=Hola%2C%20quiero%20agendar%20un%20test%20drive%20de%20la%20Kia%20Tasman%20en%20Ecuador.",
+      "errors": [],
+      "physicalDevice": false
+    }
+  ]
+}
