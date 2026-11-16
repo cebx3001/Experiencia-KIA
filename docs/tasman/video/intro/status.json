@@ -1,5 +1,5 @@
 {
-  "state": "REFERENCIAS PREPARADAS",
-  "paid_jobs_submitted": 0,
-  "next": "Fijar maestro y extremos antes de solicitar la intro. Ningún otro video autorizado."
+  "state": "ERROR",
+  "error": "Actions recibió OPENROUTER_API_KEY vacío. Vincular el Environment que lo contiene o guardar el secreto a nivel de este repositorio. No se ha enviado ningún trabajo de pago.",
+  "next_video_authorized": false
 }
