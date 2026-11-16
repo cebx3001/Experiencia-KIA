@@ -1,0 +1,7 @@
+{
+  "secret_name": "OPEN_ROUTER_ACCESS",
+  "endpoint": "/api/v1/key",
+  "generation_submitted": false,
+  "http_status": 200,
+  "authenticated": true
+}
