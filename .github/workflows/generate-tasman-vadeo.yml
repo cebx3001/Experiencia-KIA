@@ -24,6 +24,12 @@ jobs:
             sudo apt-get update -qq
             sudo apt-get install -y ffmpeg
           fi
+      - name: Verify Vadeo reference dimensions
+        run: |
+          for reference in docs/tasman/video/vadeo/references/*.jpg; do
+            height=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 "$reference")
+            test "$height" -ge 300
+          done
       - name: Check budget and generate or resume Vadeo
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPEN_ROUTER_ACCESS }}
