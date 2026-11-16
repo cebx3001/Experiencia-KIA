@@ -1,0 +1,5 @@
+{
+  "state": "ERROR",
+  "error": "Falta el secreto OPENROUTER_API_KEY en GitHub Actions",
+  "next_video_authorized": false
+}
