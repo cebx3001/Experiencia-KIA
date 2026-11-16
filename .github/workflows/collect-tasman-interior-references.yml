@@ -21,9 +21,12 @@ jobs:
           from pathlib import Path
           out=Path('docs/tasman/video/interior/references');out.mkdir(parents=True,exist_ok=True)
           reports=[]
+          links=[]
           for page in ['https://www.kia.com/ec/showroom/Tasman0/gallery.html','https://www.kia.com/ec/showroom/Tasman0/features.html']:
               req=urllib.request.Request(page,headers={'User-Agent':'Mozilla/5.0'})
               html=urllib.request.urlopen(req,timeout=45).read().decode()
+              for href in re.findall(r'href=[\"\']([^\"\']+)',html):
+                  if re.search(r'wa\.me|whatsapp|test.?drive',href,re.I):links.append(urllib.parse.urljoin(page,href.replace('&amp;','&')))
               candidates=[];seen=set()
               for match in re.finditer(r'[^\s\"\'<>]+\.(?:jpg|jpeg|png|webp)',html,re.I):
                   value=match.group().replace('&amp;','&')
@@ -34,6 +37,7 @@ jobs:
                   candidates.append({'url':url,'context':re.sub('<[^>]+>',' ',html[max(0,match.start()-400):match.end()+700])})
               reports.append({'page':page,'images':candidates})
           (out/'official-candidates.json').write_text(json.dumps(reports,indent=2,ensure_ascii=False)+'\n')
+          (out/'official-contact-links.json').write_text(json.dumps(sorted(set(links)),indent=2)+'\n')
           import hashlib
           manifest=[]
           urls=[]
