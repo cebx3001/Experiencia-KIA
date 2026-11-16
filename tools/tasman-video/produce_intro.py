@@ -6,6 +6,7 @@ from pathlib import Path
 import re
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -30,7 +31,7 @@ def request(url, *, authenticated=False):
 
 
 def prepare():
-    catalog = json.loads(request(API + '/videos/models', authenticated=True))
+    catalog = json.loads(request(API + '/videos/models', authenticated=bool(os.environ.get('OPENROUTER_API_KEY'))))
     models = catalog.get('data', [])
     seedance = [m for m in models if 'seedance' in (m.get('id', '') + m.get('name', '')).lower()]
     write('seedance-catalog.json', {'data': seedance})
@@ -56,12 +57,12 @@ def prepare():
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    if not os.environ.get('OPENROUTER_API_KEY'):
-        raise RuntimeError('Falta el secreto OPENROUTER_API_KEY en GitHub Actions')
     config = json.loads((OUT / 'production.json').read_text())
     if config['stage'] == 'references':
         prepare()
     else:
+        if not os.environ.get('OPENROUTER_API_KEY'):
+            raise RuntimeError('Falta el secreto OPENROUTER_API_KEY en GitHub Actions')
         raise RuntimeError('Etapa todavía no implementada; no se envía un trabajo sin extremos fijados')
 
 
