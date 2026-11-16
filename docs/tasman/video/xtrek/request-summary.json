@@ -1,0 +1,13 @@
+{
+  "request_sha256": "8b779aef9d310eedc989b62173965aa83b18a70c58dc45b65f5da528defc5e94",
+  "model": "bytedance/seedance-2.5",
+  "duration": 30,
+  "resolution": "720p",
+  "generate_audio": false,
+  "seed": 2026111502,
+  "master_sha256": "3417854db8f1997061efbf7979feb294b5318158802bc47040a437456946ac79",
+  "first_and_last_frame": "same approved intro/master.png",
+  "style_sha256": "1195e452e62ed9f4760e5950e789c4b2402d509ccbd88339edeea0804df246cb",
+  "image_references": 7,
+  "video_guides": 1
+}

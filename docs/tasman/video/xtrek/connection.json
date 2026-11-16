@@ -1,0 +1,5 @@
+{
+  "authenticated": true,
+  "secret_name": "OPEN_ROUTER_ACCESS",
+  "endpoint": "/api/v1/key"
+}

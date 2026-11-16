@@ -1,0 +1,5 @@
+{
+  "state": "ERROR",
+  "error": "HTTP 403: Key limit exceeded (total limit). Manage it using [redacted URL] $12.50 of $10.00 used; does not reset.",
+  "next_video_authorized": false
+}

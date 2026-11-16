@@ -1,0 +1,5 @@
+{
+  "http_status": 403,
+  "host": "openrouter.ai",
+  "validation_message": "Key limit exceeded (total limit). Manage it using [redacted URL] $12.50 of $10.00 used; does not reset."
+}
