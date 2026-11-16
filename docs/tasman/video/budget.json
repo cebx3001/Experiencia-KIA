@@ -25,5 +25,6 @@
     "trailer": 10,
     "interior": 12
   },
-  "xtrek_policy": "Reuse the existing paid render; no second generation. Editorial version 10 seconds."
+  "xtrek_policy": "Reuse the existing paid render; no second generation.",
+  "editorial_delivery_seconds_per_demo": 20
 }
