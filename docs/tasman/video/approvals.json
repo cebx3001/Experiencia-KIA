@@ -31,5 +31,11 @@
   "trailer": {
     "state": "AUTORIZADA PARA PRODUCCIÓN",
     "delivery_state": "EN VALIDACIÓN hasta revisión del cliente"
+  },
+  "cargo": {
+    "state": "AUTORIZADA PARA PRODUCCIÓN",
+    "delivery_state": "EN VALIDACIÓN hasta revisión del cliente",
+    "evidence": "Client: Y continúa, por favor, con la parte de las cajas. Búscalo. Mantén lo que el guion dice, no cambies las cosas.",
+    "automatic_paid_regeneration": false
   }
 }

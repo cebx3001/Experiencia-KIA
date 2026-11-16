@@ -1,0 +1,23 @@
+{
+  "state": "AUTORIZADA POR EL CLIENTE",
+  "generation_enabled": true,
+  "model_id": "bytedance/seedance-2.5",
+  "duration": 10,
+  "resolution": "720p",
+  "aspect_ratio": "16:9",
+  "generate_audio": true,
+  "seed": 2026111604,
+  "master_sha256": "3417854db8f1997061efbf7979feb294b5318158802bc47040a437456946ac79",
+  "identity_mode": "approved_master_only",
+  "official_identity_angles": [
+    27,
+    18,
+    36
+  ],
+  "reference_policy": "Exact approved master fixes both endpoints. Three official Kia Tan Beige views identify only the original rear/bed geometry. Customer Cargo storyboard directs written yard/camera/action, not an alternative truck identity.",
+  "editorial_delivery_seconds": 20,
+  "maximum_new_charge_reserved_usd": 2.5,
+  "reserve_usd": 2.5,
+  "estimated_generation_usd": 2.32,
+  "automatic_paid_retry": false
+}

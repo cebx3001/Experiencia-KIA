@@ -14,7 +14,7 @@ import time
 ROOT = Path(__file__).resolve().parents[2]
 VIDEO = ROOT / 'docs/tasman/video'
 SCENE = sys.argv[1] if __name__ == '__main__' and len(sys.argv) > 1 else 'vadeo'
-if SCENE not in ('vadeo', 'storm', 'trailer'):
+if SCENE not in ('vadeo', 'storm', 'trailer', 'cargo'):
     raise ValueError('Escena no configurada')
 OUT = VIDEO / SCENE
 MASTER = VIDEO / 'intro/master.png'
@@ -61,6 +61,12 @@ def payload(config):
             frame = image_ref(MASTER)
             frame['frame_type'] = frame_type
             body['frame_images'].append(frame)
+        angles = config.get('official_identity_angles', [])
+        if angles:
+            if SCENE != 'cargo' or angles != [27, 18, 36]:
+                raise RuntimeError('Only the reviewed original Kia rear/bed views are authorized for Cargo')
+            factory = VIDEO / 'intro/references'
+            body['input_references'] = [image_ref(factory / f'Tan-Beige_TAM_{a:02}.png') for a in angles]
         body['prompt'] = (OUT / 'prompt.txt').read_text()
         return body
     factory = VIDEO / 'intro/references'
@@ -109,7 +115,7 @@ def process(config, source):
             raise RuntimeError('Requested audio is missing; track presence is a minimum, not an audio-quality approval')
         core.write('validation.json', {'decodable': True, 'duration_seconds': float(info['format']['duration']),
                    'audio': has_audio, 'sha256': core.digest(output), 'raw_endpoint_similarity': scores,
-                   'visual_and_audio_review': 'REQUIRED: identity throughout, straight then curve without braking, synchronized effects'})
+                   'visual_and_audio_review': 'REQUIRED: identity throughout, screenplay-specific action, synchronized effects; not an automatic creative approval'})
         core.write('status.json', {'state': 'EN VALIDACIÓN; NO APROBADA AUTOMÁTICAMENTE', 'video': output.name, 'next_video_authorized': False})
         return
     close = config['duration'] - 0.5
