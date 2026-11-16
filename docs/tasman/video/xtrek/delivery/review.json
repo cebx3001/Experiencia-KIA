@@ -1,0 +1,13 @@
+{
+  "state": "EN VALIDACI\u00d3N",
+  "duration_seconds": 15,
+  "generated_source_seconds": 30,
+  "width": 1280,
+  "height": 720,
+  "audio": false,
+  "additional_paid_generations": 0,
+  "source_sha256": "14d22e19a5bd7bc3fdc60856d028308efe33260f335b1a68854056898e36eadc",
+  "master_sha256": "3417854db8f1997061efbf7979feb294b5318158802bc47040a437456946ac79",
+  "endpoint_edit": "The same master file is encoded at both endpoints; short match fades preserve the handoff.",
+  "limitations": "First visual proposal; obstacle travel and procedural disassembly remain for client review. No corrected render was created."
+}

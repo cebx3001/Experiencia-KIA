@@ -4,17 +4,26 @@
   "ceiling_includes_existing_usage": true,
   "conservative_usd_per_generated_second_720p": 0.25,
   "scene_limits": {
-    "intro": 6.0,
-    "xtrek": 14.0,
-    "vadeo": 5.0,
-    "storm": 4.5,
-    "cargo": 4.5,
-    "trailer": 4.5,
-    "interior": 5.5
+    "intro": 6,
+    "xtrek": 7,
+    "vadeo": 4,
+    "storm": 3.25,
+    "cargo": 3.25,
+    "trailer": 3.25,
+    "interior": 4
   },
-  "unallocated_reserve": 1.0,
-  "maximum_video_token_price": 0.0000107,
+  "unallocated_reserve": 14.25,
+  "maximum_video_token_price": 1.07e-05,
   "automatic_paid_retries": false,
   "future_stills_and_transitions": "Extract from approved video and original Kia views; no additional paid image generation planned.",
-  "audio_and_editing": "Local licensed/original effects and editing, without OpenRouter generation charges."
+  "audio_and_editing": "Local licensed/original effects and editing, without OpenRouter generation charges.",
+  "maximum_accepted_generations_per_scene": 1,
+  "planned_generation_seconds": {
+    "vadeo": 15,
+    "storm": 12,
+    "cargo": 12,
+    "trailer": 12,
+    "interior": 15
+  },
+  "xtrek_policy": "Reuse the existing paid render; no second generation. Editorial version approximately 15 seconds."
 }

@@ -17,6 +17,16 @@ def confirmed_usage():
 def preflight(scene, seconds, key_data, catalog_model):
     budget = json.loads((ROOT / 'docs/tasman/video/budget.json').read_text())
     jobs = confirmed_usage()
+    accepted_ids = set()
+    for path in (ROOT / 'docs/tasman/video' / scene).rglob('job.json'):
+        record = json.loads(path.read_text()).get('job', {})
+        if record.get('id'):
+            accepted_ids.add(record['id'])
+    if len(accepted_ids) >= budget.get('maximum_accepted_generations_per_scene', 1):
+        raise RuntimeError('This scene already has its single accepted generation; no paid correction is allowed')
+    maximum_seconds = budget.get('planned_generation_seconds', {}).get(scene)
+    if maximum_seconds is not None and seconds > maximum_seconds:
+        raise RuntimeError('Requested duration exceeds the short scene allocation')
     known = sum(j['cost'] for j in jobs.values())
     spent = max(known, float(key_data.get('usage') or 0))
     scene_spent = sum(j['cost'] for j in jobs.values() if j['scene'] == scene)
