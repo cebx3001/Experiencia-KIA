@@ -14,6 +14,11 @@
   "other_videos_authorized": false,
   "vadeo": {
     "state": "AUTORIZADA PARA PRODUCCIÓN",
+    "delivery_state": "EN VALIDACIÓN hasta revisión del cliente",
+    "review": "El cliente aprobó la escena y solicitó 20 segundos con partículas cian."
+  },
+  "storm": {
+    "state": "AUTORIZADA PARA PRODUCCIÓN",
     "delivery_state": "EN VALIDACIÓN hasta revisión del cliente"
   }
 }

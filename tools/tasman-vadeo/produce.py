@@ -1,4 +1,4 @@
-"""Generate and package the authorized Vadeo scene."""
+"""Generate and package an authorized demonstration using its production manifest."""
 import base64
 import hashlib
 import importlib.util
@@ -7,11 +7,15 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import sys
 import time
 
 ROOT = Path(__file__).resolve().parents[2]
 VIDEO = ROOT / 'docs/tasman/video'
-OUT = VIDEO / 'vadeo'
+SCENE = sys.argv[1] if __name__ == '__main__' and len(sys.argv) > 1 else 'vadeo'
+if SCENE not in ('vadeo', 'storm'):
+    raise ValueError('Escena no configurada')
+OUT = VIDEO / SCENE
 MASTER = VIDEO / 'intro/master.png'
 
 
@@ -33,8 +37,8 @@ def get(name):
 
 def ready(config):
     approvals = json.loads((VIDEO / 'approvals.json').read_text())
-    if approvals['vadeo']['state'] != 'AUTORIZADA PARA PRODUCCIÓN':
-        raise RuntimeError('Vadeo requiere autorización de producción')
+    if approvals[SCENE]['state'] != 'AUTORIZADA PARA PRODUCCIÓN':
+        raise RuntimeError(f'{SCENE} requiere autorización de producción')
     if core.digest(MASTER) != config['master_sha256'] or config['master_sha256'] != approvals['intro']['master_sha256']:
         raise RuntimeError('El fotograma maestro cambió')
 
@@ -49,7 +53,7 @@ def image_ref(path):
 def payload(config):
     factory = VIDEO / 'intro/references'
     refs = [MASTER, *(factory / f'Tan-Beige_TAM_{a:02}.png' for a in (36, 45, 54)),
-            *(OUT / 'references' / f'{n}.jpg' for n in ('wireframe', 'entry', 'crossing', 'exit'))]
+            *(OUT / 'references' / f'{n}.jpg' for n in config.get('references', ('wireframe', 'entry', 'crossing', 'exit')))]
     body = {k: config[k] for k in ('duration', 'resolution', 'aspect_ratio', 'seed', 'generate_audio')}
     body['model'] = config['model_id']
     body['input_references'] = [image_ref(p) for p in refs]
@@ -58,7 +62,7 @@ def payload(config):
 
 
 def process(config, source):
-    output = OUT / 'vadeo.mp4'
+    output = OUT / f'{SCENE}.mp4'
     close = config['duration'] - 0.5
     graph = (
         '[1:v]scale=1280:720,format=rgba,split=2[s][e];'
@@ -86,8 +90,8 @@ def process(config, source):
 def run():
     config = get('production.json')
     ready(config)
-    if (OUT / 'vadeo.mp4').exists() and (OUT / 'validation.json').exists():
-        if core.digest(OUT / 'vadeo.mp4') == get('validation.json')['sha256']:
+    if (OUT / f'{SCENE}.mp4').exists() and (OUT / 'validation.json').exists():
+        if core.digest(OUT / f'{SCENE}.mp4') == get('validation.json')['sha256']:
             return
     if not os.environ.get('OPENROUTER_API_KEY'):
         raise RuntimeError('Actions no recibió el secreto OPEN_ROUTER_ACCESS')
@@ -110,7 +114,7 @@ def run():
         for field in ('duration', 'resolution', 'aspect_ratio'):
             if config[field] not in model[f'supported_{field}s']:
                 raise RuntimeError('Parámetro no disponible: ' + field)
-        core.write('budget-preflight.json', budget.preflight('vadeo', config['duration'], key, model))
+        core.write('budget-preflight.json', budget.preflight(SCENE, config['duration'], key, model))
         core.write('submission-intent.json', {'request_sha256': request_hash})
         try:
             job = json.loads(core.request(core.API + '/videos', authenticated=True, payload=body))
@@ -133,7 +137,7 @@ def run():
             raise RuntimeError('Trabajo pendiente. Se puede continuar con el recibo guardado.')
         time.sleep(15)
         job = json.loads(core.request(status_url, authenticated=True))
-    raw = OUT / 'vadeo-source.mp4'
+    raw = OUT / f'{SCENE}-source.mp4'
     raw.write_bytes(core.request(status_url + '/content', authenticated=True))
     process(config, raw)
 
