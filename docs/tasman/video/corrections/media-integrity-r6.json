@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "release": "20261116-r6",
+  "intro_animation_preserved_before_encoding": true,
+  "intro_encoded_ssim_after_contact": 0.998423,
+  "intro_floor_only_edit_seconds": [
+    0,
+    1.5
+  ],
+  "intro_audio_edit_seconds": [
+    0,
+    2.8
+  ],
+  "checks": [
+    {
+      "scene": "xtrek",
+      "unchanged_from_r5": true,
+      "sha256": "f8f7f878506124728bf6988d6a5419e175c882a01fbda2d364700195bbe2e256"
+    },
+    {
+      "scene": "vadeo",
+      "unchanged_from_r5": true,
+      "sha256": "66553636048e64c249961e86dcc0f72d2cf06c75fed73a0186956f48a3faaaa2"
+    },
+    {
+      "scene": "storm",
+      "unchanged_from_r5": true,
+      "sha256": "cfbd868850f8312a70973fb502d4c9f257a55c9df47d2cc68dfc929098e7144f"
+    },
+    {
+      "scene": "cargo",
+      "unchanged_from_r5": true,
+      "sha256": "5f0868c190423595d67e3078546e787c795b2045b441fd60347d1f829ba90c8f"
+    },
+    {
+      "scene": "trailer",
+      "unchanged_from_r5": true,
+      "sha256": "d39e59f06a7e1c7c11f992589a6d71ba5584f5c7289868a16ddf92ff7902e713"
+    },
+    {
+      "scene": "interior",
+      "unchanged_from_r5": true,
+      "sha256": "b120996566549c1694d46832ba633dcef8ed1687d53b08bb9bdc86e9cb2031b1"
+    }
+  ]
+}

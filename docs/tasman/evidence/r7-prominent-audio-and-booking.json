@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "naturalAutoplayWithoutTouch": true,
+  "mutedPromptVisible": true,
+  "audioButtonHeight": 52,
+  "activationWorked": true,
+  "geometry": {
+    "buttonBottom": 804.40625,
+    "bonusTop": 812.40625,
+    "bonusBottom": 828,
+    "height": 844
+  },
+  "physicalDevice": false
+}

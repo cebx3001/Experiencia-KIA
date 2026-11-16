@@ -8,7 +8,7 @@
       "introStartsWithoutGesture": true,
       "autoplayIntro": true,
       "brandSplash": true,
-      "splashDurationMs": 3000.7999999970198,
+      "splashDurationMs": 3000.8000000044703,
       "noEntranceButton": true,
       "noReplayIntroButton": true,
       "stableScanStage": true,
@@ -25,13 +25,13 @@
       ],
       "actualButtonFonts": [
         {
-          "selector": "#sound",
+          "selector": "#book-drive",
           "renderedFonts": [
             {
               "familyName": "Kia Signature Fix Regular",
               "postScriptName": "KiaSignatureFixRegular",
               "isCustomFont": true,
-              "glyphCount": 9
+              "glyphCount": 14
             }
           ]
         },
@@ -48,7 +48,8 @@
         }
       ],
       "continuousDrag": true,
-      "fractionalFramesDuringMotion": true,
+      "fractionalCameraMotion": true,
+      "wholeFramesRendered": true,
       "wholeFrameAtRest": true,
       "maxDecodedFrames": 14,
       "gestureOnlyExplorer": true,
@@ -69,11 +70,17 @@
             40
           ],
           "activated": true,
-          "time": 1.481323
+          "time": 1.502017
         }
       ],
       "skipCancelsImpact": true,
-      "pauseResume": true,
+      "noPauseControl": true,
+      "noMuteControl": true,
+      "noFinishControl": true,
+      "pauseCancellationAtMediaLevel": true,
+      "prominentSoundActivation": true,
+      "persistentBooking": true,
+      "bookingBonus": "Recibe un bono sorpresa",
       "officialWhatsapp": "https://wa.me/593999157077?text=Hola%2C%20quiero%20agendar%20un%20test%20drive%20de%20la%20Kia%20Tasman%20en%20Ecuador.",
       "errors": [],
       "physicalDevice": false
@@ -85,7 +92,7 @@
       "introStartsWithoutGesture": true,
       "autoplayIntro": true,
       "brandSplash": true,
-      "splashDurationMs": 3000.9000000059605,
+      "splashDurationMs": 3001,
       "noEntranceButton": true,
       "noReplayIntroButton": true,
       "stableScanStage": true,
@@ -102,13 +109,13 @@
       ],
       "actualButtonFonts": [
         {
-          "selector": "#sound",
+          "selector": "#book-drive",
           "renderedFonts": [
             {
               "familyName": "Kia Signature Fix Regular",
               "postScriptName": "KiaSignatureFixRegular",
               "isCustomFont": true,
-              "glyphCount": 9
+              "glyphCount": 14
             }
           ]
         },
@@ -125,7 +132,8 @@
         }
       ],
       "continuousDrag": true,
-      "fractionalFramesDuringMotion": true,
+      "fractionalCameraMotion": true,
+      "wholeFramesRendered": true,
       "wholeFrameAtRest": true,
       "maxDecodedFrames": 14,
       "gestureOnlyExplorer": true,
@@ -146,11 +154,17 @@
             40
           ],
           "activated": true,
-          "time": 1.517874
+          "time": 1.48548
         }
       ],
       "skipCancelsImpact": true,
-      "pauseResume": true,
+      "noPauseControl": true,
+      "noMuteControl": true,
+      "noFinishControl": true,
+      "pauseCancellationAtMediaLevel": true,
+      "prominentSoundActivation": true,
+      "persistentBooking": true,
+      "bookingBonus": "Recibe un bono sorpresa",
       "officialWhatsapp": "https://wa.me/593999157077?text=Hola%2C%20quiero%20agendar%20un%20test%20drive%20de%20la%20Kia%20Tasman%20en%20Ecuador.",
       "errors": [],
       "physicalDevice": false
@@ -162,7 +176,7 @@
       "introStartsWithoutGesture": true,
       "autoplayIntro": true,
       "brandSplash": true,
-      "splashDurationMs": 3000.6999999955297,
+      "splashDurationMs": 3000.89999999851,
       "noEntranceButton": true,
       "noReplayIntroButton": true,
       "stableScanStage": true,
@@ -179,13 +193,13 @@
       ],
       "actualButtonFonts": [
         {
-          "selector": "#sound",
+          "selector": "#book-drive",
           "renderedFonts": [
             {
               "familyName": "Kia Signature Fix Regular",
               "postScriptName": "KiaSignatureFixRegular",
               "isCustomFont": true,
-              "glyphCount": 9
+              "glyphCount": 14
             }
           ]
         },
@@ -202,7 +216,8 @@
         }
       ],
       "continuousDrag": true,
-      "fractionalFramesDuringMotion": true,
+      "fractionalCameraMotion": true,
+      "wholeFramesRendered": true,
       "wholeFrameAtRest": true,
       "maxDecodedFrames": 14,
       "gestureOnlyExplorer": true,
@@ -223,11 +238,17 @@
             40
           ],
           "activated": true,
-          "time": 1.494575
+          "time": 1.486953
         }
       ],
       "skipCancelsImpact": true,
-      "pauseResume": true,
+      "noPauseControl": true,
+      "noMuteControl": true,
+      "noFinishControl": true,
+      "pauseCancellationAtMediaLevel": true,
+      "prominentSoundActivation": true,
+      "persistentBooking": true,
+      "bookingBonus": "Recibe un bono sorpresa",
       "officialWhatsapp": "https://wa.me/593999157077?text=Hola%2C%20quiero%20agendar%20un%20test%20drive%20de%20la%20Kia%20Tasman%20en%20Ecuador.",
       "errors": [],
       "physicalDevice": false
@@ -235,7 +256,7 @@
     {
       "name": "ios-fallback-contract",
       "mode": "ios-switch-experimental",
-      "nativeSwitchRequestAt": 1.511504,
+      "nativeSwitchRequestAt": 1.474855,
       "cancellation": true,
       "noVisibleControls": true,
       "physicalDevice": false,

@@ -7,6 +7,7 @@
   "single_request_only": true,
   "xtrek_unchanged": true,
   "automatic_paid_retries": false,
-  "release": "20261116-r6",
-  "paid_generation_requested_in_r6": false
+  "release": "20261116-r7",
+  "paid_generation_requested_in_r6": false,
+  "paid_generation_requested_in_r7": false
 }

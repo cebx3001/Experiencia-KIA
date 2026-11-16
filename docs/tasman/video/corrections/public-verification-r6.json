@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "release": "tasman-mobile-video-20261116-r6",
+  "url": "https://cebx3001.github.io/Experiencia-KIA/experiencia/?v=20261116-r6",
+  "qr_url": "https://cebx3001.github.io/Experiencia-KIA/experiencia/qr.png?v=20261116-r6",
+  "public_files_verified_in_ci": 192,
+  "workflow_run": "https://github.com/cebx3001/Experiencia-KIA/actions/runs/43882625408",
+  "pages_deployment": "https://github.com/cebx3001/Experiencia-KIA/actions/runs/43882624680",
+  "pages_deploy_step": "success",
+  "public_commit": "c6dd593",
+  "source_implementation_commit": "96f4c3c",
+  "checks": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-node@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Install test browser",
+      "conclusion": "success"
+    },
+    {
+      "name": "Serve and verify the complete mobile video flow without loading a 3D model",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify actual Pages video, image and QR hashes",
+      "conclusion": "success"
+    },
+    {
+      "name": "Summarize read-only browser verification",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/upload-artifact@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-node@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/checkout@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ],
+  "brand_splash": "Kia Ecuador",
+  "splash_duration_ms": 3000,
+  "intro_autoplays_without_touch": true,
+  "audio_activation_optional": true,
+  "buttons": "Rounded capsules with official Kia Signature, actual glyph fonts verified by Chrome CDP",
+  "whole_frame_spin_without_crossfade": true,
+  "gesture_only_viewer": true,
+  "intro_animation_timing_preserved": true,
+  "intro_shadow_and_audio_only": true,
+  "six_other_videos_unchanged": true,
+  "physical_device": false,
+  "ios_haptics": "Experimental fallback; physical iPhone unverified",
+  "paid_generation_total_usd": 38.48148,
+  "paid_cost_this_revision_usd": 0
+}

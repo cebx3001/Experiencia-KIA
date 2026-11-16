@@ -1,12 +1,12 @@
 {
   "passed": true,
-  "release": "20261116-r6",
-  "splash": "Kia Ecuador",
-  "splash_milliseconds": 3000,
-  "no_touch_required_to_start": true,
-  "buttons": "Rounded capsules; icons and hierarchy adapted from the brief.",
-  "actual_button_glyph_fonts": "Kia Signature Fix Regular (official Kia Signature Regular)",
-  "gesture_only_viewer": true,
-  "no_camera_pose_buttons": true,
+  "release": "20261116-r7",
+  "icons_preserved": true,
+  "blue_cyan_preserved": true,
+  "prominent_optional_sound_activation": true,
+  "no_pause_or_mute_or_finish_buttons": true,
+  "booking_label": "Agenda tu cita",
+  "bonus_copy": "Recibe un bono sorpresa",
+  "all_seven_videos_unchanged": true,
   "physical_device": false
 }
