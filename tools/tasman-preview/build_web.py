@@ -8,7 +8,7 @@ from PIL import Image,ImageChops
 ROOT=Path(__file__).resolve().parents[2]
 VIDEO=ROOT/'docs/tasman/video'
 OUT=ROOT/'experiencia-video'
-RELEASE='tasman-mobile-video-20261116-r2'
+RELEASE='tasman-mobile-video-20261116-r3'
 
 
 def main():

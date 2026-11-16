@@ -3,7 +3,7 @@
   "results": [
     {
       "name": "mobile",
-      "initialTransferBytes": 406443,
+      "initialTransferBytes": 406300,
       "missionCount": 6,
       "allVideoPortrait": true,
       "allDurations20": true,
@@ -15,7 +15,7 @@
             25,
             20
           ],
-          "time": 0.612484
+          "time": 0.633262
         },
         {
           "pattern": [
@@ -23,7 +23,7 @@
             25,
             20
           ],
-          "time": 0.592411
+          "time": 0.625632
         }
       ],
       "skipCancelsImpact": true,
@@ -36,7 +36,7 @@
     },
     {
       "name": "desktop",
-      "initialTransferBytes": 406443,
+      "initialTransferBytes": 406300,
       "missionCount": 6,
       "allVideoPortrait": true,
       "allDurations20": true,
@@ -48,7 +48,7 @@
             25,
             20
           ],
-          "time": 0.61123
+          "time": 0.600144
         },
         {
           "pattern": [
@@ -56,7 +56,7 @@
             25,
             20
           ],
-          "time": 0.61915
+          "time": 0.620247
         }
       ],
       "skipCancelsImpact": true,
