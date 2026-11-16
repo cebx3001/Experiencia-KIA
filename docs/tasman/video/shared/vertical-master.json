@@ -1,0 +1,11 @@
+{
+  "source": "../intro/master.png",
+  "source_sha256": "3417854db8f1997061efbf7979feb294b5318158802bc47040a437456946ac79",
+  "file": "master-vertical.png",
+  "sha256": "87def8c90c3196e87d695e6dc4956921bf3f69a77bbcc49d67794fbc7781e4a2",
+  "width": 720,
+  "height": 1280,
+  "transform": "scale=720:406,pad=720:1280:0:437:black",
+  "new_paid_generation": false,
+  "policy": "Preserve entire approved image; no crop or new vehicle. All mobile video deliveries are portrait 9:16."
+}

@@ -37,5 +37,11 @@
     "delivery_state": "EN VALIDACIÓN hasta revisión del cliente",
     "evidence": "Client: Y continúa, por favor, con la parte de las cajas. Búscalo. Mantén lo que el guion dice, no cambies las cosas.",
     "automatic_paid_regeneration": false
+  },
+  "interior": {
+    "state": "AUTORIZADA PARA PRODUCCIÓN",
+    "delivery_state": "EN VALIDACIÓN hasta revisión del cliente",
+    "evidence": "Client explicitly requested Interior generation using real cabin references and the existing specifications. All videos portrait; start/end on master, expand camera when action needs space.",
+    "automatic_paid_regeneration": false
   }
 }

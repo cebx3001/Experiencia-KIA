@@ -14,7 +14,7 @@ import time
 ROOT = Path(__file__).resolve().parents[2]
 VIDEO = ROOT / 'docs/tasman/video'
 SCENE = sys.argv[1] if __name__ == '__main__' and len(sys.argv) > 1 else 'vadeo'
-if SCENE not in ('vadeo', 'storm', 'trailer', 'cargo'):
+if SCENE not in ('vadeo', 'storm', 'trailer', 'cargo', 'interior'):
     raise ValueError('Escena no configurada')
 OUT = VIDEO / SCENE
 MASTER = VIDEO / 'intro/master.png'
@@ -44,6 +44,15 @@ def ready(config):
         raise RuntimeError('El fotograma maestro cambió')
 
 
+def anchor_master(config):
+    if config.get('aspect_ratio') == '9:16':
+        path = VIDEO / 'shared/master-vertical.png'
+        if core.digest(path) != config['vertical_master_sha256']:
+            raise RuntimeError('The shared portrait framing changed')
+        return path
+    return MASTER
+
+
 def image_ref(path):
     if path.suffix == '.png':
         return core.media(path, 'image')
@@ -58,7 +67,7 @@ def payload(config):
         body['model'] = config['model_id']
         body['frame_images'] = []
         for frame_type in ('first_frame', 'last_frame'):
-            frame = image_ref(MASTER)
+            frame = image_ref(anchor_master(config))
             frame['frame_type'] = frame_type
             body['frame_images'].append(frame)
         angles = config.get('official_identity_angles', [])
@@ -67,6 +76,18 @@ def payload(config):
                 raise RuntimeError('Only the reviewed original Kia rear/bed views are authorized for Cargo')
             factory = VIDEO / 'intro/references'
             body['input_references'] = [image_ref(factory / f'Tan-Beige_TAM_{a:02}.png') for a in angles]
+        if SCENE == 'interior':
+            names = config['cabin_reference_files']
+            if names != ['tasman-26my-wide-interior-01.jpg', 'tasman-26my-wide-interior-06.jpg',
+                         'tasman-26my-wide-interior-08.jpg', 'tasman-26my-wide-interior-13.jpg',
+                         'tasman-26my-wide-interior-14.jpg']:
+                raise RuntimeError('Cabin references must be the inspected original Kia photographs')
+            manifest = json.loads((OUT / 'references/official-images.json').read_text())
+            hashes = {item['file']: item['sha256'] for item in manifest}
+            for name in names:
+                if core.digest(OUT / 'references' / name) != hashes[name]:
+                    raise RuntimeError('An original cabin reference changed')
+            body['input_references'] = [image_ref(OUT / 'references' / name) for name in names]
         body['prompt'] = (OUT / 'prompt.txt').read_text()
         return body
     factory = VIDEO / 'intro/references'
@@ -79,7 +100,9 @@ def payload(config):
     return body
 
 
-def check_raw_endpoints(source):
+def check_raw_endpoints(source, config=None):
+    config = config or {}
+    target = anchor_master(config)
     scores = {}
     with tempfile.TemporaryDirectory() as directory:
         for name, seek in [('first', []), ('last', ['-sseof', '-0.5'])]:
@@ -87,7 +110,9 @@ def check_raw_endpoints(source):
             filters = ['-vf', 'reverse'] if name == 'last' else []
             subprocess.run(['ffmpeg', '-v', 'error', '-y', *seek, '-i', str(source), *filters, '-frames:v', '1', str(frame)], check=True)
             graph = '[0:v]scale=1280:720,crop=1152:560:64:100,format=yuv420p[a];[1:v]scale=1280:720,crop=1152:560:64:100,format=yuv420p[b];[a][b]ssim'
-            result = subprocess.run(['ffmpeg', '-hide_banner', '-i', str(frame), '-i', str(MASTER),
+            if config.get('aspect_ratio') == '9:16':
+                graph = '[0:v]scale=720:1280,crop=720:406:0:437,scale=1280:720,format=yuv420p[a];[1:v]scale=720:1280,crop=720:406:0:437,scale=1280:720,format=yuv420p[b];[a][b]ssim'
+            result = subprocess.run(['ffmpeg', '-hide_banner', '-i', str(frame), '-i', str(target),
                                      '-filter_complex', graph, '-frames:v', '1', '-f', 'null', '-'], capture_output=True, text=True, check=True)
             match = re.search(r'All:([0-9.]+)', result.stderr)
             scores[name] = float(match.group(1)) if match else 0
@@ -99,7 +124,7 @@ def check_raw_endpoints(source):
 def process(config, source):
     output = OUT / f'{SCENE}.mp4'
     if config.get('identity_mode') == 'approved_master_only':
-        scores = check_raw_endpoints(source)
+        scores = check_raw_endpoints(source, config)
         delivery_duration = config.get('editorial_delivery_seconds', config['duration'])
         rate = config['duration'] / delivery_duration
         vf = f'setpts=(PTS-STARTPTS)/{rate},minterpolate=fps=24:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1,tpad=stop_mode=clone:stop_duration=0.25'
@@ -110,6 +135,11 @@ def process(config, source):
                         '-vf', vf, '-af', af, '-t', str(delivery_duration), '-c:a', 'aac', '-ar', '48000', '-b:a', '192k',
                         '-movflags', '+faststart', str(output)], check=True)
         info = json.loads(subprocess.check_output(['ffprobe', '-v', 'error', '-show_streams', '-show_format', '-of', 'json', str(output)]))
+        actual_video = next(s for s in info['streams'] if s['codec_type'] == 'video')
+        expected_size = (720, 1280) if config['aspect_ratio'] == '9:16' else (1280, 720)
+        if (actual_video['width'], actual_video['height']) != expected_size or abs(float(info['format']['duration']) - delivery_duration) > .05:
+            raise RuntimeError('Delivery framing/duration does not match the manifest')
+        subprocess.run(['ffmpeg', '-v', 'error', '-i', str(output), '-f', 'null', '-'], check=True)
         has_audio = any(s['codec_type'] == 'audio' for s in info['streams'])
         if config.get('generate_audio') and not has_audio:
             raise RuntimeError('Requested audio is missing; track presence is a minimum, not an audio-quality approval')
