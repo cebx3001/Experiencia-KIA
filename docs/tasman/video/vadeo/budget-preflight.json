@@ -1,0 +1,10 @@
+{
+  "scene": "vadeo",
+  "confirmed_usage": 35.69841,
+  "usage_used_for_guard": 35.69841,
+  "project_ceiling": 45,
+  "reserved_for_request": 3.0,
+  "scene_spent": 2.78307,
+  "remaining_project_after_reservation": 6.30159,
+  "note": "Conservative estimate under pinned pricing; provider key limits are not changed."
+}
