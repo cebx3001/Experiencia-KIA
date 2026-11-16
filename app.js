@@ -17,7 +17,25 @@ const $ = id => document.getElementById(id);
 function showModelStatus(message){
  const status=$("modelLoading");if(status){status.hidden=false;status.textContent=message;}
 }
-function hideModelStatus(){const status=$("modelLoading");if(status)status.hidden=true;}
+function hideModelStatus(){const status=$("modelLoading");if(status)status.hidden=true;const audioPrompt=$("loadingAudioEnable");if(audioPrompt)audioPrompt.hidden=true;}
+const loadingAudioEnable=$("loadingAudioEnable");
+if(loadingAudioEnable){
+ loadingAudioEnable.addEventListener("click",async()=>{
+  // A direct user gesture is required for browser audio playback.
+  window.__kiaAudioEnabled=true;
+  try{
+   const AudioContextClass=window.AudioContext||window.webkitAudioContext;
+   if(AudioContextClass){
+    const context=window.__kiaAudioContext||(window.__kiaAudioContext=new AudioContextClass());
+    if(context.state==="suspended")await context.resume();
+   }
+   document.querySelectorAll("audio,video").forEach(media=>{media.muted=false;media.defaultMuted=false;});
+   loadingAudioEnable.setAttribute("aria-pressed","true");
+   loadingAudioEnable.querySelector("span").textContent="AUDIO ACTIVADO";
+   loadingAudioEnable.classList.add("is-enabled");
+  }catch(error){console.warn("Audio activation requires another user gesture",error);}
+ });
+}
 const state = { mode:"vehicle", level:0, color:"arena", angle:35, ready:false, model:null, app:null, camera:null, pivot:null, radius:8, target:null, dragging:false, pointerX:0, angleDrag:35, materials:new Map() };
 const modalInfo={
   rock:{title:"MODO ROCA",body:"El Modo Roca optimiza la tracción en superficies rocosas. En la Tasman X-Pro se selecciona con 4WD 4L."},
