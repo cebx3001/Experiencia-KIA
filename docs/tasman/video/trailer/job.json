@@ -1,0 +1,12 @@
+{
+  "request_sha256": "53c92a50acb17e91366099025561beb3c4e9402e5d8393899c5dc030e8939e01",
+  "job": {
+    "id": "gen-vid-1794803656-N8HbJsrEOtxMeYhYW5RX",
+    "status": "completed",
+    "generation_id": "gen-vid-1794803656-N8HbJsrEOtxMeYhYW5RX",
+    "usage": {
+      "cost": 2.32083,
+      "is_byok": false
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "scene": "trailer",
+  "confirmed_usage": 17.60364,
+  "usage_used_for_guard": 17.60364,
+  "project_ceiling": 45,
+  "reserved_for_request": 2.5,
+  "scene_spent": 0,
+  "remaining_project_after_reservation": 24.89636,
+  "note": "Conservative estimate under pinned pricing; provider key limits are not changed."
+}
