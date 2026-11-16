@@ -1,0 +1,485 @@
+SOURCE: https://www.kia.com/content/dam/kwcms/ec/es/files/brochure/Fichas2026/Ficha_T%C3%A9cnica_Tasman_2026.pdf
+SHA256: 806f0a9532c1dba932e52834d49fab6cb0c6488fb9cc733ca811d44b1b05b87a
+NOTE: Official PDF uses a custom character encoding. ASCII glyph codes restored by +31; accented glyphs mapped from their Spanish labels.
+
+The Kia Tasman
+
+Especificaciones
+Combustible
+Nivel de emisiones
+Cilindrada
+Potencia máxima
+Torque máximo
+Relación de compresión
+Sistema de distribución
+Sistema de válvulas
+Inyección de combustible
+Tracción 4x2
+ 4x4 Automático
+4x4 High y 4x4 Low
+Luces diurnas LED
+Luces LED delanteras y posteriores
+Neblineros LED
+Espejos con luces direccionales LED
+Espejos retrovisores abatibles eléctricamente
+Espejos retrovisores ajustables eléctricamente
+Vidrios delanteros tinturados
+Vidrios posteriores de privacidad
+Apertura de portón hidráulico
+Grada para subir al cajón
+Ganchos con riel para ajuste de carga
+Gancho delantero de rescate
+Desempañador de luneta posterior
+Espejos retrovisores calefactables
+Luz de freno central elevada (HMSL
+ LED
+Tipo
+Delantera
+PosteriorPosterior
+Suspensión
+LlantaLlanta
+ArosAros
+Llanta de emergenciaLlanta de emergencia
+Función de suspensiónFunción de suspensión
+Diésel
+EURO 4
+2.151
+210 hp / 3.800 rpm
+440 Nm / 2.750 rpm
+16:1
+Banda
+16 válvulas HLA
+CRDI
+n
+2.2 Turbo Diésel
+4 cilindros en línea
+Doble horquilla
+de montaje alto
+Eje rígido con 
+ballestas de 4 hojas
+265/65 R17
+R17" de aluminio
+Tamaño completo
+Discos ventilados de 17"
+Diferencial con
+bloqueo mecánico (M-LD
+Diésel
+EURO 4
+2.151
+210 hp / 3.800 rpm
+440 Nm / 2.750 rpm
+16:1
+Banda
+16 válvulas HLA
+CRDI
+X
+2.2 Turbo Diésel
+4 cilindros en línea
+Doble horquilla
+de montaje alto
+Eje rígido con 
+ballestas de 4 hojas
+265/65 R17
+R17" de aluminio
+Tamaño completo
+Diferencial con
+bloqueo mecánico (M-LD
+Diésel
+EURO 4
+2.151
+210 hp / 3.800 rpm
+440 Nm / 2.750 rpm
+16:1
+Banda
+16 válvulas HLA
+CRDI
+X
+2.2 Turbo Diésel
+4 cilindros en línea
+Doble horquilla
+de montaje alto
+Tipo
+Dirección
+Piñón y cremallera?Piñón y cremallera?Piñón y cremallera
+Delanteros
+Frenos
+Discos ventilados de 17"?Discos ventilados de 17"
+Discos ventilados de 17"Posteriores?Discos ventilados de 17"?Discos ventilados de 17"
+Eléctrico (EPB
+ con Auto HoldFreno de estacionamiento?Eléctrico (EPB
+ con Auto Hold?Eléctrico (EPB
+ con Auto Hold
+ManualTipo
+Transmisión
+Manual?Automática
+6 velocidadesMarchas?6 velocidades?8 velocidades
+Configuración
+Equipamiento Exterior ? ? 
+4x4
+Caja de transferencia?Electrónica de
+dos velocidades
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+Tweeter
+Ahorrador de batería
+Aire acondicionado manual
+Control del radio en el volante
+Llave tipo navaja
+Llave inteligente (Smart Key
+ con botón de 
+encendido
+Bluetooth con reconocimiento de voz
+Puertos USB
+Salida de aire acondicionado posterior
+Pantalla digital panorámica de 25"
+Computador a bordo LCD de 4"
+Control crucero
+Modos de manejo
+-
+Equipamiento Interior 
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+4x2
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+-
+X
+X
+X
+X
+X
+-
+X
+X
+X
+X
+X
+X
+X?X
+4x4
+Electrónica de
+dos velocidades
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+-
+X
+X
+X
+X
+X
+X
+X
+Asistencia?Electrónicamente 
+asistida (MDPS
+Electrónicamente 
+asistida (MDPS
+Electrónicamente 
+asistida (MDPS
+Eje rígido con 
+ballestas de 4 hojas
+265/65 R17
+R17" de aluminio
+Tamaño completo
+Diferencial con
+bloqueo mecánico (M-LD
+Motor?TASMAN 2.2 4x2 TM?TASMAN 2.2 4x4 TM?TASMAN 2.2 4x4 TA?Tracción?TASMAN 2.2 4x2 TM?TASMAN 2.2 4x4 TM?TASMAN 2.2 4x4 TA
+TASMAN 2.2 4x2 TM?TASMAN 2.2 4x4 TM?TASMAN 2.2 4x4 TA
+TASMAN 2.2 4x2 TM?TASMAN 2.2 4x4 TM?TASMAN 2.2 4x4 TA
+TASMAN 2.2 4x2 TM?TASMAN 2.2 4x4 TM?TASMAN 2.2 4x4 TA
+TASMAN 2.2 4x2 TM?TASMAN 2.2 4x4 TM?TASMAN 2.2 4x4 TA
+TASMAN 2.2 4x2 TM?TASMAN 2.2 4x4 TM?TASMAN 2.2 4x4 TA
+TASMAN 2.2 4x2 TM?TASMAN 2.2 4x4 TM?TASMAN 2.2 4x4 TA
+
+TASMAN 2.2 4x2 TM?TASMAN 2.2 4x4 TM?TASMAN 2.2 4x4 TA
+TASMAN 2.2 4x2 TM?TASMAN 2.2 4x4 TM?TASMAN 2.2 4x4 TA
+TASMAN 2.2 4x2 TM?TASMAN 2.2 4x4 TM?TASMAN 2.2 4x4 TA
+Modos de terreno
+Cámara de reversa con líneas guía e interruptor
+Conectividad Apple CarPlay y Android Auto 
+inalámbrica
+Asientos delanteros de tela
+Asientos delanteros de tela y Eco Cuero
+Asientos delanteros reclinables y deslizables
+Asiento del conductor regulable en altura
+Asientos posteriores de tela
+Asientos posteriores de tela y Eco Cuero
+Asientos posteriores abatibles 60:40
+Inclinación del espaldar de segunda fila
+Volante regulable en altura y profundidad
+Iluminación interior LED
+Volante forrado en Eco Cuero
+Palanca de cambios manual forrada
+en Eco Cuero
+Palanca de cambios automática 
+forrada en Eco Cuero
+Parasol con espejos de vanidad e 
+iluminación
+Cargador inalámbrico de teléfono delantero
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+-
+-
+25
+X
+X
+X
+-
+-
+-
+6 airbags
+ABS (Sistema antibloqueo de frenos
+Doble airbag frontal (piloto y copiloto
+Airbags de cortina y tórax
+Barras protectoras de impacto en las cuatro 
+puertas
+Bloqueo central de puertas
+Cinturones de seguridad delanteros de 3 puntos 
+ELR
+Cinturones de seguridad posteriores
+Control automático de luces (Auto Light
+ESC (Control Electrónico de Estabilidad
+HAC (Asistente de Arranque en Pendiente
+Inmovilizador
+MDPS (Dirección Asistida Eléctricamente
+Recordatorio de uso del cinturón de seguridad
+Sistema de anclaje para silla de niños (ISOFIX
+5 apoyacabezas regulables
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+-
+-
+25
+X
+X
+X
+-
+-
+-
+X
+X
+-
+X
+X
+X
+X
+X
+-
+X
+X
+1
+25
+X
+X
+-
+X
+X
+X
+Seguridad
+Elevavidrios eléctricos delanteros
+y posteriores con función Auto Up/Down
+y seguridad
+TSA (Asistente de Estabilidad para Remolque
+DBC (Control Dinámico de Frenado
+MSLA (Asistente Manual de Límite de Velocidad
+MCB (Freno Multicolisión
+Sensores de parqueo delanteros y posteriores
+Alerta de ocupantes posteriores
+Largo
+Ancho
+Altura
+Distancia entre ejes
+Trocha delantera
+Trocha posterior
+Distancia mínima al suelo
+Capacidad del tanque de combustible
+5.410 mm
+1.930 mm
+1.870 mm
+3.270 mm
+1.636 mm
+1.624 mm
+231 mm
+80 L
+X
+X
+X
+X
+X
+X
+Dimensiones y capacidades
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+Asientos posteriores plegables hacia
+arriba 60:40
+1.636 mm?1.595 mm (14utires
+1.930 mm
+3.270 mm
+5.410 mm
+1.870 mm
+Especificaciones
+
+Largo
+Ancho (máximo
+Ancho (ejes
+Alto
+Capacidad de carga 㨁til
+Capacidad de carga
+Peso bruto vehicular
+㢴ngulo de entrada
+㢴ngulo de salida
+㢴ngulo de rampa
+Altura libre al suelo
+Capacidad de badeo
+1
+512 mm
+1
+572 mm
+1
+186 mm
+540 mm
+1
+173 L
+1
+151 kg
+3
+250 kg
+28
+9
+25
+23
+7
+231 mm
+800 mm
+Dimensiones y
+capacidades de cajón?Colores
+*Aplican restricciones. Especificaciones pueden variar de acuerdo a modelos y versiones.

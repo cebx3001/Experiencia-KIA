@@ -14,7 +14,7 @@ import time
 ROOT = Path(__file__).resolve().parents[2]
 VIDEO = ROOT / 'docs/tasman/video'
 SCENE = sys.argv[1] if __name__ == '__main__' and len(sys.argv) > 1 else 'vadeo'
-if SCENE not in ('vadeo', 'storm', 'trailer', 'cargo', 'interior'):
+if SCENE not in ('vadeo', 'storm', 'trailer', 'cargo', 'interior', 'xtrek'):
     raise ValueError('Escena no configurada')
 OUT = VIDEO / SCENE
 MASTER = VIDEO / 'intro/master.png'
@@ -88,6 +88,16 @@ def payload(config):
                 if core.digest(OUT / 'references' / name) != hashes[name]:
                     raise RuntimeError('An original cabin reference changed')
             body['input_references'] = [image_ref(OUT / 'references' / name) for name in names]
+        if config.get('correction_round') == 'client-20261116':
+            if SCENE not in ('cargo','storm','xtrek'):
+                raise RuntimeError('Only the three explicitly requested scene corrections may use this conditioning set')
+            references=[]
+            for item in config['approved_reference_files']:
+                path=(VIDEO/item['path']).resolve()
+                if not path.is_relative_to(VIDEO.resolve()) or core.digest(path)!=item['sha256']:
+                    raise RuntimeError('An approved corrective reference changed')
+                references.append(core.media(path,'video',config['reference_commit']) if item['kind']=='video' else image_ref(path))
+            body['input_references']=references
         body['prompt'] = (OUT / 'prompt.txt').read_text()
         return body
     factory = VIDEO / 'intro/references'
@@ -127,7 +137,7 @@ def process(config, source):
         scores = check_raw_endpoints(source, config)
         delivery_duration = config.get('editorial_delivery_seconds', config['duration'])
         rate = config['duration'] / delivery_duration
-        vf = f'setpts=(PTS-STARTPTS)/{rate},minterpolate=fps=24:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1,tpad=stop_mode=clone:stop_duration=0.25'
+        vf = f'setpts=(PTS-STARTPTS)/{rate},framerate=fps=24:interp_start=0:interp_end=255:scene=100,tpad=stop_mode=clone:stop_duration=0.25'
         af = f'atempo={rate},loudnorm=I=-18:TP=-1.5:LRA=11'
         # Preserve the generated continuity. Never dissolve a correct photo over a different car.
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(source), '-map', '0:v:0', '-map', '0:a?',
