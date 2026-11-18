@@ -1,6 +1,6 @@
-import {createImpactHaptics} from './haptics.js?v=20261118-r10';
-import {mediaCues} from './media-cues.js?v=20261118-r10';
-import {initSpin,prefetchSpin} from './spin/spin.js?v=20261118-r10';
+import {createImpactHaptics} from './haptics.js?v=20261118-r11';
+import {mediaCues} from './media-cues.js?v=20261118-r11';
+import {initSpin,prefetchSpin} from './spin/spin.js?v=20261118-r11';
 const $=s=>document.querySelector(s),video=$('#film'),panel=$('#panel'),status=$('#status'),visited=new Set();let state='entry',current=null,muted=false,needsAudioGesture=false,impactFired=false,skipped=false,lastMediaTime=0,spin=null,frameCallback=null,playToken=0,spinPreloaded=false,navigation=0;const IMPACT=mediaCues.introImpactSeconds,haptics=createImpactHaptics();let waitingForIntroTouch=false,splashTimer=null,splashFadeTimer=null;const splashDuration=3000;let splashStartedAt=null,introStartedAt=null;
 const missions=[{id:'xtrek',name:'X-TREK · Modo Roca',value:'X-TREK',unit:'+ Modo Roca',text:'Control y apoyos en terreno rocoso.',chips:'4WD 4L · e-LD · Ground View Monitor'},{id:'vadeo',name:'Vadeo',value:'800',unit:'mm',text:'Capacidad de vadeo según versión y condiciones.',chips:'A 7 km/h · Toma de aire elevada'},{id:'storm',name:'Control de estabilidad',value:'ESC',unit:'Control electrónico de estabilidad',text:'Ayuda a recuperar la trayectoria cuando se detecta pérdida de estabilidad.',chips:'Curva · Control de estabilidad'},{id:'cargo',name:'Carga en la paila',value:'1,2',unit:'toneladas',text:'Carga útil de hasta 1,2 t según versión.',chips:'Rieles ajustables · Gradas laterales'},{id:'trailer',name:'Remolque',value:'3.500',unit:'kg',text:'Con control integrado de freno de remolque.',chips:'Enganche · Conjunto en marcha'},{id:'interior',name:'Interior y tecnología',value:'5',unit:'asistentes ADAS',text:'Cabina original, panel panorámico y dos cargadores inalámbricos.',chips:'LFA 2 · FCA 2 · SCC · SVM 360° · BVM'}];
 const missionLabels={xtrek:'X-TREK',vadeo:'Vadeo',storm:'Estabilidad',cargo:'Carga',trailer:'Remolque',interior:'Interior'};
@@ -21,7 +21,7 @@ $('#sound-toggle').onclick=()=>{muted=!video.muted;video.muted=muted;needsAudioG
 syncSpeaker();
 async function play(scene){
  const token=++playToken;video.hidden=false;$('#hero').hidden=true;$('#explorer').hidden=true;video.controls=false;video.muted=muted;
- const source=new URL(`media/${scene}.mp4?v=20261118-r10`,import.meta.url).href;if(video.src!==source){video.src=source;video.load()}
+ const source=new URL(`media/${scene}.mp4?v=20261118-r11`,import.meta.url).href;if(video.src!==source){video.src=source;video.load()}
  try{await video.play();if(token!==playToken){video.pause();return}needsAudioGesture=false;}
  catch(error){if(token!==playToken)return;if(error.name==='NotAllowedError'){needsAudioGesture=true;video.muted=true;status.textContent='';video.play().catch(()=>{if(token===playToken)status.textContent='Toca el video para continuar.'})}else status.textContent='Toca el video para continuar.'}
 }
@@ -35,7 +35,7 @@ let resumeOnVisible=false;
 document.addEventListener('visibilitychange',()=>{if(document.hidden){resumeOnVisible=!video.paused;video.pause();cancelHaptic()}else if(resumeOnVisible&&['intro','mission'].includes(state)){resumeOnVisible=false;video.play().catch(()=>{video.muted=true;video.play().catch(()=>{})})}});
 function splash(){
  ++navigation;stop();setState('splash');splashStartedAt=performance.now();$('#splash').hidden=false;$('#splash').classList.remove('fading');$('#campaign').inert=true;$('#hero').hidden=true;$('#explorer').hidden=true;
- video.preload='auto';video.src=new URL('media/intro.mp4?v=20261118-r10',import.meta.url).href;video.load();
+ video.preload='auto';video.src=new URL('media/intro.mp4?v=20261118-r11',import.meta.url).href;video.load();
  splashFadeTimer=setTimeout(()=>{if(state==='splash')$('#splash').classList.add('fading')},splashDuration-300);
  splashTimer=setTimeout(()=>{if(state==='splash')intro()},splashDuration);
 }
