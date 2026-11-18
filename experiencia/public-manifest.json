@@ -1,9 +1,9 @@
 {
-  "release": "tasman-mobile-video-20261118-r11",
+  "release": "tasman-mobile-video-20261118-r12",
   "files": {
     "design-review.json": "4dcd16239610a819f1eaccfeba0fc9931da668462495213fd27e4c58f9d19c1f",
     "experience.css": "c052711656e9a868a0e2dc181a0b37064bea4c8dfde6a72546eb472be221167e",
-    "experience.js": "c47de13da1c22191b4a4b430d8f41705dc7ffef784b4f37a1b5c6f8a960cd1d3",
+    "experience.js": "ceb839202ce92bf51a33cb303e01320eff7000625969a6093d6897ff5f3b8c5f",
     "explorer.css": "cbf0aa44d8c87e1ebb881a34d843c7b7e494ee40ff6f7b46bbe85a7ff3a6f6f3",
     "fonts/KiaSignatureBold-latin.woff2": "d105c55cec2353cebbd0a48771ba6acdcf2ee453eb5955b6252918001a878763",
     "fonts/KiaSignatureBold.woff": "c74b0c6433ea68da7c4f8fcc309749042a6dbef0e30e3062741973e7dde1152d",
@@ -18,7 +18,7 @@
     "fonts/latin-subsets.json": "0936f5669b524f0bba8d538f1df64275d0add7bce86077d5b9c0682bbd653710",
     "fonts/official-sources.json": "27ab848e57c53db4da609dcaa88638bc0644356cf0b1c5c0c807f2c32063547e",
     "haptics.js": "dd0d68421c964336cbb1b9e37da2a88982333f7e4b4b33d94664a0eeb7f856d0",
-    "index.html": "243559fb2f8f9ffd3f7dbc0b8c6a8be7d6a5e20f4ee6cfba0cd7af86d53a02e9",
+    "index.html": "4e1d162afa203f8815fbc75bfa05d79560b8b465f67fde0e155088ac5cb9b561",
     "media/cargo.mp4": "5f0868c190423595d67e3078546e787c795b2045b441fd60347d1f829ba90c8f",
     "media/client-watermark.svg": "f87cccb2afb18dcc67a2cb834d75abeaba762b133ac6887944e8940a8e6b28fd",
     "media/interior.mp4": "b120996566549c1694d46832ba633dcef8ed1687d53b08bb9bdc86e9cb2031b1",
@@ -37,7 +37,7 @@
     "media-cues.js": "be9fd635d3c844dc2e079fc41ea0131e15cb56bbe7a8312975e59dbfc9436ef7",
     "media-validation.json": "02b03775445cc7f551d3f39dbb871dcb536b6771b3719535ff005a1fb704d9c0",
     "qr-verification.json": "d6c9c0e4b8b62a398fd5fbf1a8c141f2dc0e35abc45040a85d223b4cf4516e8b",
-    "qr.html": "97afc87d6c1445dc8a11a2a8c725d7895b301fa57569eeaf85aaed4d80099a94",
+    "qr.html": "7999f645960056c6fa200ef56975de1d7fdeaa984722dae5c246a8a2c3d6ddbd",
     "qr.png": "5b531ae73b16257f57d41a0c02194821f5af1548a3f7dd2c531debf7892ca98a",
     "spin/README.md": "53910ffecef94408a8339c126112c42abb5ac4e5fc9fffccabb056187b239338",
     "spin/frames/00.webp": "c3e4e24f0e88859a8b04643fe8a552af0d4aae45b47ab8ebc512114683ea9ecd",
@@ -113,7 +113,7 @@
     "spin/frames/70.webp": "b81ad57de77bf11aeb0b2486fb4b75ca901750be7e249c91ff95be5dcc829626",
     "spin/frames/71.webp": "6d3753d65fc3a855e374e28327994edf79e6a67123576b51b81006e665db833b",
     "spin/frames.json": "29419714056b388e0b59b83306f2daa98a256a867c57e56817502ac5c11cb226",
-    "spin/index.html": "dfefd7fc748ae52973bd7b367e968d7393346e2b4e929cc6ef04a8d60e896aa4",
+    "spin/index.html": "88e8f927226ccef416f7116c56db0a0e31cd08c0e3968ac96f604d97a2ea6102",
     "spin/master.png": "87def8c90c3196e87d695e6dc4956921bf3f69a77bbcc49d67794fbc7781e4a2",
     "spin/scan-frames/00.webp": "1b5c0d6dae726d3d8e0a157a2944ad6e9aae0a2a5aef2ac808d40090ab9278ea",
     "spin/scan-frames/01.webp": "a3719292071d02cd65401416ec6764cfd79178cacca1fcb1bccd513e2bebf515",
@@ -194,6 +194,6 @@
     "vendor/web-haptics/chunk-4NSAIXAB.mjs": "c6399eadefbf8b1bf3c01d945ce4529da3d488c79f3ac420ceae0d8f4ff4a2f6",
     "vendor/web-haptics/index.mjs": "5e4667f5b81bb5a2ad14b555007aba5dbc279e738c76aea4a3130a8b3477b45f",
     "vendor/web-haptics/provenance.json": "388d62930075c686b6466c614a5d556783e2dc783a0d979b8a6dfe8e742e7583",
-    "watermark.css": "7dd339637f6632155b7ce5bd9062fa1b43513d844e5942eeeb0745db20777a63"
+    "watermark.css": "37afba3c40548f426eb389578d8c168aaed82f5e51e33fc53cb921e850aad6a8"
   }
 }
