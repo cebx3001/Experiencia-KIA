@@ -1,6 +1,6 @@
-import {createImpactHaptics} from './haptics.js?v=20261116-r7';
-import {mediaCues} from './media-cues.js?v=20261116-r7';
-import {initSpin,prefetchSpin} from './spin/spin.js?v=20261116-r7';
+import {createImpactHaptics} from './haptics.js?v=20261118-r8';
+import {mediaCues} from './media-cues.js?v=20261118-r8';
+import {initSpin,prefetchSpin} from './spin/spin.js?v=20261118-r8';
 const $=s=>document.querySelector(s),video=$('#film'),panel=$('#panel'),status=$('#status'),visited=new Set();let state='entry',current=null,muted=false,needsAudioGesture=false,impactFired=false,skipped=false,lastMediaTime=0,spin=null,frameCallback=null,playToken=0,spinPreloaded=false,navigation=0;const IMPACT=mediaCues.introImpactSeconds,haptics=createImpactHaptics();let waitingForIntroTouch=false,splashTimer=null,splashFadeTimer=null;const splashDuration=3000;let splashStartedAt=null,introStartedAt=null;
 const missions=[{id:'xtrek',name:'X-TREK · Modo Roca',value:'X-TREK',unit:'+ Modo Roca',text:'Control y apoyos en terreno rocoso.',chips:'4WD 4L · e-LD · Ground View Monitor'},{id:'vadeo',name:'Vadeo',value:'800',unit:'mm',text:'Capacidad de vadeo según versión y condiciones.',chips:'A 7 km/h · Toma de aire elevada'},{id:'storm',name:'Control de estabilidad',value:'ESC',unit:'Control electrónico de estabilidad',text:'Ayuda a recuperar la trayectoria cuando se detecta pérdida de estabilidad.',chips:'Curva · Control de estabilidad'},{id:'cargo',name:'Carga en la paila',value:'1,2',unit:'toneladas',text:'Carga útil de hasta 1,2 t según versión.',chips:'Rieles ajustables · Gradas laterales'},{id:'trailer',name:'Remolque',value:'3.500',unit:'kg',text:'Con control integrado de freno de remolque.',chips:'Enganche · Conjunto en marcha'},{id:'interior',name:'Interior y tecnología',value:'5',unit:'asistentes ADAS',text:'Cabina original, panel panorámico y dos cargadores inalámbricos.',chips:'LFA 2 · FCA 2 · SCC · SVM 360° · BVM'}];
 const missionLabels={xtrek:'X-TREK',vadeo:'Vadeo',storm:'Estabilidad',cargo:'Carga',trailer:'Remolque',interior:'Interior'};
@@ -11,39 +11,31 @@ function checkImpact(time){if(state!=='intro'||skipped||impactFired||video.pause
 function tick(_,metadata){checkImpact(metadata.mediaTime);if(state==='intro'&&metadata.mediaTime>=13.5&&!spinPreloaded){spinPreloaded=true;prefetchSpin(new URL('./spin/',import.meta.url))}if(state==='intro'&&metadata.mediaTime>=mediaCues.introHandoffSeconds)showStudio();frameCallback=video.requestVideoFrameCallback(tick)}
 if('requestVideoFrameCallback'in video)frameCallback=video.requestVideoFrameCallback(tick);else video.addEventListener('timeupdate',()=>{checkImpact(video.currentTime);if(state==='intro'&&video.currentTime>=mediaCues.introHandoffSeconds)showStudio()});
 video.addEventListener('pause',cancelHaptic);video.addEventListener('seeking',cancelHaptic);video.addEventListener('seeked',()=>{lastMediaTime=video.currentTime;if(lastMediaTime>=IMPACT)impactFired=true});
-function stop({keepMedia=false}={}){waitingForIntroTouch=false;spin?.stop();++playToken;video.pause();cancelHaptic();video.hidden=true;if(!keepMedia){video.removeAttribute('src');video.load()}$('#sound').hidden=true}
+function stop({keepMedia=false}={}){waitingForIntroTouch=false;spin?.stop();++playToken;video.pause();cancelHaptic();video.hidden=true;if(!keepMedia){video.removeAttribute('src');video.load()}}
 function showStudio(){++navigation;stop();setState('studio');$('#hero').hidden=true;$('#explorer').hidden=false;if(!spin)spin=initSpin($('#explorer'),new URL('./spin/',import.meta.url));else spin.reset();panel.innerHTML='<button class="primary" id="open-menu">EXPLORAR LAS EXPERIENCIAS</button>';$('#open-menu').onclick=menu}
 async function centerCamera(){const camera=spin?.getState();if(camera&&(Math.abs((camera.displayPosition-45+108)%72-36)>.02||camera.zoom>1.01||!camera.cameraAtRest))return await spin.center();return true}
 async function menu(){const ticket=++navigation;if(state==='studio'&&!(await centerCamera()))return;if(ticket!==navigation)return;stop();setState('menu');$('#hero').hidden=true;$('#explorer').hidden=false;if(!spin)spin=initSpin($('#explorer'),new URL('./spin/',import.meta.url));else spin.reset();panel.innerHTML='<h2>¿Qué quieres explorar?</h2><div class="grid">'+missions.map((m,i)=>`<button data-mission="${i}" aria-label="${m.name}${visited.has(m.id)?' · Explorada':''}" class="${visited.has(m.id)?'is-visited':''}">${missionIcon(m.id)}<span class="mission-label"><span class="card-number">0${i+1}</span><span class="card-name">${missionLabels[m.id]}</span></span></button>`).join('')+'</div>';for(const b of panel.querySelectorAll('[data-mission]'))b.onclick=()=>mission(+b.dataset.mission)}
-function syncSound(){
- const quiet=video.muted;$('#sound').hidden=!(quiet&&state==='mission');
- const prompt=$('#audio-prompt'),copy=$('#intro-copy');
- if(prompt)prompt.hidden=!(quiet&&state==='intro');if(copy)copy.hidden=quiet&&state==='intro';
-}
 async function play(scene){
- const token=++playToken;video.hidden=false;$('#hero').hidden=true;$('#explorer').hidden=true;video.controls=false;video.muted=muted;syncSound();
- const source=new URL(`media/${scene}.mp4?v=20261116-r7`,import.meta.url).href;if(video.src!==source){video.src=source;video.load()}
- try{await video.play();if(token!==playToken){video.pause();return}needsAudioGesture=false;syncSound()}
- catch(error){if(token!==playToken)return;if(error.name==='NotAllowedError'){needsAudioGesture=true;video.muted=true;syncSound();status.textContent='';video.play().catch(()=>{if(token===playToken)status.textContent='Toca el video para continuar.'})}else status.textContent='Toca el video para continuar.'}
+ const token=++playToken;video.hidden=false;$('#hero').hidden=true;$('#explorer').hidden=true;video.controls=false;video.muted=muted;
+ const source=new URL(`media/${scene}.mp4?v=20261118-r8`,import.meta.url).href;if(video.src!==source){video.src=source;video.load()}
+ try{await video.play();if(token!==playToken){video.pause();return}needsAudioGesture=false;}
+ catch(error){if(token!==playToken)return;if(error.name==='NotAllowedError'){needsAudioGesture=true;video.muted=true;status.textContent='';video.play().catch(()=>{if(token===playToken)status.textContent='Toca el video para continuar.'})}else status.textContent='Toca el video para continuar.'}
 }
 
-function intro(){++navigation;const fromSplash=state==='splash';if(fromSplash)introStartedAt=performance.now();stop({keepMedia:fromSplash});setState('intro');current=null;impactFired=false;skipped=false;lastMediaTime=0;panel.innerHTML='<div id="intro-copy"><p class="eyebrow">KIA TASMAN</p><h1>Explora lo que te mueve.</h1><p>Descubre cada detalle.</p></div><div id="audio-prompt" hidden><p class="eyebrow">VIVE LA EXPERIENCIA COMPLETA</p><h1>Activa el sonido.</h1><button id="enable-audio" class="sound-activate" type="button">ACTIVAR SONIDO</button><p class="audio-note">El video continúa automáticamente.</p></div>';play('intro')}
+function intro(){++navigation;const fromSplash=state==='splash';if(fromSplash)introStartedAt=performance.now();stop({keepMedia:fromSplash});setState('intro');current=null;impactFired=false;skipped=false;lastMediaTime=0;panel.innerHTML='<p class="eyebrow">KIA TASMAN</p><h1>Explora lo que te mueve.</h1><p>Descubre cada detalle.</p>';play('intro')}
 async function mission(i){const ticket=++navigation;if((state==='studio'||state==='menu')&&!(await centerCamera()))return;if(ticket!==navigation)return;stop();current=i;const m=missions[i];setState('mission');panel.innerHTML=`<p class="eyebrow">${String(i+1).padStart(2,'0')} / 06 · ${m.name}</p><h2 class="value">${m.value} <small>${m.unit}</small></h2><p>${m.text}</p><p class="chips">${m.chips}</p>`;play(m.id)}
 video.onended=()=>{if(state==='intro'){showStudio()}else if(state==='mission'){visited.add(missions[current].id);menu()}};
 video.onerror=()=>{if(video.getAttribute('src'))status.textContent='No se pudo cargar el video. Revisa tu conexión y toca el video para reintentar.'};
-function activateSound(){waitingForIntroTouch=false;needsAudioGesture=false;muted=false;video.muted=false;syncSound();status.textContent='';if(video.paused&&['intro','mission'].includes(state))video.play().catch(()=>{status.textContent='Toca el video para continuar.'})}
-$('#sound').onclick=activateSound;
-panel.addEventListener('click',event=>{if(event.target.closest('#enable-audio'))activateSound()});
-video.addEventListener('pointerdown',()=>{if(video.error&&['intro','mission'].includes(state)){video.load();video.play().catch(()=>{});return}if(needsAudioGesture)activateSound();else if(video.paused&&['intro','mission'].includes(state))video.play().catch(()=>{})});
+video.addEventListener('pointerdown',()=>{if(video.error&&['intro','mission'].includes(state)){video.load();video.play().catch(()=>{})}else if(video.paused&&['intro','mission'].includes(state))video.play().catch(()=>{})});
 let resumeOnVisible=false;
-document.addEventListener('visibilitychange',()=>{if(document.hidden){resumeOnVisible=!video.paused;video.pause();cancelHaptic()}else if(resumeOnVisible&&['intro','mission'].includes(state)){resumeOnVisible=false;video.play().catch(()=>{video.muted=true;syncSound();video.play().catch(()=>{})})}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){resumeOnVisible=!video.paused;video.pause();cancelHaptic()}else if(resumeOnVisible&&['intro','mission'].includes(state)){resumeOnVisible=false;video.play().catch(()=>{video.muted=true;video.play().catch(()=>{})})}});
 function splash(){
  ++navigation;stop();setState('splash');splashStartedAt=performance.now();$('#splash').hidden=false;$('#splash').classList.remove('fading');$('#campaign').inert=true;$('#hero').hidden=true;$('#explorer').hidden=true;
- video.preload='auto';video.src=new URL('media/intro.mp4?v=20261116-r7',import.meta.url).href;video.load();
+ video.preload='auto';video.src=new URL('media/intro.mp4?v=20261118-r8',import.meta.url).href;video.load();
  splashFadeTimer=setTimeout(()=>{if(state==='splash')$('#splash').classList.add('fading')},splashDuration-300);
  splashTimer=setTimeout(()=>{if(state==='splash')intro()},splashDuration);
 }
-// Sound activation is optional; the three-second opening never waits for it.
-$('#splash-sound').onclick=()=>{if(state!=='splash')return;muted=false;video.muted=false;video.play().then(()=>{if(state==='splash'){video.pause();video.currentTime=0;$('#splash-sound').textContent='SONIDO ACTIVADO';$('#splash-sound').disabled=true}}).catch(()=>{})};
+// Plain-text instruction only on the splash. Any optional touch primes audio.
+$('#splash').addEventListener('pointerdown',()=>{if(state!=='splash')return;muted=false;video.muted=false;needsAudioGesture=false;video.play().then(()=>{if(state==='splash'){video.pause();video.currentTime=0;$('#splash-audio-hint').textContent='Sonido activado'}}).catch(()=>{})});
 splash();
 window.__tasmanExperience={enter:intro,skipIntro:()=>{skipped=true;showStudio()},menu,showMission:mission,getState:()=>({state,current,splashDurationMs:splashDuration,splashStartedAt,introStartedAt,impactAt:IMPACT,completed:[...visited],impactFired,videoTime:video.currentTime,muted:video.muted,userMuted:muted,waitingForIntroTouch,haptics:haptics.getState(),audioNeedsGesture:needsAudioGesture,spin:spin?.getState()})};
