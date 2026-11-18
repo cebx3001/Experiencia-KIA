@@ -81,3 +81,5 @@ body[data-state=menu] #panel{padding-top:14px;padding-bottom:14px}
 /* Latest client direction: sound guidance is plain text, exclusively on the splash. */
 #splash .splash-audio-hint{font:400 16px/1.4 'Kia Signature',sans-serif;color:#edf1e9;max-width:310px;margin:27px auto 0;letter-spacing:.01em}
 #splash .splash-audio-note{max-width:300px;margin:12px auto 0}
+
+#campaign header #sound-toggle{width:42px;height:42px;min-height:42px;display:grid;place-items:center;padding:10px;border:0;background:transparent;color:#edf1e9}#sound-toggle svg{width:23px;height:23px}#sound-toggle[data-muted=true] .sound-waves,#sound-toggle[data-muted=false] .sound-off{display:none}#splash .splash-audio-hint{margin-top:27px;font-size:16px;line-height:1.4;max-width:300px}#splash .splash-audio-note{font-size:12px;line-height:1.5;max-width:290px}
