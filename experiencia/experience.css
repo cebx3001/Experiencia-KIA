@@ -77,3 +77,7 @@ body[data-state=menu] #panel h2{font-size:29px;line-height:1.1;letter-spacing:-.
 #campaign #panel .grid{gap:10px}
 #campaign #panel .grid button{min-height:62px;padding-top:10px;padding-bottom:10px}
 body[data-state=menu] #panel{padding-top:14px;padding-bottom:14px}
+
+/* Latest client direction: sound guidance is plain text, exclusively on the splash. */
+#splash .splash-audio-hint{font:400 16px/1.4 'Kia Signature',sans-serif;color:#edf1e9;max-width:310px;margin:27px auto 0;letter-spacing:.01em}
+#splash .splash-audio-note{max-width:300px;margin:12px auto 0}

@@ -12,7 +12,7 @@ const assert=(condition,message)=>{if(!condition)throw Error(message)};
   await page.waitForFunction(()=>window.__tasmanExperience?.getState().state==='splash');
   assert(await page.locator('#splash h1').textContent()==='Kia Ecuador','Wrong splash brand');
   assert(await page.locator('#campaign').evaluate(e=>e.inert),'Underlying controls active during splash');
-  const audioButton=await page.locator('#splash-sound').boundingBox();assert(audioButton&&audioButton.height>=48,'Sound activation is not prominent');await page.click('#splash-sound');
+  const audioButton=await page.locator('#splash-audio-hint').boundingBox();assert(audioButton&&audioButton.height>=16,'Sound activation is not prominent');await page.click('#splash');
   await page.waitForTimeout(450);await page.screenshot({path:'/tmp/tasman-r7-splash-'+name+'.png'});
   await page.waitForFunction(()=>window.__tasmanExperience?.getState().state==='intro');
   const splashMs=await page.evaluate(()=>{const s=window.__tasmanExperience.getState();return s.introStartedAt-s.splashStartedAt});assert(splashMs>=2950&&splashMs<5000,'Splash duration '+splashMs);
